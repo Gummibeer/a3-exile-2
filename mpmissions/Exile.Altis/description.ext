@@ -106,3 +106,9 @@ class RscTitles
     //Advance Banking
     #include "AdvancedBanking\Dialog\AdvBanking_Client_CreditCard.hpp"
 };
+
+//////////////////////
+//Virtual Garage
+//////////////////////
+#include "VirtualGarage\Dialog\VirtualGarage_Client_Defines.hpp"
+#include "VirtualGarage\Dialog\VirtualGarage_Client_Dialog.hpp"
