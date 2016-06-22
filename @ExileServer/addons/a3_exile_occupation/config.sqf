@@ -16,14 +16,14 @@
 
 SC_debug 				    = false;			    // set to true to turn on debug features (not for live servers) 
 SC_extendedLogging          = false;                // set to true for additional logging
-SC_processReporter          = true;                 // log the a list of active server processes every 60 seconds (useful for debugging server problems)
-SC_infiSTAR_log			    = true;		            // true Use infiSTAR logging, false logs to server rpt
+SC_processReporter          = false;                 // log the a list of active server processes every 60 seconds (useful for debugging server problems)
+SC_infiSTAR_log			    = false;		            // true Use infiSTAR logging, false logs to server rpt
 SC_maxAIcount 			    = 100;					// the maximum amount of AI, if the AI count is above this then additional AI won't spawn
-SC_mapMarkers			    = false;			    // Place map markers at the occupied areas (occupyPlaces and occupyMilitary only) true/false
+SC_mapMarkers			    = true;			    // Place map markers at the occupied areas (occupyPlaces and occupyMilitary only) true/false
 SC_minFPS 				    = 5;					// any lower than minFPS on the server and additional AI won't spawn
 SC_scaleAI 				    = 10; 					// any more than _scaleAI players on the server and _maxAIcount is reduced for each extra player
 
-SC_removeUserMapMarkers     = true;                 // true to delete map markers placed by players every 10 seconds
+SC_removeUserMapMarkers     = false;                 // true to delete map markers placed by players every 10 seconds
 
 SC_fastNights               = false;                // true if you want night time to go faster than daytime
 SC_fastNightsStarts         = 18;                   // Start fast nights at this hour (24 hour clock) eg. 18 for 6pm
@@ -59,7 +59,7 @@ SC_occupyTraderDetails      = [
                                                     
 SC_SurvivorsChance          = 20;                   // chance in % to spawn survivors instead of bandits (for places and land vehicles)
 SC_occupyPlacesSurvivors	= true;	                // true if you want a chance to spawn survivor AI as well as bandits (SC_occupyPlaces must be true to use this option)
-SC_occupyVehicleSurvivors	= false;                // true if you want a chance to spawn survivor AI as well as bandits (SC_occupyVehicle must be true to use this option)
+SC_occupyVehicleSurvivors	= true;                // true if you want a chance to spawn survivor AI as well as bandits (SC_occupyVehicle must be true to use this option)
 SC_SurvivorsFriendly        = true;                 // true if you want survivors to be friendly to players (until they are attacked by players)
                                                     // false if you want survivors to be aggressive to players
 
@@ -102,7 +102,7 @@ SC_staticSurvivors          = [	                    //[[pos],ai count,radius,sea
 SC_occupySky				= true;					// true if you want to have roaming AI helis
 SC_occupySea				= false;		        // true if you want to have roaming AI boats
 
-SC_occupyTransport 	        = true;					// true if you want pubic transport (travels between traders)
+SC_occupyTransport 	        = false;					// true if you want pubic transport (travels between traders)
 SC_occupyTransportClass 	= ["Exile_Chopper_Mohawk_FIA","Exile_Chopper_Mohawk_FIA","Exile_Car_LandRover_Urban"]; // to always use the same vehicle, specify one option only
 SC_occupyTransportStartPos  = [];                   // if empty defaults to map centre
 SC_occupyTransportAnnounce  = false;                 // true if you want the pilot/driver to talk to passengers in vehicle chat, false if not
@@ -117,7 +117,7 @@ SC_LootCrateGuards          = 7;                    // number of AI to spawn at 
 SC_LootCrateGuardsRandomize = true;                 // Use a random number of guards up to a maximum = SC_numberofGuards (so between 1 and SC_numberofGuards)
 SC_occupyLootCratesMarkers	= true;					// true if you want to have markers on the loot crate spawns
 
-SC_ropeAttach               = false;                // Allow lootcrates to be airlifted (for SC_occupyLootCrates and SC_occupyHeliCrashes)
+SC_ropeAttach               = true;                // Allow lootcrates to be airlifted (for SC_occupyLootCrates and SC_occupyHeliCrashes)
 
 // Array of possible common items to go in loot crates ["classname",fixed amount,random amount]
 // ["Exile_Item_Matches",1,2] this example would add between 1 and 3 Exile_Item_Matches to the crate (1 + 0 to 2 more)
@@ -234,7 +234,7 @@ SC_BanditFirstNames     = ["Alex","Nikita","George","Daniel","Adam","Alexander",
 SC_BanditLastNames      = ["Dimitrov","Petrov","Horvat","Novak","Dvorak","Vesely","Horak","Hansen","Larsen","Tamm","Ivanov","Pavlov","Virtanen"]; 
 
 
-SC_occupyMilitary 		    = false;			    // true if you want military buildings patrolled
+SC_occupyMilitary 		    = true;			    // true if you want military buildings patrolled
 
 // Array of buildings to add military patrols to
 SC_buildings                = [	"Land_TentHangar_V1_F","Land_Hangar_F",

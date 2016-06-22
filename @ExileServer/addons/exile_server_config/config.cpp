@@ -3740,21 +3740,21 @@ class CfgSettings
 		class Database 
 		{
 			// Remove all territories (and contructions + containers in it) that were not paid after X days
-			territoryLifeTime = 7;
+			territoryLifeTime = 56;
 
 			// Remove all containers outside of territories that have not been used for X days
 			// Example: Tents
-			containerLifeTime = 10;
+			containerLifeTime = 14;
 
 			// Remove all constructions outside of territories that are older than X days or not moved for X days 
 			// Example: Work Benches
 			constructionLifeTime = 2;
 
 			// Remove all vehicles that were not moved/used for X days
-			vehicleLifeTime = 3;
+			vehicleLifeTime = 28;
 			
 			// Set safe as abandoned
-			abandonedTime = 7;
+			abandonedTime = 14;
 
 		};
 	};
@@ -3783,7 +3783,7 @@ class CfgSettings
 			letItRain = 150;			// MG, also vehicle MGs
 			humiliation = 300;			// Axe
 			passenger = 400;			// Out of car/chopper/boat
-			roadKill = 200;				// :)
+			roadKill = -100;				// :)
 			bigBird = 600;				// Roadkill, but with chopper/plane
 			chuteGreaterChopper = 1000;	// Someone flies into chute and chopper/plane explodes	
 		};
@@ -3852,7 +3852,9 @@ class CfgSettings
 			"ItemCompass",
 			"Exile_Item_XM8",
 			"ItemRadio",
-			"Exile_Item_PlasticBottleFreshWater"
+			"Exile_Item_PlasticBottleFreshWater",
+			"hgun_P07_F",
+			"16Rnd_9x21_Mag"
 		};
 
 		/**
@@ -3887,7 +3889,7 @@ class CfgSettings
 		 * expired or when they pick up their first weapon. Whatever
 		 * happens first.
 		 */
-		protectionDuration = 5;
+		protectionDuration = 15;
 
 		/**
 		 * Radius of spawn zones around the center of spawn zone markers.
@@ -3905,7 +3907,8 @@ class CfgSettings
 		spawnZoneVehicles[] =
 		{
 			{5, "Exile_Bike_OldBike"},
-			{5, "Exile_Bike_MountainBike"}
+			{5, "Exile_Bike_MountainBike"},
+			{2, "Exile_Bike_QuadBike_Red"}
 		};
 	};
 
@@ -3920,7 +3923,7 @@ class CfgSettings
 		* smaller the number more vehicles,
 		* you get the point
 		*/
-		vehiclesGridSize = 2200;
+		vehiclesGridSize = 2000;
 
 		/**
 		* Vehicle ammount per grid
@@ -3978,7 +3981,10 @@ class CfgSettings
 			"Exile_Car_LandRover_Ambulance_Desert",
 			"Exile_Car_Tractor_Red",
 			"Exile_Car_OldTractor_Red",
-			"Exile_Car_Octavius_White"
+			"Exile_Car_Octavius_White",
+			"Exile_Car_Offroad_Rusty1",
+			"Exile_Car_Offroad_Rusty2",
+			"Exile_Car_Offroad_Rusty3"
 		};
 
 		/**
@@ -4003,7 +4009,7 @@ class CfgSettings
 		 * 0 = off
 		 * 1 = on
 		 */
-		unlockInSafeZonesAfterRestart = 1;	
+		unlockInSafeZonesAfterRestart = 0;
 	};
 
 	class Weather
@@ -4019,7 +4025,17 @@ class CfgSettings
 			Add the keyframes here. The server will pick one random, so if you want one 
 			weather type of be more dominant compared to others, add it multiple times
 		*/
-		keyframes[] = {"Sunny", "Cloudy", "Thunderstorm"}; 
+		keyframes[] = {
+		    "Sunny",
+		    "Sunny",
+		    "Sunny",
+		    "Sunny",
+		    "Sunny",
+		    "Cloudy",
+		    "Cloudy",
+		    "Cloudy",
+		    "Thunderstorm"
+        };
 
 		/*
 			This is a keyframe. Look up the BIKI to get more details about the parameters
@@ -4169,14 +4185,10 @@ class CfgSettings
 			If this is enabled, Exile developers will spawn with a ton of pop tabs.
 			We will have a hard time debugging things if you disable this.
 		*/
-		devFriendyMode = 1;
+		devFriendyMode = 0;
 
 		devs[] = 
 		{
-			"76561197985241690", // Eichi
-			"76561198022879703", // Grim
-			"76561197968999666", // Mr.White^ex
-			"76561198075905447"  // Vishpala
 		};
 	};
 
