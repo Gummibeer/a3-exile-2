@@ -1,0 +1,2 @@
+ALTER TABLE `account`
+ADD COLUMN `bank` DOUBLE NOT NULL DEFAULT 0 AFTER `money`;

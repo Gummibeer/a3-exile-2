@@ -1858,6 +1858,9 @@ class CfgExileCustomCode
 
 		ExileClient_util_fusRoDah = "myaddon\myfunction.sqf";
 	*/
+
+    ExileClient_gui_xm8_slide_apps_onOpen = "ClientOverrides\ExileClient_gui_xm8_slide_apps_onOpen.sqf";
+    ExileClient_gui_xm8_slide_players_onOpen = "ClientOverrides\ExileClient_gui_xm8_slide_players_onOpen.sqf";
 };
 class CfgExileEnvironment
 {
@@ -2169,6 +2172,8 @@ class ExileAbstractAction
  */
 class CfgInteractionMenus
 {
+    #include "CfgInteractionMenus.hpp"
+
 	class Car 
 	{
 		targetType = 2;
@@ -4685,4 +4690,9 @@ class CfgVehicleTransport
 			detachPosition[] = {0.08, -6};
 		};
 	};
+};
+
+class CfgNetworkMessages
+{
+    #include "CfgNetworkMessages.hpp"
 };
