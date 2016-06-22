@@ -504,3 +504,6 @@ _trader =
     346
 ]
 call ExileClient_object_trader_create;
+
+// Igiload
+[] execVM "IgiLoad\IgiLoadInit.sqf";
