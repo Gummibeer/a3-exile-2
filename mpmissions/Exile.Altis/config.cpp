@@ -1149,7 +1149,7 @@ class CfgExileArsenal
 	class Exile_Item_Bandage	                    { quality = 1; price = 100; };
 	class Exile_Item_Heatpack	                    { quality = 1; price = 50; };
 
-	//class Exile_Item_Defibrillator				{ quality = 1; price = 7500; };
+	class Exile_Item_Defibrillator				    { quality = 1; price = 7500; };
 	
 	///////////////////////////////////////////////////////////////////////////////
 	// Tools
@@ -1861,6 +1861,8 @@ class CfgExileCustomCode
 
     ExileClient_gui_xm8_slide_apps_onOpen = "ClientOverrides\ExileClient_gui_xm8_slide_apps_onOpen.sqf";
     ExileClient_gui_xm8_slide_players_onOpen = "ClientOverrides\ExileClient_gui_xm8_slide_players_onOpen.sqf";
+    ExileClient_object_player_death_startBleedingOut = "EnigmaRevive\ExileClient_object_player_death_startBleedingOut.sqf"; //Happys Revive
+    ExileClient_object_player_event_onInventoryOpened = "EnigmaRevive\ExileClient_object_player_event_onInventoryOpened.sqf"; //Happys Revive AntiDupe ---NEW with v0.65
 };
 class CfgExileEnvironment
 {
@@ -2646,11 +2648,20 @@ class CfgInteractionMenus
 			};
 
 			class Identify: ExileAbstractAction
-			{
-				title = "Identify Body";
-				condition = "!(alive ExileClientInteractionObject)";
-				action = "_this call ExileClient_object_player_identifyBody";
-			};
+            {
+                title = "Identify Body";
+                condition = "!(alive ExileClientInteractionObject)";
+                action = "_this call ExileClient_object_player_identifyBody";
+            };
+
+            //////////////Added by [_ZEN_]happydayz/////////////////
+
+            class Revive: ExileAbstractAction
+            {
+                title = "Perform CPR";
+                condition = "(!(alive ExileClientInteractionObject) && (ExileClientInteractionObject getVariable ['EnigmaRevivePermitted', true]) && (magazines player find 'Exile_Item_Defibrillator' >= 0))";
+                action = "_this spawn Enigma_RevivePlyr";
+            };
 		};
 	};
 };
@@ -3462,10 +3473,8 @@ class CfgTraderCategories
 			"Exile_Item_InstaDoc",
 			"Exile_Item_Bandage",
 			"Exile_Item_Vishpirin",
-			"Exile_Item_Heatpack"
-
-			// Not available in 0.9.4!
-			//"Exile_Item_Defibrillator"
+			"Exile_Item_Heatpack",
+			"Exile_Item_Defibrillator"
 		};
 	};
 

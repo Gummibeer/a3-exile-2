@@ -3,3 +3,6 @@
 
 /Virtual Garage by Shix
 execVM "VirtualGarage\VirtualGarage_Client_Init.sqf";
+
+/Enigma Revive
+[] execVM "EnigmaRevive\init.sqf";
