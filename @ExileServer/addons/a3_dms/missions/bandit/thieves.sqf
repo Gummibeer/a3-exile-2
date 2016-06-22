@@ -1,8 +1,11 @@
 /*
-	Sample mission (duplicate for testing purposes)
+	Thieves Mission with new difficulty selection system
+	Easy difficulty vehicle is not persistent
+	Created by Defent and eraser1
+	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
 */
 
-private ["_num", "_side", "_OK", "_group", "_pos", "_difficulty", "_AICount", "_type", "_launcher", "_class", "_pinCode", "_vehicle", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup"];
+private ["_num", "_side", "_OK", "_group", "_pos", "_difficulty", "_AICount", "_extraParams", "_type", "_launcher", "_class", "_pinCode", "_vehicle", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_PossibleDifficulty"];
 
 // For logging purposes
 _num = DMS_MissionCount;
@@ -40,18 +43,49 @@ if !(_OK) exitWith
 };
 
 
-// Set general mission difficulty
-_difficulty = "easy";
+//create possible difficulty add more of one difficulty to weight it towards that
+_PossibleDifficulty		= 	[	
+								"easy",
+								"easy",
+								"easy",
+								"easy",
+								"easy",
+								"easy",
+								"moderate",
+								"moderate",
+								"moderate",
+								"moderate",
+								"moderate",
+								"moderate",
+								"difficult",
+								"hardcore"
+							];
+//choose difficulty and set value
+_difficulty = _PossibleDifficulty call BIS_fnc_selectRandom;
 
+//easy
+if (_difficulty isEqualTo "easy") then {
+_AICount = (3 + (round (random 2)));
+								};
+//moderate
+if (_difficulty isEqualTo "moderate") then {
+_AICount = (4 + (round (random 2)));		
+								};
+//difficult
+if (_difficulty isEqualTo "difficult") then {
+_AICount = (4 + (round (random 3)));
+								};
+//hardcore								
+if (_difficulty isEqualTo "hardcore") then {
+_AICount = (4 + (round (random 4)));
+								};
 
-// Create AI
-_AICount = 3 + (round (random 1));
 
 _group =
 [
 	_pos,					// Position of AI
 	_AICount,				// Number of AI
-	"hardcore",				// "random","hardcore","difficult","moderate", or "easy"
+	_difficulty,			// "random","hardcore","difficult","moderate", or "easy"
 	"random", 				// "random","assault","MG","sniper" or "unarmed" OR [_type,_launcher]
 	_side 					// "bandit","hero", etc.
 ] call DMS_fnc_SpawnAIGroup;
@@ -81,13 +115,18 @@ _class =
 		};
 	};
 
-//DMS_fnc_SpawnPersistentVehicle will automatically turn the pincode into a string and format it.
-_pinCode = round (random 9999);
-
-_vehicle = [_class,_pos,_pinCode] call DMS_fnc_SpawnPersistentVehicle;
-
-
-
+// Dont give pin coded vehicles on easy
+if (_difficulty isEqualTo "easy") then {
+												_vehicle = [_class,_pos] call DMS_fnc_SpawnNonPersistentVehicle;
+												_msgWIN = ['#0080ff',"Convicts have eliminated the thieves! Looks like the thieves managed to steal the vehicle"];
+												
+											} else
+											{
+												_pinCode = (1000 +(round (random 8999)));
+												_vehicle = [_class,_pos,_pinCode] call DMS_fnc_SpawnPersistentVehicle;
+												_msgWIN = ['#0080ff',format ["Convicts have eliminated the thieves! Looks like the thieves managed to figure out that the code was %1...",_pinCode]];
+											};
+											
 // Define mission-spawned AI Units
 _missionAIUnits =
 [
@@ -105,8 +144,7 @@ _missionObjs =
 // Define Mission Start message
 _msgStart = ['#FFFF00',format ["A band of thieves are attempting to break into a %1. Eliminate them and you might get the car for yourself!",getText (configFile >> "CfgVehicles" >> _class >> "displayName")]];
 
-// Define Mission Win message
-_msgWIN = ['#0080ff',format ["Convicts have eliminated the thieves! Looks like the thieves managed to figure out that the code was %1...",_pinCode]];
+// Define Mission Win message in persistent choice
 
 // Define Mission Lose message
 _msgLOSE = ['#FF0000',"The thieves cracked the code and drove off!"];

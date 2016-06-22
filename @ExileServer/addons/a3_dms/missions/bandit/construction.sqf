@@ -1,8 +1,10 @@
 /*
-	Sample mission
+	Construction Mission with new difficulty selection system
+	Created by Defent and eraser1
+	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
 */
 
-private ["_num", "_group", "_pos", "_side", "_OK", "_difficulty", "_AICount", "_type", "_launcher", "_crate", "_wreck1", "_wreck2", "_wreck3", "_vehClass", "_vehicle", "_crate_loot_values", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup"];
+private ["_num", "_group", "_pos", "_side", "_OK", "_difficulty", "_AICount", "_type", "_launcher", "_crate", "_wreck1", "_wreck2", "_wreck3", "_vehClass", "_vehicle", "_crate_loot_values", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_crate_weapons", "_crate_items", "_crate_item_list", "_crate_backpacks", "_PossibleDifficulty"];
 
 // For logging purposes
 _num = DMS_MissionCount;
@@ -40,18 +42,62 @@ if !(_OK) exitWith
 };
 
 
-// Set general mission difficulty
-_difficulty = "hardcore";
+//create possible difficulty add more of one difficulty to weight it towards that
+_PossibleDifficulty		= 	[	
+								"easy",
+								"moderate",
+								"moderate",
+								"difficult",
+								"difficult",
+								"hardcore",
+								"hardcore"
+							];
+//choose difficulty and set value
+_difficulty = _PossibleDifficulty call BIS_fnc_selectRandom;
 
+//easy
+if (_difficulty isEqualTo "easy") then {
+_msgStart = ['#FFFF00',"A group of noob mercenaries have set up a construction site. Clear them out!"];	
+_AICount = (5 + (round (random 2)));
+_crate_weapons 		= (1 + (round (random 1)));
+_crate_items 		= (8 + (round (random 4)));
+_crate_item_list	= ["DMS_BoxBuildingSupplies"];
+_crate_backpacks 	= 1;
+								};
+//moderate
+if (_difficulty isEqualTo "moderate") then {
+_msgStart = ['#FFFF00',"A group of moderate mercenaries have set up a construction site. Clear them out!"];	
+_AICount = (5 + (round (random 4)));
+_crate_weapons 		= (1 + (round (random 2)));
+_crate_items 		= (12 + (round (random 4)));
+_crate_item_list	= ["DMS_BoxBuildingSupplies"];
+_crate_backpacks 	= 1;
+								};
+//difficult
+if (_difficulty isEqualTo "difficult") then {
+_msgStart = ['#FFFF00',"A group of difficult mercenaries have set up a construction site. Clear them out!"];	
+_AICount = (5 + (round (random 4)));
+_crate_weapons 		= (2 + (round (random 2)));
+_crate_items 		= (15 + (round (random 6)));
+_crate_item_list	= ["DMS_BoxBuildingSupplies"];
+_crate_backpacks 	= 2;
+								};
+//hardcore								
+if (_difficulty isEqualTo "hardcore") then {
+_msgStart = ['#FFFF00',"A group of hardcore mercenaries have set up a construction site. Clear them out!"];	
+_AICount = (5 + (round (random 4)));
+_crate_weapons 		= (3 + (round (random 3)));
+_crate_items 		= (20 + (round (random 6)));
+_crate_item_list	= ["DMS_BoxBuildingSupplies"];
+_crate_backpacks 	= 3;
+								};
 
-// Create AI
-_AICount = 5 + (round (random 2));
 
 _group =
 [
 	_pos,					// Position of AI
 	_AICount,				// Number of AI
-	"hardcore",				// "random","hardcore","difficult","moderate", or "easy"
+	_difficulty,			// "random","hardcore","difficult","moderate", or "easy"
 	"random", 				// "random","assault","MG","sniper" or "unarmed" OR [_type,_launcher]
 	_side 					// "bandit","hero", etc.
 ] call DMS_fnc_SpawnAIGroup;
@@ -95,9 +141,9 @@ _vehicle = [_vehClass,_pos] call DMS_fnc_SpawnNonPersistentVehicle;
 // Set crate loot values
 _crate_loot_values =
 [
-	3,		// Weapons
-	[25,DMS_BoxBuildingSupplies],		// Items
-	2 		// Backpacks
+	_crate_weapons,									// Weapons
+	[_crate_items,DMS_BoxBuildingSupplies],			// Items
+	_crate_backpacks 								// Backpacks
 ];
 
 
@@ -115,8 +161,7 @@ _missionObjs =
 	[[_crate,_crate_loot_values]]
 ];
 
-// Define Mission Start message
-_msgStart = ['#FFFF00',"A group of mercenaries have set up a construction site. Clear them out!"];
+// define start messages in difficulty choice
 
 // Define Mission Win message
 _msgWIN = ['#0080ff',"Convicts have successfully demolished the construction site!"];

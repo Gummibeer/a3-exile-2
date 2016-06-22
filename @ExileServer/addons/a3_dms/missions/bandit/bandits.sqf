@@ -1,8 +1,10 @@
 /*
-	Sample mission
+	Bandits Mission with new difficulty selection system
+	Created by Defent and eraser1
+	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
 */
 
-private ["_num", "_side", "_classname", "_OK", "_pos", "_difficulty", "_AICount", "_group", "_type", "_launcher", "_crate", "_vehClass", "_extraParams", "_vehicle", "_crate_loot_values", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup"];
+private ["_num", "_side", "_pos", "_OK", "_difficulty", "_extraParams", "_AICount", "_group", "_type", "_launcher", "_staticGuns", "_crate1", "_vehicle", "_pinCode", "_class", "_veh", "_crate_loot_values", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_baseObjs", "_crate_weapons", "_crate_weapon_list", "_crate_items", "_crate_item_list", "_crate_backpacks", "_PossibleDifficulty"];
 
 // For logging purposes
 _num = DMS_MissionCount;
@@ -39,19 +41,57 @@ if !(_OK) exitWith
 	diag_log format ["DMS ERROR :: Called MISSION bandits.sqf with invalid parameters: %1",_this];
 };
 
+//create possible difficulty add more of one difficulty to weight it towards that
+_PossibleDifficulty		= 	[	
+								"easy",
+								"easy",
+								"easy",
+								"easy",
+								"moderate",
+								"moderate",
+								"moderate",
+								"difficult",
+								"difficult",
+								"hardcore"
+							];
+//choose difficulty and set value
+_difficulty = _PossibleDifficulty call BIS_fnc_selectRandom;
 
-// Set general mission difficulty
-_difficulty = "moderate";
+//easy
+if (_difficulty isEqualTo "easy") then {
+_AICount = (3 + (round (random 2)));
+_crate_weapons 		= (2 + (round (random 3)));
+_crate_items 		= (2 + (round (random 4)));
+_crate_backpacks 	= (1 + (round (random 1)));
+								};
+//moderate
+if (_difficulty isEqualTo "moderate") then {
+_AICount = (4 + (round (random 2)));
+_crate_weapons 		= (4 + (round (random 5)));
+_crate_items 		= (4 + (round (random 6)));
+_crate_backpacks 	= (2 + (round (random 1)));			
+								};
+//difficult
+if (_difficulty isEqualTo "difficult") then {
+_AICount = (4 + (round (random 3)));
+_crate_weapons 		= (6 + (round (random 7)));
+_crate_items 		= (6 + (round (random 8)));
+_crate_backpacks 	= (3 + (round (random 1)));
+								};
+//hardcore								
+if (_difficulty isEqualTo "hardcore") then {
+_AICount = (4 + (round (random 4)));
+_crate_weapons 		= (8 + (round (random 9)));
+_crate_items 		= (8 + (round (random 10)));
+_crate_backpacks 	= (4 + (round (random 1)));
+								};
 
-
-// Create AI
-_AICount = 4 + (round (random 2));
-
+								
 _group =
 [
 	_pos,					// Position of AI
 	_AICount,				// Number of AI
-	"random",				// "random","hardcore","difficult","moderate", or "easy"
+	_difficulty,			// "random","hardcore","difficult","moderate", or "easy"
 	"random", 				// "random","assault","MG","sniper" or "unarmed" OR [_type,_launcher]
 	_side 					// "bandit","hero", etc.
 ] call DMS_fnc_SpawnAIGroup;
@@ -87,12 +127,12 @@ _vehClass =
 
 _vehicle = [_vehClass,[_pos,3+(random 5),random 360] call DMS_fnc_SelectOffsetPos] call DMS_fnc_SpawnNonPersistentVehicle;
 
-// Set crate loot values
+// setup crate iteself with items from choice
 _crate_loot_values =
 [
-	5,		// Weapons
-	10,		// Items
-	3 		// Backpacks
+	_crate_weapons,			// Weapons
+	_crate_items,			// Items + selection list
+	_crate_backpacks 		// Backpacks
 ];
 
 

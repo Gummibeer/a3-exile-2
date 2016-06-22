@@ -1,16 +1,17 @@
 /*
-	Lost Battalion Mission with new difficulty selection system
-	Created by Defent and eraser1
+	nedCar Mission with new difficulty selection system
+	Chance of better car for hardcore difficulty
+	based on work by Defent and eraser1
 	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
 */
 
-private ["_num", "_side", "_pos", "_OK", "_difficulty", "_extraParams", "_AICount", "_group", "_type", "_launcher", "_staticGuns", "_wreck", "_crate", "_crate1", "_vehicle", "_pinCode", "_class", "_veh", "_crate_loot_values", "_crate_loot_values1", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_baseObjs", "_crate_weapons", "_crate_weapon_list", "_crate_items", "_crate_item_list", "_crate_backpacks", "_PossibleDifficulty"];
+private ["_num", "_side", "_pos", "_OK", "_difficulty", "_extraParams", "_AICount", "_group", "_type", "_launcher", "_staticGuns", "_wreck", "_crate", "_crate1", "_vehicle", "_pinCode", "_class", "_veh", "_crate_loot_values", "_crate_loot_values1", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_baseObjs", "_crate_weapons", "_crate_weapon_list", "_crate_items", "_crate_item_list", "_crate_backpacks", "_rndlevel", "_PossibleVehicleClass", "_VehicleClass", "_PossibleDifficulty"];
 
 // For logging purposes
 _num = DMS_MissionCount;
 
 
-// Set mission side
+// Set mission side (only "bandit" is supported for now)
 _side = "bandit";
 
 
@@ -29,62 +30,58 @@ if ((isNil "_this") || {_this isEqualTo [] || {!(_this isEqualType [])}}) then
 };
 
 // Check calling parameters for manually defined mission position.
-// This mission doesn't use "_extraParams" in any way currently.
+// You can define "_extraParams" to specify the vehicle classname to spawn, either as _vehClass or [_vehClass]
 _OK = (_this call DMS_fnc_MissionParams) params
 [
-	["_pos",[],[[]],[3]],
+	["_pos",[],[[]],[3],[],[],[]],
 	["_extraParams",[]]
 ];
 
 if !(_OK) exitWith
 {
-	diag_log format ["DMS ERROR :: Called MISSION lost_battalion.sqf with invalid parameters: %1",_this];
+	diag_log format ["DMS ERROR :: Called MISSION nedcar_mission.sqf with invalid parameters: %1",_this];
 };
 
 
-//create possible difficulty add more of one difficulty to weight it towards that
+//create possible difficulty add more of one difficulty to weight it towards that - removed "hardcore" from this mission
 _PossibleDifficulty		= 	[	
+								"easy",
+								"easy",
+								"easy",
+								"easy",
+								"easy",
 								"easy",
 								"moderate",
 								"moderate",
-								"moderate",
-								"difficult",
-								"difficult",
-								"difficult",
-								"hardcore",
-								"hardcore"
+								"difficult"
 							];
 //choose difficulty and set value
 _difficulty = _PossibleDifficulty call BIS_fnc_selectRandom;
 
 //easy
 if (_difficulty isEqualTo "easy") then {
-_msgStart = ['#FFFF00',"A battalion of noob soldiers have gotten lost in convict land! Eliminate them!"];
-_AICount = (4 + (round (random 4)));
+_AICount = (3 + (round (random 2)));
 _crate_weapons 		= (2 + (round (random 3)));
 _crate_items 		= (2 + (round (random 4)));
 _crate_backpacks 	= 1;
 								};
 //moderate
 if (_difficulty isEqualTo "moderate") then {
-_msgStart = ['#FFFF00',"A battalion of soldiers have gotten lost in convict land! Eliminate them!"];
-_AICount = (7 + (round (random 2)));	
+_AICount = (4 + (round (random 2)));
 _crate_weapons 		= (4 + (round (random 5)));
 _crate_items 		= (4 + (round (random 6)));
-_crate_backpacks 	= 2;				
+_crate_backpacks 	= 2;			
 								};
 //difficult
 if (_difficulty isEqualTo "difficult") then {
-_msgStart = ['#FFFF00',"A battalion of soldiers have gotten lost in convict land! Eliminate them!"];
-_AICount = (7 + (round (random 4)));
+_AICount = (5 + (round (random 3)));
 _crate_weapons 		= (6 + (round (random 7)));
 _crate_items 		= (6 + (round (random 8)));
 _crate_backpacks 	= 3;
 								};
 //hardcore								
 if (_difficulty isEqualTo "hardcore") then {
-_msgStart = ['#FFFF00',"A battalion of hardcore soldiers have gotten lost in convict land! Eliminate them!"];
-_AICount = (7 + (round (random 6)));
+_AICount = (6 + (round (random 4)));
 _crate_weapons 		= (8 + (round (random 9)));
 _crate_items 		= (8 + (round (random 10)));
 _crate_backpacks 	= 4;
@@ -100,17 +97,89 @@ _group =
 	_side 					// "bandit","hero", etc.
 ] call DMS_fnc_SpawnAIGroup;
 
+/* no patrol vehicle as this is easy!
+// add vehicle patrol
+_veh =
+[
+	[
+[(_pos select 0) -75,(_pos select 1)+75,0]
+	],
+	_group,
+	"assault",
+	"easy",
+	_side
+] call DMS_fnc_SpawnAIVehicle;
+*/
 
-// Create Crate
-_crate = ["Box_NATO_Wps_F",_pos] call DMS_fnc_SpawnCrate;
+// add static guns
+_staticGuns =
+[
+	[
+		// make statically positioned relative to centre point and randomise a little
+		[(_pos select 0) -(5-(random 2)),(_pos select 1)+(5-(random 2)),0],
+		[(_pos select 0) +(5-(random 2)),(_pos select 1)-(5-(random 2)),0]
+	],
+	_group,
+	"assault",
+	"static",
+	"bandit"
+] call DMS_fnc_SpawnAIStaticMG;
 
-// setup crate iteself with items from choice
-_crate_loot_values =
+//create possible vehicle list
+
+// If hardcore give possibility of better car	
+if (_difficulty isEqualTo "hardcore") then {
+_PossibleVehicleClass 		= [	
+								"Exile_Car_SUVXL_Black",
+								"Exile_Car_Hatchback_Sport_Red",
+								"Exile_Car_Hatchback_Sport_Blue",
+								"Exile_Car_Hatchback_Sport_Orange",
+								"Exile_Car_Hatchback_Sport_White",
+								"Exile_Car_Hatchback_Sport_Beige",
+								"Exile_Car_Hatchback_Sport_Green",
+								"Exile_Car_Lada_Green",
+								"Exile_Car_Lada_Red",
+								"Exile_Car_Lada_White",
+								"Exile_Car_Lada_Hipster",
+								"Exile_Car_Volha_Blue",
+								"Exile_Car_Volha_White",
+								"Exile_Car_Volha_Black"
+							];
+											} else
+											{
+_PossibleVehicleClass 		= [	
+								"Exile_Car_Lada_Green",
+								"Exile_Car_Lada_Taxi",
+								"Exile_Car_Lada_Red",
+								"Exile_Car_Lada_White",
+								"Exile_Car_Lada_Hipster",
+								"Exile_Car_Volha_Blue",
+								"Exile_Car_Volha_White",
+								"Exile_Car_Volha_Black"
+							];
+											};
+
+//choose the vehicle
+_VehicleClass = _PossibleVehicleClass call BIS_fnc_selectRandom;
+
+		
+//DMS_fnc_SpawnPersistentVehicle will automatically turn the pincode into a string and format it.
+_pinCode = (1000 +(round (random 8999)));
+_vehicle = [_VehicleClass,[(_pos select 0) -30, (_pos select 1) -30],_pinCode] call DMS_fnc_SpawnPersistentVehicle;
+
+
+// Create Crate type
+_crate1 = ["Box_NATO_Wps_F",_pos] call DMS_fnc_SpawnCrate;
+
+
+// setup crate iteself with items
+_crate_loot_values1 =
 [
 	_crate_weapons,			// Weapons
-	_crate_items,			// Items
+	_crate_items,			// Items + selection list
 	_crate_backpacks 		// Backpacks
 ];
+
 
 // Define mission-spawned AI Units
 _missionAIUnits =
@@ -121,21 +190,22 @@ _missionAIUnits =
 // Define mission-spawned objects and loot values
 _missionObjs =
 [
-	[],
-	[],
-	[[_crate,_crate_loot_values]]
+	_staticGuns,							// static guns - no patrol vehicle
+	[_vehicle],								//this is prize vehicle
+	[[_crate1,_crate_loot_values1]]			//this is prize crate
 ];
 
-// define start messages in difficulty choice
+// Define Mission start message
+_msgStart = ['#FFFF00',"Terrorists with an old car have broken down. Go kill them and steal the car"];
 
 // Define Mission Win message
-_msgWIN = ['#0080ff',"Convicts have successfully eliminated the lost battalion!"];
+_msgWIN = ['#0080ff',format ["Convicts killed everyone and made off with the old car, entry code %1...",_pinCode]];
 
 // Define Mission Lose message
-_msgLOSE = ['#FF0000',"Whittlesey escaped with his Lost Battalion!"];
+_msgLOSE = ['#FF0000',"The attackers drove off and escaped attack."];
 
 // Define mission name (for map marker and logging)
-_missionName = "Lost Battalion";
+_missionName = "Old Car";
 
 // Create Markers
 _markers =
@@ -206,7 +276,6 @@ if !(_added) exitWith
 
 // Notify players
 [_missionName,_msgStart] call DMS_fnc_BroadcastMissionStatus;
-
 
 
 if (DMS_DEBUG) then

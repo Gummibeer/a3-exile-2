@@ -1,8 +1,10 @@
 /*
-	Sample mission (duplicate for testing purposes)
+	Mercbase Mission with new difficulty selection system
+	Created by Defent and eraser1
+	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
 */
 
-private ["_num", "_side", "_OK", "_group", "_pos", "_difficulty", "_AICount", "_veh", "_staticGuns", "_baseObjs", "_crate", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup"];
+private ["_num", "_side", "_OK", "_group", "_pos", "_difficulty", "_AICount", "_veh", "_staticGuns", "_baseObjs", "_crate", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_PossibleDifficulty"];
 
 // For logging purposes
 _num = DMS_MissionCount;
@@ -40,18 +42,50 @@ if !(_OK) exitWith
 };
 
 
-// Set general mission difficulty
+//create possible difficulty add more of one difficulty to weight it towards that
+_PossibleDifficulty		= 	[	
+								"easy",
+								"moderate",
+								"difficult",
+								"difficult",
+								"difficult",
+								"difficult",
+								"difficult",
+								"difficult",
+								"hardcore",
+								"hardcore",
+								"hardcore",
+								"hardcore",
+								"hardcore",
+								"hardcore"
+							];
+//choose difficulty and set value
+_difficulty = _PossibleDifficulty call BIS_fnc_selectRandom;
+
+//easy
+if (_difficulty isEqualTo "easy") then {
+_AICount = (4 + (round (random 3)));
+								};
+//moderate
+if (_difficulty isEqualTo "moderate") then {
+_AICount = (5 + (round (random 4)));
+								};
+//difficult
+if (_difficulty isEqualTo "difficult") then {
+_AICount = (6 + (round (random 5)));
+								};
+//hardcore								
+if (_difficulty isEqualTo "hardcore") then {
 _difficulty = "hardcore";
+_AICount = (7 + (round (random 6)));
+								};
 
-
-// Create AI
-_AICount = 6 + (round (random 2));
 
 _group =
 [
 	[_pos,[-9.48486,-12.4834,0]] call DMS_fnc_CalcPos,
 	_AICount,
-	"hardcore",
+	_difficulty,
 	"random",
 	_side
 ] call DMS_fnc_SpawnAIGroup;
@@ -83,7 +117,7 @@ _staticGuns =
 	],
 	_group,
 	"assault",
-	"hardcore",
+	_difficulty,
 	"bandit",
 	"O_HMG_01_high_F"
 ] call DMS_fnc_SpawnAIStaticMG;

@@ -1,11 +1,10 @@
 /*
-	Sample mission
+	Mercenaries Mission with new difficulty selection system
 	Created by Defent and eraser1
-
-	Called from DMS_selectMission
+	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
 */
 
-private ["_num", "_side", "_OK", "_group", "_pos", "_difficulty", "_AICount", "_type", "_launcher", "_crate", "_crate_loot_values", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup"];
+private ["_num", "_side", "_OK", "_group", "_pos", "_difficulty", "_AICount", "_type", "_launcher", "_crate", "_crate_loot_values", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_crate_weapons", "_crate_weapon_list", "_crate_items", "_crate_item_list", "_crate_backpacks", "_PossibleDifficulty"];
 
 // For logging purposes
 _num = DMS_MissionCount;
@@ -43,18 +42,58 @@ if !(_OK) exitWith
 };
 
 
-// Set general mission difficulty
-_difficulty = "moderate";
+//create possible difficulty add more of one difficulty to weight it towards that
+_PossibleDifficulty		= 	[	
+								"easy",
+								"moderate",
+								"moderate",
+								"difficult",
+								"difficult",
+								"hardcore"
+							];
+//choose difficulty and set value
+_difficulty = _PossibleDifficulty call BIS_fnc_selectRandom;
 
+// find what random number was generated and load specific variables for that level
+//easy
+if (_difficulty isEqualTo "easy") then {
+_msgStart = ['#FFFF00',"A group of noob mercenaries has been spotted. Kill them and take their equipment!"];
+_AICount = (4 + (round (random 2)));
+_crate_weapons 		= (1 + (round (random 1)));
+_crate_items 		= (2 + (round (random 4)));
+_crate_backpacks 	= (1 + (round (random 1)));
+								};
+//moderate
+if (_difficulty isEqualTo "moderate") then {
+_msgStart = ['#FFFF00',"A group of mercenaries has been spotted. Kill them and take their equipment!"];
+_AICount = (6 + (round (random 2)));
+_crate_weapons 		= (2 + (round (random 1)));
+_crate_items 		= (4 + (round (random 5)));
+_crate_backpacks 	= (2 + (round (random 1)));
+								};
+//difficult
+if (_difficulty isEqualTo "difficult") then {
+_msgStart = ['#FFFF00',"A group of skilled mercenaries has been spotted. Kill them and take their equipment!"];
+_AICount = (6 + (round (random 4)));
+_crate_weapons 		= (3 + (round (random 1)));
+_crate_items 		= (7 + (round (random 6)));
+_crate_backpacks	= (3 + (round (random 1)));
+								};
+//hardcore								
+if (_difficulty isEqualTo "hardcore") then {
+_msgStart = ['#FFFF00',"A group of hardcore mercenaries has been spotted. Kill them and take their equipment!"];
+_AICount = (6 + (round (random 4)));
+_crate_weapons 		= (4 + (round (random 1)));
+_crate_items		= (10 + (round (random 7)));
+_crate_backpacks	= (4 + (round (random 1)));
+								};
 
-// Create AI
-_AICount = 6 + (round (random 2));
 
 _group =
 [
 	_pos,					// Position of AI
 	_AICount,				// Number of AI
-	"random",				// "random","hardcore","difficult","moderate", or "easy"
+	_difficulty,			// "random","hardcore","difficult","moderate", or "easy"
 	"random", 				// "random","assault","MG","sniper" or "unarmed" OR [_type,_launcher]
 	_side 					// "bandit","hero", etc.
 ] call DMS_fnc_SpawnAIGroup;
@@ -66,9 +105,9 @@ _crate = ["Box_NATO_Wps_F",_pos] call DMS_fnc_SpawnCrate;
 // Set crate loot values
 _crate_loot_values =
 [
-	5,		// Weapons
-	10,		// Items
-	3 		// Backpacks
+	_crate_weapons,			// Weapons
+	_crate_items,			// Items
+	_crate_backpacks 		// Backpacks
 ];
 
 
@@ -86,8 +125,7 @@ _missionObjs =
 	[[_crate,_crate_loot_values]]
 ];
 
-// Define Mission Start message
-_msgStart = ['#FFFF00',"A group of mercenaries has been spotted. Kill them and take their equipment!"];
+// define start messages in difficulty choice
 
 // Define Mission Win message
 _msgWIN = ['#0080ff',"Convicts have successfully eliminated the mercenaries!"];

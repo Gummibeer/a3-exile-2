@@ -1,17 +1,17 @@
 /*
-	Dont Hassel the Hoff Mission with new difficulty selection system
-	Persistent vehicle on hardcore
-	Created by Defent and eraser1
+	nedHatchback Mission with new difficulty selection system
+	Chance of better car for hardcore difficulty
+	based on work by Defent and eraser1
 	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
 */
 
-private ["_num", "_side", "_pos", "_OK", "_difficulty", "_AICount", "_group", "_type", "_launcher", "_staticGuns", "_crate1", "_wreck", "_vehClass", "_vehicle", "_pinCode", "_crate_loot_values1", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_crate_weapons", "_crate_weapon_list", "_crate_items", "_crate_item_list", "_crate_backpacks", "_PossibleDifficulty"];
+private ["_num", "_side", "_pos", "_OK", "_difficulty", "_extraParams", "_AICount", "_group", "_type", "_launcher", "_staticGuns", "_wreck", "_crate", "_crate1", "_vehicle", "_pinCode", "_class", "_veh", "_crate_loot_values", "_crate_loot_values1", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_baseObjs", "_crate_weapons", "_crate_weapon_list", "_crate_items", "_crate_item_list", "_crate_backpacks", "_PossibleDifficulty", "_PossibleVehicleClass", "_VehicleClass"];
 
 // For logging purposes
 _num = DMS_MissionCount;
 
 
-// Set mission side
+// Set mission side (only "bandit" is supported for now)
 _side = "bandit";
 
 
@@ -33,13 +33,13 @@ if ((isNil "_this") || {_this isEqualTo [] || {!(_this isEqualType [])}}) then
 // You can define "_extraParams" to specify the vehicle classname to spawn, either as _vehClass or [_vehClass]
 _OK = (_this call DMS_fnc_MissionParams) params
 [
-	["_pos",[],[[]],[3]],
+	["_pos",[],[[]],[3],[],[],[]],
 	["_extraParams",[]]
 ];
 
 if !(_OK) exitWith
 {
-	diag_log format ["DMS ERROR :: Called MISSION donthasslethehoff.sqf with invalid parameters: %1",_this];
+	diag_log format ["DMS ERROR :: Called MISSION nedhatchback_mission.sqf with invalid parameters: %1",_this];
 };
 
 
@@ -48,9 +48,10 @@ _PossibleDifficulty		= 	[
 								"easy",
 								"easy",
 								"easy",
+								"easy",
 								"moderate",
 								"moderate",
-								"difficult",
+								"moderate",
 								"difficult",
 								"hardcore"
 							];
@@ -59,31 +60,35 @@ _difficulty = _PossibleDifficulty call BIS_fnc_selectRandom;
 
 //easy
 if (_difficulty isEqualTo "easy") then {
+_msgStart = ['#FFFF00',"Terrorists with a hatchback have broken down. Go kill them and steal the car"];
 _AICount = (4 + (round (random 2)));
-_crate_weapons 		= (1 + (round (random 1)));
+_crate_weapons 		= (1 + (round (random 2)));
 _crate_items 		= (2 + (round (random 4)));
-_crate_backpacks 	= 1;
+_crate_backpacks 	= (1 + (round (random 1)));
 								};
 //moderate
 if (_difficulty isEqualTo "moderate") then {
+_msgStart = ['#FFFF00',"Terrorists with a hatchback have broken down. Go kill them and steal the car"];	
 _AICount = (4 + (round (random 4)));
-_crate_weapons 		= (2 + (round (random 1)));
-_crate_items 		= (4 + (round (random 7)));
-_crate_backpacks 	= 2;
+_crate_weapons 		= (2 + (round (random 2)));
+_crate_items 		= (3 + (round (random 4)));
+_crate_backpacks 	= (2 + (round (random 1)));						
 								};
 //difficult
 if (_difficulty isEqualTo "difficult") then {
-_AICount = (4 + (round (random 4)));
-_crate_weapons 		= (3 + (round (random 1)));
-_crate_items 		= (8 + (round (random 8)));
-_crate_backpacks 	= 3;
+_msgStart = ['#FFFF00',"Terrorists with a hatchback have broken down. Go kill them and steal the car"];
+_AICount = (5 + (round (random 4)));
+_crate_weapons 		= (3 + (round (random 2)));
+_crate_items 		= (4 + (round (random 4)));
+_crate_backpacks 	= (3 + (round (random 1)));	
 								};
 //hardcore								
 if (_difficulty isEqualTo "hardcore") then {
+_msgStart = ['#FFFF00',"Terrorists with a hatchback have broken down. Go kill them and steal the car"];
 _AICount = (6 + (round (random 4)));
 _crate_weapons 		= (4 + (round (random 2)));
-_crate_items 		= (10 + (round (random 9)));
-_crate_backpacks 	= 4;
+_crate_items 		= (5 + (round (random 4)));
+_crate_backpacks 	= (4 + (round (random 1)));
 								};
 
 
@@ -96,11 +101,26 @@ _group =
 	_side 					// "bandit","hero", etc.
 ] call DMS_fnc_SpawnAIGroup;
 
+// add vehicle patrol
+_veh =
+[
+	[
+[(_pos select 0) -75,(_pos select 1)+75,0]
+	],
+	_group,
+	"assault",
+	"easy",
+	_side
+] call DMS_fnc_SpawnAIVehicle;
+
+
+// add static guns
 _staticGuns =
 [
 	[
-		[(_pos select 0)+(5+(random 5)),(_pos select 1)+(5+(random 5)),0],
-		[(_pos select 0) + -1*(5+(random 5)),(_pos select 1) + -1*(5+(random 5)),0]
+		// make statically positioned relative to centre point and randomise a little
+		[(_pos select 0) -(5-(random 2)),(_pos select 1)+(5-(random 2)),0],
+		[(_pos select 0) +(5-(random 2)),(_pos select 1)-(5-(random 2)),0]
 	],
 	_group,
 	"assault",
@@ -108,52 +128,58 @@ _staticGuns =
 	"bandit"
 ] call DMS_fnc_SpawnAIStaticMG;
 
-
-// Create Crates
-_crate1 = ["Box_NATO_Wps_F",_pos] call DMS_fnc_SpawnCrate;
-
-_wreck = createVehicle ["Land_Wreck_Heli_Attack_02_F",[(_pos select 0) - 10, (_pos select 1),-0.2],[], 0, "CAN_COLLIDE"];
-
-_vehClass =
-	if (_extraParams isEqualTo []) then
-	{
-		"Exile_Car_SUV_Black"
-	}
-	else
-	{
-		if ((typeName _extraParams)=="STRING") then
-		{
-			_extraParams
-		}
-		else
-		{
-			if (((typeName _extraParams)=="ARRAY") && {(typeName (_extraParams select 0))=="STRING"}) then
-			{
-				_extraParams select 0
-			}
-			else
-			{
-				"Exile_Car_SUV_Black"
-			};
-		};
-	};
-	
-// If hardcore give pincoded vehicle, if not give non persistent	
+// If hardcore give possibility of better car	
 if (_difficulty isEqualTo "hardcore") then {
-												_pinCode = (1000 +(round (random 8999)));
-												_vehicle = [_vehClass,[(_pos select 0), (_pos select 1)],_pinCode] call DMS_fnc_SpawnPersistentVehicle;
-												_msgWIN = ['#0080ff',format ["Convicts secured KITT; that will show the bandits not to Hassle the Hoff, KITTs entry code is %1...",_pinCode]];
+_PossibleVehicleClass 		= [	
+								"Exile_Car_Hatchback_Sport_Red",
+								"Exile_Car_Hatchback_Sport_Blue",
+								"Exile_Car_Hatchback_Sport_Orange",
+								"Exile_Car_Hatchback_Sport_White",
+								"Exile_Car_Hatchback_Sport_Beige",
+								"Exile_Car_Hatchback_Sport_Green",
+								"Exile_Car_Hatchback_Green",
+								"Exile_Car_Hatchback_BlueCustom",
+								"Exile_Car_Hatchback_BeigeCustom",
+								"Exile_Car_Hatchback_Yellow",
+								"Exile_Car_Hatchback_Grey",
+								"Exile_Car_Hatchback_Black",
+								"Exile_Car_Hatchback_Dark"
+							];
 											} else
 											{
-												_vehicle = [_vehClass,_pos] call DMS_fnc_SpawnNonPersistentVehicle;
-												_msgWIN = ['#0080ff',"Convicts secured KITT; that will show the bandits not to Hassle the Hoff!"];
+_PossibleVehicleClass 		= [	
+								"Exile_Car_Hatchback_Beige",
+								"Exile_Car_Hatchback_Green",
+								"Exile_Car_Hatchback_Blue",
+								"Exile_Car_Hatchback_BlueCustom",
+								"Exile_Car_Hatchback_BeigeCustom",
+								"Exile_Car_Hatchback_Yellow",
+								"Exile_Car_Hatchback_Grey",
+								"Exile_Car_Hatchback_Black",
+								"Exile_Car_Hatchback_Dark",
+								"Exile_Car_Hatchback_Rusty1",
+								"Exile_Car_Hatchback_Rusty2",
+								"Exile_Car_Hatchback_Rusty3"
+							];
 											};
+//choose the vehicle
+_VehicleClass = _PossibleVehicleClass call BIS_fnc_selectRandom;
 
-// Set crate loot values
+		
+//DMS_fnc_SpawnPersistentVehicle will automatically turn the pincode into a string and format it.
+_pinCode = (1000 +(round (random 8999)));
+_vehicle = [_VehicleClass,[(_pos select 0) -30, (_pos select 1) -30],_pinCode] call DMS_fnc_SpawnPersistentVehicle;
+
+
+// Create Crate type
+_crate1 = ["Box_NATO_Wps_F",_pos] call DMS_fnc_SpawnCrate;
+
+
+// setup crate iteself with items
 _crate_loot_values1 =
 [
 	_crate_weapons,			// Weapons
-	_crate_items,			// Items
+	_crate_items,			// Items + selection list
 	_crate_backpacks 		// Backpacks
 ];
 
@@ -167,21 +193,21 @@ _missionAIUnits =
 // Define mission-spawned objects and loot values
 _missionObjs =
 [
-	[_wreck]+_staticGuns,
-	[_vehicle],
-	[[_crate1,_crate_loot_values1]]
+	_staticGuns+[_veh],						// armed AI vehicle and static guns
+	[_vehicle],								//this is prize vehicle
+	[[_crate1,_crate_loot_values1]]			//this is prize crate
 ];
 
-// Define Mission Start message
-_msgStart = ['#FFFF00',"KITT has been kidnapped! Secure the position and reclaim KITT!"];
+// define start messages in difficulty choice
 
-// Define Mission Win message in vehicle choice
+// Define Mission Win message
+_msgWIN = ['#0080ff',format ["Convicts killed everyone and made off with the hatchback, entry code %1...",_pinCode]];
 
 // Define Mission Lose message
-_msgLOSE = ['#FF0000',"KITT was never secured and has now been dismantled by the bandits... What a grim fate."];
+_msgLOSE = ['#FF0000',"The attackers drove off and escaped attack."];
 
 // Define mission name (for map marker and logging)
-_missionName = "KITT's Location";
+_missionName = "Hatchback Steal";
 
 // Create Markers
 _markers =
