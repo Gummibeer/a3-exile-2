@@ -18,7 +18,7 @@ SC_debug 				    = false;			    // set to true to turn on debug features (not fo
 SC_extendedLogging          = false;                // set to true for additional logging
 SC_processReporter          = false;                 // log the a list of active server processes every 60 seconds (useful for debugging server problems)
 SC_infiSTAR_log			    = false;		            // true Use infiSTAR logging, false logs to server rpt
-SC_maxAIcount 			    = 100;					// the maximum amount of AI, if the AI count is above this then additional AI won't spawn
+SC_maxAIcount 			    = 300;					// the maximum amount of AI, if the AI count is above this then additional AI won't spawn
 SC_mapMarkers			    = true;			    // Place map markers at the occupied areas (occupyPlaces and occupyMilitary only) true/false
 SC_minFPS 				    = 5;					// any lower than minFPS on the server and additional AI won't spawn
 SC_scaleAI 				    = 10; 					// any more than _scaleAI players on the server and _maxAIcount is reduced for each extra player
@@ -34,9 +34,9 @@ SC_fastNightsMultiplierDay  = 4;                    // the time multiplier to us
 SC_useWaypoints			    = true;					// When spawning AI create waypoints to make them enter buildings (can affect performance when the AI is spawned and the waypoints are calculated)
 
                                                     // Distance limits for selecting safe places to spawn AI
-SC_minDistanceToSpawnZones  = 500;                  // Minimum distance in metres to the nearest spawn zone
+SC_minDistanceToSpawnZones  = 250;                  // Minimum distance in metres to the nearest spawn zone
 SC_minDistanceToTraders     = 500;                  // Minimum distance in metres to the nearest trader zone
-SC_minDistanceToTerritory   = 500;                  // Minimum distance in metres to the nearest player territory
+SC_minDistanceToTerritory   = 250;                  // Minimum distance in metres to the nearest player territory
 SC_minDistanceToPlayer      = 250;                  // Minimum distance in metres to the nearest player
 
 
@@ -191,20 +191,25 @@ SC_maximumCrewAmount        = 6;     // Maximum amount of AI allowed in a vehicl
                                      // (essential crew like drivers and gunners will always spawn regardless of these settings)
 
 // Settings for roaming ground vehicle AI
-SC_maxNumberofVehicles 	    = 4;	
+SC_maxNumberofVehicles 	    = 10;
 
 // Array of arrays of ground vehicles which can be used by AI patrols (the number next to next vehicle is the maximum amount of that class allowed, 0 for no limit)				
-SC_VehicleClassToUse 		=   [	
-                                    ["Exile_Car_LandRover_Green",0],
-                                    ["Exile_Bike_QuadBike_Black",2],
-                                    ["Exile_Car_UAZ_Open_Green",2] 
+SC_VehicleClassToUse 		=   [
+                                    ["Exile_Bike_QuadBike_Black",0],
+                                    ["Exile_Car_LandRover_Green",2],
+                                    ["Exile_Car_UAZ_Open_Green",2],
+                                    ["Exile_Car_Van_Guerilla01",2],
+                                    ["Exile_Car_Van_Box_Guerilla01",2],
+                                    ["Exile_Car_Offroad_Guerilla01",2],
+                                    ["Exile_Car_Hatchback_Black",2],
+                                    ["Exile_Car_SUV_Black",2]
                                 ];
 SC_VehicleClassToUseRare	=   [	
                                     ["Exile_Car_Hunter",1],
+                                    ["Exile_Car_Ifrit",1],
                                     ["Exile_Car_HEMMT",1],
                                     ["Exile_Car_Zamak",1],
-                                    ["Exile_Car_Offroad_Armed_Guerilla12",1],
-                                    ["Exile_Car_Offroad_Armed_Guerilla03",1],
+                                    ["Exile_Car_Offroad_Armed_Guerilla01",1],
                                     ["Exile_Car_Tempest",1] 
                                 ];
 
@@ -212,7 +217,10 @@ SC_VehicleClassToUseRare	=   [
 SC_maxNumberofHelis		    = 1;
 
 // Array of aircraft which can be used by AI patrols (the number next to next vehicle is the maximum amount of that class allowed, 0 for no limit)
-SC_HeliClassToUse 		    =   [ ["Exile_Chopper_Huey_Armed_Green",0] ];
+SC_HeliClassToUse 		    =   [
+                                    ["Exile_Chopper_Huey_Armed_Green",0],
+                                    ["Exile_Chopper_Hummingbird_Green",0]
+                                ];
 
 // Settings for roaming seaborne AI (non armed boats will just sail around)
 SC_maxNumberofBoats		    = 1;
