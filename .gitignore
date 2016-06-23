@@ -5,9 +5,13 @@
 !CHANGELOG.md
 
 !tbbmalloc.dll
+!ARMA_LOG.dll
+!ARMA_LOAD.dll
+
 !pack-pbos.bat
 
 !/mpmissions/
 !/@ExileServer/
+!/@infiSTAR_Exile/
 !/sql/
 !/LootTableCompiler/

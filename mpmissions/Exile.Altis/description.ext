@@ -85,6 +85,8 @@ enableDebugConsole = 0; // 2 = dangerous in MP
 allowFunctionsRecompile = 0;
 
 #include "config.cpp"
+#include "Infistar\CfgRemoteExec.hpp"
+#include "Infistar\infiSTAR_AdminMenu.hpp"
 
 class CfgRemoteExec
 {
