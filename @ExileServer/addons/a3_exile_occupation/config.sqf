@@ -40,7 +40,7 @@ SC_minDistanceToTerritory   = 250;                  // Minimum distance in metre
 SC_minDistanceToPlayer      = 250;                  // Minimum distance in metres to the nearest player
 
 
-SC_occupyRandomSpawn        = false;                // (WORK IN PROGRESS, NOT WORKING YET) true if you want random spawning AI that hunt for nearby players
+SC_occupyRandomSpawn        = true;                // (WORK IN PROGRESS, NOT WORKING YET) true if you want random spawning AI that hunt for nearby players
 SC_randomSpawnMinPlayers    = 1;                    // Minimum number of players to be online before random spawning AI can spawn
 SC_randomSpawnMaxAI         = 5;                    // Maximum amount of random AI groups allowed at any time
 SC_randomSpawnIgnoreCount	= true;					// true if you want spawn random AI groups regardless of overall AI count (they still count towards the total though)
@@ -57,7 +57,7 @@ SC_occupyTraderDetails      = [
                                 ["Schrattendamm Traders",[10584,4975,0],"trader1.sqf",true]
                               ];  //["Name",[x,y,z],"filename",true] trader name, location, safezone true/false
                                                     
-SC_SurvivorsChance          = 20;                   // chance in % to spawn survivors instead of bandits (for places and land vehicles)
+SC_SurvivorsChance          = 10;                   // chance in % to spawn survivors instead of bandits (for places and land vehicles)
 SC_occupyPlacesSurvivors	= true;	                // true if you want a chance to spawn survivor AI as well as bandits (SC_occupyPlaces must be true to use this option)
 SC_occupyVehicleSurvivors	= true;                // true if you want a chance to spawn survivor AI as well as bandits (SC_occupyVehicle must be true to use this option)
 SC_SurvivorsFriendly        = true;                 // true if you want survivors to be friendly to players (until they are attacked by players)
@@ -70,7 +70,7 @@ SC_SurvivorVests            = ["V_BandollierB_blk","V_BandollierB_cbr","V_Bandol
 SC_SurvivorHeadgear         = []; 
 SC_SurvivorWeapon           = ["arifle_MXC_F","arifle_TRG20_F"];
 SC_SurvivorWeaponAttachments= [];
-SC_SurvivorMagazines        = ["Exile_Item_Vishpirin","Exile_Item_Bandage"];
+SC_SurvivorMagazines        = [];
 SC_SurvivorPistol           = ["hgun_Rook40_F"];
 SC_SurvivorPistolAttachments= [];
 SC_SurvivorAssignedItems    = ["ItemMap","ItemCompass","ItemRadio","ItemWatch","Exile_Item_XM8"]; // all these items will be added
@@ -191,26 +191,26 @@ SC_maximumCrewAmount        = 6;     // Maximum amount of AI allowed in a vehicl
                                      // (essential crew like drivers and gunners will always spawn regardless of these settings)
 
 // Settings for roaming ground vehicle AI
-SC_maxNumberofVehicles 	    = 10;
+SC_maxNumberofVehicles 	    = 50;
 
 // Array of arrays of ground vehicles which can be used by AI patrols (the number next to next vehicle is the maximum amount of that class allowed, 0 for no limit)				
 SC_VehicleClassToUse 		=   [
                                     ["Exile_Bike_QuadBike_Black",0],
-                                    ["Exile_Car_LandRover_Green",2],
-                                    ["Exile_Car_UAZ_Open_Green",2],
-                                    ["Exile_Car_Van_Guerilla01",2],
-                                    ["Exile_Car_Van_Box_Guerilla01",2],
-                                    ["Exile_Car_Offroad_Guerilla01",2],
-                                    ["Exile_Car_Hatchback_Black",2],
-                                    ["Exile_Car_SUV_Black",2]
+                                    ["Exile_Car_LandRover_Green",5],
+                                    ["Exile_Car_UAZ_Open_Green",5],
+                                    ["Exile_Car_Van_Guerilla01",5],
+                                    ["Exile_Car_Van_Box_Guerilla01",5],
+                                    ["Exile_Car_Offroad_Guerilla01",5],
+                                    ["Exile_Car_Hatchback_Black",0],
+                                    ["Exile_Car_SUV_Black",0]
                                 ];
 SC_VehicleClassToUseRare	=   [	
-                                    ["Exile_Car_Hunter",1],
-                                    ["Exile_Car_Ifrit",1],
-                                    ["Exile_Car_HEMMT",1],
-                                    ["Exile_Car_Zamak",1],
-                                    ["Exile_Car_Offroad_Armed_Guerilla01",1],
-                                    ["Exile_Car_Tempest",1] 
+                                    ["Exile_Car_Hunter",2],
+                                    ["Exile_Car_Ifrit",2],
+                                    ["Exile_Car_HEMMT",2],
+                                    ["Exile_Car_Zamak",2],
+                                    ["Exile_Car_Offroad_Armed_Guerilla01",2],
+                                    ["Exile_Car_Tempest",2]
                                 ];
 
 // Settings for roaming airborne AI (non armed helis will just fly around)
