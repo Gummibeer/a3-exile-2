@@ -5,7 +5,7 @@ SET BASEDIR=%~dp0
 
 echo base: %BASEDIR%
 
-for %%x in (@ExileServer\addons mpmissions) do (
+for %%x in (@ExileServer\addons @infiSTAR_EXILE\addons mpmissions) do (
     echo search in: %BASEDIR%%%x
 
     for %%f in (%BASEDIR%%%x\*.pbo) do (
