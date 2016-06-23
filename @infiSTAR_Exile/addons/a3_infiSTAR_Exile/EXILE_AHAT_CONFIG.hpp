@@ -237,7 +237,7 @@ UID_WHITELIST[] =
 	"UID1","UID2","UID3","..."
 };
 
-ExileDevFriendlyMode = true;	/* adds Exile Devs to your AdminList - makes it easier for them to debug their mod live */
+ExileDevFriendlyMode = false;	/* adds Exile Devs to your AdminList - makes it easier for them to debug their mod live */
 
 
 /* What ESCAPE Menu shows */
@@ -246,7 +246,7 @@ ESCMNUBOT = "by infiSTAR.de";
 BRIEFING_MSG = false;	/* use mission briefing message: if   "BRIEFING_MSG = false;"   then the message will be replaced by infiSTAR */
 HTML_LOAD_URL = "";		/* HTML_LOAD_URL = ""; == disabled and if you set a url it will be shown in ESCAPE menu. HTML in Arma/this is limited. Try it :) example: "http://goo.gl/gb0o7b" */
 ENABLE_PRIVATE_CHAT_MENU = true;		/* players can open it by typing !chat in chat or by  custom controls -> "Use Action 3" */
-PRIVATE_CHAT_MENU_8GNETWORK = false;	/* if this is true - players will only be able to use private chat if they enable 8GNetwork in their xm8 */
+PRIVATE_CHAT_MENU_8GNETWORK = true;	/* if this is true - players will only be able to use private chat if they enable 8GNetwork in their xm8 */
 
 /* shows RESTART IN X MINS */
 USE_RESTART_TIMER = false;			/* show time left to next restart */
@@ -256,7 +256,7 @@ USE_RESTART_TIMER_SHUTDOWN = false;	/* #shutdown the server after RESTART_TIME_I
 
 
 /* Allow Player to vote Day/Night by typing vote day / vote night in Chat*/
-DayNightVote = true;
+DayNightVote = false;
 MRV = 0.3;	/* if "DayNightVote = true;" - Minimum votes required. Percentage of players needed to pass the vote. */
 MVP = 0.51;	/* if "DayNightVote = true;" - Minimum vote percentage. A setting that dictates the minimum vote percentage that needs to be reached for the vote to pass. */
 VCT = 300;	/* if "DayNightVote = true;" - Time (in seconds) to wait until nex vote is possible. */

@@ -85,8 +85,7 @@ enableDebugConsole = 0; // 2 = dangerous in MP
 allowFunctionsRecompile = 0;
 
 #include "config.cpp"
-#include "Infistar\CfgRemoteExec.hpp"
-#include "Infistar\infiSTAR_AdminMenu.hpp"
+#include "infiSTAR_Exile_AdminMenu.hpp"
 
 class CfgRemoteExec
 {
@@ -94,7 +93,8 @@ class CfgRemoteExec
     {
         mode = 1;
         jip = 0;
-        class ExileServer_system_network_dispatchIncomingMessage     { allowedTargets=2; };
+		class fnc_AdminReq { allowedTargets=2; };
+		class ExileServer_system_network_dispatchIncomingMessage { allowedTargets=2; };
     };
     class Commands
     {
