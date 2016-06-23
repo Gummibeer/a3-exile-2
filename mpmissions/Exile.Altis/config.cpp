@@ -1863,6 +1863,7 @@ class CfgExileCustomCode
     ExileClient_gui_xm8_slide_players_onOpen = "ClientOverrides\ExileClient_gui_xm8_slide_players_onOpen.sqf";
     ExileClient_object_player_death_startBleedingOut = "EnigmaRevive\ExileClient_object_player_death_startBleedingOut.sqf"; //Happys Revive
     ExileClient_object_player_event_onInventoryOpened = "EnigmaRevive\ExileClient_object_player_event_onInventoryOpened.sqf"; //Happys Revive AntiDupe ---NEW with v0.65
+    ExileClient_object_player_initialize = "Hunting\ExileClient_object_player_initialize.sqf";
 };
 class CfgExileEnvironment
 {

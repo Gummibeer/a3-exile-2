@@ -15,3 +15,8 @@ if hasInterface then
 {
 	[] execVM "VEMFr_client\sqf\initClient.sqf"; // Client-side part of VEMFr
 };
+
+// Hunting
+JohnO_fnc_spawnAnimals = compileFinal preprocessFileLineNumbers "Hunting\JohnO_fnc_spawnAnimals.sqf";
+JohnO_fnc_isSick = compileFinal preprocessFileLineNumbers "Hunting\JohnO_fnc_isSick.sqf";
+if (isServer) then {[] execVM "Hunting\Config_animals.sqf";};
