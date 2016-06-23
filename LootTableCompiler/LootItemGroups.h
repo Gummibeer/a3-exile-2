@@ -98,7 +98,7 @@
 20, 30Rnd_9x21_Mag			// Sting, PDW2000, P07, ROOK-40
 16, 6Rnd_45ACP_Cylinder		// Zubr
 7, 6Rnd_GreenSignal_F		// Starter Pistol
-7, 6Rnd_RedSignal_F			// Starter Pistol 
+7, 6Rnd_RedSignal_F			// Starter Pistol
 20, 9Rnd_45ACP_Mag			// ACP-C2
 
 > PistolAttachments
@@ -605,10 +605,11 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 > MedicalItems
-2, Exile_Item_InstaDoc
-5, Exile_Item_Bandage
-10, Exile_Item_Vishpirin
-10, Exile_Item_Heatpack
+10, Exile_Item_InstaDoc
+25, Exile_Item_Bandage
+50, Exile_Item_Vishpirin
+50, Exile_Item_Heatpack
+1, Exile_Item_Defibrillator
 
 > IndustrialItems
 2, Exile_Item_Knife
