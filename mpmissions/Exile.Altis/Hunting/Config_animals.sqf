@@ -1,7 +1,7 @@
 uiSleep 30;
 
 maxAnimals = 100;
-debug = true; //Dodgy but gives you an indication its working
+debug = false; //Dodgy but gives you an indication its working
 
 //Dont change
 animalCount = 0;
