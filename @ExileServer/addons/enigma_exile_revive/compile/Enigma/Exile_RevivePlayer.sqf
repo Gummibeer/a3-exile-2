@@ -288,7 +288,7 @@ _extDB2Message call ExileServer_system_database_query_fireAndForget;
 
 
 
-									_msg = format ["%1 has been stabilised! You have been rewarded 100 Respect!",_name];
+									_msg = format ["%1 has been stabilised! You have done a great Job!", _name];
 
 									EnigmaReviveMSG = [_msg]; //sends message to reviver!
 									_reviverownerID publicVariableClient "EnigmaReviveMSG";
@@ -327,7 +327,7 @@ call ExileServer_system_network_send_to;
 
 
 _newScore = _requestingPlayer getVariable ["ExileScore", 0];
-_newScore = _newScore + 100;
+_newScore = _newScore + RespectForRevive;
 _requestingPlayer setVariable ["ExileScore", _newScore];
 format["setAccountScore:%1:%2", _newScore, getPlayerUID _requestingPlayer] call ExileServer_system_database_query_fireAndForget;
 

@@ -13,11 +13,13 @@ if (!hasInterface && isServer) exitWith {
 
 GR8HumanityInstalled = false; //If you are running GR8's Humanity script set this to true!
 
-MaxRevivesAllowed = 1; //Set the max number of revives permitted per life. I recomend you keep it at 1. Just saying...
+MaxRevivesAllowed = 5; //Set the max number of revives permitted per life. I recomend you keep it at 1. Just saying...
 
 DamageWhenRevived = 0.95; //Set to a percentage. 0.95 = 95% damage.... or 5% health
 
 FatiguewhenRevived = 1; //Set to a percentage. 1 = 100% fatigued and can only walk.
+
+RespectForRevive = 5;
 
 
 //NOTE: this has been designed to only allow 1 revive. I havent put in any checks to prevent players using this to gain respect by killing each other and reviving again!!! 
