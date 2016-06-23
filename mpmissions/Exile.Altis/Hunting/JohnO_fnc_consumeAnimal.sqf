@@ -16,12 +16,8 @@ if ("Exile_Item_Knife" in (magazines player)) then
 
 
 
-	if (("Exile_Item_Vishpirin" in (magazines player)) || ("Exile_Item_PlasticBottleFreshWater" in (magazines player))) then 
+	if (!("Exile_Item_Vishpirin" in (magazines player)) && !("Exile_Item_PlasticBottleFreshWater" in (magazines player))) then
 	{
-		
-	} 
-	else
-	{	
 		_chanceForSick = random 1;
 		if (_chanceForSick >= 0.7) then
 		{	

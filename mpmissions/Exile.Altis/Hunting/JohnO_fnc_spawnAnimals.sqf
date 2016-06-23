@@ -1,11 +1,12 @@
 private ["_goat","_animalSpawn","_animal","_animalskin","_randomskin"];
-_spawnCenter = [6133,7156,0]; //Center of your map -- this is Stratis 
+_spawnCenter = [15000,15000,0]; //Center of your map -- this is Stratis
 _min = 1; // minimum distance from the center position (Number) in meters
-_max = 5120; // maximum distance from the center position (Number) in meters
+_max = 15000; // maximum distance from the center position (Number) in meters
 _mindist = 2; // minimum distance from the nearest object (Number) in meters, ie. create waypoint this distance away from anything within x meters..
 _water = 0; // water mode 0: cannot be in water , 1: can either be in water or not , 2: must be in water
 _shoremode = 0; // 0: does not have to be at a shore , 1: must be at a shore
-_animalArray = ["Cock_white_F","Rabbit_F","Hen_random_F","Cock_random_F","Goat_random_F","Sheep_random_F"];
+_dogsArray = ["Alsatian_Random_F","Alsatian_Sandblack_F","Alsatian_Black_F","Alsatian_Sand_F","Fin_tricolour_F","Fin_ocherwhite_F"];
+_animalArray = ["Cock_white_F","Rabbit_F","Hen_random_F","Cock_random_F","Goat_random_F","Sheep_random_F"] + _dogsArray;
 if (aliveArray < maxAnimals) then
 {
 	_amountToSpawn = maxAnimals - aliveArray;
@@ -30,7 +31,6 @@ if (aliveArray < maxAnimals) then
 		} 
 		else 
 		{
-		
 			if (TypeOf _goat == "Goat_random_F") then 
 			{
 				_goatskin = 
@@ -54,9 +54,9 @@ if (aliveArray < maxAnimals) then
 		diag_log format ["Spawned a %1 at:[%2]",_animal,_animalSpawn];		
 		if (debug) then
 		{	
-		_sheepMarker = createMarker ["Sheep",_animalSpawn];
-		"Sheep" setMarkerType "mil_dot";
-		"Sheep"	setMarkerText "Sheep";
+			_animalMarker = createMarker [format ["animal_hunting_%1", round(random 1000)], _animalSpawn];
+			_animalMarker setMarkerType "mil_dot";
+			_animalMarker setMarkerText _animal;
 		};
 	};
 };
