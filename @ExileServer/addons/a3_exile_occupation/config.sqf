@@ -57,7 +57,7 @@ SC_occupyTraderDetails      = [
                                 ["Schrattendamm Traders",[10584,4975,0],"trader1.sqf",true]
                               ];  //["Name",[x,y,z],"filename",true] trader name, location, safezone true/false
                                                     
-SC_SurvivorsChance          = 20;                   // chance in % to spawn survivors instead of bandits (for places and land vehicles)
+SC_SurvivorsChance          = 10;                   // chance in % to spawn survivors instead of bandits (for places and land vehicles)
 SC_occupyPlacesSurvivors	= true;	                // true if you want a chance to spawn survivor AI as well as bandits (SC_occupyPlaces must be true to use this option)
 SC_occupyVehicleSurvivors	= true;                // true if you want a chance to spawn survivor AI as well as bandits (SC_occupyVehicle must be true to use this option)
 SC_SurvivorsFriendly        = true;                 // true if you want survivors to be friendly to players (until they are attacked by players)
@@ -70,7 +70,7 @@ SC_SurvivorVests            = ["V_BandollierB_blk","V_BandollierB_cbr","V_Bandol
 SC_SurvivorHeadgear         = []; 
 SC_SurvivorWeapon           = ["arifle_MXC_F","arifle_TRG20_F"];
 SC_SurvivorWeaponAttachments= [];
-SC_SurvivorMagazines        = ["Exile_Item_Vishpirin","Exile_Item_Bandage"];
+SC_SurvivorMagazines        = [];
 SC_SurvivorPistol           = ["hgun_Rook40_F"];
 SC_SurvivorPistolAttachments= [];
 SC_SurvivorAssignedItems    = ["ItemMap","ItemCompass","ItemRadio","ItemWatch","Exile_Item_XM8"]; // all these items will be added
@@ -191,7 +191,7 @@ SC_maximumCrewAmount        = 6;     // Maximum amount of AI allowed in a vehicl
                                      // (essential crew like drivers and gunners will always spawn regardless of these settings)
 
 // Settings for roaming ground vehicle AI
-SC_maxNumberofVehicles 	    = 10;
+SC_maxNumberofVehicles 	    = 50;
 
 // Array of arrays of ground vehicles which can be used by AI patrols (the number next to next vehicle is the maximum amount of that class allowed, 0 for no limit)				
 SC_VehicleClassToUse 		=   [
