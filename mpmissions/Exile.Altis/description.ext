@@ -107,6 +107,9 @@ class RscTitles
 {
     //Advance Banking
     #include "AdvancedBanking\Dialog\AdvBanking_Client_CreditCard.hpp"
+
+    //VEMF
+	#include "VEMFr_client\gui\RscDisplayVEMFrClient.hpp"
 };
 
 //////////////////////
