@@ -200,6 +200,7 @@
 2, DLCSupressor
 2, Bipods
 5, Explosives
+2, BWItems
 
 ///////////////////////////////////////////////////////////////////////////////
 // Hospital, Medevac etc. (Does not spawn on Altis!)
