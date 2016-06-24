@@ -9,7 +9,9 @@ class CfgVemfReloadedOverrides
 
 	class DynamicLocationInvasion
 	{
-		 markCrateOnMap = 0;
+		markCrateOnMap = 0;
+		heliPatrol[] = {1, {"B_Heli_Light_01_armed_F","B_Heli_Transport_03_F","B_Heli_Transport_01_F","B_Heli_Transport_01_camo_F"}}; // Enable/disable heli patrol at mission location and set the types of heli(s)
+		heliLocked = 0; // Enable/disable heli lock to prevent/allow players from flying it
 	}
 
 	class aiCleanUp

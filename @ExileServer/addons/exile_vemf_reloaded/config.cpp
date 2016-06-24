@@ -100,8 +100,8 @@ class CfgVemfReloaded
 		groupCount[] = {2,4}; // In format: {minimum, maximum}; VEMF will pick a random number between min and max. If you want the same amount always, use same numbers for minimum and maximum.
 		groupUnits[] = {4,6}; // How much units in each group. Works the same like groupCount
 		hasLauncherChance = 25; // In percentage. How big the chance that each AI gets a launcher
-		heliPatrol[] = {1, {"B_Heli_Light_01_armed_F","B_Heli_Transport_03_F","B_Heli_Transport_01_F","B_Heli_Transport_01_camo_F"}}; // Enable/disable heli patrol at mission location and set the types of heli(s)
-		heliLocked = 1; // Enable/disable heli lock to prevent/allow players from flying it
+		heliPatrol[] = {1, {"B_Heli_Light_01_armed_F","B_Heli_Attack_01_F","B_Heli_Transport_03_F","B_Heli_Transport_01_F","B_Heli_Transport_01_camo_F"}}; // Enable/disable heli patrol at mission location and set the types of heli(s)
+		heliLocked = 0; // Enable/disable heli lock to prevent/allow players from flying it
 		marker = 1; // Enable/disable mission markers
 		markCrateOnMap = 1; // Enable/disable loot crate marker on map called "Loot"
 		markCrateVisual = 1; // Enable/disable loot crate VISUAL marker (smoke and/or chem)
