@@ -722,6 +722,116 @@ class UpgradeToWoodWindow: Exile_AbstractCraftingRecipe
 };
 class CfgExileArsenal
 {
+	///////////////////////////////////////////////////////////////////////////////
+	// BW Mod
+	///////////////////////////////////////////////////////////////////////////////
+
+	// Rifles
+	class BWA3_G36									{ quality = 1; price = 150; };
+    class BWA3_G36K									{ quality = 1; price = 150; };
+    class BWA3_G36_AG								{ quality = 1; price = 150; };
+    class BWA3_G36K_AG								{ quality = 1; price = 150; };
+    class BWA3_G36_LMG								{ quality = 1; price = 150; };
+    class BWA3_G28_Standard							{ quality = 1; price = 150; };
+    class BWA3_G28_Assault							{ quality = 1; price = 150; };
+    class BWA3_G27									{ quality = 1; price = 150; };
+    class BWA3_G27_Tan								{ quality = 1; price = 150; };
+    class BWA3_G27_AG								{ quality = 1; price = 150; };
+    class BWA3_G27_Tan_AG							{ quality = 1; price = 150; };
+    class BWA3_MG4									{ quality = 1; price = 150; };
+    class BWA3_MG5									{ quality = 1; price = 150; };
+    class BWA3_MG5_Tan								{ quality = 1; price = 150; };
+    class BWA3_G82									{ quality = 1; price = 150; };
+
+    // Pistols
+    class BWA3_P8									{ quality = 1; price = 50; };
+    class BWA3_MP7									{ quality = 1; price = 50; };
+
+    // Uniforms
+    class BWA3_Uniform_idz_Fleck					{ quality = 1; price = 20; };
+    class BWA3_Uniform2_idz_Fleck					{ quality = 1; price = 20; };
+    class BWA3_Uniform3_idz_Fleck					{ quality = 1; price = 20; };
+    class BWA3_Uniform_Ghillie_idz_Fleck			{ quality = 1; price = 20; };
+    class BWA3_Uniform_Fleck						{ quality = 1; price = 20; };
+    class BWA3_Uniform2_Fleck						{ quality = 1; price = 20; };
+    class BWA3_Uniform_Ghillie_Fleck				{ quality = 1; price = 20; };
+    class BWA3_Uniform_Crew_Fleck					{ quality = 1; price = 20; };
+    class BWA3_Uniform_idz_Tropen					{ quality = 1; price = 20; };
+    class BWA3_Uniform2_idz_Tropen					{ quality = 1; price = 20; };
+    class BWA3_Uniform3_idz_Tropen					{ quality = 1; price = 20; };
+    class BWA3_Uniform_Ghillie_idz_Tropen			{ quality = 1; price = 20; };
+    class BWA3_Uniform_Tropen						{ quality = 1; price = 20; };
+    class BWA3_Uniform2_Tropen						{ quality = 1; price = 20; };
+    class BWA3_Uniform_Ghillie_Tropen				{ quality = 1; price = 20; };
+    class BWA3_Uniform_Crew_Tropen					{ quality = 1; price = 20; };
+	class BWA3_Uniform_Helipilot					{ quality = 1; price = 20; };
+
+	// Headgear
+	class BWA3_OpsCore_Fleck						{ quality = 1; price = 10; };
+	class BWA3_OpsCore_Fleck_Patch					{ quality = 1; price = 10; };
+	class BWA3_OpsCore_Fleck_Camera					{ quality = 1; price = 10; };
+	class BWA3_CrewmanKSK_Fleck						{ quality = 1; price = 10; };
+	class BWA3_CrewmanKSK_Fleck_Headset				{ quality = 1; price = 10; };
+	class BWA3_MICH_Fleck							{ quality = 1; price = 10; };
+	class BWA3_M92_Fleck							{ quality = 1; price = 10; };
+	class BWA3_Booniehat_Fleck						{ quality = 1; price = 10; };
+	class BWA3_OpsCore_Tropen						{ quality = 1; price = 10; };
+	class BWA3_OpsCore_Tropen_Patch					{ quality = 1; price = 10; };
+	class BWA3_OpsCore_Tropen_Camera				{ quality = 1; price = 10; };
+	class BWA3_CrewmanKSK_Tropen					{ quality = 1; price = 10; };
+	class BWA3_CrewmanKSK_Tropen_Headset			{ quality = 1; price = 10; };
+	class BWA3_MICH_Tropen							{ quality = 1; price = 10; };
+	class BWA3_M92_Tropen							{ quality = 1; price = 10; };
+	class BWA3_Booniehat_Tropen						{ quality = 1; price = 10; };
+	class BWA3_OpsCore_Schwarz						{ quality = 1; price = 10; };
+	class BWA3_OpsCore_Schwarz_Camera				{ quality = 1; price = 10; };
+	class BWA3_CrewmanKSK_Schwarz					{ quality = 1; price = 10; };
+	class BWA3_CrewmanKSK_Schwarz_Headset			{ quality = 1; price = 10; };
+	class BWA3_Knighthelm							{ quality = 1; price = 10; };
+	class BWA3_Beret_PzGren							{ quality = 1; price = 10; };
+	class BWA3_Beret_Pz								{ quality = 1; price = 10; };
+	class BWA3_Beret_PzAufkl						{ quality = 1; price = 10; };
+	class BWA3_Beret_Jaeger							{ quality = 1; price = 10; };
+	class BWA3_Beret_Falli							{ quality = 1; price = 10; };
+	class BWA3_Beret_HFlieger						{ quality = 1; price = 10; };
+	class BWA3_Beret_Wach_Gruen						{ quality = 1; price = 10; };
+	class BWA3_Beret_Wach_Blau						{ quality = 1; price = 10; };
+
+	// Vests
+	class BWA3_Vest_Fleck							{ quality = 1; price = 50; };
+    class BWA3_Vest_Rifleman1_Fleck					{ quality = 1; price = 50; };
+    class BWA3_Vest_Autorifleman_Fleck				{ quality = 1; price = 50; };
+    class BWA3_Vest_Grenadier_Fleck					{ quality = 1; price = 50; };
+    class BWA3_Vest_Medic_Fleck						{ quality = 1; price = 50; };
+    class BWA3_Vest_Marksman_Fleck					{ quality = 1; price = 50; };
+    class BWA3_Vest_Leader_Fleck					{ quality = 1; price = 50; };
+    class BWA3_Vest_Tropen							{ quality = 1; price = 50; };
+    class BWA3_Vest_Rifleman1_Tropen				{ quality = 1; price = 50; };
+    class BWA3_Vest_Autorifleman_Tropen				{ quality = 1; price = 50; };
+    class BWA3_Vest_Grenadier_Tropen				{ quality = 1; price = 50; };
+    class BWA3_Vest_Medic_Tropen					{ quality = 1; price = 50; };
+    class BWA3_Vest_Marksman_Tropen					{ quality = 1; price = 50; };
+    class BWA3_Vest_Leader_Tropen					{ quality = 1; price = 50; };
+
+    // Backpacks
+    class BWA3_AssaultPack_Fleck					{ quality = 1; price = 50; };
+    class BWA3_Kitbag_Fleck							{ quality = 1; price = 50; };
+    class BWA3_Kitbag_Fleck_Medic					{ quality = 1; price = 50; };
+    class BWA3_TacticalPack_Fleck					{ quality = 1; price = 50; };
+    class BWA3_TacticalPack_Fleck_Medic				{ quality = 1; price = 50; };
+    class BWA3_FieldPack_Fleck						{ quality = 1; price = 50; };
+    class BWA3_Carryall_Fleck						{ quality = 1; price = 50; };
+    class BWA3_PatrolPack_Fleck						{ quality = 1; price = 50; };
+    class BWA3_AssaultPack_Tropen					{ quality = 1; price = 50; };
+    class BWA3_Kitbag_Tropen						{ quality = 1; price = 50; };
+    class BWA3_Kitbag_Tropen_Medic					{ quality = 1; price = 50; };
+    class BWA3_TacticalPack_Tropen					{ quality = 1; price = 50; };
+    class BWA3_TacticalPack_Tropen_Medic			{ quality = 1; price = 50; };
+    class BWA3_FieldPack_Tropen						{ quality = 1; price = 50; };
+    class BWA3_Carryall_Tropen						{ quality = 1; price = 50; };
+    class BWA3_PatrolPack_Tropen					{ quality = 1; price = 50; };
+
+
 	class Exile_Uniform_BambiOverall				{ quality = 1; price = 1; sellPrice = 1; };
 
 	///////////////////////////////////////////////////////////////////////////////
