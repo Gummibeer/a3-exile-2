@@ -308,43 +308,43 @@ class CfgLootTables
 
 	class Shop
 	{
-		count = 150;
-		half = 8885.81919994275;
-		halfIndex = 75;
-		sum = 9999.99999999999;
+		count = 153;
+		half = 8907.0434332258;
+		halfIndex = 76;
+		sum = 9999.99999999998;
 		items[] = 
 		{
 			{666.666666666667, "Exile_Item_Can_Empty"}, // 6.67%
 			{1333.33333333333, "Exile_Item_ToiletPaper"}, // 6.67%
 			{2000, "Exile_Item_PlasticBottleEmpty"}, // 6.67%
 			{2375, "Exile_Item_PlasticBottleDirtyWater"}, // 3.75%
-			{2625, "Exile_Item_ZipTie"}, // 2.50%
-			{2875, "Exile_Item_MountainDupe"}, // 2.50%
+			{2625, "Exile_Item_MountainDupe"}, // 2.50%
+			{2875, "Exile_Item_ZipTie"}, // 2.50%
 			{3087.5, "Exile_Item_EnergyDrink"}, // 2.13%
-			{3262.5, "hgun_P07_F"}, // 1.75%
-			{3437.5, "Exile_Item_Beer"}, // 1.75%
-			{3604.16666666667, "Exile_Item_Magazine03"}, // 1.67%
+			{3262.5, "Exile_Item_Beer"}, // 1.75%
+			{3437.5, "hgun_P07_F"}, // 1.75%
+			{3604.16666666667, "hgun_ACPC2_F"}, // 1.67%
 			{3770.83333333333, "hgun_Rook40_F"}, // 1.67%
-			{3937.5, "Exile_Item_Magazine02"}, // 1.67%
-			{4104.16666666667, "hgun_ACPC2_F"}, // 1.67%
-			{4270.83333333333, "Exile_Item_Magazine01"}, // 1.67%
+			{3937.5, "Exile_Item_Magazine01"}, // 1.67%
+			{4104.16666666667, "Exile_Item_Magazine02"}, // 1.67%
+			{4270.83333333333, "Exile_Item_Magazine03"}, // 1.67%
 			{4420.83333333333, "Exile_Item_PlasticBottleFreshWater"}, // 1.50%
 			{4562.5, "SMG_01_F"}, // 1.42%
 			{4700, "hgun_PDW2000_F"}, // 1.38%
 			{4837.5, "SMG_02_F"}, // 1.38%
 			{4967.12962962963, "Exile_Item_Heatpack"}, // 1.30%
 			{5096.75925925926, "ItemMap"}, // 1.30%
-			{5205.09259259259, "hgun_Pistol_Signal_F"}, // 1.08%
-			{5313.42592592593, "hgun_Pistol_heavy_01_F"}, // 1.08%
-			{5421.75925925926, "hgun_Pistol_heavy_02_F"}, // 1.08%
+			{5205.09259259259, "hgun_Pistol_heavy_01_F"}, // 1.08%
+			{5313.42592592593, "hgun_Pistol_heavy_02_F"}, // 1.08%
+			{5421.75925925926, "hgun_Pistol_Signal_F"}, // 1.08%
 			{5525.92592592593, "Chemlight_blue"}, // 1.04%
-			{5630.09259259259, "FlareYellow_F"}, // 1.04%
+			{5630.09259259259, "FlareWhite_F"}, // 1.04%
 			{5734.25925925926, "FlareRed_F"}, // 1.04%
 			{5838.42592592593, "FlareGreen_F"}, // 1.04%
 			{5942.59259259259, "Chemlight_yellow"}, // 1.04%
 			{6046.75925925926, "Chemlight_red"}, // 1.04%
 			{6150.92592592593, "Chemlight_green"}, // 1.04%
-			{6255.09259259259, "FlareWhite_F"}, // 1.04%
+			{6255.09259259259, "FlareYellow_F"}, // 1.04%
 			{6355.45755609624, "Exile_Item_InstantCoffee"}, // 1.00%
 			{6452.67977831847, "ItemWatch"}, // 0.97%
 			{6549.90200054069, "ItemRadio"}, // 0.97%
@@ -355,226 +355,278 @@ class CfgLootTables
 			{6985.45910659479, "Exile_Item_Raisins"}, // 0.82%
 			{7058.45180732472, "Exile_Item_SeedAstics"}, // 0.73%
 			{7131.44450805464, "Exile_Item_CockONut"}, // 0.73%
-			{7196.25932286946, "Binocular"}, // 0.65%
-			{7261.07413768427, "ItemGPS"}, // 0.65%
+			{7196.25932286946, "ItemGPS"}, // 0.65%
+			{7261.07413768427, "Binocular"}, // 0.65%
 			{7324.94275082296, "Exile_Item_Surstromming"}, // 0.64%
 			{7388.81136396164, "Exile_Item_SausageGravy"}, // 0.64%
 			{7452.67997710033, "Exile_Item_ChristmasTinner"}, // 0.64%
 			{7516.54859023902, "Exile_Item_BBQSandwich"}, // 0.64%
-			{7580.4172033777, "Exile_Item_BeefParts"}, // 0.64%
-			{7644.28581651639, "Exile_Item_Cheathas"}, // 0.64%
-			{7708.15442965507, "Exile_Item_DsNuts"}, // 0.64%
-			{7772.02304279376, "Exile_Item_Noodles"}, // 0.64%
-			{7835.89165593244, "Exile_Item_Dogfood"}, // 0.64%
-			{7899.76026907113, "Exile_Item_CatFood"}, // 0.64%
+			{7580.4172033777, "Exile_Item_Dogfood"}, // 0.64%
+			{7644.28581651639, "Exile_Item_BeefParts"}, // 0.64%
+			{7708.15442965507, "Exile_Item_Cheathas"}, // 0.64%
+			{7772.02304279376, "Exile_Item_CatFood"}, // 0.64%
+			{7835.89165593244, "Exile_Item_Noodles"}, // 0.64%
+			{7899.76026907113, "Exile_Item_DsNuts"}, // 0.64%
 			{7954.50479461858, "Exile_Item_GloriousKnakworst"}, // 0.55%
-			{8008.42636324603, "Exile_Melee_Axe"}, // 0.54%
-			{8056.04541086507, "SmokeShellPurple"}, // 0.48%
-			{8103.66445848412, "SmokeShellRed"}, // 0.48%
-			{8151.28350610317, "SmokeShellGreen"}, // 0.48%
-			{8198.90255372222, "SmokeShellYellow"}, // 0.48%
-			{8246.52160134126, "SmokeShell"}, // 0.48%
-			{8294.14064896031, "SmokeShellBlue"}, // 0.48%
-			{8341.75969657936, "SmokeShellOrange"}, // 0.48%
-			{8387.7155789323, "Exile_Item_Bandage"}, // 0.46%
-			{8433.3360168885, "Exile_Item_CanOpener"}, // 0.46%
-			{8478.95645484471, "Exile_Item_Matches"}, // 0.46%
-			{8520.62312151137, "30Rnd_45ACP_Mag_SMG_01"}, // 0.42%
-			{8562.28978817804, "30Rnd_45ACP_Mag_SMG_01_Tracer_Green"}, // 0.42%
-			{8603.95645484471, "B_OutdoorPack_blk"}, // 0.42%
-			{8645.62312151137, "V_Rangemaster_belt"}, // 0.42%
-			{8683.12312151137, "B_OutdoorPack_tan"}, // 0.38%
-			{8720.62312151137, "B_OutdoorPack_blu"}, // 0.38%
-			{8753.95645484471, "B_HuntingBackpack"}, // 0.33%
-			{8787.28978817804, "11Rnd_45ACP_Mag"}, // 0.33%
-			{8820.62312151137, "30Rnd_9x21_Mag"}, // 0.33%
-			{8853.95645484471, "9Rnd_45ACP_Mag"}, // 0.33%
-			{8885.81919994275, "Exile_Item_Pliers"}, // 0.32%
-			{8917.68194504079, "Exile_Item_Handsaw"}, // 0.32%
-			{8947.68194504079, "muzzle_snds_L"}, // 0.30%
-			{8977.68194504079, "muzzle_snds_acp"}, // 0.30%
-			{9006.84861170745, "B_AssaultPack_dgtl"}, // 0.29%
-			{9036.01527837412, "B_AssaultPack_sgg"}, // 0.29%
-			{9065.18194504078, "B_AssaultPack_mcamo"}, // 0.29%
-			{9094.34861170745, "B_AssaultPack_cbr"}, // 0.29%
-			{9123.51527837412, "B_AssaultPack_khk"}, // 0.29%
-			{9152.68194504078, "B_AssaultPack_blk"}, // 0.29%
-			{9181.84861170745, "B_AssaultPack_rgr"}, // 0.29%
-			{9209.22087448117, "Exile_Item_CookingPot"}, // 0.27%
-			{9236.59313725489, "Exile_Item_EMRE"}, // 0.27%
-			{9263.55392156862, "Exile_Item_JunkMetal"}, // 0.27%
-			{9290.22058823528, "6Rnd_45ACP_Cylinder"}, // 0.27%
-			{9312.2794117647, "Exile_Item_LightBulb"}, // 0.22%
-			{9333.11274509803, "V_TacVest_blk_POLICE"}, // 0.21%
-			{9353.94607843137, "V_Press_F"}, // 0.21%
-			{9374.7794117647, "B_Kitbag_mcamo"}, // 0.21%
-			{9395.61274509803, "B_Kitbag_sgg"}, // 0.21%
-			{9416.44607843137, "B_Kitbag_cbr"}, // 0.21%
-			{9436.05392156862, "Exile_Item_ExtensionCord"}, // 0.20%
-			{9454.4362745098, "Exile_Item_InstaDoc"}, // 0.18%
-			{9471.10294117646, "optic_ACO_grn_smg"}, // 0.17%
-			{9487.76960784313, "optic_Aco_smg"}, // 0.17%
-			{9504.4362745098, "optic_Aco"}, // 0.17%
-			{9521.10294117646, "16Rnd_9x21_Mag"}, // 0.17%
-			{9537.76960784313, "optic_ACO_grn"}, // 0.17%
-			{9554.4362745098, "optic_Holosight_smg"}, // 0.17%
-			{9569.4362745098, "H_StrawHat_dark"}, // 0.15%
-			{9584.4362745098, "H_StrawHat"}, // 0.15%
-			{9599.4362745098, "H_Hat_tan"}, // 0.15%
-			{9614.4362745098, "H_Hat_grey"}, // 0.15%
-			{9629.4362745098, "H_Hat_checker"}, // 0.15%
-			{9644.4362745098, "H_Hat_brown"}, // 0.15%
-			{9659.4362745098, "H_Hat_blue"}, // 0.15%
-			{9674.4362745098, "H_Cap_tan"}, // 0.15%
-			{9689.4362745098, "H_Cap_red"}, // 0.15%
-			{9704.4362745098, "H_Cap_press"}, // 0.15%
-			{9716.9362745098, "H_Bandanna_surfer"}, // 0.13%
-			{9729.4362745098, "H_Beret_blk_POLICE"}, // 0.13%
-			{9741.9362745098, "H_Cap_blk"}, // 0.13%
-			{9754.4362745098, "H_Cap_blk_Raven"}, // 0.13%
-			{9766.9362745098, "H_Cap_blu"}, // 0.13%
-			{9779.4362745098, "H_Cap_grn"}, // 0.13%
-			{9791.9362745098, "H_Cap_headphones"}, // 0.13%
-			{9804.4362745098, "H_Cap_oli"}, // 0.13%
-			{9816.69117647058, "Exile_Item_Grinder"}, // 0.12%
-			{9828.35784313725, "6Rnd_RedSignal_F"}, // 0.12%
-			{9840.02450980391, "optic_Yorris"}, // 0.12%
-			{9851.69117647058, "optic_MRD"}, // 0.12%
-			{9863.35784313724, "6Rnd_GreenSignal_F"}, // 0.12%
-			{9873.16176470587, "Exile_Item_CamoTentKit"}, // 0.10%
-			{9882.9656862745, "Exile_Item_MetalBoard"}, // 0.10%
-			{9892.76960784313, "Exile_Item_Rope"}, // 0.10%
-			{9900.19535041739, "U_C_Poor_2"}, // 0.07%
-			{9907.62109299164, "U_C_Poor_1"}, // 0.07%
-			{9915.0468355659, "U_C_Poor_shorts_1"}, // 0.07%
-			{9922.47257814016, "U_C_HunterBody_grn"}, // 0.07%
-			{9929.89832071442, "U_Rangemaster"}, // 0.07%
-			{9937.32406328868, "U_C_Scientist"}, // 0.07%
-			{9944.74980586293, "U_C_Journalist"}, // 0.07%
-			{9952.1027470394, "Exile_Item_FloodLightKit"}, // 0.07%
-			{9959.45568821587, "Exile_Item_PortableGeneratorKit"}, // 0.07%
-			{9965.23126577363, "U_C_Poloshirt_blue"}, // 0.06%
-			{9971.00684333138, "U_C_Poloshirt_burgundy"}, // 0.06%
-			{9976.78242088914, "U_C_Poloshirt_stripped"}, // 0.06%
-			{9982.5579984469, "U_C_Poloshirt_tricolour"}, // 0.06%
-			{9988.33357600465, "U_C_Poloshirt_salmon"}, // 0.06%
-			{9993.23553678896, "Exile_Item_Knife"}, // 0.05%
-			{9995.68651718112, "Exile_Item_ThermalScannerPro"}, // 0.02%
-			{9997.52475247524, "Exile_Item_Defibrillator"}, // 0.02%
-			{9998.34983498349, "U_NikosBody"}, // 0.01%
-			{9999.17491749174, "U_NikosAgedBody"}, // 0.01%
-			{9999.99999999999, "U_OrestesBody"} // 0.01%
+			{8002.12384223762, "SmokeShellOrange"}, // 0.48%
+			{8049.74288985667, "SmokeShellPurple"}, // 0.48%
+			{8097.36193747572, "SmokeShellBlue"}, // 0.48%
+			{8144.98098509477, "SmokeShellYellow"}, // 0.48%
+			{8192.60003271381, "SmokeShellGreen"}, // 0.48%
+			{8240.21908033286, "SmokeShell"}, // 0.48%
+			{8287.83812795191, "SmokeShellRed"}, // 0.48%
+			{8334.84667496046, "Exile_Melee_Axe"}, // 0.47%
+			{8380.8025573134, "Exile_Item_Bandage"}, // 0.46%
+			{8426.4229952696, "Exile_Item_Matches"}, // 0.46%
+			{8472.0434332258, "Exile_Item_CanOpener"}, // 0.46%
+			{8513.71009989247, "B_OutdoorPack_blk"}, // 0.42%
+			{8555.37676655914, "30Rnd_45ACP_Mag_SMG_01"}, // 0.42%
+			{8597.0434332258, "V_Rangemaster_belt"}, // 0.42%
+			{8638.71009989247, "30Rnd_45ACP_Mag_SMG_01_Tracer_Green"}, // 0.42%
+			{8676.21009989247, "B_OutdoorPack_tan"}, // 0.38%
+			{8713.71009989247, "B_OutdoorPack_blu"}, // 0.38%
+			{8747.0434332258, "30Rnd_9x21_Mag"}, // 0.33%
+			{8780.37676655914, "9Rnd_45ACP_Mag"}, // 0.33%
+			{8813.71009989247, "B_HuntingBackpack"}, // 0.33%
+			{8847.0434332258, "11Rnd_45ACP_Mag"}, // 0.33%
+			{8877.0434332258, "muzzle_snds_L"}, // 0.30%
+			{8907.0434332258, "muzzle_snds_acp"}, // 0.30%
+			{8936.21009989247, "B_AssaultPack_sgg"}, // 0.29%
+			{8965.37676655914, "B_AssaultPack_blk"}, // 0.29%
+			{8994.5434332258, "B_AssaultPack_rgr"}, // 0.29%
+			{9023.71009989247, "B_AssaultPack_dgtl"}, // 0.29%
+			{9052.87676655913, "B_AssaultPack_khk"}, // 0.29%
+			{9082.0434332258, "B_AssaultPack_cbr"}, // 0.29%
+			{9111.21009989247, "B_AssaultPack_mcamo"}, // 0.29%
+			{9138.98787767024, "Exile_Item_Pliers"}, // 0.28%
+			{9166.76565544802, "Exile_Item_Handsaw"}, // 0.28%
+			{9194.13791822174, "Exile_Item_CookingPot"}, // 0.27%
+			{9221.51018099547, "Exile_Item_EMRE"}, // 0.27%
+			{9248.17684766213, "6Rnd_45ACP_Cylinder"}, // 0.27%
+			{9271.68112116641, "Exile_Item_JunkMetal"}, // 0.24%
+			{9292.51445449974, "B_Kitbag_mcamo"}, // 0.21%
+			{9313.34778783307, "B_Kitbag_sgg"}, // 0.21%
+			{9334.18112116641, "B_Kitbag_cbr"}, // 0.21%
+			{9355.01445449974, "V_Press_F"}, // 0.21%
+			{9375.84778783308, "V_TacVest_blk_POLICE"}, // 0.21%
+			{9395.07855706385, "Exile_Item_LightBulb"}, // 0.19%
+			{9413.46091000502, "Exile_Item_InstaDoc"}, // 0.18%
+			{9430.55492709904, "Exile_Item_ExtensionCord"}, // 0.17%
+			{9447.22159376571, "optic_ACO_grn"}, // 0.17%
+			{9463.88826043237, "optic_Aco_smg"}, // 0.17%
+			{9480.55492709904, "optic_ACO_grn_smg"}, // 0.17%
+			{9497.2215937657, "optic_Holosight_smg"}, // 0.17%
+			{9513.88826043237, "16Rnd_9x21_Mag"}, // 0.17%
+			{9530.55492709904, "optic_Aco"}, // 0.17%
+			{9545.55492709904, "H_StrawHat_dark"}, // 0.15%
+			{9560.55492709904, "H_Hat_checker"}, // 0.15%
+			{9575.55492709904, "H_Hat_tan"}, // 0.15%
+			{9590.55492709904, "H_Hat_grey"}, // 0.15%
+			{9605.55492709904, "H_Hat_brown"}, // 0.15%
+			{9620.55492709904, "H_Hat_blue"}, // 0.15%
+			{9635.55492709904, "H_Cap_tan"}, // 0.15%
+			{9650.55492709904, "H_Cap_red"}, // 0.15%
+			{9665.55492709904, "H_Cap_press"}, // 0.15%
+			{9680.55492709904, "H_StrawHat"}, // 0.15%
+			{9693.05492709904, "H_Bandanna_surfer"}, // 0.13%
+			{9705.55492709904, "H_Beret_blk_POLICE"}, // 0.13%
+			{9718.05492709904, "H_Cap_blk"}, // 0.13%
+			{9730.55492709904, "H_Cap_blk_Raven"}, // 0.13%
+			{9743.05492709904, "H_Cap_headphones"}, // 0.13%
+			{9755.55492709904, "H_Cap_grn"}, // 0.13%
+			{9768.05492709904, "H_Cap_oli"}, // 0.13%
+			{9780.55492709904, "H_Cap_blu"}, // 0.13%
+			{9792.2215937657, "6Rnd_RedSignal_F"}, // 0.12%
+			{9803.88826043237, "optic_MRD"}, // 0.12%
+			{9815.55492709903, "optic_Yorris"}, // 0.12%
+			{9827.2215937657, "6Rnd_GreenSignal_F"}, // 0.12%
+			{9837.90535444946, "Exile_Item_WoodSticks"}, // 0.11%
+			{9848.58911513322, "Exile_Item_Grinder"}, // 0.11%
+			{9859.27287581698, "Exile_Item_MetalScrews"}, // 0.11%
+			{9869.95663650074, "Exile_Item_MetalWire"}, // 0.11%
+			{9878.50364504775, "Exile_Item_CamoTentKit"}, // 0.09%
+			{9887.05065359476, "Exile_Item_Rope"}, // 0.09%
+			{9895.59766214176, "Exile_Item_MetalBoard"}, // 0.09%
+			{9903.02340471602, "U_C_HunterBody_grn"}, // 0.07%
+			{9910.44914729028, "U_C_Poor_1"}, // 0.07%
+			{9917.87488986454, "U_C_Poor_2"}, // 0.07%
+			{9925.3006324388, "U_C_Poor_shorts_1"}, // 0.07%
+			{9932.72637501305, "U_Rangemaster"}, // 0.07%
+			{9940.15211758731, "U_C_Scientist"}, // 0.07%
+			{9947.57786016157, "U_C_Journalist"}, // 0.07%
+			{9953.98811657183, "Exile_Item_FloodLightKit"}, // 0.06%
+			{9960.39837298208, "Exile_Item_PortableGeneratorKit"}, // 0.06%
+			{9966.17395053984, "U_C_Poloshirt_salmon"}, // 0.06%
+			{9971.94952809759, "U_C_Poloshirt_tricolour"}, // 0.06%
+			{9977.72510565535, "U_C_Poloshirt_stripped"}, // 0.06%
+			{9983.5006832131, "U_C_Poloshirt_blue"}, // 0.06%
+			{9989.27626077086, "U_C_Poloshirt_burgundy"}, // 0.06%
+			{9993.54976504436, "Exile_Item_Knife"}, // 0.04%
+			{9995.68651718111, "Exile_Item_ThermalScannerPro"}, // 0.02%
+			{9997.52475247523, "Exile_Item_Defibrillator"}, // 0.02%
+			{9998.34983498348, "U_OrestesBody"}, // 0.01%
+			{9999.17491749173, "U_NikosBody"}, // 0.01%
+			{9999.99999999998, "U_NikosAgedBody"} // 0.01%
 		};
 	};
 
 	class Industrial
 	{
-		count = 28;
-		half = 8101.44927536232;
-		halfIndex = 14;
-		sum = 10000;
+		count = 51;
+		half = 8158.22857801868;
+		halfIndex = 25;
+		sum = 9999.99999999998;
 		items[] = 
 		{
-			{1086.95652173913, "Exile_Item_FuelCanisterEmpty"}, // 10.87%
-			{1956.52173913043, "Exile_Item_FuelCanisterFull"}, // 8.70%
-			{2706.73486786019, "Exile_Melee_Axe"}, // 7.50%
-			{3402.38704177323, "Exile_Item_Can_Empty"}, // 6.96%
-			{4098.03921568627, "Exile_Item_ToiletPaper"}, // 6.96%
-			{4793.69138959932, "Exile_Item_PlasticBottleEmpty"}, // 6.96%
-			{5236.99914748508, "Exile_Item_Pliers"}, // 4.43%
-			{5680.30690537084, "Exile_Item_Handsaw"}, // 4.43%
-			{6115.0895140665, "Exile_Item_ZipTie"}, // 4.35%
-			{6490.19607843137, "Exile_Item_JunkMetal"}, // 3.75%
-			{6816.28303495311, "FlareWhite_F"}, // 3.26%
-			{7142.36999147485, "FlareYellow_F"}, // 3.26%
-			{7468.45694799659, "FlareRed_F"}, // 3.26%
-			{7794.54390451833, "FlareGreen_F"}, // 3.26%
-			{8101.44927536232, "Exile_Item_LightBulb"}, // 3.07%
-			{8374.25404944586, "Exile_Item_ExtensionCord"}, // 2.73%
-			{8591.64535379369, "Exile_Item_DuctTape"}, // 2.17%
-			{8765.55839727195, "Exile_Item_Magazine03"}, // 1.74%
-			{8939.47144075021, "Exile_Item_Magazine02"}, // 1.74%
-			{9113.38448422847, "Exile_Item_Magazine01"}, // 1.74%
-			{9283.88746803069, "Exile_Item_Grinder"}, // 1.71%
-			{9420.28985507246, "Exile_Item_CamoTentKit"}, // 1.36%
-			{9556.69224211423, "Exile_Item_Rope"}, // 1.36%
-			{9693.09462915601, "Exile_Item_MetalBoard"}, // 1.36%
-			{9795.39641943734, "Exile_Item_FloodLightKit"}, // 1.02%
-			{9897.69820971867, "Exile_Item_PortableGeneratorKit"}, // 1.02%
-			{9965.89940323955, "Exile_Item_Knife"}, // 0.68%
-			{10000, "Exile_Item_ThermalScannerPro"} // 0.34%
+			{695.652173913044, "Exile_Item_Can_Empty"}, // 6.96%
+			{1391.30434782609, "Exile_Item_ToiletPaper"}, // 6.96%
+			{2086.95652173913, "Exile_Item_PlasticBottleEmpty"}, // 6.96%
+			{2740.98848011892, "Exile_Melee_Axe"}, // 6.54%
+			{3175.77108881457, "Exile_Item_ZipTie"}, // 4.35%
+			{3562.24451876626, "Exile_Item_Handsaw"}, // 3.86%
+			{3948.71794871795, "Exile_Item_Pliers"}, // 3.86%
+			{4323.5305424211, "Exile_Item_FuelCanisterEmpty"}, // 3.75%
+			{4650.54652161099, "Exile_Item_JunkMetal"}, // 3.27%
+			{4976.63347813273, "FlareWhite_F"}, // 3.26%
+			{5302.72043465447, "FlareRed_F"}, // 3.26%
+			{5628.80739117621, "FlareGreen_F"}, // 3.26%
+			{5954.89434769795, "FlareYellow_F"}, // 3.26%
+			{6222.45287612604, "Exile_Item_LightBulb"}, // 2.68%
+			{6460.28267917323, "Exile_Item_ExtensionCord"}, // 2.38%
+			{6685.17023539512, "Exile_Item_FuelCanisterFull"}, // 2.25%
+			{6859.08327887338, "Exile_Item_Magazine03"}, // 1.74%
+			{7032.99632235164, "Exile_Item_Magazine02"}, // 1.74%
+			{7206.90936582991, "Exile_Item_Magazine01"}, // 1.74%
+			{7355.5529927344, "Exile_Item_WoodSticks"}, // 1.49%
+			{7504.1966196389, "Exile_Item_MetalWire"}, // 1.49%
+			{7652.84024654339, "Exile_Item_MetalScrews"}, // 1.49%
+			{7801.48387344789, "Exile_Item_Grinder"}, // 1.49%
+			{7920.39877497149, "Exile_Item_CamoTentKit"}, // 1.19%
+			{8039.31367649508, "Exile_Item_Rope"}, // 1.19%
+			{8158.22857801868, "Exile_Item_MetalBoard"}, // 1.19%
+			{8247.41475416138, "Exile_Item_PortableGeneratorKit"}, // 0.89%
+			{8336.60093030408, "Exile_Item_FloodLightKit"}, // 0.89%
+			{8411.5634490447, "Exile_Item_Grinder"}, // 0.75%
+			{8486.52596778533, "Exile_Item_WoodSticks"}, // 0.75%
+			{8561.48848652596, "Exile_Item_MetalBoard"}, // 0.75%
+			{8636.45100526659, "Exile_Item_MetalWire"}, // 0.75%
+			{8711.41352400722, "Exile_Item_Handsaw"}, // 0.75%
+			{8786.37604274785, "Exile_Item_Knife"}, // 0.75%
+			{8861.33856148848, "Exile_Item_Rope"}, // 0.75%
+			{8936.30108022911, "Exile_Item_ToiletPaper"}, // 0.75%
+			{9011.26359896974, "Exile_Item_CarWheel"}, // 0.75%
+			{9086.22611771037, "Exile_Item_ExtensionCord"}, // 0.75%
+			{9161.188636451, "Exile_Item_Screwdriver"}, // 0.75%
+			{9236.15115519162, "Exile_Item_CordlessScrewdriver"}, // 0.75%
+			{9311.11367393225, "Exile_Item_Hammer"}, // 0.75%
+			{9386.07619267288, "Exile_Item_Foolbox"}, // 0.75%
+			{9461.03871141351, "Exile_Item_Wrench"}, // 0.75%
+			{9536.00123015414, "Exile_Item_JunkMetal"}, // 0.75%
+			{9610.96374889477, "Exile_Item_ZipTie"}, // 0.75%
+			{9685.9262676354, "Exile_Item_OilCanister"}, // 0.75%
+			{9760.88878637603, "Exile_Item_MetalScrews"}, // 0.75%
+			{9835.85130511666, "Exile_Item_Pliers"}, // 0.75%
+			{9910.81382385729, "Exile_Item_DuctTape"}, // 0.75%
+			{9970.27127461908, "Exile_Item_Knife"}, // 0.59%
+			{9999.99999999998, "Exile_Item_ThermalScannerPro"} // 0.30%
 		};
 	};
 
 	class Factories
 	{
-		count = 22;
-		half = 8192.1568627451;
-		halfIndex = 11;
+		count = 25;
+		half = 7981.19658119658;
+		halfIndex = 12;
 		sum = 10000;
 		items[] = 
 		{
-			{1078.43137254902, "Exile_Melee_Axe"}, // 10.78%
-			{2145.09803921569, "Exile_Item_Can_Empty"}, // 10.67%
-			{3211.76470588235, "Exile_Item_ToiletPaper"}, // 10.67%
-			{4278.43137254902, "Exile_Item_PlasticBottleEmpty"}, // 10.67%
-			{4915.6862745098, "Exile_Item_Pliers"}, // 6.37%
-			{5552.94117647059, "Exile_Item_Handsaw"}, // 6.37%
-			{6092.1568627451, "Exile_Item_JunkMetal"}, // 5.39%
-			{6592.1568627451, "Exile_Item_Laptop"}, // 5.00%
-			{7092.1568627451, "Exile_Item_BaseCameraKit"}, // 5.00%
-			{7533.33333333333, "Exile_Item_LightBulb"}, // 4.41%
-			{7925.49019607843, "Exile_Item_ExtensionCord"}, // 3.92%
-			{8192.1568627451, "Exile_Item_Magazine01"}, // 2.67%
-			{8458.82352941176, "Exile_Item_Magazine02"}, // 2.67%
-			{8725.49019607843, "Exile_Item_Magazine03"}, // 2.67%
-			{8970.58823529412, "Exile_Item_Grinder"}, // 2.45%
-			{9166.66666666667, "Exile_Item_Rope"}, // 1.96%
-			{9362.74509803922, "Exile_Item_CamoTentKit"}, // 1.96%
-			{9558.82352941176, "Exile_Item_MetalBoard"}, // 1.96%
-			{9705.88235294118, "Exile_Item_PortableGeneratorKit"}, // 1.47%
-			{9852.94117647059, "Exile_Item_FloodLightKit"}, // 1.47%
-			{9950.98039215686, "Exile_Item_Knife"}, // 0.98%
-			{10000, "Exile_Item_ThermalScannerPro"} // 0.49%
+			{1066.66666666667, "Exile_Item_Can_Empty"}, // 10.67%
+			{2133.33333333333, "Exile_Item_ToiletPaper"}, // 10.67%
+			{3200, "Exile_Item_PlasticBottleEmpty"}, // 10.67%
+			{4140.17094017094, "Exile_Melee_Axe"}, // 9.40%
+			{4695.7264957265, "Exile_Item_Pliers"}, // 5.56%
+			{5251.28205128205, "Exile_Item_Handsaw"}, // 5.56%
+			{5751.28205128205, "Exile_Item_Laptop"}, // 5.00%
+			{6251.28205128205, "Exile_Item_BaseCameraKit"}, // 5.00%
+			{6721.36752136752, "Exile_Item_JunkMetal"}, // 4.70%
+			{7105.98290598291, "Exile_Item_LightBulb"}, // 3.85%
+			{7447.86324786325, "Exile_Item_ExtensionCord"}, // 3.42%
+			{7714.52991452992, "Exile_Item_Magazine01"}, // 2.67%
+			{7981.19658119658, "Exile_Item_Magazine02"}, // 2.67%
+			{8247.86324786325, "Exile_Item_Magazine03"}, // 2.67%
+			{8461.53846153846, "Exile_Item_MetalScrews"}, // 2.14%
+			{8675.21367521367, "Exile_Item_Grinder"}, // 2.14%
+			{8888.88888888889, "Exile_Item_WoodSticks"}, // 2.14%
+			{9102.5641025641, "Exile_Item_MetalWire"}, // 2.14%
+			{9273.50427350427, "Exile_Item_CamoTentKit"}, // 1.71%
+			{9444.44444444444, "Exile_Item_Rope"}, // 1.71%
+			{9615.38461538462, "Exile_Item_MetalBoard"}, // 1.71%
+			{9743.58974358974, "Exile_Item_PortableGeneratorKit"}, // 1.28%
+			{9871.79487179487, "Exile_Item_FloodLightKit"}, // 1.28%
+			{9957.26495726496, "Exile_Item_Knife"}, // 0.85%
+			{10000, "Exile_Item_ThermalScannerPro"} // 0.43%
 		};
 	};
 
 	class VehicleService
 	{
-		count = 28;
-		half = 8561.8073316283;
-		halfIndex = 14;
+		count = 51;
+		half = 7559.04099232435;
+		halfIndex = 25;
 		sum = 10000;
 		items[] = 
 		{
-			{1739.13043478261, "Exile_Item_FuelCanisterEmpty"}, // 17.39%
-			{3130.4347826087, "Exile_Item_FuelCanisterFull"}, // 13.91%
-			{3826.08695652174, "Exile_Item_Can_Empty"}, // 6.96%
-			{4521.73913043478, "Exile_Item_ToiletPaper"}, // 6.96%
-			{5217.39130434783, "Exile_Item_PlasticBottleEmpty"}, // 6.96%
-			{5686.27450980392, "Exile_Melee_Axe"}, // 4.69%
-			{6121.05711849957, "Exile_Item_ZipTie"}, // 4.35%
-			{6468.8832054561, "Exile_Item_DuctTape"}, // 3.48%
-			{6794.97016197783, "FlareWhite_F"}, // 3.26%
-			{7121.05711849957, "FlareRed_F"}, // 3.26%
-			{7447.14407502131, "FlareGreen_F"}, // 3.26%
-			{7773.23103154305, "FlareYellow_F"}, // 3.26%
-			{8050.29838022165, "Exile_Item_Handsaw"}, // 2.77%
-			{8327.36572890025, "Exile_Item_Pliers"}, // 2.77%
-			{8561.8073316283, "Exile_Item_JunkMetal"}, // 2.34%
-			{8753.6231884058, "Exile_Item_LightBulb"}, // 1.92%
-			{8927.53623188406, "Exile_Item_Magazine03"}, // 1.74%
-			{9101.44927536232, "Exile_Item_Magazine01"}, // 1.74%
-			{9275.36231884058, "Exile_Item_Magazine02"}, // 1.74%
-			{9445.86530264279, "Exile_Item_ExtensionCord"}, // 1.71%
-			{9552.42966751918, "Exile_Item_Grinder"}, // 1.07%
-			{9637.68115942029, "Exile_Item_Rope"}, // 0.85%
-			{9722.93265132139, "Exile_Item_MetalBoard"}, // 0.85%
-			{9808.1841432225, "Exile_Item_CamoTentKit"}, // 0.85%
-			{9872.12276214833, "Exile_Item_PortableGeneratorKit"}, // 0.64%
-			{9936.06138107417, "Exile_Item_FloodLightKit"}, // 0.64%
-			{9978.68712702472, "Exile_Item_Knife"}, // 0.43%
-			{10000, "Exile_Item_ThermalScannerPro"} // 0.21%
+			{695.652173913044, "Exile_Item_Can_Empty"}, // 6.96%
+			{1391.30434782609, "Exile_Item_ToiletPaper"}, // 6.96%
+			{2086.95652173913, "Exile_Item_PlasticBottleEmpty"}, // 6.96%
+			{2686.65667166417, "Exile_Item_FuelCanisterEmpty"}, // 6.00%
+			{3121.43928035982, "Exile_Item_ZipTie"}, // 4.35%
+			{3530.20925434719, "Exile_Melee_Axe"}, // 4.09%
+			{3890.02934430221, "Exile_Item_FuelCanisterFull"}, // 3.60%
+			{4216.11630082395, "FlareWhite_F"}, // 3.26%
+			{4542.20325734569, "FlareRed_F"}, // 3.26%
+			{4868.29021386743, "FlareGreen_F"}, // 3.26%
+			{5194.37717038916, "FlareYellow_F"}, // 3.26%
+			{5435.92306410897, "Exile_Item_Pliers"}, // 2.42%
+			{5677.46895782878, "Exile_Item_Handsaw"}, // 2.42%
+			{5881.85394482246, "Exile_Item_JunkMetal"}, // 2.04%
+			{6055.76698830072, "Exile_Item_Magazine02"}, // 1.74%
+			{6229.68003177898, "Exile_Item_Magazine01"}, // 1.74%
+			{6403.59307525724, "Exile_Item_Magazine03"}, // 1.74%
+			{6570.8171555248, "Exile_Item_LightBulb"}, // 1.67%
+			{6719.4607824293, "Exile_Item_ExtensionCord"}, // 1.49%
+			{6839.40081241431, "Exile_Item_Pliers"}, // 1.20%
+			{6959.34084239931, "Exile_Item_CarWheel"}, // 1.20%
+			{7079.28087238432, "Exile_Item_Screwdriver"}, // 1.20%
+			{7199.22090236933, "Exile_Item_MetalWire"}, // 1.20%
+			{7319.16093235434, "Exile_Item_Rope"}, // 1.20%
+			{7439.10096233934, "Exile_Item_Knife"}, // 1.20%
+			{7559.04099232435, "Exile_Item_Handsaw"}, // 1.20%
+			{7678.98102230936, "Exile_Item_CordlessScrewdriver"}, // 1.20%
+			{7798.92105229437, "Exile_Item_MetalBoard"}, // 1.20%
+			{7918.86108227937, "Exile_Item_WoodSticks"}, // 1.20%
+			{8038.80111226438, "Exile_Item_Grinder"}, // 1.20%
+			{8158.74114224939, "Exile_Item_ToiletPaper"}, // 1.20%
+			{8278.6811722344, "Exile_Item_Hammer"}, // 1.20%
+			{8398.6212022194, "Exile_Item_ExtensionCord"}, // 1.20%
+			{8518.56123220441, "Exile_Item_Wrench"}, // 1.20%
+			{8638.50126218942, "Exile_Item_Foolbox"}, // 1.20%
+			{8758.44129217443, "Exile_Item_MetalScrews"}, // 1.20%
+			{8878.38132215944, "Exile_Item_DuctTape"}, // 1.20%
+			{8998.32135214444, "Exile_Item_ZipTie"}, // 1.20%
+			{9118.26138212945, "Exile_Item_JunkMetal"}, // 1.20%
+			{9238.20141211446, "Exile_Item_OilCanister"}, // 1.20%
+			{9331.10367892977, "Exile_Item_WoodSticks"}, // 0.93%
+			{9424.00594574508, "Exile_Item_MetalWire"}, // 0.93%
+			{9516.90821256039, "Exile_Item_MetalScrews"}, // 0.93%
+			{9609.8104793757, "Exile_Item_Grinder"}, // 0.93%
+			{9684.13229282795, "Exile_Item_CamoTentKit"}, // 0.74%
+			{9758.4541062802, "Exile_Item_Rope"}, // 0.74%
+			{9832.77591973244, "Exile_Item_MetalBoard"}, // 0.74%
+			{9888.51727982163, "Exile_Item_PortableGeneratorKit"}, // 0.56%
+			{9944.25863991082, "Exile_Item_FloodLightKit"}, // 0.56%
+			{9981.41954663694, "Exile_Item_Knife"}, // 0.37%
+			{10000, "Exile_Item_ThermalScannerPro"} // 0.19%
 		};
 	};
 
