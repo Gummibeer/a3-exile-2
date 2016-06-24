@@ -1859,7 +1859,10 @@ class CfgExileCustomCode
 		ExileClient_util_fusRoDah = "myaddon\myfunction.sqf";
 	*/
 
-    ExileClient_gui_xm8_slide_apps_onOpen = "ClientOverrides\ExileClient_gui_xm8_slide_apps_onOpen.sqf";
+	ExileClient_gui_xm8_show = "XM8_apps\scripts\ExileClient_gui_xm8_show.sqf";
+	ExileClient_gui_xm8_slide_apps_onOpen = "XM8_apps\scripts\ExileClient_gui_xm8_slide_apps_onOpen.sqf";
+	ExileClient_gui_xm8_slide = "XM8_apps\scripts\ExileClient_gui_xm8_slide.sqf";
+
     ExileClient_gui_xm8_slide_players_onOpen = "ClientOverrides\ExileClient_gui_xm8_slide_players_onOpen.sqf";
     ExileClient_object_player_death_startBleedingOut = "EnigmaRevive\ExileClient_object_player_death_startBleedingOut.sqf"; //Happys Revive
     ExileClient_object_player_event_onInventoryOpened = "EnigmaRevive\ExileClient_object_player_event_onInventoryOpened.sqf"; //Happys Revive AntiDupe ---NEW with v0.65

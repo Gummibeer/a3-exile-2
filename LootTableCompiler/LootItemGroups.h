@@ -626,11 +626,34 @@
 22, Exile_Melee_Axe
 4, Exile_Item_CamoTentKit
 5, Exile_Item_Grinder
+5, Exile_Item_MetalScrews
+5, Exile_Item_MetalWire
+5, Exile_Item_WoodSticks
 
 > Vehicle
-40, Exile_Item_FuelCanisterFull
+30, Exile_Item_FuelCanisterFull
 50, Exile_Item_FuelCanisterEmpty
 10, Exile_Item_DuctTape
+10, Exile_Item_MetalScrews
+10, Exile_Item_ExtensionCord
+10, Exile_Item_OilCanister
+10, Exile_Item_ZipTie
+10, Exile_Item_JunkMetal
+10, Exile_Item_Wrench
+10, Exile_Item_Foolbox
+10, Exile_Item_Hammer
+10, Exile_Item_CordlessScrewdriver
+10, Exile_Item_Screwdriver
+10, Exile_Item_Pliers
+10, Exile_Item_CarWheel
+10, Exile_Item_ToiletPaper
+10, Exile_Item_Rope
+10, Exile_Item_Knife
+10, Exile_Item_Handsaw
+10, Exile_Item_MetalWire
+10, Exile_Item_MetalBoard
+10, Exile_Item_WoodSticks
+10, Exile_Item_Grinder
 
 // Throwables
 
