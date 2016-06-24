@@ -1511,77 +1511,77 @@ class CfgExileArsenal
 	///////////////////////////////////////////////////////////////////////////////
 	// UH-1H Huey
 	///////////////////////////////////////////////////////////////////////////////
-	class Exile_Chopper_Huey_Green 					{ quality = 1; price = 21000; };
-	class Exile_Chopper_Huey_Desert					{ quality = 1; price = 21000; };
-	class Exile_Chopper_Huey_Armed_Green			{ quality = 1; price = 25000; };
-	class Exile_Chopper_Huey_Armed_Desert			{ quality = 1; price = 25000; };
+	class Exile_Chopper_Huey_Green 					{ quality = 1; price = 210000; };
+	class Exile_Chopper_Huey_Desert					{ quality = 1; price = 210000; };
+	class Exile_Chopper_Huey_Armed_Green			{ quality = 1; price = 250000; };
+	class Exile_Chopper_Huey_Armed_Desert			{ quality = 1; price = 250000; };
 
 	///////////////////////////////////////////////////////////////////////////////
 	// Hellcat
 	///////////////////////////////////////////////////////////////////////////////
-	class Exile_Chopper_Hellcat_Green				{ quality = 1; price = 27500; };
-	class Exile_Chopper_Hellcat_FIA					{ quality = 1; price = 27500; };
+	class Exile_Chopper_Hellcat_Green				{ quality = 1; price = 275000; };
+	class Exile_Chopper_Hellcat_FIA					{ quality = 1; price = 275000; };
 
 	///////////////////////////////////////////////////////////////////////////////
 	// Hummingbird
 	///////////////////////////////////////////////////////////////////////////////
-	class Exile_Chopper_Hummingbird_Green			{ quality = 1; price = 23000; };
+	class Exile_Chopper_Hummingbird_Green			{ quality = 1; price = 230000; };
 
 	///////////////////////////////////////////////////////////////////////////////
 	// Hummingbird (Civillian)
 	///////////////////////////////////////////////////////////////////////////////
-	class Exile_Chopper_Hummingbird_Civillian_Blue				{ quality = 1; price = 17000; };
-	class Exile_Chopper_Hummingbird_Civillian_Red				{ quality = 1; price = 17000; };
-	class Exile_Chopper_Hummingbird_Civillian_ION				{ quality = 1; price = 17000; };
-	class Exile_Chopper_Hummingbird_Civillian_BlueLine			{ quality = 1; price = 17000; };
-	class Exile_Chopper_Hummingbird_Civillian_Digital			{ quality = 1; price = 17000; };
-	class Exile_Chopper_Hummingbird_Civillian_Elliptical		{ quality = 1; price = 17000; };
-	class Exile_Chopper_Hummingbird_Civillian_Furious			{ quality = 1; price = 17000; };
-	class Exile_Chopper_Hummingbird_Civillian_GrayWatcher		{ quality = 1; price = 17000; };
-	class Exile_Chopper_Hummingbird_Civillian_Jeans				{ quality = 1; price = 17000; };
-	class Exile_Chopper_Hummingbird_Civillian_Light				{ quality = 1; price = 17000; };
-	class Exile_Chopper_Hummingbird_Civillian_Shadow			{ quality = 1; price = 17000; };
-	class Exile_Chopper_Hummingbird_Civillian_Sheriff			{ quality = 1; price = 17000; };
-	class Exile_Chopper_Hummingbird_Civillian_Speedy			{ quality = 1; price = 17000; };
-	class Exile_Chopper_Hummingbird_Civillian_Sunset			{ quality = 1; price = 17000; };
-	class Exile_Chopper_Hummingbird_Civillian_Vrana				{ quality = 1; price = 17000; };
-	class Exile_Chopper_Hummingbird_Civillian_Wasp				{ quality = 1; price = 17000; };
-	class Exile_Chopper_Hummingbird_Civillian_Wave				{ quality = 1; price = 17000; };
+	class Exile_Chopper_Hummingbird_Civillian_Blue				{ quality = 1; price = 170000; };
+	class Exile_Chopper_Hummingbird_Civillian_Red				{ quality = 1; price = 170000; };
+	class Exile_Chopper_Hummingbird_Civillian_ION				{ quality = 1; price = 170000; };
+	class Exile_Chopper_Hummingbird_Civillian_BlueLine			{ quality = 1; price = 170000; };
+	class Exile_Chopper_Hummingbird_Civillian_Digital			{ quality = 1; price = 170000; };
+	class Exile_Chopper_Hummingbird_Civillian_Elliptical		{ quality = 1; price = 170000; };
+	class Exile_Chopper_Hummingbird_Civillian_Furious			{ quality = 1; price = 170000; };
+	class Exile_Chopper_Hummingbird_Civillian_GrayWatcher		{ quality = 1; price = 170000; };
+	class Exile_Chopper_Hummingbird_Civillian_Jeans				{ quality = 1; price = 170000; };
+	class Exile_Chopper_Hummingbird_Civillian_Light				{ quality = 1; price = 170000; };
+	class Exile_Chopper_Hummingbird_Civillian_Shadow			{ quality = 1; price = 170000; };
+	class Exile_Chopper_Hummingbird_Civillian_Sheriff			{ quality = 1; price = 170000; };
+	class Exile_Chopper_Hummingbird_Civillian_Speedy			{ quality = 1; price = 170000; };
+	class Exile_Chopper_Hummingbird_Civillian_Sunset			{ quality = 1; price = 170000; };
+	class Exile_Chopper_Hummingbird_Civillian_Vrana				{ quality = 1; price = 170000; };
+	class Exile_Chopper_Hummingbird_Civillian_Wasp				{ quality = 1; price = 170000; };
+	class Exile_Chopper_Hummingbird_Civillian_Wave				{ quality = 1; price = 170000; };
 
 	///////////////////////////////////////////////////////////////////////////////
 	// Huron
 	///////////////////////////////////////////////////////////////////////////////
-	class Exile_Chopper_Huron_Black								{ quality = 1; price = 50000; };
-	class Exile_Chopper_Huron_Green								{ quality = 1; price = 50000; };
+	class Exile_Chopper_Huron_Black								{ quality = 1; price = 500000; };
+	class Exile_Chopper_Huron_Green								{ quality = 1; price = 500000; };
 
 	///////////////////////////////////////////////////////////////////////////////
 	// Mohawk
 	///////////////////////////////////////////////////////////////////////////////
-	class Exile_Chopper_Mohawk_FIA								{ quality = 1; price = 45000; };
+	class Exile_Chopper_Mohawk_FIA								{ quality = 1; price = 450000; };
 
 	///////////////////////////////////////////////////////////////////////////////
 	// Orca
 	///////////////////////////////////////////////////////////////////////////////
-	class Exile_Chopper_Orca_CSAT								{ quality = 1; price = 28000; };
-	class Exile_Chopper_Orca_Black								{ quality = 1; price = 28000; };
-	class Exile_Chopper_Orca_BlackCustom						{ quality = 1; price = 28000; };
+	class Exile_Chopper_Orca_CSAT								{ quality = 1; price = 280000; };
+	class Exile_Chopper_Orca_Black								{ quality = 1; price = 280000; };
+	class Exile_Chopper_Orca_BlackCustom						{ quality = 1; price = 280000; };
 
 	///////////////////////////////////////////////////////////////////////////////
 	// Taru
 	///////////////////////////////////////////////////////////////////////////////
-	class Exile_Chopper_Taru_Transport_CSAT						{ quality = 1; price = 17000; };
-	class Exile_Chopper_Taru_Transport_Black					{ quality = 1; price = 17000; };
+	class Exile_Chopper_Taru_Transport_CSAT						{ quality = 1; price = 170000; };
+	class Exile_Chopper_Taru_Transport_Black					{ quality = 1; price = 170000; };
 	
-	class Exile_Chopper_Taru_CSAT								{ quality = 1; price = 33000; };
-	class Exile_Chopper_Taru_Black								{ quality = 1; price = 33000; };
+	class Exile_Chopper_Taru_CSAT								{ quality = 1; price = 330000; };
+	class Exile_Chopper_Taru_Black								{ quality = 1; price = 330000; };
 
-	class Exile_Chopper_Taru_Covered_CSAT						{ quality = 1; price = 43000; };
-	class Exile_Chopper_Taru_Covered_Black						{ quality = 1; price = 43000; };
+	class Exile_Chopper_Taru_Covered_CSAT						{ quality = 1; price = 430000; };
+	class Exile_Chopper_Taru_Covered_Black						{ quality = 1; price = 430000; };
 
 	///////////////////////////////////////////////////////////////////////////////
 	// Cessna
 	///////////////////////////////////////////////////////////////////////////////
-	class Exile_Plane_Cessna									{ quality = 1; price = 16500; };
+	class Exile_Plane_Cessna									{ quality = 1; price = 165000; };
 
 	///////////////////////////////////////////////////////////////////////////////
 	// Hatchback
