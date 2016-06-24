@@ -16,6 +16,7 @@ class CfgVemfReloadedOverrides
 			"Exile_Chopper_Mohawk_FIA",
 			"Exile_Chopper_Huron_Black",
 			"Exile_Chopper_Hellcat_Green",
+			"Exile_Chopper_Huey_Armed_Green",
 			"Exile_Chopper_Taru_Transport_Black"
 		}}; // Enable/disable heli patrol at mission location and set the types of heli(s)
 		heliLocked = 0; // Enable/disable heli lock to prevent/allow players from flying it
