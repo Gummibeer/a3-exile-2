@@ -96,7 +96,7 @@ chatCommandsP[] =
 	Example:	
 	{-1, -1, 4, 0.6, 0, 0, "#ff0000", "Welcome to our server"}
 */
-ENABLE_NOTIFICATION_MESSAGES = true;
+ENABLE_NOTIFICATION_MESSAGES = false;
 NOTIFY_MSG_ARRAY[] =
 {
 	{-1, -1, 6, 0.6, 0, 0, "#ff0000", "Welcome to our server"},
@@ -140,28 +140,45 @@ hiddenSuperAdmin[] =
 adminUIDandAccess[] =
 {
 	{
-		{"76561198061912622","UID2","UID3","..."},	/* Admins with UIDs in this Array have their Access defined in the array below. */
 		{
-			"Teleport On Map Click","Teleport - Target To Me","Teleport - Me To Target","Teleport In Facing Direction (10m steps)",
-			"spectating","AdminConsole","Delete Vehicle","FlyUp","ShowGear","Show Server Information",
-			"HealSelf","HealRepairNear","AdminLog","Freeze Target","UnFreeze Target","Restrain","UnRestrain",
-			"==== Loadouts ====","==== Base Deleter ====","==== WeatherLord ====","Items spawn menu",
-			"Remove Gear","Heal","Restore","Flip Vehicle","Move In My Vehicle","Move In Target Vehicle","Eject","Eject Crew",
-			"Kill","Explode","Force Disconnect","Kick (Silent)","Kick (Announce)","Ban (Silent)","Ban (Announce)",
+			"76561198061912622" /* Pandabeard | Tom */
+		},	/* Admins with UIDs in this Array have their Access defined in the array below. */
+		{
+			"Teleport On Map Click","Teleport - Target To Me","Teleport - Me To Target",
+			"Delete Vehicle",
+			"FlyUp",
+			"ShowGear","Remove Gear",
+			"Show Server Information",
+			"HealSelf","HealRepairNear","Heal","Restore",
+			"AdminLog",
+			"Freeze Target","UnFreeze Target",
+			"Restrain","UnRestrain",
+			"==== Loadouts ====",
+			"==== Base Deleter ====",
+			"==== WeatherLord ====",
+			"Items spawn menu",
+			"Flip Vehicle",
+			"Move In My Vehicle",
+			"Move In Target Vehicle",
+			"Eject","Eject Crew",
+			"Force Disconnect","Kick (Announce)","Ban (Announce)",
 			"Player ESP","Player ESP (safezone style)","AI ESP","Dead ESP","Loot ESP",
 			"Vehicle Marker","Flag Marker (with radius)","DeadPlayer Marker",
-			"God Mode","God Mode (no stats change)","Vehicle God Mode","Lower Terrain","Vehboost","UnlimAmmo","noRecoil","FastFire","Stealth / Invisible",
-			"Disable Announces","Mass Message","Change Time","Spawn Support-Boxes","Create Billboard","Change ViewDistance",
-			"Spawn Ammo","Login as Arma Admin","BIS FreeRoam Cam (works with ESP)","FreeRoam Cam (does not work with ESP)",
-			"Request Steam Name","showinfo","Change Money","Change Respect",
-			"UnlockLockVehicle","Copy Worldspace(coords) to RPT & Chat",
-			"Spawn Vehicles","Spawn Persistent Vehicles",
-			"MapIcons",
-			"MapIcons: Buildings","MapIcons: Flags",
-			"MapIcons: Player","MapIcons: DeadPlayer","MapIcons: Vehicles",
-			"MapIcons: Vehicle Types","MapIcons: Vehicle lockstate","MapIcons: DeadVehicles",
-			"MapIcons: AI",
-			"Arsenal"	// Adds Arsenal to the mousewheel actions if you press "," on the Numpad!
+			"God Mode","God Mode (no stats change)","Vehicle God Mode",
+			"UnlimAmmo",
+			"Stealth / Invisible",
+			"Disable Announces",
+			"Mass Message",
+			"Change Time",
+			"Spawn Ammo",
+			"Login as Arma Admin",
+			"Request Steam Name",
+			"showinfo",
+			"Change Money","Change Respect",
+			"UnlockLockVehicle",
+			"Copy Worldspace(coords) to RPT & Chat",
+			"Spawn Vehicles",
+			"MapIcons","MapIcons: Buildings","MapIcons: Flags","MapIcons: Player","MapIcons: DeadPlayer","MapIcons: Vehicles","MapIcons: Vehicle Types","MapIcons: Vehicle lockstate","MapIcons: DeadVehicles","MapIcons: AI"
 		}
 	},
 	{
