@@ -38,7 +38,7 @@ if (VEMFrInvasionCount <= (([[_missionName],["maxInvasions"]] call VEMFr_fnc_get
 			};
 			if (_mode isEqualTo 1) then
 			{
-				[_mode, "NEW POLICE RAID", format["%1 Police forces are now controlling %2 @ %3", worldName, _locName, mapGridPosition _locPos]] ExecVM "exile_vemf_reloaded\sqf\notificationToClient.sqf";
+				[_mode, "NEW MILITARY RAID", format["%1 Military forces are now controlling %2 @ %3", worldName, _locName, mapGridPosition _locPos]] ExecVM "exile_vemf_reloaded\sqf\notificationToClient.sqf";
 			};
 			if (_mode isEqualTo 2) then
 			{
@@ -58,11 +58,11 @@ if (VEMFrInvasionCount <= (([[_missionName],["maxInvasions"]] call VEMFr_fnc_get
 			};
 			if (_mode isEqualTo 0) then
 			{
-				_marker setMarkerColor "ColorEAST";
+				_marker setMarkerColor "ColorRed";
 			};
 			if (_mode isEqualTo 1) then
 			{
-				_marker setMarkerColor "ColorWEST";
+				_marker setMarkerColor "ColorBrown";
 			};
 			if (_mode isEqualTo 2) then
 			{
