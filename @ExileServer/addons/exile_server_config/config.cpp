@@ -1815,8 +1815,9 @@ class CfgSettings
 		loadOut[] = 
 		{
 			"ItemCompass",
-			"Exile_Item_XM8",
+			"ItemMap",
 			"ItemRadio",
+			"Exile_Item_XM8",
 			"Exile_Item_PlasticBottleFreshWater",
 			"hgun_P07_F",
 			"16Rnd_9x21_Mag"
