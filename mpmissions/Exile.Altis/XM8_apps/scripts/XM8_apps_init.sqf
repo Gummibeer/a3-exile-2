@@ -3,13 +3,11 @@
 	Original idea by Shix.
 */
 
-params ["_pathToFolder"];
-
 //Setting path to app
-XM8_apps_folderPath = _pathToFolder;
+XM8_apps_folderPath = "";
 
 //Apply config
-call compile preprocessFileLineNumbers format ["%1XM8_apps\XM8_apps_config.sqf",_pathToFolder];
+call compile preprocessFileLineNumbers format ["%1XM8_apps\XM8_apps_config.sqf", XM8_apps_folderPath];
 
 //Run init scripts for those apps that made for Improved XM8 apps (not legacy apps)
 for "_i" from 1 to 15 do {
