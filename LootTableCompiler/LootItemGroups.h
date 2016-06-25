@@ -600,6 +600,39 @@
 1, V_RebreatherIR
 1, V_RebreatherIA
 
+> BWItems
+1, BWA3_DM51A1
+1, BWA3_DM25
+1, BWA3_DM32_Orange
+1, BWA3_DM32_Yellow
+1, BWA3_G_Combat_Orange
+1, BWA3_G_Combat_Black
+1, BWA3_G_Combat_Clear
+1, BWA3_Item_Vector
+1, BWA3_Item_ItemNavipad
+1, BWA3_muzzle_snds_G28
+1, BWA3_muzzle_snds_G36
+1, BWA3_muzzle_snds_MG4
+1, BWA3_muzzle_snds_MG5
+1, BWA3_muzzle_snds_MP7
+1, BWA3_optic_RSAS
+1, BWA3_optic_Aimpoint
+1, BWA3_optic_EOTech
+1, BWA3_optic_EOTech_tan
+1, BWA3_optic_EOTech_Mag_Off
+1, BWA3_optic_EOTech_Mag_On
+1, BWA3_optic_EOTech_tan_Mag_Off
+1, BWA3_optic_EOTech_tan_Mag_On
+1, BWA3_optic_NSV80
+1, BWA3_optic_ZO4x30
+1, BWA3_optic_ZO4x30_NSV
+1, BWA3_optic_ZO4x30_IRV
+1, BWA3_optic_Shortdot
+1, BWA3_optic_20x50
+1, BWA3_optic_20x50_NSV
+1, BWA3_optic_24x72
+1, BWA3_optic_24x72_NSV
+
 ///////////////////////////////////////////////////////////////////////////////
 // Other Items
 ///////////////////////////////////////////////////////////////////////////////

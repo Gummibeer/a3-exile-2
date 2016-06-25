@@ -40,12 +40,12 @@ SC_minDistanceToTerritory   = 250;                  // Minimum distance in metre
 SC_minDistanceToPlayer      = 250;                  // Minimum distance in metres to the nearest player
 
 
-SC_occupyRandomSpawn        = true;                // (WORK IN PROGRESS, NOT WORKING YET) true if you want random spawning AI that hunt for nearby players
+SC_occupyRandomSpawn        = false;                // (WORK IN PROGRESS, NOT WORKING YET) true if you want random spawning AI that hunt for nearby players
 SC_randomSpawnMinPlayers    = 1;                    // Minimum number of players to be online before random spawning AI can spawn
 SC_randomSpawnMaxAI         = 5;                    // Maximum amount of random AI groups allowed at any time
 SC_randomSpawnIgnoreCount	= true;					// true if you want spawn random AI groups regardless of overall AI count (they still count towards the total though)
 
-SC_occupyPlaces 			= true;				    // true if you want villages,towns,cities patrolled by bandits
+SC_occupyPlaces 			= false;				// true if you want villages,towns,cities patrolled by bandits
 
 SC_occupyVehicle			= true;					// true if you want to have roaming AI vehicles
 SC_occupyVehicleIgnoreCount	= true;					// true if you want spawn vehicles regardless of overall AI count
@@ -57,9 +57,9 @@ SC_occupyTraderDetails      = [
                                 ["Schrattendamm Traders",[10584,4975,0],"trader1.sqf",true]
                               ];  //["Name",[x,y,z],"filename",true] trader name, location, safezone true/false
                                                     
-SC_SurvivorsChance          = 10;                   // chance in % to spawn survivors instead of bandits (for places and land vehicles)
-SC_occupyPlacesSurvivors	= true;	                // true if you want a chance to spawn survivor AI as well as bandits (SC_occupyPlaces must be true to use this option)
-SC_occupyVehicleSurvivors	= true;                // true if you want a chance to spawn survivor AI as well as bandits (SC_occupyVehicle must be true to use this option)
+SC_SurvivorsChance          = 0;                   // chance in % to spawn survivors instead of bandits (for places and land vehicles)
+SC_occupyPlacesSurvivors	= false;	                // true if you want a chance to spawn survivor AI as well as bandits (SC_occupyPlaces must be true to use this option)
+SC_occupyVehicleSurvivors	= false;                // true if you want a chance to spawn survivor AI as well as bandits (SC_occupyVehicle must be true to use this option)
 SC_SurvivorsFriendly        = true;                 // true if you want survivors to be friendly to players (until they are attacked by players)
                                                     // false if you want survivors to be aggressive to players
 
@@ -99,7 +99,7 @@ SC_staticSurvivors          = [	                    //[[pos],ai count,radius,sea
                                 //[[3770,8791,0],8,250,true]	
                               ];      
 
-SC_occupySky				= true;					// true if you want to have roaming AI helis
+SC_occupySky				= false;					// true if you want to have roaming AI helis
 SC_occupySea				= false;		        // true if you want to have roaming AI boats
 
 SC_occupyTransport 	        = false;					// true if you want pubic transport (travels between traders)
@@ -111,7 +111,7 @@ SC_occupyTransportGetOut    = ["Thanks for using Occupation Transport. We hope t
 SC_occupyTransportMessages  = ["You guys should totally visit our website","No mooning out of the window please!","Scream if you want to go faster!","frrt"];
 
 
-SC_occupyLootCrates		    = true;					// true if you want to have random loot crates with guards
+SC_occupyLootCrates		    = false;					// true if you want to have random loot crates with guards
 SC_numberofLootCrates       = 6;                    // if SC_occupyLootCrates = true spawn this many loot crates (overrided below for Namalsk)
 SC_LootCrateGuards          = 7;                    // number of AI to spawn at each crate
 SC_LootCrateGuardsRandomize = true;                 // Use a random number of guards up to a maximum = SC_numberofGuards (so between 1 and SC_numberofGuards)
@@ -186,12 +186,12 @@ SC_HeliCrashWeapons         =   [
 SC_HeliCrashWeaponsAmount   = [1,3]; // [fixed amount to add, random amount to add]
 SC_HeliCrashMagazinesAmount = [2,2]; // [fixed amount to add, random amount to add]
 
-SC_minimumCrewAmount        = 2;     // Maximum amount of AI allowed in a vehicle (applies to ground, air and sea vehicles)
+SC_minimumCrewAmount        = 1;     // Maximum amount of AI allowed in a vehicle (applies to ground, air and sea vehicles)
 SC_maximumCrewAmount        = 6;     // Maximum amount of AI allowed in a vehicle (applies to ground, air and sea vehicles) 
                                      // (essential crew like drivers and gunners will always spawn regardless of these settings)
 
 // Settings for roaming ground vehicle AI
-SC_maxNumberofVehicles 	    = 50;
+SC_maxNumberofVehicles 	    = 20;
 
 // Array of arrays of ground vehicles which can be used by AI patrols (the number next to next vehicle is the maximum amount of that class allowed, 0 for no limit)				
 SC_VehicleClassToUse 		=   [
