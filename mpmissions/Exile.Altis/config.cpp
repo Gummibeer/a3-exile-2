@@ -2400,12 +2400,14 @@ class CfgInteractionMenus
 			};
 
 			// Repairs a vehicle to 100%. Requires Duckttape
+			/*
 			class Repair: ExileAbstractAction
 			{
 				title = "Repair";
 				condition = "true";
 				action = "['RepairVehicle', _this select 0] call ExileClient_action_execute";
 			};
+			*/
 
 			// Hot-wires a vehicle
 			class Hotwire: ExileAbstractAction
