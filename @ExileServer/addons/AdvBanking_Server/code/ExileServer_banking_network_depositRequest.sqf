@@ -30,14 +30,19 @@ try {
 	};
     _playerWallet = _playerObject getVariable ["ExileMoney", 0];
     _playerBank = _playerObject getVariable ["ExileBank", 0];
+    _fee = 500 + (_moneyRequest / 10);
     if (_playerWallet < 0) then {
         throw 3;
     };
     if (_moneyRequest > _playerWallet) then {
         throw "You can't deposit more than you have in your wallet";
     };
+    if (_moneyRequest < _fee) then {
+        throw "You can't deposit less than the fee is (500 + 10%)";
+    };
+
     _playerWallet = _playerWallet - _moneyRequest;
-    _playerBank = _playerBank + _moneyRequest;
+    _playerBank = _playerBank + _moneyRequest - _fee;
     _playerObject setVariable ["ExileMoney", _playerWallet];
     _playerObject setVariable ["ExileBank",_playerBank];
     format["setStats:%1:%2:%3",_playerWallet,_playerBank,(getPlayerUID _playerObject)] call ExileServer_system_database_query_fireAndForget;
