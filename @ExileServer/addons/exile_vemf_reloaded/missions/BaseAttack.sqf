@@ -19,15 +19,17 @@ if (VEMFrAttackCount <= ([[_missionName],["maxAttacks"]] call VEMFr_fnc_getSetti
       {
          _attackedFlags = uiNamespace getVariable ["VEMFrAttackedFlags",[]];
          _flags = [];
+         _occupiedFlags = [];
          {
             if (speed _x < 25 AND (vehicle _x isEqualTo _x)) then
             {
                _flagsObjs = nearestObjects [position _x, ["Exile_Construction_Flag_Static"], 150];
                {
+                  _occupiedFlags pushBack _x;
                   if not(_x in _attackedFlags) then
-                     {
-                        _flags pushBack _x;
-                     };
+                  {
+                     _flags pushBack _x;
+                  };
                } forEach _flagsObjs;
             };
          } forEach allPlayers;
@@ -35,100 +37,99 @@ if (VEMFrAttackCount <= ([[_missionName],["maxAttacks"]] call VEMFr_fnc_getSetti
          {
             _flagToAttack = selectRandom _flags;
             _attackedFlags pushBack _flagToAttack;
-            _flagPos = position _flagToAttack;
-            _nearestPlayer = selectRandom (nearestObjects [_flagPos, ["Exile_Unit_Player"], 150]);
-            if not isNil "_nearestPlayer" then
+         } else {
+            _flagToAttack = selectRandom _occupiedFlags;
+         };
+         _flagPos = position _flagToAttack;
+         _nearestPlayer = selectRandom (nearestObjects [_flagPos, ["Exile_Unit_Player"], 150]);
+         if not isNil "_nearestPlayer" then
+         {
+            _flagName = _flagToAttack getVariable ["exileterritoryname", "ERROR: UNKNOWN NAME"];
+            _level = _flagToAttack getVariable ["ExileTerritoryLevel",1];
+            _groups = _aiSetup select 0;
+            _groups = _groups max round (_level / 2);
+            _units = _aiSetup select 1;
+            _paraGroups = [_flagPos, _groups, _units, ([[_missionName],["aiMode"]] call VEMFr_fnc_getSetting select 0), _missionName, 1000 + (random 1000), 150] call VEMFr_fnc_spawnVEMFrAI;
+            if (count _paraGroups isEqualTo (_aiSetup select 0)) then
             {
-               _flagName = _flagToAttack getVariable ["exileterritoryname", "ERROR: UNKNOWN NAME"];
-               _level = _flagToAttack getVariable ["ExileTerritoryLevel",1];
-               _groups = _aiSetup select 0;
-               _groups = _groups max round (_level / 2);
-               _units = _aiSetup select 1;
-               _paraGroups = [_flagPos, _groups, _units, ([[_missionName],["aiMode"]] call VEMFr_fnc_getSetting select 0), _missionName, 1000 + (random 1000), 150] call VEMFr_fnc_spawnVEMFrAI;
-               if (count _paraGroups isEqualTo (_aiSetup select 0)) then
+               _unitCount = 0;
                {
-                  _unitCount = 0;
+                  if (count (units _x) isEqualTo (_aiSetup select 1)) then
                   {
-                     if (count (units _x) isEqualTo (_aiSetup select 1)) then
-                     {
-                        _unitCount = _unitCount + (count(units _x));
-                     };
-                  } forEach _paraGroups;
-                  if (_unitCount isEqualTo ((_aiSetup select 0) * (_aiSetup select 1))) then
-                  {
-                     _wayPoints = [];
-                     _units = [];
-                     {
-                        _wp = _x addWaypoint [_flagPos, 50, 1];
-                        _wp setWaypointBehaviour "COMBAT";
-                        _wp setWaypointCombatMode "RED";
-                        _wp setWaypointCompletionRadius 10;
-                        _wp setWaypointFormation "DIAMOND";
-                        _wp setWaypointSpeed "FULL";
-                        _wp setWaypointType "SAD";
-                        _x setCurrentWaypoint _wp;
-                        _wayPoints pushback _wp;
-                        {
-                           _units pushback _x;
-                        } forEach (units _x);
-                        [_x] ExecVM "exile_vemf_reloaded\sqf\signAI.sqf";
-                     } forEach _paraGroups;
-                     _players = nearestObjects [_flagPos, ["Exile_Unit_Player"], 275];
-                     [-1, "NEW BASE ATTACK", format["A para team is on the way to %1 @ %2's location!", _flagName, name _nearestPlayer], _players] ExecVM "exile_vemf_reloaded\sqf\notificationToClient.sqf";
-                     [-1, "BaseAttack", format["A para team is on the way to %1 @ %2's location!", _flagName, name _nearestPlayer]] ExecVM "exile_vemf_reloaded\sqf\log.sqf";
-
-                     while {true} do
-                     {
-                        scopeName "loop";
-                        _deadCount = 0;
-                        {
-                           if (damage _x isEqualTo 1 OR isNull _x) then
-                           {
-                              _deadCount = _deadCount + 1;
-                           };
-                        } forEach _units;
-                        if (_deadCount isEqualTo _unitCount) then
-                        {
-                           breakOut "loop";
-                        } else
-                        {
-                           uiSleep 4;
-                        };
-                     };
-                     _players = nearestObjects [_flagPos, ["Exile_Unit_Player"], 275];
-                     [-1, "DEFEATED", format["Base attack on %1 has been defeated!", _flagname], _players] ExecVM "exile_vemf_reloaded\sqf\notificationToClient.sqf";
-                     breakOut "outer";
-                  } else
-                  {
-                     {
-                        {
-                           deleteVehicle _x;
-                        } forEach (units _x);
-                     } forEach _paraGroups;
-                     ["BaseAttack", 0, format["Incorrect amount of total units (%1). Should be %2", _unitCount, (_aiSetup select 0) * (_aiSetup select 1)]] ExecVM "exile_vemf_reloaded\sqf\log.sqf";
-                     breakOut "outer";
+                     _unitCount = _unitCount + (count(units _x));
                   };
+               } forEach _paraGroups;
+               if (_unitCount isEqualTo ((_aiSetup select 0) * (_aiSetup select 1))) then
+               {
+                  _wayPoints = [];
+                  _units = [];
+                  {
+                     _wp = _x addWaypoint [_flagPos, 50, 1];
+                     _wp setWaypointBehaviour "COMBAT";
+                     _wp setWaypointCombatMode "RED";
+                     _wp setWaypointCompletionRadius 10;
+                     _wp setWaypointFormation "DIAMOND";
+                     _wp setWaypointSpeed "FULL";
+                     _wp setWaypointType "SAD";
+                     _x setCurrentWaypoint _wp;
+                     _wayPoints pushback _wp;
+                     {
+                        _units pushback _x;
+                     } forEach (units _x);
+                     [_x] ExecVM "exile_vemf_reloaded\sqf\signAI.sqf";
+                  } forEach _paraGroups;
+                  _players = nearestObjects [_flagPos, ["Exile_Unit_Player"], 275];
+                  [-1, "NEW BASE ATTACK", format["A para team is on the way to %1 @ %2's location!", _flagName, name _nearestPlayer], _players] ExecVM "exile_vemf_reloaded\sqf\notificationToClient.sqf";
+                  [-1, "BaseAttack", format["A para team is on the way to %1 @ %2's location!", _flagName, name _nearestPlayer]] ExecVM "exile_vemf_reloaded\sqf\log.sqf";
+
+                  while {true} do
+                  {
+                     scopeName "loop";
+                     _deadCount = 0;
+                     {
+                        if (damage _x isEqualTo 1 OR isNull _x) then
+                        {
+                           _deadCount = _deadCount + 1;
+                        };
+                     } forEach _units;
+                     if (_deadCount isEqualTo _unitCount) then
+                     {
+                        breakOut "loop";
+                     } else
+                     {
+                        uiSleep 4;
+                     };
+                  };
+                  _players = nearestObjects [_flagPos, ["Exile_Unit_Player"], 275];
+                  [-1, "DEFEATED", format["Base attack on %1 has been defeated!", _flagname], _players] ExecVM "exile_vemf_reloaded\sqf\notificationToClient.sqf";
+                  breakOut "outer";
                } else
                {
-                  ["BaseAttack", 0, format["Incorrect spawned group count (%1). Should be %2", count _paraGroups, _aiSetup select 0]] ExecVM "exile_vemf_reloaded\sqf\log.sqf";
+                  {
+                     {
+                        deleteVehicle _x;
+                     } forEach (units _x);
+                  } forEach _paraGroups;
+                  ["BaseAttack", 0, format["Incorrect amount of total units (%1). Should be %2", _unitCount, (_aiSetup select 0) * (_aiSetup select 1)]] ExecVM "exile_vemf_reloaded\sqf\log.sqf";
                   breakOut "outer";
                };
             } else
             {
-               _index = _attackedFlags find _flagToAttack;
-               if (_index > -1) then
-               {
-                  _attackedFlags deleteAt _index;
-                  ["BaseAttack", 1, "Flag deleted from attackedFlag array"] ExecVM "exile_vemf_reloaded\sqf\log.sqf";
-               } else
-               {
-                  ["BaseAttack", 0, "Unable to locate and remove attacked flag!"] ExecVM "exile_vemf_reloaded\sqf\log.sqf";
-               };
-               ["BaseAttack", 0, "Can not find player near flag!"] ExecVM "exile_vemf_reloaded\sqf\log.sqf";
+               ["BaseAttack", 0, format["Incorrect spawned group count (%1). Should be %2", count _paraGroups, _aiSetup select 0]] ExecVM "exile_vemf_reloaded\sqf\log.sqf";
                breakOut "outer";
             };
          } else
          {
+            _index = _attackedFlags find _flagToAttack;
+            if (_index > -1) then
+            {
+               _attackedFlags deleteAt _index;
+               ["BaseAttack", 1, "Flag deleted from attackedFlag array"] ExecVM "exile_vemf_reloaded\sqf\log.sqf";
+            } else
+            {
+               ["BaseAttack", 0, "Unable to locate and remove attacked flag!"] ExecVM "exile_vemf_reloaded\sqf\log.sqf";
+            };
+            ["BaseAttack", 0, "Can not find player near flag!"] ExecVM "exile_vemf_reloaded\sqf\log.sqf";
             breakOut "outer";
          };
       } else

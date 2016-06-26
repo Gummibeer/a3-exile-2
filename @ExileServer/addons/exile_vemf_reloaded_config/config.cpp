@@ -58,4 +58,19 @@ class CfgVemfReloadedOverrides
             "BWA3_Vest_Tropen","BWA3_Vest_Rifleman1_Tropen","BWA3_Vest_Autorifleman_Tropen","BWA3_Vest_Grenadier_Tropen","BWA3_Vest_Medic_Tropen","BWA3_Vest_Marksman_Tropen","BWA3_Vest_Leader_Tropen"
 		};
 	};
+
+	class BaseAttack // WORK IN PROGRESS!!
+    	{ // BaseAttack (mission) settings
+    		aiLaunchers = 0; // Allow/disallow AI to have rocket launchers
+    		aiMode = 1; // 0 = "military" | 1 = Police | 2 = S.W.A.T.
+    		aiSetup[] = {2,6}; // format: {amountOfGroups,unitsInEachGroup};
+    		hasLauncherChance = 0; // In percentage. How big the chance that each AI gets a launcher
+    		maxAttacks = 5; // Maximum amount of active attacks at the same time | can not be turned off
+    		/*
+    			NOTES:
+    			1) every territory flag can only be attacked once every restart
+    			2) only players within a certain range of the attacked territory can see the mission announcement
+    			3) as a "punishment" for killing AI, players do NOT get any respect increase/decrease for killing AI
+    		*/
+    	};
 };
