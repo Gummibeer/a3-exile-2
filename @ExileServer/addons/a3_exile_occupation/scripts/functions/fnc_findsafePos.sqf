@@ -17,7 +17,7 @@ if (worldName == 'Esseker') then
 
 if(_roadSpawn) then
 {
-    _maxDist = _maxDist - 1400;
+    _maxDist = SC_occupyVehicleRange;
 };
 
 

@@ -19,15 +19,17 @@ if (VEMFrAttackCount <= ([[_missionName],["maxAttacks"]] call VEMFr_fnc_getSetti
       {
          _attackedFlags = uiNamespace getVariable ["VEMFrAttackedFlags",[]];
          _flags = [];
+         _occupiedFlags = [];
          {
             if (speed _x < 25 AND (vehicle _x isEqualTo _x)) then
             {
                _flagsObjs = nearestObjects [position _x, ["Exile_Construction_Flag_Static"], 150];
                {
+                  _occupiedFlags pushBack _x;
                   if not(_x in _attackedFlags) then
-                     {
-                        _flags pushBack _x;
-                     };
+                  {
+                     _flags pushBack _x;
+                  };
                } forEach _flagsObjs;
             };
          } forEach allPlayers;
@@ -35,12 +37,21 @@ if (VEMFrAttackCount <= ([[_missionName],["maxAttacks"]] call VEMFr_fnc_getSetti
          {
             _flagToAttack = selectRandom _flags;
             _attackedFlags pushBack _flagToAttack;
+         } else {
+            _flagToAttack = selectRandom _occupiedFlags;
+         };
+         if not isNil "_flagToAttack" then
+         {
             _flagPos = position _flagToAttack;
             _nearestPlayer = selectRandom (nearestObjects [_flagPos, ["Exile_Unit_Player"], 150]);
             if not isNil "_nearestPlayer" then
             {
                _flagName = _flagToAttack getVariable ["exileterritoryname", "ERROR: UNKNOWN NAME"];
-               _paraGroups = [_flagPos, _aiSetup select 0, _aiSetup select 1, ([[_missionName],["aiMode"]] call VEMFr_fnc_getSetting select 0), _missionName, 1000 + (random 1000), 150] call VEMFr_fnc_spawnVEMFrAI;
+               _level = _flagToAttack getVariable ["ExileTerritoryLevel",1];
+               _groups = _aiSetup select 0;
+               _groups = _groups max round (_level / 2);
+               _units = _aiSetup select 1;
+               _paraGroups = [_flagPos, _groups, _units, ([[_missionName],["aiMode"]] call VEMFr_fnc_getSetting select 0), _missionName, 1000 + (random 1000), 150] call VEMFr_fnc_spawnVEMFrAI;
                if (count _paraGroups isEqualTo (_aiSetup select 0)) then
                {
                   _unitCount = 0;
@@ -123,10 +134,10 @@ if (VEMFrAttackCount <= ([[_missionName],["maxAttacks"]] call VEMFr_fnc_getSetti
                ["BaseAttack", 0, "Can not find player near flag!"] ExecVM "exile_vemf_reloaded\sqf\log.sqf";
                breakOut "outer";
             };
-         } else
-         {
+         } else {
+            ["BaseAttack", 0, "Can not find an occupied flag!"] ExecVM "exile_vemf_reloaded\sqf\log.sqf";
             breakOut "outer";
-         };
+         }
       } else
       {
          ["BaseAttack", 0, format["invalid aiSetup setting! (%1)", _aiSetup]] ExecVM "exile_vemf_reloaded\sqf\log.sqf";

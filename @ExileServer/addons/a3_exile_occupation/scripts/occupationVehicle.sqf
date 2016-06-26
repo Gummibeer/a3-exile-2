@@ -61,7 +61,7 @@ if(SC_extendedLogging) then
 
 _middle = worldSize/2;
 _spawnCenter = [_middle,_middle,0];
-_maxDistance = _middle;
+_maxDistance = SC_occupyVehicleRange;
 
 if(_vehiclesToSpawn >= 1) then
 {
