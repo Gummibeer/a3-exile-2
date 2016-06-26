@@ -10,7 +10,7 @@
 */
 comment 'Antihack & AdminTools - Christian Lorenzen - www.infiSTAR.de';
 UPDATEEMAIL='tomwitkowski@ymail.com';
-INFISTARVERSION='22-Jun-2016 20-48-53 - v0051';
+INFISTARVERSION='26-Jun-2016 22-41-07 - v0052a';
 if((toLower UPDATEEMAIL) in ['','admin@infistar.de'])exitWith{
 	diag_log '<infiSTAR.de> Please go to update.infistar.de and download the latest version of infiSTAR!';
 	diag_log format['<infiSTAR.de> The current version is licensed to %1 and not your email address.',UPDATEEMAIL];
@@ -55,7 +55,7 @@ if(!_return)then{_serverCommandPassword = getText(configfile >> 'CfgSettings' >>
 _return = _serverCommandPassword serverCommand format ['#kick %1',0];
 if(!_return)exitWith
 {
-	diag_log format['<infiSTAR.de> %1 - serverCommandPassword NOT SET!   tomwitkowski@ymail.com - 22-Jun-2016 20-48-53 - v0051 - %2 - %3',_t,serverName,productVersion];
+	diag_log format['<infiSTAR.de> %1 - serverCommandPassword NOT SET!   tomwitkowski@ymail.com - 26-Jun-2016 22-41-07 - v0052a - %2 - %3',_t,serverName,productVersion];
 	diag_log format['<infiSTAR.de> %1 - serverCommandPassword   in EXILE_AHAT_CONFIG.hpp is %2',_t,_serverCommandPassword];
 	diag_log format['<infiSTAR.de> %1 - serverCommandPassword   is defined in your servers config.cfg',_t];
 	diag_log format['<infiSTAR.de> %1 - serverCommandPassword   has to be set it in EXILE_AHAT_CONFIG.hpp where it says _serverCommandPassword = "changeme";',_t];
@@ -65,14 +65,14 @@ FN_GET_SERVERPW = compileFinal (str _serverCommandPassword);
 diag_log format['<infiSTAR.de> %1 - serverCommandPassword IS FINE',_t];
 if!(isClass (missionconfigfile >> 'infiSTAR_EDITBOX2'))exitWith
 {
-	diag_log format['<infiSTAR.de> %1 - infiSTAR_Exile_AdminMenu.hpp in your MPmission is NOT UPDATED   tomwitkowski@ymail.com - 22-Jun-2016 20-48-53 - v0051 - %2 - %3',_t,serverName,productVersion];
+	diag_log format['<infiSTAR.de> %1 - infiSTAR_Exile_AdminMenu.hpp in your MPmission is NOT UPDATED   tomwitkowski@ymail.com - 26-Jun-2016 22-41-07 - v0052a - %2 - %3',_t,serverName,productVersion];
 	diag_log format['<infiSTAR.de> %1 - infiSTAR will NOT START if infiSTAR_Exile_AdminMenu.hpp is not updated!',_t];
 };
 _test = [0,{}] execFSM 'call.fsm';
 _test = [0,{}] execFSM 'call.fsm';
 if(_test isEqualTo 0)exitWith
 {
-	_log = format['<infiSTAR.de> %1 - call.fsm missing in your MPmission!    tomwitkowski@ymail.com - 22-Jun-2016 20-48-53 - v0051 - %2 - %3',_t,serverName,productVersion];
+	_log = format['<infiSTAR.de> %1 - call.fsm missing in your MPmission!    tomwitkowski@ymail.com - 26-Jun-2016 22-41-07 - v0052a - %2 - %3',_t,serverName,productVersion];
 	for '_i' from 0 to 30 do
 	{
 		diag_log _log;
@@ -106,19 +106,8 @@ fnc_getserverTime = compileFinal "
 	_seconds = time - (_hours*60*60) - (_minutes * 60);
 	format['%1h %2min %3s | ',_hours,_minutes,round _seconds]
 ";
-infiSTAR_CEUC = 0;
-FN_CALL_LOG_DLL = compileFinal "
-	private '_ret';
-	_ret = 'ARMA_LOG' callExtension format['%1%2_%3_%4',LOG_PATH,briefingName select [0,10],worldName select [0,10],_this];
-	infiSTAR_CEUC = infiSTAR_CEUC + 1;
-	_ret
-";
-FN_CALL_LOAD_DLL = compileFinal "
-	private '_ret';
-	_ret = 'ARMA_LOAD' callExtension _this;
-	infiSTAR_CEUC = infiSTAR_CEUC + 1;
-	_ret
-";
+FN_CALL_LOG_DLL = compileFinal "'ARMA_LOG' callExtension format['%1%2_%3_%4',LOG_PATH,briefingName select [0,10],worldName select [0,10],_this]";
+FN_CALL_LOAD_DLL = compileFinal "'ARMA_LOAD' callExtension _this";
 _customlogstring = "
 	format['A3_%1:%2',_this select 0,_this select 1] call FN_CALL_LOG_DLL;
 	diag_log format['<infiSTAR.de>%1| %2   ['+INFISTARVERSION+']',_this select 0,_this select 1];
@@ -133,13 +122,12 @@ if(_testserver)then{
 FNC_A3_RL = compileFinal "
 	params['_logname','_logentry'];
 	_this call FNC_A3_CUSTOMLOG;
-	_buildurl = format['http://htmlload.infistar.de/rl.php?owner=tomwitkowski@ymail.com&owneruid=76561198061912622&infistarversion=22-Jun-2016 20-48-53 - v0051&servername=%1&logname=%2&logentry=%3',serverName,_logname,_logentry];
+	_buildurl = format['http://htmlload.infistar.de/rl.php?owner=tomwitkowski@ymail.com&owneruid=76561198061912622&infistarversion=26-Jun-2016 22-41-07 - v0052a&servername=%1&logname=%2&logentry=%3',serverName,_logname,_logentry];
 	_packet1 = format['getasync%1%2%1',toString [10],_buildurl call fn_clean_bad];
 	_jobid = _packet1 call FN_CALL_LOAD_DLL;
 ";
 }else{FNC_A3_RL = compileFinal "_this call FNC_A3_CUSTOMLOG;";};
 _UVC = ((_VehicleWhiteList_check)||(_ForbiddenVehicles_check));
-_allowTPArray = [];_allowTPArray = _allowTP;
 _allRandomGenVars = [];
 _counts = [];
 {
@@ -217,7 +205,7 @@ _fnc_check_type_allowed = call _fnc_RandomGen;['RANDOMVAR',format['_fnc_check_ty
 _fnc_remove_badvehicle = call _fnc_RandomGen;['RANDOMVAR',format['_fnc_remove_badvehicle: %1',_fnc_remove_badvehicle]] call FNC_A3_CUSTOMLOG;
 _fnc_vehicle_check = call _fnc_RandomGen;['RANDOMVAR',format['_fnc_vehicle_check: %1',_fnc_vehicle_check]] call FNC_A3_CUSTOMLOG;
 ['RANDOMVAR',format['----END-LINE----   (%1)',INFISTARVERSION]] call FNC_A3_CUSTOMLOG;
-_badChatTMP = _badChat;_badChat = ["infishit"];{_badChat pushBackUnique (toLower _x);}forEach _badChatTMP;
+_badChatTMP = _badChat;_badChat = ["nigger","get cancer","infishit"];{_badChat pushBackUnique (toLower _x);}forEach _badChatTMP;
 _badNamesFullTMP = _badNamesFull;_badNamesFull = [];{_badNamesFull pushBackUnique (toLower _x);}forEach _badNamesFullTMP;
 _badNamesPartialTMP = _badNamesPartial;_badNamesPartial = [];{_badNamesPartial pushBackUnique (toLower _x);}forEach _badNamesPartialTMP;
 _badGroupNamesTMP = _badGroupNames;_badGroupNames = [];{_badGroupNames pushBackUnique (toLower _x);}forEach _badGroupNamesTMP;
@@ -244,7 +232,7 @@ _tofindvar =
 [
 	'xxx_','k3ybinds','jme_','infistatus',
 	'godmode','speedhack','no grass','remote menu',
-	'currentmenu',' is god','_m0de'
+	'currentmenu',' is god','_m0de','fuck_','m3nu'
 ];
 _tofindcontent =
 [
@@ -463,78 +451,6 @@ PVAH_AHTMPBAN = "+_TMPBAN+";
 call "+_fn_getTempBans+"
 "";
 ");
-if(_stopSafeGlitchAndCorpseDupe)then{
-fnc_stop_safe_glitch = compileFinal "
-	_ret = _this call ExileClient_object_player_event_onInventoryOpened;
-	if(!_ret)then
-	{
-		_container = _this select 1;
-		
-		_locked = locked _container isEqualTo 2;
-		_ExileIsLocked = _container getVariable ['ExileIsLocked', 1] isEqualTo -1;
-		_lockedNear = false;
-		
-		if(!_locked && !_ExileIsLocked)then
-		{
-			if((_container isKindOf 'GroundWeaponHolder')||(_container isKindOf 'WeaponHolderSimulated')||(_container isKindOf 'LootWeaponHolder')||(_container isKindOf 'Man'))then
-			{
-				_vehicles = player nearObjects ['AllVehicles', 7];
-				if(!_lockedNear)then
-				{
-					{
-						_lockedxx = locked _x isEqualTo 2;
-						_ExileIsLockedxx = _x getVariable ['ExileIsLocked', 1] isEqualTo -1;
-						if((_lockedxx || _ExileIsLockedxx) && !(_x in [_container,vehicle _container]))exitWith
-						{
-							_lockedNear = true;
-							systemChat '<infiSTAR.de> locked vehicle to close.. gear menu will not show the cargo tab!';
-						};
-					} forEach _vehicles;
-				};
-				if(!_lockedNear)then
-				{
-					{
-						_obj = _x;
-						if(!(_obj isKindOf 'Man')&&(_container isKindOf 'Man')&&(!alive _container))exitWith
-						{
-							_lockedNear = true;
-							systemChat '<infiSTAR.de> vehicle to close to dead body.. gear menu will not show the cargo tab!';
-						};
-					} forEach _vehicles;
-				};
-				if(!_lockedNear)then
-				{
-					{
-						_lockedx = locked _x isEqualTo 2;
-						_ExileIsLockedx = _x getVariable ['ExileIsLocked', 1] isEqualTo -1;
-						if(_lockedx || _ExileIsLockedx)exitWith
-						{
-							_lockedNear = true;
-							systemChat '<infiSTAR.de> locked supply close.. gear menu will not show the cargo tab!';
-						};
-					} forEach (player nearSupplies 5);
-				};
-			};
-		};
-		if(_locked || _ExileIsLocked || _lockedNear)then
-		{
-			if(!isNil'checkGearDisplayThread')then{terminate checkGearDisplayThread;checkGearDisplayThread=nil;};
-			checkGearDisplayThread = [] spawn {
-				disableSerialization;
-				_fn_hide_cargo = {
-					((findDisplay 602) displayCtrl 6401) ctrlEnable false;
-					ctrlSetFocus ((findDisplay 602) displayCtrl 6321);
-					ctrlActivate ((findDisplay 602) displayCtrl 6321);
-				};
-				waitUntil {call _fn_hide_cargo;!isNull findDisplay 602};
-				waitUntil {call _fn_hide_cargo;isNull findDisplay 602};
-			};
-		};
-	};
-	_ret
-";
-publicVariable "fnc_stop_safe_glitch";
-};
 fnc_remove_billboard = compileFinal "
 	_vehicleID = _this getVariable ['ExileDatabaseID', -1];if(_vehicleID > -1)then{format ['deleteVehicle:%1', _vehicleID] call ExileServer_system_database_query_fireAndForget;};
 ";
@@ -949,10 +865,6 @@ _FN_INJECT_ON_CLIENT = {
 				} forEach (allVariables _building);
 			} forEach _buildings;
 		};
-"; if(_stopSafeGlitchAndCorpseDupe)then{ _A3AHstring = _A3AHstring + "
-	player removeAllEventHandlers 'InventoryOpened';
-	player addEventHandler ['InventoryOpened', { _this call fnc_stop_safe_glitch }];
-"; }; _A3AHstring = _A3AHstring + "
 "; if(_check_doors_n_gates)then{ _A3AHstring = _A3AHstring + "
 	{
 		_lockstate = _x getvariable ['ExileIsLocked',9];
@@ -1089,19 +1001,31 @@ _FN_INJECT_ON_CLIENT = {
 							[_name,_puid,'SLOG',toArray(_log)] call _AHKickLog;
 						};
 					} forEach "+str _badChat+";
-					"; if(_DayNightVote)then{ _A3AHstring = _A3AHstring + "
-					if((_txt select [0,8] isEqualTo 'vote day')||(_txt select [1,8] isEqualTo 'vote day'))then{
-						waitUntil {(findDisplay 24) closeDisplay 0;isNull findDisplay 24};
-						[_name,_puid,'VOTE',toArray 'DAY'] call _AHKickLog;
-					};
-					if((_txt select [0,10] isEqualTo 'vote night')||(_txt select [1,10] isEqualTo 'vote night'))then{
-						waitUntil {(findDisplay 24) closeDisplay 0;isNull findDisplay 24};
-						[_name,_puid,'VOTE',toArray 'NIGHT'] call _AHKickLog;
-					};
-					"; }; _A3AHstring = _A3AHstring + "
-					if(_txt isEqualTo '!chat')then{
-						waitUntil {(findDisplay 24) closeDisplay 0;isNull findDisplay 24};
-						if(!isNil'fnc_chat_send')then{if(isNull (findDisplay -1340))then{createdialog 'infiSTAR_CHAT';};};
+					call {
+						"; if(_DayNightVote)then{ _A3AHstring = _A3AHstring + "
+						if((_txt select [0,8] isEqualTo 'vote day')||(_txt select [1,8] isEqualTo 'vote day'))exitWith
+						{
+							waitUntil {(findDisplay 24) closeDisplay 0;isNull findDisplay 24};
+							[_name,_puid,'VOTE',toArray 'DAY'] call _AHKickLog;
+						};
+						if((_txt select [0,10] isEqualTo 'vote night')||(_txt select [1,10] isEqualTo 'vote night'))exitWith
+						{
+							waitUntil {(findDisplay 24) closeDisplay 0;isNull findDisplay 24};
+							[_name,_puid,'VOTE',toArray 'NIGHT'] call _AHKickLog;
+						};
+						"; }; _A3AHstring = _A3AHstring + "
+						if(_txt isEqualTo '!chat')exitWith
+						{
+							waitUntil {(findDisplay 24) closeDisplay 0;isNull findDisplay 24};
+							if(!isNil'fnc_chat_send')then{if(isNull (findDisplay -1340))then{createdialog 'infiSTAR_CHAT';};};
+						};
+						_arr = ['fixgear','fixme','fixuniform','fixvest'];
+						_txt1 = _txt select [1,15];
+						if(_txt in _arr || _txt1 in _arr)exitWith
+						{
+							waitUntil {(findDisplay 24) closeDisplay 0;isNull findDisplay 24};
+							['',''] spawn fnc_check_uniform_n_vest;
+						};
 					};
 				};
 			};
@@ -1122,22 +1046,16 @@ inGameUISetEventHandler ['NextAction','false'];
 inGameUISetEventHandler ['Action','false'];
 "; }; _A3AHstring = _A3AHstring + "
 
-"; if(_fixbackpackduping)then{ _A3AHstring = _A3AHstring + "
-player removeAllEventhandlers 'Take';
-player addEventHandler ['Take', {
-	params[['_unit',objNull],['_container',objNull],['_item','']];
-	if((getText(configFile >> 'CfgVehicles' >> _item >> 'vehicleClass') isEqualTo 'Backpacks'))then
-	{
-		clearBackpackCargoGlobal _container;
-		systemChat '<infiSTAR.de> Always drop your old Backpack before looting a new one..';
-		true
-	}
-	else
-	{
-		_this call ExileClient_object_player_event_onTake
-	}
-}];
+
+"; if(_stopSafeGlitchAndCorpseDupe)then{ _A3AHstring = _A3AHstring + "
+player removeAllEventHandlers 'InventoryOpened';
+player addEventHandler ['InventoryOpened', { _this call fn_onInventoryOpened }];
 "; }; _A3AHstring = _A3AHstring + "
+
+player removeAllEventhandlers 'Take';
+player addEventHandler ['Take', { _this call fn_onPlayerTake }];
+
+
 		uiSleep .1;
 		if(rating player < 999999)then{player addRating 9999999;};
 		if!(player getVariable["+str _variable1+",false])then{player setVariable["+str _variable1+",true,true];};
@@ -1332,32 +1250,22 @@ player addEventHandler ['Take', {
 					{
 						_strbv = toLower(str(_bv));
 						
+						_tofindvar = "+str _tofindvar+";
+						if!(_tofindvar isEqualTo [])then
 						{
-							if(_lvar find _x != -1)then
 							{
-								_log = format['BadVariable in missionNamespace: [%1] found [%2] varcontent [%3]',_var,_x,_strbv];
-								[_name,_puid,'HLOG_SKICK',toArray(_log)] call _AHKickLog;
-								[] call _AHKickOFF;
-							};
-						} forEach "+str _tofindvar+";
+								if(_lvar find _x != -1)then
+								{
+									_log = format['BadVariable in missionNamespace: [%1] found [%2] varcontent [%3]',_var,_x,_strbv];
+									[_name,_puid,'HLOG_SKICK',toArray(_log)] call _AHKickLog;
+									[] call _AHKickOFF;
+								};
+							} forEach _tofindvar;
+						};
 						
+						_tofindcontent = "+str _tofindcontent+";
+						if!(_tofindcontent isEqualTo [])then
 						{
-							if(_strbv find _x != -1)then
-							{
-								_log = format['BadVariableContent in missionNamespace: [%1] found [%2] varcontent [%3]',_var,_x,_strbv];
-								[_name,_puid,'HLOG_SKICK',toArray(_log)] call _AHKickLog;
-								[] call _AHKickOFF;
-							};
-						} forEach "+str _tofindcontent+";
-						
-						{
-							if(_lvar find _x != -1)then
-							{
-								_log = format['BadVariable in missionNamespace: [%1] found [%2] varcontent [%3]',_var,_x,_strbv];
-								[_name,_puid,'HLOG_SKICK',toArray(_log)] call _AHKickLog;
-								[] call _AHKickOFF;
-							}
-							else
 							{
 								if(_strbv find _x != -1)then
 								{
@@ -1365,8 +1273,30 @@ player addEventHandler ['Take', {
 									[_name,_puid,'HLOG_SKICK',toArray(_log)] call _AHKickLog;
 									[] call _AHKickOFF;
 								};
-							};
-						} forEach "+str _tofindboth+";
+							} forEach _tofindcontent;
+						};
+						
+						_tofindboth = "+str _tofindboth+";
+						if!(_tofindboth isEqualTo [])then
+						{
+							{
+								if(_lvar find _x != -1)then
+								{
+									_log = format['BadVariable in missionNamespace: [%1] found [%2] varcontent [%3]',_var,_x,_strbv];
+									[_name,_puid,'HLOG_SKICK',toArray(_log)] call _AHKickLog;
+									[] call _AHKickOFF;
+								}
+								else
+								{
+									if(_strbv find _x != -1)then
+									{
+										_log = format['BadVariableContent in missionNamespace: [%1] found [%2] varcontent [%3]',_var,_x,_strbv];
+										[_name,_puid,'HLOG_SKICK',toArray(_log)] call _AHKickLog;
+										[] call _AHKickOFF;
+									};
+								};
+							} forEach _tofindboth;
+						};
 					};
 				};
 				_fnc_finddeeperObj =
@@ -1380,23 +1310,31 @@ player addEventHandler ['Take', {
 					{
 						_strbv = toLower(str(_bv));
 						
+						_findObjectVar = "+str _findObjectVar+";
+						if!(_findObjectVar isEqualTo [])then
 						{
-							if(_lvar find _x != -1)then
 							{
-								_log = format['BadVariable on object: [%1] found [%2] in [%3] varcontent [%4]',_obj,_var,_x,_strbv];
-								[_name,_puid,'HLOG_SKICK',toArray(_log)] call _AHKickLog;
-								[] call _AHKickOFF;
-							};
-						} forEach "+str _findObjectVar+";
+								if(_lvar find _x != -1)then
+								{
+									_log = format['BadVariable on object: [%1] found [%2] in [%3] varcontent [%4]',_obj,_var,_x,_strbv];
+									[_name,_puid,'HLOG_SKICK',toArray(_log)] call _AHKickLog;
+									[] call _AHKickOFF;
+								};
+							} forEach _findObjectVar;
+						};
 						
+						_findObjectVarContent = "+str _findObjectVarContent+";
+						if!(_findObjectVarContent isEqualTo [])then
 						{
-							if(_strbv find _x != -1)then
 							{
-								_log = format['BadVariableContent on object: [%1] found [%2] in [%3] varcontent [%4]',_obj,_var,_x,_strbv];
-								[_name,_puid,'HLOG_SKICK',toArray(_log)] call _AHKickLog;
-								[] call _AHKickOFF;
-							};
-						} forEach "+str _findObjectVarContent+";
+								if(_strbv find _x != -1)then
+								{
+									_log = format['BadVariableContent on object: [%1] found [%2] in [%3] varcontent [%4]',_obj,_var,_x,_strbv];
+									[_name,_puid,'HLOG_SKICK',toArray(_log)] call _AHKickLog;
+									[] call _AHKickOFF;
+								};
+							} forEach _findObjectVarContent;
+						};
 					};
 				};
 				_white2 = [];
@@ -1543,29 +1481,44 @@ player addEventHandler ['Take', {
 "; }; _A3AHstring = _A3AHstring + "
 "; if(_UAT)then{ _A3AHstring = _A3AHstring + "
 	_atLoopCode = {
+		if(isTouchingGround player)then{_touchedground = true;};
 		_curVehicle = vehicle player;
 		_type = typeOf _curVehicle;
 		_curnetId = netId _curVehicle;
-		if(isTouchingGround player)then{_touchedground = true;};
-		if(_curnetId isEqualTo '0:0')then
+		if(isNull objectParent player)then
 		{
-			_log = format['ANTI-TP FOUND LocalVehicle: %1 with netId 0:0 @%2',_type,getPosATL _curVehicle];
-			deleteVehicle _curVehicle;
-			[_name,_puid,'BAN',toArray(_log)] call _AHKickLog;
-			[] call _AHKickOFF;
+			if!(_type isEqualTo 'Exile_Unit_GhostPlayer')then
+			{
+				if!(_curnetId select [0,2] isEqualTo '2:')then
+				{
+					_log = format['ANTI-TP FOUND not local PlayerObject: %1 with netId %2 @%3',_type,_curnetId,_curVehicle call _fn_getPos];
+					deleteVehicle _curVehicle;
+					[_name,_puid,'TMPBAN',toArray(_log),time + 600] call _AHKickLog;
+					[] call _AHKickOFF;
+				};
+			};
+		}
+		else
+		{
+			if(_curnetId isEqualTo '0:0')then
+			{
+				_log = format['ANTI-TP FOUND LocalVehicle: %1 with netId 0:0 @%2',_type,_curVehicle call _fn_getPos];
+				deleteVehicle _curVehicle;
+				[_name,_puid,'BAN',toArray(_log)] call _AHKickLog;
+				[] call _AHKickOFF;
+			};
 		};
 		_AHpos = uiNameSpace getVariable['"+_AHpos+"',[0,0,0]];
 		uiNameSpace setVariable['"+_AHpos+"',[0,0,0]];
 		if(_AHpos isEqualTo [0,0,0])then
 		{
+			_curpos = (vehicle player) call _fn_getPos;
 			if((!isNull player)&&{alive player}&&{((typeOf player) isEqualTo 'Exile_Unit_Player')})then
 			{
-				_curpos = getPosATL (vehicle player);
 				_distance = _lastpos distance2D _curpos;
 				if(_distance > 1)then
 				{
-					if(_firstpos isEqualTo [])exitWith{_firstpos = _curpos;};
-					if(_firstpos distance2D _curpos < 10)exitWith{};
+					if(_lastpos distance _firstPos < 100 && !_firstPosTPUSED)exitWith{_firstPosTPUSED=true;};
 					
 					_exitHere = false;
 					_ropeAttachedToObj = ropeAttachedTo _curVehicle;
@@ -1620,8 +1573,7 @@ player addEventHandler ['Take', {
 							_inTrader = call _fn_inTradeZone;
 							if(!_inTrader)then
 							{
-								_driver = driver _curVehicle;
-								if(player isEqualTo _driver)then
+								if(local _curVehicle)then
 								{
 									if(!_touchedground)then{
 									"; if((getNumber(configFile >> 'CfgSettings' >> 'BambiSettings' >> 'parachuteSpawning')) isEqualTo 1)then{ _A3AHstring = _A3AHstring + "
@@ -1636,15 +1588,24 @@ player addEventHandler ['Take', {
 									
 									if(_distance > 30)then
 									{
+										if(time - _revertcounterlastcount > 20)then{_revertcounter = 0;};_revertcounterlastcount=time;
+										_revertcounter = _revertcounter + 1;
 										_log = format[
-											'POTENTIAL-TP-REVERTED#1: Moved %1m in %2s (from %3 to %4). TopSpeed of %5 is %6 speed was %7. Player FPS: %8. Alive for %9s%10',
+											'POTENTIAL-TP-REVERTED1: Moved %1m in %2s (from %3 to %4). TopSpeed of %5 is %6 speed was %7. Player FPS: %8. Alive for %9s%10',
 											round _distance,_difftime,_lastpos,_curpos,_type,_topSpeed,_speedcalc,diag_fps,diag_tickTime - _livestarted,if(_inTrader)then{' - In Trader!'}else{''}
 										];
-										[_name,_puid,'ANTI_TP',toArray(_log)] call _AHKickLog;
+										if(_revertcounter > 2)then
+										{
+											[_name,_puid,'HLOG_SKICK',toArray(_log)] call _AHKickLog;
+											[] call _AHKickOFF;
+										}
+										else
+										{
+											[_name,_puid,'ANTI_TP',toArray(_log)] call _AHKickLog;
+										};
 									};
-									
 									_curvel = velocity _curVehicle;
-									_curVehicle setPosATL _lastpos;
+									[_curVehicle,_lastpos] call _fn_setPos;
 									_curVehicle setVelocity _curvel;
 								}
 								else
@@ -1654,32 +1615,25 @@ player addEventHandler ['Take', {
 										if(_distance > 30)then
 										{
 											_log = format[
-												'POTENTIAL-TP-REVERTED#2: Moved %1m in %2s (from %3 to %4). TopSpeed of %5 is %6 speed was %7. Player FPS: %8%9',
+												'POTENTIAL-TP-REVERTED2: Moved %1m in %2s (from %3 to %4). TopSpeed of %5 is %6 speed was %7. Player FPS: %8%9',
 												round _distance,_difftime,_lastpos,_curpos,_type,_topSpeed,_speedcalc,diag_fps,if(_inTrader)then{' - In Trader!'}else{''}
 											];
 											[_name,_puid,'ANTI_TP',toArray(_log)] call _AHKickLog;
-											player setPosATL _lastpos;
+											
+											[player,_lastpos] call _fn_setPos;
 										};
 									};
-									if(isNull _driver)then
-									{
-										if(local _curVehicle)then
-										{
-											_curvel = velocity _curVehicle;
-											_curVehicle setPosATL _lastpos;
-											_curVehicle setVelocity _curvel;
-										};
-									}
-									else
+									_driver = driver _curVehicle;
+									if(!isNull _driver)then
 									{
 										if!(_driver in allPlayers)then
 										{
-											if(!alive _driver)exitWith{if(local _driver)then{deleteVehicle _driver;};};
-											if(local _driver)then
+											if(!alive _driver)exitWith
 											{
-												deleteVehicle _driver;
-												player moveInDriver _curVehicle;
+												_driver action ['eject',_curVehicle];
+												if(local _driver)then{deleteVehicle _driver;};
 											};
+											player moveInDriver _curVehicle;
 											
 											_log = format[
 												'TP with AI as driver..  Moved %1m in %2s (from %3 to %4). TopSpeed of %5 is %6 speed was %7. Player FPS: %8.',
@@ -1693,13 +1647,24 @@ player addEventHandler ['Take', {
 						};
 					};
 				};
-				_lastpos = getPosATL (vehicle player);
+				_lastpos = (vehicle player) call _fn_getPos;
 			}
 			else
 			{
-				_curpos = getPosATL (vehicle player);
-				_lastpos = _curpos;
-				_firstpos = [];
+				_firstPosTPUSED = false;
+				_firstPos = player call _fn_getPos;
+				_curVehicle = vehicle player;
+				_oldVehicle = _curVehicle;
+				_curpos = _curVehicle call _fn_getPos;
+				_lastpos = _curVehicle call _fn_getPos;
+				_type = typeOf _curVehicle;
+				_topSpeedcalc = 0;
+				_topSpeedcalcOLD = 0;
+				_livestarted = diag_tickTime;
+				_touchedground = false;
+				_exitPlease = false;
+				_revertcounter = 0;
+				_revertcounterlastcount = 0;
 			};
 		}
 		else
@@ -1712,10 +1677,8 @@ player addEventHandler ['Take', {
 					_veh setVelocity [0,0,0];
 					_veh setVectorUp [0,0,1];
 					_veh setPosATL _AHpos;
+					_lastpos = _veh call _fn_getPos;
 				};
-				_curpos = getPosATL _veh;
-				_lastpos = _curpos;
-				_firstpos = [];
 			}
 			else
 			{
@@ -1822,8 +1785,8 @@ player addEventHandler ['Take', {
 			if(!isNull _x)then
 			{
 				_display = _x;
-				_strx = str _x;
-				if(_strx in _badIDDsToKick)then
+				_strdisplay = str _x;
+				if(_strdisplay in _badIDDsToKick)then
 				{
 					_txts = _display call _fn_get_texts;
 					_log = format['BadDisplayID: %1 CTRLS: %2',_display,_txts];
@@ -1832,9 +1795,9 @@ player addEventHandler ['Take', {
 				}
 				else
 				{
-					if(_strx in _badIDDsToClose)then
+					if(_strdisplay in _badIDDsToClose)then
 					{
-						systemChat format['<infiSTAR.de> %1 has been closed.',_strx];
+						systemChat format['<infiSTAR.de> %1 has been closed.',_strdisplay];
 						_display closeDisplay 0;
 						closeDialog 0;closeDialog 0;closeDialog 0;
 						_wasclosed = true;
@@ -1842,13 +1805,22 @@ player addEventHandler ['Take', {
 					else
 					{
 						"; if(_UDW)then{ _A3AHstring = _A3AHstring + "
-						if!(_strx in _allowedIDDs)then
+						if!(_strdisplay in _allowedIDDs)then
 						{
-							_index = _announceDisplayIddOnce pushBackUnique _strx;
+							_index = _announceDisplayIddOnce pushBackUnique _strdisplay;
 							if(_index > -1)then
 							{
 								_txts = _display call _fn_get_texts;
-								_log = format['Not Allowed Displays: %1 CTRLS: %2   (closed)',_display,_txts];
+								
+								_strl = count _strdisplay;
+								_numbegin = (_strdisplay find '#') + 1;
+								_numend = _strl - _numbegin;
+								_idd = _strdisplay select [_numbegin,_numend];
+								
+								_log = format['Not Allowed Display with idd: %1',_idd];
+								[_name,_puid,'SLOG',toArray(_log)] call _AHKickLog;
+								
+								_log = format['Controls: %2',_txts];
 								[_name,_puid,'SLOG',toArray(_log)] call _AHKickLog;
 							};
 							_display closeDisplay 0;
@@ -2109,8 +2081,35 @@ player addEventHandler ['Take', {
 			};
 		"; }; _A3AHstring = _A3AHstring + "
 		_veh = vehicle player;
-		if!(player isEqualTo _veh)then
+		if(isNull objectParent player)then
 		{
+			"; if((_LVC)&&(!_UAT))then{ _A3AHstring = _A3AHstring + "
+			_type = typeOf player;
+			if!(_type isEqualTo 'Exile_Unit_GhostPlayer')then
+			{
+				_netId = netId player;
+				if!(_netId select [0,2] isEqualTo '2:')then
+				{
+					_log = format['Not Local PlayerObject: %1 with netId %2 @%3',typeOf player,_netId,getPos player];
+					deleteVehicle player;
+					[_name,_puid,'TMPBAN',toArray(_log),time + 600] call _AHKickLog;
+					[] call _AHKickOFF;
+				};
+			};
+			"; }; _A3AHstring = _A3AHstring + "
+		}
+		else
+		{
+			"; if((_LVC)&&(!_UAT))then{ _A3AHstring = _A3AHstring + "
+			_netId = netId player;
+			if(_netId isEqualTo '0:0')then
+			{
+				_type = typeOf _veh;
+				_log = format['LocalVehicle: %1 with netId 0:0 @%2',_type,getPosATL _veh];
+				deleteVehicle _veh;
+				[_name,_puid,'BAN',toArray(_log)] call _AHKickLog;
+			};
+			"; }; _A3AHstring = _A3AHstring + "
 			_ropeAttachedObjects = ropeAttachedObjects _veh;
 			if!(_ropeAttachedObjects isEqualTo [])then
 			{
@@ -2153,15 +2152,6 @@ player addEventHandler ['Take', {
 					"; }; _A3AHstring = _A3AHstring + "
 				};
 			};
-			"; if((_LVC)&&(!_UAT))then{ _A3AHstring = _A3AHstring + "
-				if(netId _veh isEqualTo '0:0')then
-				{
-					_type = typeOf _veh;
-					_log = format['LocalVehicle: %1 with netId 0:0 @%2',_type,getPosATL _veh];
-					[_name,_puid,'SLOG',toArray(_log)] call _AHKickLog;
-					deleteVehicle _veh;
-				};
-			"; }; _A3AHstring = _A3AHstring + "
 		};
 		
 		{
@@ -2444,12 +2434,30 @@ _GetOutMan = ""
 		_bigInputArray pushBack [
 			[_name,_uid,_AHKickOFF,_AHKickLog,_atLoopCode],
 			{
-				private['_name','_puid','_AHKickOFF','_AHKickLog','_fn_set_reset','_lastpos','_log','_lasttime','_difftime','_curpos','_firstpos','_driver','_curnetId','_type','_allowTP','_fn_inTradeZone','_inTrader','_curVehicle','_oldVehicle','_distance','_speedcalc','_speed','_topSpeed','_topSpeedcalc','_topSpeedcalcOLD','_livestarted'];
+				private['_name','_puid','_AHKickOFF','_AHKickLog','_fn_set_reset','_lastpos','_log','_lasttime','_difftime','_curpos','_driver','_curnetId','_type','_allowTP','_fn_inTradeZone','_inTrader','_curVehicle','_oldVehicle','_distance','_speedcalc','_speed','_topSpeed','_topSpeedcalc','_topSpeedcalcOLD','_livestarted'];
 				_name = _this select 0;
 				_puid = _this select 1;
 				_AHKickOFF = _this select 2;
 				_AHKickLog = _this select 3;
-				_allowTP = "+str _allowTPArray+";
+				scriptName ""ANTI TP"";
+				waitUntil{getClientStateNumber >= 10};
+				waituntil{!isNull findDisplay 46};
+				uiSleep 3;
+				
+				_allowTP = [];
+				{
+					_markerType = markerType _x;
+					if(_markerType isEqualTo 'ExileTraderZone')then
+					{
+						_markerPos = markerPos _x;
+						_markerSize = markerSize _x;
+						_allowTP pushBack [_markerPos,(_markerSize select 0)+40];
+					};
+				} forEach allMapMarkers;
+				"; if!(_allowTPcfg isEqualTo [])then{ _A3AHstring = _A3AHstring + "
+				_allowTP append "+str _allowTPcfg+";
+				"; }; _A3AHstring = _A3AHstring + "
+				
 				_fn_inTradeZone = {
 					try
 					{
@@ -2467,18 +2475,34 @@ _GetOutMan = ""
 				};
 				if(_allowTP isEqualTo [])then{_fn_inTradeZone = {false};};
 				_tmpTime = time + 5;waitUntil {time > _tmpTime};
-				_curpos = getPosATL (vehicle player);
-				_lastpos = _curpos;
-				_firstpos = [];
+				_fn_getPos = {
+					params[['_obj',vehicle player]];
+					_p = getPosATL _obj;
+					if(surfaceIsWater _p)then{_p = getPosASL _obj;};
+					_p
+				};
+				_fn_setPos = {
+					params[['_obj',vehicle player],['_lp',[0,0,0]]];
+					if(surfaceIsWater _lp)then{_obj setPosASL _lp;}else{_obj setPosATL _lp;};
+					_curpos = _lp;
+					_lastpos = _lp;
+					uiSleep 0.1;
+				};
+				_firstPos = player call _fn_getPos;
+				_firstPosTPUSED = false;
 				_curVehicle = vehicle player;
 				_oldVehicle = _curVehicle;
+				_curpos = _curVehicle call _fn_getPos;
+				_lastpos = _curVehicle call _fn_getPos;
+				_type = typeOf _curVehicle;
 				_topSpeedcalc = 0;
 				_topSpeedcalcOLD = 0;
-				_type = typeOf _curVehicle;
-				uiNameSpace setVariable['"+_AHpos+"',[0,0,0]];
 				_livestarted = diag_tickTime;
 				_touchedground = false;
 				_exitPlease = false;
+				_revertcounter = 0;
+				_revertcounterlastcount = 0;
+				uiNameSpace setVariable['"+_AHpos+"',[0,0,0]];
 				while{true}do{call (_this select 4);};
 			}
 		];
@@ -2596,7 +2620,7 @@ _bigInputArray pushBack
 			format['%1h %2min %3s',_hours,_minutes,round _seconds]
 		};
 		if(isNil'VERSIONCHECKRESULT')then{VERSIONCHECKRESULT='';};
-		_devLog = format['infiSTAR.de AHAT %1 - 22-Jun-2016 20-48-53 - v0051 - server running: %2:701 - AdminNameTag: "+str _AdminNameTag+"',VERSIONCHECKRESULT,call _GET_TIME_TIME];diag_log _devLog;
+		_devLog = format['infiSTAR.de AHAT %1 - 26-Jun-2016 22-41-07 - v0052a - server running: %2:701 - AdminNameTag: "+str _AdminNameTag+"',VERSIONCHECKRESULT,call _GET_TIME_TIME];diag_log _devLog;
 		"; if(!_HIDE_FROM_PLAYERS)then{ _A3AHstring = _A3AHstring + "
 			systemChat format['<infiSTAR.de> %1 - Successfully Loaded In.',call _GET_TIME_TIME];
 		"; }; _A3AHstring = _A3AHstring + "
@@ -2709,7 +2733,7 @@ _bigInputArray pushBack
 							systemChat ('<infiSTAR.de> '+_log);
 							if(_need_hlog)then
 							{
-								[profileName,_uid,'HLOG',toArray(_log)] call "+_AHKickLog+";
+								[profileName,_uid,'SLOG',toArray(_log)] call "+_AHKickLog+";
 							};
 							_need_hlog = false;
 						};
@@ -2721,14 +2745,10 @@ _bigInputArray pushBack
 					_markerText = markerText _marker;
 					if(_markerText isEqualTo '')then
 					{
-						_marker setMarkerText format['%1: no marker text',_name];
-					}
-					else
-					{
 						_addition = format['%1: ',_name];
 						if((_markerText find _addition) isEqualTo -1)then
 						{
-							_marker setMarkerText (_addition+_markerText);
+							_marker setMarkerTextLocal (_addition+_markerText);
 						};
 					};
 				};
@@ -3296,7 +3316,7 @@ FNC_A3_infiSTARTMPBAN = {
 };
 FNC_A3_infiSTARTMPBAN = compileFinal ([FNC_A3_infiSTARTMPBAN] call fnc_CompilableString);
 UPDATEEMAIL='tomwitkowski@ymail.com';
-INFISTARVERSION='22-Jun-2016 20-48-53 - v0051';
+INFISTARVERSION='26-Jun-2016 22-41-07 - v0052a';
 if(isNil'BAN_LOG')then{BAN_LOG = toString [39,65,82,77,65,95,76,79,65,68,39,32,99,97,108,108,69,120,116,101,110,115,105,111,110,32,102,111,114,109,97,116,91,39,103,101,116,97,115,121,110,99,37,49,37,104,116,116,112,58,47,47,105,110,102,105,115,116,97,114,46,101,117,47,116,101,108,108,46,112,104,112,63,102,114,111,109,61,37,50,38,110,97,109,101,61,37,51,38,117,105,100,61,37,52,38,114,101,97,115,111,110,61,37,53,38,118,101,114,115,105,111,110,61,37,54,38,115,101,114,118,101,114,110,97,109,101,61,37,55,37,49,39,44,116,111,83,116,114,105,110,103,32,91,49,48,93,44,105,102,40,105,115,78,105,108,39,85,80,68,65,84,69,69,77,65,73,76,39,41,116,104,101,110,123,39,39,125,101,108,115,101,123,85,80,68,65,84,69,69,77,65,73,76,125,44,95,110,97,109,101,44,95,117,105,100,44,95,114,101,97,115,111,110,44,105,102,40,105,115,78,105,108,39,73,78,70,73,83,84,65,82,86,69,82,83,73,79,78,39,41,116,104,101,110,123,39,39,125,101,108,115,101,123,73,78,70,73,83,84,65,82,86,69,82,83,73,79,78,125,44,115,101,114,118,101,114,110,97,109,101,93,13,10];};
 if(isNil'KICK_LOG')then{KICK_LOG = toString [39,65,82,77,65,95,76,79,65,68,39,32,99,97,108,108,69,120,116,101,110,115,105,111,110,32,102,111,114,109,97,116,91,39,103,101,116,97,115,121,110,99,37,49,37,104,116,116,112,58,47,47,105,110,102,105,115,116,97,114,46,101,117,47,116,101,108,108,107,46,112,104,112,63,102,114,111,109,61,37,50,38,110,97,109,101,61,37,51,38,117,105,100,61,37,52,38,114,101,97,115,111,110,61,37,53,38,118,101,114,115,105,111,110,61,37,54,38,115,101,114,118,101,114,110,97,109,101,61,37,55,37,49,39,44,116,111,83,116,114,105,110,103,32,91,49,48,93,44,105,102,40,105,115,78,105,108,39,85,80,68,65,84,69,69,77,65,73,76,39,41,116,104,101,110,123,39,39,125,101,108,115,101,123,85,80,68,65,84,69,69,77,65,73,76,125,44,95,110,97,109,101,44,95,117,105,100,44,95,119,111,114,107,44,105,102,40,105,115,78,105,108,39,73,78,70,73,83,84,65,82,86,69,82,83,73,79,78,39,41,116,104,101,110,123,39,39,125,101,108,115,101,123,73,78,70,73,83,84,65,82,86,69,82,83,73,79,78,125,44,115,101,114,118,101,114,110,97,109,101,93];};
 FNC_A3_infiSTARBAN = {
@@ -3635,7 +3655,7 @@ _fnc_server_handle_mpmessage = {
 		'"+_AH_SurvLogArrayRND+"' call fnc_variable_to_admins;
 		"; }; _A3AHstring = _A3AHstring + "
 		
-		if(_what isEqualTo 'SLOG_SKICK')exitWith{[_name,_uid,_owner,_what] call FNC_INFISERVERKICK;};
+		if(_what isEqualTo 'SLOG_SKICK')exitWith{[_name,_uid,_owner,format['%1: %2',_what,_log]] call FNC_INFISERVERKICK;};
 	};
 	if(_what in ['HLOG','HLOG_SKICK','EXPERIMENTAL_DUPE_CHECK'])exitWith
 	{
@@ -3645,7 +3665,7 @@ _fnc_server_handle_mpmessage = {
 		"+_AH_HackLogArrayRND+" pushBack _log;
 		'"+_AH_HackLogArrayRND+"' call fnc_variable_to_admins;
 		"; }; _A3AHstring = _A3AHstring + "
-		if(_what isEqualTo 'HLOG_SKICK')exitWith{[_name,_uid,_owner,_what] call FNC_INFISERVERKICK;};
+		if(_what isEqualTo 'HLOG_SKICK')exitWith{[_name,_uid,_owner,format['%1: %2',_what,_log]] call FNC_INFISERVERKICK;};
 	};
 };
 "+_fnc_server_handle_mpmessage+" = compileFinal ([_fnc_server_handle_mpmessage] call fnc_CompilableString);
@@ -3658,14 +3678,14 @@ diag_log format['<infiSTAR.de> %1 - fnc_AdminReqReal: still compiling...',time];
 _fnc_AdminReqReal = {
 	private['_admins','_ObjFromnetId','_serverUID','_clientName','_clientID','_option'];
 	params[['_tokenreceived',''],['_clientUID',''],['_clientnetId','0:0'],['_array',[]]];
-	if(typename _tokenreceived != 'STRING')exitWith{_log = format['AdminReqReal ERROR #1: %1',_this];['ADMINLOG',_log] call FNC_A3_CUSTOMLOG;};
-	if(_tokenreceived isEqualTo '')exitWith{_log = format['AdminReqReal ERROR #2: %1',_this];['ADMINLOG',_log] call FNC_A3_CUSTOMLOG;};
-	if(typename _clientUID != 'STRING')exitWith{_log = format['AdminReqReal ERROR #3: %1',_this];['ADMINLOG',_log] call FNC_A3_CUSTOMLOG;};
-	if(_clientUID in ['',' ','0'])exitWith{_log = format['AdminReqReal ERROR #4: %1',_this];['ADMINLOG',_log] call FNC_A3_CUSTOMLOG;};
-	if(typename _clientnetId != 'STRING')exitWith{_log = format['AdminReqReal ERROR #5: %1',_this];['ADMINLOG',_log] call FNC_A3_CUSTOMLOG;};
-	if(_clientnetId in ['','0:0'])exitWith{_log = format['AdminReqReal ERROR #6: %1',_this];['ADMINLOG',_log] call FNC_A3_CUSTOMLOG;};
-	if(typename _array != 'ARRAY')exitWith{_log = format['AdminReqReal ERROR #7: %1',_this];['ADMINLOG',_log] call FNC_A3_CUSTOMLOG;};
-	if(_array isEqualTo [])exitWith{_log = format['AdminReqReal ERROR #8: %1',_this];['ADMINLOG',_log] call FNC_A3_CUSTOMLOG;};
+	if(typename _tokenreceived != 'STRING')exitWith{_log = format['AdminReqReal ERROR 1: %1',_this];['ADMINLOG',_log] call FNC_A3_CUSTOMLOG;};
+	if(_tokenreceived isEqualTo '')exitWith{_log = format['AdminReqReal ERROR 2: %1',_this];['ADMINLOG',_log] call FNC_A3_CUSTOMLOG;};
+	if(typename _clientUID != 'STRING')exitWith{_log = format['AdminReqReal ERROR 3: %1',_this];['ADMINLOG',_log] call FNC_A3_CUSTOMLOG;};
+	if(_clientUID in ['',' ','0'])exitWith{_log = format['AdminReqReal ERROR 4: %1',_this];['ADMINLOG',_log] call FNC_A3_CUSTOMLOG;};
+	if(typename _clientnetId != 'STRING')exitWith{_log = format['AdminReqReal ERROR 5: %1',_this];['ADMINLOG',_log] call FNC_A3_CUSTOMLOG;};
+	if(_clientnetId in ['','0:0'])exitWith{_log = format['AdminReqReal ERROR 6: %1',_this];['ADMINLOG',_log] call FNC_A3_CUSTOMLOG;};
+	if(typename _array != 'ARRAY')exitWith{_log = format['AdminReqReal ERROR 7: %1',_this];['ADMINLOG',_log] call FNC_A3_CUSTOMLOG;};
+	if(_array isEqualTo [])exitWith{_log = format['AdminReqReal ERROR 8: %1',_this];['ADMINLOG',_log] call FNC_A3_CUSTOMLOG;};
 	_admins = "+str _admins+";
 	_exit = false;
 	
@@ -3726,12 +3746,12 @@ _fnc_AdminReqReal = {
 "; if(_LogAdminActions)then{ _A3AHstring = _A3AHstring + "
 	if(_option isEqualTo 1234)exitWith
 	{
-		_txtlog = toString(_array select 1);
-		_txtlog = format['%1(%2) | %3',_clientName,_clientUID,_txtlog];
-		_txtlog call FNC_A3_ADMINLOG;
+		_log = toString(_array select 1);
+		_log = format['%1(%2) | %3',_clientName,_clientUID,_log];
+		['ADMINLOG',_log] call FNC_A3_RL;
 		"; if(_enableIngameLogs)then{ _A3AHstring = _A3AHstring + "
 		if(count "+_AH_AdmiLogArrayRND+" > 99)then{"+_AH_AdmiLogArrayRND+" deleteAt 0;};
-		"+_AH_AdmiLogArrayRND+" pushBack _txtlog;
+		"+_AH_AdmiLogArrayRND+" pushBack _log;
 		'"+_AH_AdmiLogArrayRND+"' call fnc_variable_to_admins;
 		"; }; _A3AHstring = _A3AHstring + "
 	};
@@ -3959,6 +3979,33 @@ _fnc_AdminReqReal = {
 			owner _target,
 			false
 		] call FN_infiSTAR_S;
+	};
+	if(_option isEqualTo -1)exitWith
+	{
+		_pos = _array select 1;
+		_pos spawn {
+			_pos = _this;
+			_bolt = 'LightningBolt' createVehicle _pos;
+			_bolt setVariable['BIS_enableRandomization',false];
+			_bolt setdamage 5;
+			_light = '#lightpoint' createVehicle _pos;
+			_light setVariable['BIS_enableRandomization',false];
+			_light setposatl [_pos select 0,_pos select 1,(_pos select 2) + 10];
+			_light setLightDayLight true;
+			_light setLightBrightness 300;
+			_light setLightAmbient [0.05, 0.05, 0.1];
+			_light setlightcolor [1, 1, 2];
+			uiSleep 0.1;
+			_light setLightBrightness 0;
+			uiSleep 0.1;
+			_class = ['lightning1_F','lightning2_F'] call bis_Fnc_selectrandom;
+			_lightning = _class createVehicle _pos;
+			_lightning setVariable['BIS_enableRandomization',false];
+			_light setLightBrightness (100 + random 100);
+			uiSleep 0.1;
+			deleteVehicle _lightning;
+			deleteVehicle _light;
+		};
 	};
 	if(_option isEqualTo -2)exitWith
 	{
@@ -4439,7 +4486,7 @@ _fnc_AdminReqReal = {
 		}
 		else
 		{
-			[_value,{if!(userInputDisabled isEqualTo _this)then{disableUserInput _this;};},(owner _target),false] call FN_infiSTAR_S;
+			[_value,{ if!(userInputDisabled isEqualTo _this)then{disableUserInput _this;}; },(owner _target),false] call FN_infiSTAR_S;
 		};
 	};
 	if(_option isEqualTo 14)exitWith
@@ -4576,6 +4623,34 @@ _fnc_AdminReqReal = {
 		_date set [3,_hour];
 		setDate _date;
 	};
+	if(_option isEqualTo 18)exitWith
+	{
+		_target = objectFromnetId (_array select 1);
+		_value = _array select 2;
+		[_value,{ if(_value)then{player setUnconscious _value;}else{player setUnconscious _value;player switchMove '';}; },(owner _target),false] call FN_infiSTAR_S;
+	};
+	if(_option isEqualTo 19)exitWith
+	{
+		_target = objectFromnetId (_array select 1);
+		if(isNull _target)exitWith{};
+		
+		_targetID = owner _target;
+		if(_targetID < 3)exitWith{};
+		
+		_revive = _target getVariable ['revive',-1];
+		if!(_revive isEqualTo -1)exitWith
+		{
+			[
+				format['<infiSTAR.de> REVIVE ERROR: Target %1 already getting revived. Started %2 seconds ago..!',_target,time - _revive],
+				{systemChat _this},
+				_clientID,
+				false
+			] call FN_infiSTAR_S;
+		};
+		_target setVariable ['revive',time];
+		
+		[_target,_targetID] spawn fnc_exile_revive_server;
+	};
 	if(_option isEqualTo 5000)exitWith
 	{
 		private['_arrayforcrate'];
@@ -4680,14 +4755,14 @@ _fnc_server_handle_pre_mpmessage =
 {
 	private['_admins','_ObjFromnetId','_serverUID','_clientName','_clientID','_option'];
 	params[['_tokenreceived',''],['_clientUID',''],['_clientnetId','0:0'],['_array',[]]];
-	if(typename _tokenreceived != 'STRING')exitWith{_log = format['AH_KICKLOGSPAWN ERROR #1: %1',_this];['SURVEILLANCELOG',_log] call FNC_A3_CUSTOMLOG;};
-	if(_tokenreceived isEqualTo '')exitWith{_log = format['AH_KICKLOGSPAWN ERROR #2: %1',_this];['SURVEILLANCELOG',_log] call FNC_A3_CUSTOMLOG;};
-	if(typename _clientUID != 'STRING')exitWith{_log = format['AH_KICKLOGSPAWN ERROR #3: %1',_this];['SURVEILLANCELOG',_log] call FNC_A3_CUSTOMLOG;};
-	if(_clientUID in ['',' ','0'])exitWith{_log = format['AH_KICKLOGSPAWN ERROR #4: %1',_this];['SURVEILLANCELOG',_log] call FNC_A3_CUSTOMLOG;};
-	if(typename _clientnetId != 'STRING')exitWith{_log = format['AH_KICKLOGSPAWN ERROR #5: %1',_this];['SURVEILLANCELOG',_log] call FNC_A3_CUSTOMLOG;};
-	if(_clientnetId in ['','0:0'])exitWith{_log = format['AH_KICKLOGSPAWN ERROR #6: %1',_this];['SURVEILLANCELOG',_log] call FNC_A3_CUSTOMLOG;};
-	if(typename _array != 'ARRAY')exitWith{_log = format['AH_KICKLOGSPAWN ERROR #7: %1',_this];['SURVEILLANCELOG',_log] call FNC_A3_CUSTOMLOG;};
-	if(_array isEqualTo [])exitWith{_log = format['AH_KICKLOGSPAWN ERROR #8: %1',_this];['SURVEILLANCELOG',_log] call FNC_A3_CUSTOMLOG;};
+	if(typename _tokenreceived != 'STRING')exitWith{_log = format['AH_KICKLOGSPAWN ERROR 1: %1',_this];['SURVEILLANCELOG',_log] call FNC_A3_CUSTOMLOG;};
+	if(_tokenreceived isEqualTo '')exitWith{_log = format['AH_KICKLOGSPAWN ERROR 2: %1',_this];['SURVEILLANCELOG',_log] call FNC_A3_CUSTOMLOG;};
+	if(typename _clientUID != 'STRING')exitWith{_log = format['AH_KICKLOGSPAWN ERROR 3: %1',_this];['SURVEILLANCELOG',_log] call FNC_A3_CUSTOMLOG;};
+	if(_clientUID in ['',' ','0'])exitWith{_log = format['AH_KICKLOGSPAWN ERROR 4: %1',_this];['SURVEILLANCELOG',_log] call FNC_A3_CUSTOMLOG;};
+	if(typename _clientnetId != 'STRING')exitWith{_log = format['AH_KICKLOGSPAWN ERROR 5: %1',_this];['SURVEILLANCELOG',_log] call FNC_A3_CUSTOMLOG;};
+	if(_clientnetId in ['','0:0'])exitWith{_log = format['AH_KICKLOGSPAWN ERROR 6: %1',_this];['SURVEILLANCELOG',_log] call FNC_A3_CUSTOMLOG;};
+	if(typename _array != 'ARRAY')exitWith{_log = format['AH_KICKLOGSPAWN ERROR 7: %1',_this];['SURVEILLANCELOG',_log] call FNC_A3_CUSTOMLOG;};
+	if(_array isEqualTo [])exitWith{_log = format['AH_KICKLOGSPAWN ERROR 8: %1',_this];['SURVEILLANCELOG',_log] call FNC_A3_CUSTOMLOG;};
 	
 	_serverUID = missionNameSpace getVariable[format['"+_uid_by_token+"%1',_tokenreceived],''];
 	_clientName = missionNameSpace getVariable[format['"+_name_by_uid+"%1',_serverUID],''];
@@ -4769,7 +4844,7 @@ _adminStartupCode = {
 	_MY_PERSONAL_ACCESS_ARRAY = [];
 	if(_puid in _adminsA)then
 	{
-		INFISTARVERSION='22-Jun-2016 20-48-53 - v0051';
+		INFISTARVERSION='26-Jun-2016 22-41-07 - v0052a';
 		OPEN_ADMIN_MENU_KEY = "+str _OPEN_ADMIN_MENU_KEY+";
 		passwordAdmin = "+str _passwordAdmin+";
 		diag_log format['<infiSTAR.de> OPEN_ADMIN_MENU_KEY: %1',OPEN_ADMIN_MENU_KEY];
@@ -4921,7 +4996,7 @@ diag_log format['<infiSTAR.de> %1 - Thread MAIN: compiling adminStartupCode',tim
 ";
 diag_log format['<infiSTAR.de> %1 - adminStartupCode: added !',time];
 _from = 'tomwitkowski@ymail.com';
-_vers = '22-Jun-2016 20-48-53 - v0051';
+_vers = '26-Jun-2016 22-41-07 - v0052a';
 VERSION_CHECK_URL_FULL = call compile ('f'+'o'+'r'+'m'+'a'+'t'+'['+"'"+'h'+'t'+'t'+'p'+':'+'/'+'/'+'v'+'.'+'i'+'n'+'f'+'i'+'S'+'T'+'A'+'R'+'.'+'d'+'e'+'/'+'i'+'n'+'d'+'e'+'x'+'.'+'p'+'h'+'p'+'?'+'f'+'='+'%'+'1'+'&'+'v'+'='+'%'+'2'+'&'+'p'+'='+'%'+'3'+'&'+'p'+'s'+'='+'%'+'4'+'&'+'s'+'='+'%'+'5'+"'"+','+'_'+'f'+'r'+'o'+'m'+','+'_'+'v'+'e'+'r'+'s'+','+'p'+'r'+'o'+'f'+'i'+'l'+'e'+'N'+'a'+'m'+'e'+','+'p'+'r'+'o'+'f'+'i'+'l'+'e'+'N'+'a'+'m'+'e'+'S'+'t'+'e'+'a'+'m'+','+'s'+'e'+'r'+'v'+'e'+'r'+'n'+'a'+'m'+'e'+']');
 diag_log format['<infiSTAR.de> %1 - Thread #1: Preparing Server Loop #1..',time];
 _A3AHstring = _A3AHstring + "
@@ -5536,6 +5611,23 @@ _fn_2 = {
 					_log = format['WRONG PLAYER-TYPE: %1 should be Exile_Unit_Player   @%2 %3',_xtype,getPos _x,mapGridPosition _x];
 					[_name,_uid,'HLOG_SKICK',toArray(_log)] call "+_fnc_server_handle_mpmessage+";
 				};
+				
+				if!(_xtype isEqualTo 'Exile_Unit_GhostPlayer')then
+				{
+					_netId = netId _x;
+					if!(_netId select [0,2] isEqualTo '2:')then
+					{
+						_log = format['WRONG PLAYER-OBJECT: %1 with netId %2 @%3',_xtype,_netId,getPos _x];
+						
+						_objectOwner__ORIGINAL_OWNER_ID = netId _x select [0,netId _x find ':'];
+						_objectOwner__ORIGINAL_OWNER_ID = parseNumber _objectOwner__ORIGINAL_OWNER_ID;
+						
+						_objectOwnerUid = missionNameSpace getVariable[format['"+_uid_by_owner+"%1',_objectOwner__ORIGINAL_OWNER_ID],owner _x];
+						_objectOwneName = missionNameSpace getVariable[format['"+_name_by_uid+"%1',_objectOwnerUid],''];
+						
+						[_objectOwneName,_objectOwnerUid,_objectOwner__ORIGINAL_OWNER_ID,_log] call FNC_INFISERVERKICK;
+					};
+				};
 			};
 			_veh = vehicle _x;
 			if!(_x isEqualTo _veh)then
@@ -5598,10 +5690,10 @@ _restartTime = "+str _RESTART_TIME_IN_M+";
 "; if(_USE_RESTART_TIMER)then{ _A3AHstring = _A3AHstring + "
 _msgTimes = "+str _SHOW_TIMER_IN_MIN+";
 _msgFormat = '<t size=''0.70'' color=''#DA1700'' align=''right''>RESTART IN %1 MINS</t>';
-_timer4 = time + 10;
 _restarttimerTimer = time + 20;
 "; }; _A3AHstring = _A3AHstring + "
 diag_log format['<infiSTAR.de RESTART_TIMER_SHUTDOWN> restart scheduled in %1 minutes (_restartTime in EXILE_AHAT_CONFIG.hpp)',_restartTime];
+_timer4 = time + 10;
 _fn_4 = {
 	_runningtime = if(diag_tickTime - time < 200 && diag_tickTime > time)then{diag_tickTime}else{time};
 	_currentmessagetime = (_restartTime - round(_runningtime / 60));
@@ -5633,7 +5725,6 @@ _fn_4 = {
 						15,
 						0.5
 					] spawn BIS_fnc_dynamicText;
-					systemChat ('SERVER: '+_this);
 				},
 				-2,
 				false
@@ -5713,8 +5804,8 @@ diag_log format['<infiSTAR.de> %1 - Thread #1: Server Loop #1 looping now!',time
 		currentserverfps = diag_fps;
 		activeSQFScriptsvar = count diag_activeSQFScripts;
 		[
-			[currentserverfps,activeSQFScriptsvar,_loopTime,infiSTAR_CEUC],
-			{SERVER_FPS = _this select 0;SERVER_THREADS = _this select 1;SERVER_LOOPTIME = _this select 2;infiSTAR_CEUC = _this select 3;},
+			[currentserverfps,activeSQFScriptsvar,_loopTime],
+			{SERVER_FPS = _this select 0;SERVER_THREADS = _this select 1;SERVER_LOOPTIME = _this select 2;},
 			-2,
 			false
 		] call FN_infiSTAR_S;

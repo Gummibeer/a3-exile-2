@@ -12,7 +12,7 @@
 	'tomwitkowski@ymail.com'
 	
 	Last download was on:
-	'22-Jun-2016 20-48-53';
+	'26-Jun-2016 22-41-07';
 */
 class Cfg_infiSTAR_settings {
 /*
@@ -46,9 +46,9 @@ use_html_load_on_adminmenu = true;		/* default and recommended is TRUE. infiSTAR
 	DLL SETTINGS
 	"" is the Arma3Server directory
 	"infiSTAR_Logs/" would be a folder called "infiSTAR_Logs" within your Arma3Server directory.
-	You need to create the defined folder if it doesn't exist. If you don't create it - the DLL won't be able to write any Log files.
+	You need to create the defined folder if it doesn't exist. If you don't create it - the DLL won't be able to write any Log files ! ! !
 */
-LOG_PATH = "infiSTAR_Logs/";
+LOG_PATH = "";
 
 
 
@@ -186,9 +186,9 @@ adminUIDandAccess[] =
 		{
 			"Teleport On Map Click","Teleport - Target To Me","Teleport - Me To Target","Teleport In Facing Direction (10m steps)",
 			"spectating","AdminConsole","Delete Vehicle","FlyUp","ShowGear","Show Server Information",
-			"HealSelf","HealRepairNear","AdminLog","Freeze Target","UnFreeze Target","Restrain","UnRestrain",
+			"HealSelf","HealRepairNear","AdminLog","Freeze","UnFreeze","Restrain","UnRestrain",
 			"==== Loadouts ====","==== Base Deleter ====","==== WeatherLord ====","Items spawn menu",
-			"Remove Gear","Heal","Restore","Flip Vehicle","Move In My Vehicle","Move In Target Vehicle","Eject","Eject Crew",
+			"Remove Gear","Revive","Heal","Restore","Flip Vehicle","Move In My Vehicle","Move In Target Vehicle","Eject","Eject Crew",
 			"Kill","Explode","Force Disconnect","Kick (Silent)","Kick (Announce)","Ban (Silent)","Ban (Announce)",
 			"Player ESP","Player ESP (safezone style)","AI ESP","Dead ESP","Loot ESP",
 			"Vehicle Marker","Flag Marker (with radius)","DeadPlayer Marker",
@@ -203,7 +203,9 @@ adminUIDandAccess[] =
 			"MapIcons: Player","MapIcons: DeadPlayer","MapIcons: Vehicles",
 			"MapIcons: Vehicle Types","MapIcons: Vehicle lockstate","MapIcons: DeadVehicles",
 			"MapIcons: AI",
-			"Arsenal"	// Adds Arsenal to the mousewheel actions if you press "," on the Numpad!
+			"Arsenal",	// Adds Arsenal to the mousewheel actions if you press "," on the Numpad!
+			"Unconscious","Remove Unconscious",
+			"Light"	// Zeus like Lighting from the Air strikes down at selected player / target / location - use ctrl+1 or the menu to use it!
 		}
 	},
 	{
@@ -211,9 +213,9 @@ adminUIDandAccess[] =
 		{
 			"Teleport On Map Click","Teleport - Target To Me","Teleport - Me To Target","Teleport In Facing Direction (10m steps)",
 			"spectating","AdminConsole","Delete Vehicle","FlyUp","ShowGear","Show Server Information",
-			"HealSelf","HealRepairNear","AdminLog","Freeze Target","UnFreeze Target","Restrain","UnRestrain",
+			"HealSelf","HealRepairNear","AdminLog","Freeze","UnFreeze","Restrain","UnRestrain",
 			"==== Loadouts ====","==== Base Deleter ====","==== WeatherLord ====","Items spawn menu",
-			"Remove Gear","Heal","Restore","Flip Vehicle","Move In My Vehicle","Move In Target Vehicle","Eject","Eject Crew",
+			"Remove Gear","Revive","Heal","Restore","Flip Vehicle","Move In My Vehicle","Move In Target Vehicle","Eject","Eject Crew",
 			"Kill","Explode","Force Disconnect","Kick (Silent)","Kick (Announce)","Ban (Silent)","Ban (Announce)",
 			"Player ESP","Player ESP (safezone style)","AI ESP","Dead ESP","Loot ESP",
 			"Vehicle Marker","Flag Marker (with radius)","DeadPlayer Marker",
@@ -228,7 +230,9 @@ adminUIDandAccess[] =
 			"MapIcons: Player","MapIcons: DeadPlayer","MapIcons: Vehicles",
 			"MapIcons: Vehicle Types","MapIcons: Vehicle lockstate","MapIcons: DeadVehicles",
 			"MapIcons: AI",
-			"Arsenal"	// Adds Arsenal to the mousewheel actions if you press "," on the Numpad!
+			"Arsenal",	// Adds Arsenal to the mousewheel actions if you press "," on the Numpad!
+			"Unconscious","Remove Unconscious",
+			"Light"	// Zeus like Lighting from the Air strikes down at selected player / target / location - use ctrl+1 or the menu to use it!
 		}
 	}
 };
@@ -292,11 +296,8 @@ VCT = 300;	/* if "DayNightVote = true;" - Time (in seconds) to wait until nex vo
 /****************************************************************************************************/
 /*
 	*readded new old uniform and vest check since some people asked for it.
-	
 	http://www.exilemod.com/topic/14179-miss-uniform_and_vest_check/
-	
 	the game is still broken and sometimes you can see people naked when they are not.
-	
 	I did not add the old check back in, I made a new one making use of new functions :)
 */
 fix_uniform_and_vest = true;
@@ -315,13 +316,17 @@ fixbackpackduping = true;
 /***************************FIXES DUE TO ARMA BEING BROKEN - ABOVE***********************************/
 /****************************************************************************************************/
 
+/*
+	re-assigning "InventoryOpened" eventhandler to stop glitch open a locked safe
+*/
+stopSafeGlitchAndCorpseDupe = true;
 
 
 /* ********************************************************************************* */
 /*            many checks should be set to true instead of false.                    */
 /* ********************************************************************************* */
+LVC = true;			/* Local Vehicle Check - ALWAYS HAVE THIS TRUE! */
 URC = false;		/* Check unitRecoilCoefficient and reset default unitRecoilCoefficient */
-LVC = false;		/* Local Vehicle Check */
 CAP = false;		/* Check Actions Plr - "Actions: xxx/xxx possible scroll menu hack (or you added custom actions..)" */
 
 
@@ -340,8 +345,6 @@ forceWalk_near_enemyBase = false;	/* forcing players to walk when near an enemy 
 checkHiddenObjects = true;			/* checks if there is hidden objects close to the player (hidden objects could be walked through..) */
 attach_to_check = false;			/* logs and detaches attached vehicles that are close.. basically completely disallow attaching of vehicles! */
 slingload_check = true;				/* forbid sling loading / rope attaching a vehicle with a crew */
-
-stopSafeGlitchAndCorpseDupe = true;	/* re-assigning "InventoryOpened" eventhandler to stop glitch open a locked safe */
 
 checkPopTabIncrease = true;
 LogPopTabIncrease = 15000;			/* Only if checkPopTabIncrease = true; logs if poptabs increased by x within ~10 seconds */
@@ -367,8 +370,16 @@ ban_for_steam_ban = false;	/* if "check_steam_ban = true;" then steambanned play
 	UAT = false; To disable Anti Teleport
 	Arrays below show position & radius where Teleporting is allowed.
 	Mainly for the Traders (because when you purchase a vehicle, it teleports you into the vehicle)
-	at_option = 0; means it will try to get the array by the worldNames below
-	at_option = 1; means, YOU have to define positions and radius below in "custom[] = {};"
+	
+	You can white-list "Teleport Zones" by adding them like below:
+	class allowTP {
+		custom[] = {
+			{{0,0,0},1},
+			{{1,1,1},1},
+			{{2,2,2},1}
+		};
+	};
+	Trading zones are white-listed by default.
 */
 UAT = true;	
 class allowTP {
@@ -408,6 +419,7 @@ class allowTP {
 };
 
 
+
 /*  Check Drawing on the Map (global channel) */
 CHECK_DRAWING = true;	/* logs & deletes global drawing */
 
@@ -424,9 +436,13 @@ UMW = false;	/* use allowed marker array from below (for example AltisLife uses 
 aLocalM[] = {"MissionMarker"};
 
 
-/* Not allowed Chat words on server. Example: badChat[] = {"BLUE"}; would freeze all players that write "BLUE GOAT" or "BLUES" in the chat (not case sensitive) */
-/* 2016 we don't want so much hate in our sidechats! */
-badChat[] = {"nigger","get cancer"};
+/*
+	Not allowed Chat words on server.
+	Example:
+		badChat[] = {"blue"};
+	will log if somebody writes "blue goat" or "blues" in the chat (not case sensitive).
+*/
+badChat[] = {};
 
 
 /* Not allowed Names on server. Example: badNamesFull[] = {"THE"}; would kick all players that are named "THE", it would NOT kick players named "THE CAR" (not case sensitive) */
@@ -500,7 +516,7 @@ blacklistedVariables[] =
 	"Fanatic_InfiPass","keybindings_xxx","AndysClosed","UserFuncs","AltisFuncs","RemExe","BB_nofatigue","bis_fnc_diagkey_var_code","First_PAGE","Get_in_D","i_t_s__m_e_o","smissles","Whippy_ESP",
 	"TargetFuncs2","life_fnc_antiFreeeeze","LY_keyForward","TY_re_onetime","life_fnc_XaAxAA","mein1","GodDamnVehiclesXD","Mystic_FNC_ESP_distance","Esp_Id_setter","DummyMen","whipbut","UserFuncs",
 	"KrohdoFreedom","selectedPlayer","Lmenu1","ggplayer","throx_menu_item","lvl1","Init_Menu_Slew","D_B_R_T_Y_Slew","V6_GEF","xasfjisisafudmmyx","kekse","UPDATED_RE_36","first","second",
-	"SNI_PRZ_ZZZ_TargetPlayer","healit","O_fnc_ArmA","MLRN_EXEC","running_threads","catchemall123","killtarget","GMToggle","t1"
+	"SNI_PRZ_ZZZ_TargetPlayer","healit","O_fnc_ArmA","MLRN_EXEC","running_threads","catchemall123","killtarget","GMToggle","t1","FUCK_ME_keyp"
 };
 
 
