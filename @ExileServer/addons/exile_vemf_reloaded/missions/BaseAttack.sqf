@@ -40,7 +40,11 @@ if (VEMFrAttackCount <= ([[_missionName],["maxAttacks"]] call VEMFr_fnc_getSetti
             if not isNil "_nearestPlayer" then
             {
                _flagName = _flagToAttack getVariable ["exileterritoryname", "ERROR: UNKNOWN NAME"];
-               _paraGroups = [_flagPos, _aiSetup select 0, _aiSetup select 1, ([[_missionName],["aiMode"]] call VEMFr_fnc_getSetting select 0), _missionName, 1000 + (random 1000), 150] call VEMFr_fnc_spawnVEMFrAI;
+               _level = _flagToAttack getVariable ["ExileTerritoryLevel",1];
+               _groups = _aiSetup select 0;
+               _groups = _groups max round (_level / 2);
+               _units = _aiSetup select 1;
+               _paraGroups = [_flagPos, _groups, _units, ([[_missionName],["aiMode"]] call VEMFr_fnc_getSetting select 0), _missionName, 1000 + (random 1000), 150] call VEMFr_fnc_spawnVEMFrAI;
                if (count _paraGroups isEqualTo (_aiSetup select 0)) then
                {
                   _unitCount = 0;
