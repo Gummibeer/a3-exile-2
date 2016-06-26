@@ -50,6 +50,7 @@ SC_occupyPlaces 			= false;				// true if you want villages,towns,cities patroll
 SC_occupyVehicle			= true;					// true if you want to have roaming AI vehicles
 SC_occupyVehicleIgnoreCount	= true;					// true if you want spawn vehicles regardless of overall AI count
 SC_occupyVehiclesLocked		= false;				// true if AI vehicles to stay locked until all the linked AI are dead
+SC_occupyVehicleRange       = 5000;                 // The range from the center where vehicles should get spawned
 
 SC_occupyTraders            = false;                // (WORK IN PROGRESS, NOT WORKING YET) true if you want to create trader camps at positions specified in SC_occupyTraderDetails
 SC_occupyTraderDetails      = [
