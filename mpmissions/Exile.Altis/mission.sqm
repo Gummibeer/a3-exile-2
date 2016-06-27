@@ -4,7 +4,18 @@ class Mission
 	addOns[]=
 	{
 		"exile_client",
-		"a3_map_altis"
+		"a3_map_altis",
+		"bwa3_backpacks",
+		"bwa3_battlerifles",
+		"bwa3_common",
+		"bwa3_handgrenades",
+		"bwa3_handguns",
+		"bwa3_headgear",
+		"bwa3_machineguns",
+		"bwa3_optics",
+		"bwa3_sniperrifles",
+		"bwa3_vests",
+		"bwa3_weapons"
 	};
 	addOnsAuto[]=
 	{
