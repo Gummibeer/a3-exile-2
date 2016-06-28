@@ -4,12 +4,7 @@ _logDetail = format['[OCCUPATION:Convoy] Started'];
 [_logDetail] call SC_fnc_log;
 
 // set the default side for bandit AI
-_side               = "bandit"; 
-
-if(SC_occupyVehicleSurvivors) then 
-{   
-    if(!isNil "DMS_Enable_RankChange") then { DMS_Enable_RankChange = true;  };
-};
+_side               = "military";
 
 // more than _scaleAI players on the server and the max AI count drops per additional player
 _currentPlayerCount = count playableUnits;
@@ -72,13 +67,13 @@ if(_convoysToSpawn >= 1) then
         _sideToSpawn = random 100;
         if(_sideToSpawn <= 50) then
         {
-            _side = "survivor";
+            _side = "security";
         };
-        if(_side == "survivor") then
+        if(_side == "security") then
         {
-            _vehicleClass = SC_ConvoyVehicleClassesSurvivor call BIS_fnc_selectRandom;
+            _vehicleClass = SC_ConvoyVehicleClassesSecurity call BIS_fnc_selectRandom;
         } else {
-            _vehicleClass = SC_ConvoyVehicleClassesBandit call BIS_fnc_selectRandom;
+            _vehicleClass = SC_ConvoyVehicleClassesMilitary call BIS_fnc_selectRandom;
         };
         _vehiclesToSpawn = 1 max (random SC_maxVehiclesPerConvoy);
         _vehiclesSpawned = 0;
@@ -87,12 +82,7 @@ if(_convoysToSpawn >= 1) then
             private["_group"];
             _spawnLocation = [] call SC_fnc_findConvoyPos;
             diag_log format["[OCCUPATION:Convoy] found position %1",_spawnLocation];
-            if(_side == "survivor") then
-            {
-                _group = createGroup SC_SurvivorSide;
-            } else {
-                _group = createGroup SC_BanditSide;
-            };
+            _group = createGroup SC_BanditSide;
             _group setVariable ["DMS_AllowFreezing",false,true];
             _group setVariable ["DMS_LockLocality",nil];
             _group setVariable ["DMS_SpawnedGroup",true];
@@ -109,20 +99,9 @@ if(_convoysToSpawn >= 1) then
                 _vehicle setVariable ["SC_vehicleSpawnLocation", _spawnLocation,true];
                 _vehicle setFuel 1;
                 _vehicle engineOn true;
-
-                if(SC_occupyVehiclesLocked) then
-                {
-                    _vehicle lock 2;
-                    _vehicle setVehicleLock "LOCKED";
-                    _vehicle setVariable ["ExileIsLocked", 1, true];
-                }
-                else
-                {
-                    _vehicle lock 0;
-                    _vehicle setVehicleLock "UNLOCKED";
-                    _vehicle setVariable ["ExileIsLocked", 0, true];
-                };
-
+                _vehicle lock 0;
+                _vehicle setVehicleLock "UNLOCKED";
+                _vehicle setVariable ["ExileIsLocked", 0, true];
                 _vehicle setSpeedMode "LIMITED";
                 _vehicle limitSpeed 60;
                 _vehicle action ["LightOn", _vehicle];
@@ -202,85 +181,233 @@ if(_convoysToSpawn >= 1) then
                     reload _unit;
                     _unitName = [_side] call SC_fnc_selectName;
                     if(!isNil "_unitName") then { _unit setName _unitName; };
-                }forEach units _group;
+                } forEach units _group;
 
-                // ToDo: set Waypoint to drive to the airfield
-                // ToDo: remove taskPatrol
-                [_group, _spawnLocation, 2000] call bis_fnc_taskPatrol;
-                _group setBehaviour "SAFE";
-                _group setCombatMode "RED";
+                _waypoint = _group addWaypoint [[14601,16799,0], 0];
+                _waypoint = setWaypointType "MOVE";
+                _waypoint = setWaypointSpeed "LIMITED";
+                _waypoint = setWaypointBehaviour "AWARE";
+                _waypoint = setWaypointCombatMode "RED";
+                _waypoint = setWaypointFormation "COLUMN";
                 sleep 0.2;
 
                 clearMagazineCargoGlobal _vehicle;
                 clearWeaponCargoGlobal _vehicle;
                 clearItemCargoGlobal _vehicle;
 
-                if(_side == "survivor") then
+                if(_side == "security") then
                 {
-                    _convoyType = ["food", "material", "firstaid", "trash"] call BIS_fnc_selectRandom;
+                    _convoyType = ["food", "material", "firstaid", "tools", "clothes"] call BIS_fnc_selectRandom;
                 }
                 else
                 {
-                    _convoyType = ["weapon", "ammunition", "medical", "explosives"] call BIS_fnc_selectRandom;
+                    _convoyType = ["weapon", "ammunition", "attachments", "medical", "explosives", "uniforms"] call BIS_fnc_selectRandom;
                 };
 
-                // ToDo
                 switch (_convoyType) do
                 {
+                    // security
                     case "food":
                     {
-                        _vehicle addItemCargoGlobal ["Exile_Item_PlasticBottleFreshWater", 1 + (random 20)];
-                        _vehicle addItemCargoGlobal ["Exile_Item_EMRE", 1 + (random 20)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_PlasticBottleFreshWater", (random 10)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_Energydrink", (random 10)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_PlasticBottleCoffee", (random 10)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_PowerDrink", (random 10)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_Beer", (random 10)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_MountainDupe", (random 10)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_EMRE", (random 10)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_Cheathas", (random 10)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_Noodles", (random 10)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_BBQSandwich", (random 10)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_Moobar", (random 10)];
                     };
                     case "material":
                     {
-
+                        _vehicle addItemCargoGlobal ["Exile_Item_Rope", (random 10)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_DuctTape", (random 10)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_ExtensionCord", (random 10)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_FuelCanisterEmpty", (random 10)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_JunkMetal", (random 10)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_LightBulb", (random 10)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_MetalBoard", (random 10)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_MetalHedgehogKit", (random 10)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_CamoTentKit", (random 10)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_MetalPole", (random 10)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_MetalScrews", (random 10)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_MetalWire", (random 10)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_Cement", (random 10)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_Sand", (random 10)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_CarWheel", (random 10)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_SafeKit", (random 2)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_CodeLock", (random 2)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_Laptop", (random 2)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_BaseCameraKit", (random 2)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_ToiletPaper", (random 2)];
                     };
-                    case "trash":
+                    case "tools":
                     {
-
+                        __vehicle addItemCargoGlobal ["Exile_Item_Matches", (random 5)];
+                        __vehicle addItemCargoGlobal ["Exile_Item_CookingPot", (random 5)];
+                        __vehicle addItemCargoGlobal ["Exile_Melee_Axe", (random 5)];
+                        __vehicle addItemCargoGlobal ["Exile_Item_CanOpener", (random 5)];
+                        __vehicle addItemCargoGlobal ["Exile_Item_Handsaw", (random 5)];
+                        __vehicle addItemCargoGlobal ["Exile_Item_Pliers", (random 5)];
+                        __vehicle addItemCargoGlobal ["Exile_Item_Grinder", (random 5)];
+                        __vehicle addItemCargoGlobal ["Exile_Item_Foolbox", (random 5)];
+                        __vehicle addItemCargoGlobal ["Exile_Item_CordlessScrewdriver", (random 5)];
+                        __vehicle addItemCargoGlobal ["Exile_Item_FireExtinguisher", (random 5)];
+                        __vehicle addItemCargoGlobal ["Exile_Item_Hammer", (random 5)];
+                        __vehicle addItemCargoGlobal ["Exile_Item_OilCanister", (random 5)];
+                        __vehicle addItemCargoGlobal ["Exile_Item_Screwdriver", (random 5)];
+                        __vehicle addItemCargoGlobal ["Exile_Item_Shovel", (random 5)];
+                        __vehicle addItemCargoGlobal ["Exile_Item_Wrench", (random 5)];
+                        __vehicle addItemCargoGlobal ["Exile_Item_SleepingMat", (random 5)];
+                        __vehicle addItemCargoGlobal ["Exile_Item_ZipTie", (random 5)];
                     };
                     case "firstaid":
                     {
-
+                        __vehicle addItemCargoGlobal ["Exile_Item_Bandage", (random 50)];
+                        __vehicle addItemCargoGlobal ["Exile_Item_Heatpack", (random 50)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_PlasticBottleFreshWater", (random 5)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_EMRE", (random 5)];
                     };
+                    case "clothes":
+                    {
+                        __vehicle addItemCargoGlobal ["U_C_Journalist", (random 20)];
+                        __vehicle addItemCargoGlobal ["U_C_Poloshirt_blue", (random 20)];
+                        __vehicle addItemCargoGlobal ["U_C_Poloshirt_burgundy", (random 20)];
+                        __vehicle addItemCargoGlobal ["U_C_Poloshirt_salmon", (random 20)];
+                        __vehicle addItemCargoGlobal ["U_C_Poloshirt_stripped", (random 20)];
+                        __vehicle addItemCargoGlobal ["U_C_Poloshirt_tricolour", (random 20)];
+                        __vehicle addItemCargoGlobal ["U_C_Poor_1", (random 20)];
+                        __vehicle addItemCargoGlobal ["U_C_Poor_2", (random 20)];
+                        __vehicle addItemCargoGlobal ["U_C_Poor_shorts_1", (random 20)];
+                        __vehicle addItemCargoGlobal ["U_C_Scientist", (random 20)];
+                        __vehicle addItemCargoGlobal ["U_OrestesBody", (random 20)];
+                        __vehicle addItemCargoGlobal ["U_Rangemaster", (random 20)];
+                        __vehicle addItemCargoGlobal ["U_NikosAgedBody", (random 20)];
+                        __vehicle addItemCargoGlobal ["U_NikosBody", (random 20)];
+                        __vehicle addItemCargoGlobal ["U_Competitor", (random 20)];
+                    };
+                    // military
                     case "medical":
                     {
-                        __vehicle addItemCargoGlobal ["Exile_Item_InstaDoc", (random 10)];
+                        __vehicle addItemCargoGlobal ["Exile_Item_Bandage", (random 25)];
+                        __vehicle addItemCargoGlobal ["Exile_Item_Heatpack", (random 25)];
+                        __vehicle addItemCargoGlobal ["Exile_Item_InstaDoc", (random 25)];
+                        __vehicle addItemCargoGlobal ["Exile_Item_Vishpirin", (random 25)];
+                        __vehicle addItemCargoGlobal ["Exile_Item_Defibrillator", (random 2)];
                     };
                     case "weapon":
                     {
-
+                        _vehicle addWeaponCargoGlobal ["hgun_Pistol_heavy_01_F", (random 3)];
+                        _vehicle addWeaponCargoGlobal ["hgun_Pistol_heavy_02_F", (random 3)];
+                        _vehicle addWeaponCargoGlobal ["LMG_Zafir_F", (random 3)];
+                        _vehicle addWeaponCargoGlobal ["LMG_Mk200_F", (random 3)];
+                        _vehicle addWeaponCargoGlobal ["arifle_Katiba_C_F", (random 3)];
+                        _vehicle addWeaponCargoGlobal ["arifle_MXM_F", (random 3)];
+                        _vehicle addWeaponCargoGlobal ["arifle_MXC_F", (random 3)];
+                        _vehicle addWeaponCargoGlobal ["arifle_MX_F", (random 3)];
+                        _vehicle addWeaponCargoGlobal ["srifle_DMR_01_F", (random 3)];
+                        _vehicle addWeaponCargoGlobal ["srifle_DMR_02_F", (random 3)];
+                        _vehicle addWeaponCargoGlobal ["srifle_DMR_03_F", (random 3)];
+                        _vehicle addWeaponCargoGlobal ["srifle_DMR_04_F", (random 3)];
+                        _vehicle addWeaponCargoGlobal ["srifle_DMR_05_blk_F", (random 3)];
+                        _vehicle addWeaponCargoGlobal ["srifle_DMR_06_camo_F", (random 3)];
+                        _vehicle addWeaponCargoGlobal ["MMG_01_hex_F", (random 3)];
                     };
                     case "ammunition":
                     {
-
+                        _vehicle addMagazineCargoGlobal ["100Rnd_65x39_caseless_mag_Tracer", (random 10)];
+                        _vehicle addMagazineCargoGlobal ["10Rnd_127x54_Mag", (random 10)];
+                        _vehicle addMagazineCargoGlobal ["10Rnd_762x54_Mag", (random 10)];
+                        _vehicle addMagazineCargoGlobal ["10Rnd_93x64_DMR_05_Mag", (random 10)];
+                        _vehicle addMagazineCargoGlobal ["11Rnd_45ACP_Mag", (random 10)];
+                        _vehicle addMagazineCargoGlobal ["150Rnd_762x54_Box_Tracer", (random 10)];
+                        _vehicle addMagazineCargoGlobal ["200Rnd_65x39_cased_Box_Tracer", (random 10)];
+                        _vehicle addMagazineCargoGlobal ["30Rnd_45ACP_Mag_SMG_01_Tracer_Green", (random 10)];
+                        _vehicle addMagazineCargoGlobal ["30Rnd_556x45_Stanag_Tracer_Green", (random 10)];
+                        _vehicle addMagazineCargoGlobal ["30Rnd_65x39_caseless_mag_Tracer", (random 10)];
+                    };
+                    case "attachments":
+                    {
+                        _vehicle addItemCargoGlobal ["acc_flashlight", (random 5)];
+                        _vehicle addItemCargoGlobal ["acc_pointer_IR", (random 5)];
+                        _vehicle addItemCargoGlobal ["bipod_01_F_blk", (random 5)];
+                        _vehicle addItemCargoGlobal ["bipod_01_F_mtp", (random 5)];
+                        _vehicle addItemCargoGlobal ["bipod_01_F_snd", (random 5)];
+                        _vehicle addItemCargoGlobal ["bipod_02_F_blk", (random 5)];
+                        _vehicle addItemCargoGlobal ["bipod_02_F_hex", (random 5)];
+                        _vehicle addItemCargoGlobal ["bipod_02_F_tan", (random 5)];
+                        _vehicle addItemCargoGlobal ["bipod_03_F_blk", (random 5)];
+                        _vehicle addItemCargoGlobal ["bipod_03_F_oli", (random 5)];
+                        _vehicle addItemCargoGlobal ["muzzle_snds_338_black", (random 5)];
+                        _vehicle addItemCargoGlobal ["muzzle_snds_338_green", (random 5)];
+                        _vehicle addItemCargoGlobal ["muzzle_snds_338_sand", (random 5)];
+                        _vehicle addItemCargoGlobal ["muzzle_snds_93mmg", (random 5)];
+                        _vehicle addItemCargoGlobal ["muzzle_snds_93mmg_tan", (random 5)];
+                        _vehicle addItemCargoGlobal ["muzzle_snds_acp", (random 5)];
+                        _vehicle addItemCargoGlobal ["muzzle_snds_B", (random 5)];
+                        _vehicle addItemCargoGlobal ["muzzle_snds_H", (random 5)];
+                        _vehicle addItemCargoGlobal ["muzzle_snds_H_MG", (random 5)];
+                        _vehicle addItemCargoGlobal ["muzzle_snds_H_SW", (random 5)];
+                        _vehicle addItemCargoGlobal ["muzzle_snds_L", (random 5)];
+                        _vehicle addItemCargoGlobal ["muzzle_snds_M", (random 5)];
+                        _vehicle addItemCargoGlobal ["optic_Aco", (random 5)];
+                        _vehicle addItemCargoGlobal ["optic_AMS", (random 5)];
+                        _vehicle addItemCargoGlobal ["optic_Arco", (random 5)];
+                        _vehicle addItemCargoGlobal ["optic_DMS", (random 5)];
+                        _vehicle addItemCargoGlobal ["optic_Hamr", (random 5)];
+                        _vehicle addItemCargoGlobal ["optic_Holosight", (random 5)];
+                        _vehicle addItemCargoGlobal ["optic_LRPS", (random 5)];
+                        _vehicle addItemCargoGlobal ["optic_MRCO", (random 5)];
+                        _vehicle addItemCargoGlobal ["optic_NVS", (random 5)];
+                        _vehicle addItemCargoGlobal ["optic_Nightstalker", (random 1)];
+                        _vehicle addItemCargoGlobal ["optic_Yorris", (random 5)];
+                    };
+                    case "uniforms":
+                    {
+                        __vehicle addItemCargoGlobal ["U_B_CombatUniform_mcam", (random 20)];
+                        __vehicle addItemCargoGlobal ["U_B_CombatUniform_mcam_tshirt", (random 20)];
+                        __vehicle addItemCargoGlobal ["U_B_CombatUniform_mcam_vest", (random 20)];
+                        __vehicle addItemCargoGlobal ["U_B_CombatUniform_mcam_worn", (random 20)];
+                        __vehicle addItemCargoGlobal ["U_B_CTRG_1", (random 20)];
+                        __vehicle addItemCargoGlobal ["U_B_CTRG_2", (random 20)];
+                        __vehicle addItemCargoGlobal ["U_B_CTRG_3", (random 20)];
+                        __vehicle addItemCargoGlobal ["U_I_CombatUniform", (random 20)];
+                        __vehicle addItemCargoGlobal ["U_I_CombatUniform_shortsleeve", (random 20)];
+                        __vehicle addItemCargoGlobal ["U_I_CombatUniform_tshirt", (random 20)];
+                        __vehicle addItemCargoGlobal ["U_I_OfficerUniform", (random 20)];
+                        __vehicle addItemCargoGlobal ["U_O_CombatUniform_ocamo", (random 20)];
+                        __vehicle addItemCargoGlobal ["U_O_CombatUniform_oucamo", (random 20)];
+                        __vehicle addItemCargoGlobal ["U_O_OfficerUniform_ocamo", (random 20)];
+                        __vehicle addItemCargoGlobal ["U_B_SpecopsUniform_sgg", (random 20)];
+                        __vehicle addItemCargoGlobal ["U_O_SpecopsUniform_blk", (random 20)];
+                        __vehicle addItemCargoGlobal ["U_O_SpecopsUniform_ocamo", (random 20)];
+                        __vehicle addItemCargoGlobal ["U_I_G_Story_Protagonist_F", (random 20)];
+                        __vehicle addItemCargoGlobal ["Exile_Uniform_Woodland", (random 20)];
                     };
                     case "explosives":
                     {
                         _vehicle addMagazineCargoGlobal ["HandGrenade", (random 2)];
+                        _vehicle addMagazineCargoGlobal ["MiniGrenade", (random 2)];
+                        _vehicle addMagazineCargoGlobal ["B_IR_Grenade", (random 2)];
+                        _vehicle addMagazineCargoGlobal ["O_IR_Grenade", (random 2)];
+                        _vehicle addMagazineCargoGlobal ["I_IR_Grenade", (random 2)];
+                        _vehicle addMagazineCargoGlobal ["1Rnd_HE_Grenade_shell", (random 2)];
+                        _vehicle addMagazineCargoGlobal ["3Rnd_HE_Grenade_shell", (random 2)];
+                        _vehicle addMagazineCargoGlobal ["APERSBoundingMine_Range_Mag", (random 2)];
+                        _vehicle addMagazineCargoGlobal ["APERSMine_Range_Mag", (random 2)];
+                        _vehicle addMagazineCargoGlobal ["APERSTripMine_Wire_Mag", (random 2)];
+                        _vehicle addMagazineCargoGlobal ["ClaymoreDirectionalMine_Remote_Mag", (random 2)];
+                        _vehicle addMagazineCargoGlobal ["DemoCharge_Remote_Mag", (random 2)];
+                        _vehicle addMagazineCargoGlobal ["IEDLandBig_Remote_Mag", (random 2)];
+                        _vehicle addMagazineCargoGlobal ["IEDLandSmall_Remote_Mag", (random 2)];
+                        _vehicle addMagazineCargoGlobal ["IEDUrbanBig_Remote_Mag", (random 2)];
+                        _vehicle addMagazineCargoGlobal ["IEDUrbanSmall_Remote_Mag", (random 2)];
+                        _vehicle addMagazineCargoGlobal ["SatchelCharge_Remote_Mag", (random 2)];
+                        _vehicle addMagazineCargoGlobal ["SLAMDirectionalMine_Wire_Mag", (random 2)];
                     };
-                };
-
-                // Add weapons with ammo to the vehicle
-                _possibleWeapons =
-                [
-                    "arifle_MXM_Black_F",
-                    "arifle_MXM_F",
-                    "arifle_MX_SW_Black_F",
-                    "arifle_MX_SW_F",
-                    "LMG_Mk200_F",
-                    "LMG_Zafir_F"
-                ];
-                _amountOfWeapons = 1 + (random 3);
-
-                for "_i" from 1 to _amountOfWeapons do
-                {
-                    _weaponToAdd = _possibleWeapons call BIS_fnc_selectRandom;
-                    _vehicle addWeaponCargoGlobal [_weaponToAdd,1];
-
-                    _magazinesToAdd = getArray (configFile >> "CfgWeapons" >> _weaponToAdd >> "magazines");
-                    _vehicle addMagazineCargoGlobal [(_magazinesToAdd select 0),round random 3];
                 };
 
                 _vehiclesSpawned = _vehiclesSpawned + 1;

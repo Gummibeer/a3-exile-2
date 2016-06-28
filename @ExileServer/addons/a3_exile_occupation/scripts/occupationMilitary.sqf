@@ -4,7 +4,7 @@ private["_wp","_wp2","_wp3"];
 _logDetail = format ["[OCCUPATION Military]:: Starting Monitor"];
 [_logDetail] call SC_fnc_log;
 
-_maxDistance 	    = 500;			            // Max radius to scan
+_maxDistance 	    = 2000;			            // Max radius to scan
 _maxAIcount 		= SC_maxAIcount;
 _minFPS 			= SC_minFPS;
 _useLaunchers 		= DMS_ai_use_launchers;
