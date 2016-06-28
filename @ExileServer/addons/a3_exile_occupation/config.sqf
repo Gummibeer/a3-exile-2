@@ -219,10 +219,13 @@ SC_VehicleClassToUseRare	=   [
 SC_maxNumberofConvoys           = 3;
 SC_maxVehiclesPerConvoy         = 4;
 SC_ConvoyVehicleClassesBandit   = [
-
+                                    "Exile_Car_Hunter",
+                                    "Exile_Car_Ifrit",
+                                    "Exile_Car_Offroad_Armed_Guerilla01"
                                 ];
 SC_ConvoyVehicleClassesSurvivor = [
-
+                                    "Exile_Car_Van_Box_Guerilla01",
+                                    "Exile_Car_Offroad_Guerilla01"
                                 ];
 
 // Settings for roaming airborne AI (non armed helis will just fly around)

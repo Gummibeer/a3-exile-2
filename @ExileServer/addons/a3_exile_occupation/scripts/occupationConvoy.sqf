@@ -65,16 +65,21 @@ _maxDistance = _middle;
 
 if(_convoysToSpawn >= 1) then
 {
-    // decide which side to spawn
-    _sideToSpawn = random 100;
-    if(_sideToSpawn <= 50) then
-    {
-        _side = "survivor";
-    };
- 
 	_useLaunchers = DMS_ai_use_launchers;
  	for "_j" from 1 to _convoysToSpawn do
 	{
+	    // decide which side to spawn
+        _sideToSpawn = random 100;
+        if(_sideToSpawn <= 50) then
+        {
+            _side = "survivor";
+        };
+        if(_side == "survivor") then
+        {
+            _vehicleClass = SC_ConvoyVehicleClassesSurvivor call BIS_fnc_selectRandom;
+        } else {
+            _vehicleClass = SC_ConvoyVehicleClassesBandit call BIS_fnc_selectRandom;
+        };
         _vehiclesToSpawn = 1 max (random SC_maxVehiclesPerConvoy);
         _vehiclesSpawned = 0;
         for "_k" from 1 to _vehiclesToSpawn do
@@ -85,10 +90,8 @@ if(_convoysToSpawn >= 1) then
             if(_side == "survivor") then
             {
                 _group = createGroup SC_SurvivorSide;
-                _vehicleClass = SC_ConvoyVehicleClassesSurvivor call BIS_fnc_selectRandom;
             } else {
                 _group = createGroup SC_BanditSide;
-                _vehicleClass = SC_ConvoyVehicleClassesBandit call BIS_fnc_selectRandom;
             };
             _group setVariable ["DMS_AllowFreezing",false,true];
             _group setVariable ["DMS_LockLocality",nil];
