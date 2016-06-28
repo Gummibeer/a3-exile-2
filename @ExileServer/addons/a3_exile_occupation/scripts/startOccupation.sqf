@@ -64,6 +64,13 @@ if(SC_occupyVehicle) then
 	[SC_refreshTime, fnc_occupationVehicle, [], true] call ExileServer_system_thread_addTask;
 };
 
+if(SC_occupyConvoy) then
+{
+	uiSleep 15; // delay the start
+	fnc_occupationConvoy = compile preprocessFileLineNumbers "\x\addons\a3_exile_occupation\scripts\occupationConvoy.sqf";
+	[SC_refreshTime, fnc_occupationConvoy, [], true] call ExileServer_system_thread_addTask;
+};
+
 if(SC_occupyStatic) then
 {
 	uiSleep 15; // delay the start

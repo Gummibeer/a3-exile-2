@@ -52,6 +52,8 @@ SC_occupyVehicleIgnoreCount	= true;					// true if you want spawn vehicles regar
 SC_occupyVehiclesLocked		= false;				// true if AI vehicles to stay locked until all the linked AI are dead
 SC_occupyVehicleRange       = 5000;                 // The range from the center where vehicles should get spawned
 
+SC_occupyConvoy             = true;                 // true if you want to spawn convoys that drive to the airfield
+
 SC_occupyTraders            = false;                // (WORK IN PROGRESS, NOT WORKING YET) true if you want to create trader camps at positions specified in SC_occupyTraderDetails
 SC_occupyTraderDetails      = [
                                 ["Bubendorf Traders",[3896,14467,0],"trader1.sqf",true],
@@ -214,6 +216,15 @@ SC_VehicleClassToUseRare	=   [
                                     ["Exile_Car_Tempest",2]
                                 ];
 
+SC_maxNumberofConvoys           = 3;
+SC_maxVehiclesPerConvoy         = 4;
+SC_ConvoyVehicleClassesBandit   = [
+
+                                ];
+SC_ConvoyVehicleClassesSurvivor = [
+
+                                ];
+
 // Settings for roaming airborne AI (non armed helis will just fly around)
 SC_maxNumberofHelis		    = 1;
 
@@ -332,6 +343,7 @@ SC_SurvivorSide         	= CIVILIAN;
 SC_BanditSide           	= EAST;
 SC_liveVehicles 			= 0;
 SC_liveVehiclesArray    	= [];
+SC_liveConvoys              = 0;
 SC_liveHelis	 			= 0;
 SC_liveHelisArray       	= [];
 SC_liveBoats	 			= 0;
@@ -341,6 +353,7 @@ SC_transportArray       	= [];
 
 publicVariable "SC_liveVehicles";
 publicVariable "SC_liveVehiclesArray";
+publicVariable "SC_liveConvoys";
 publicVariable "SC_liveHelis";
 publicVariable "SC_liveHelisArray";
 publicVariable "SC_liveBoats";

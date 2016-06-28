@@ -59,7 +59,8 @@ SC_occupationVersion = getText (configFile >> "CfgPatches" >> "a3_exile_occupati
     
     SC_fnc_addMarker				= compile preprocessFileLineNumbers "\x\addons\a3_exile_occupation\scripts\functions\fnc_addMarker.sqf";
     SC_fnc_findsafePos              = compile preprocessFileLineNumbers "\x\addons\a3_exile_occupation\scripts\functions\fnc_findsafePos.sqf";
-    SC_fnc_isSafePos                = compile preprocessFileLineNumbers "\x\addons\a3_exile_occupation\scripts\functions\fnc_isSafePos.sqf";  
+    SC_fnc_findConvoyPos            = compile preprocessFileLineNumbers "\x\addons\a3_exile_occupation\scripts\functions\fnc_findConvoyPos.sqf";
+    SC_fnc_isSafePos                = compile preprocessFileLineNumbers "\x\addons\a3_exile_occupation\scripts\functions\fnc_isSafePos.sqf";
     SC_fnc_selectGear               = compile preprocessFileLineNumbers "\x\addons\a3_exile_occupation\scripts\functions\fnc_selectGear.sqf";
     SC_fnc_selectName               = compile preprocessFileLineNumbers "\x\addons\a3_exile_occupation\scripts\functions\fnc_selectName.sqf";
     SC_fnc_spawnstatics				= compile preprocessFileLineNumbers "\x\addons\a3_exile_occupation\scripts\functions\fnc_spawnStatics.sqf";
