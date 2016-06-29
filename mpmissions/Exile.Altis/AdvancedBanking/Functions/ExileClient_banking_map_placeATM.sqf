@@ -16,7 +16,7 @@ switch (toLower worldName) do {
 			// ["Land_Atm_01_F",[9401.413086,20283.503906,0],252.538,0,0,false], // Abdera
 			// ["Land_Atm_01_F",[8664.698242,18287.570313,0],154.495,0,0,false], // Syrta
 			// ["Land_Atm_01_F",[10286.851563,19096.570313,0],131.452,0,0,false], // Galati
-			// ["Land_Atm_01_F",[14040.40332,18710.117188,0],242.752,0,0,false], // Athira - süd
+			// ["Land_Atm_01_F",[14040.40332,18710.117188,0],242.752,0,0,false], // Athira - sï¿½d
 			// ["Land_Atm_01_F",[14068.916016,18889.572266,0],125.139,0,0,false], // Athira - nord
 			// ["Land_Atm_01_F",[7081.587402,16402.707031,0],177.676,0,0,false], // Kore
 			// ["Land_Atm_01_F",[4944.543945,16144.305664,0],12.6764,0,0,false], // Negades
@@ -91,7 +91,7 @@ switch (toLower worldName) do {
     _object setPosATL (_x select 1);
     _object enableSimulation false;
 	_object addAction [
-		"<t size='1.25'>Access ATM</t>",					// Action Text
+		"Access ATM",					// Action Text
 		"createDialog 'AdvBankingATM'",						// Script/code to run
 		"", 												// Arguments
 		1,													// priority

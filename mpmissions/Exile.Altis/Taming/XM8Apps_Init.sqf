@@ -26,7 +26,7 @@ _app1Logo = "";
 app1_action = 
 {
 
-  execVM "Taiming\callDog.sqf";
+  execVM "Taming\callDog.sqf";
 
 };
 
@@ -36,7 +36,7 @@ _app2Logo = "";
 app2_action = 
 
 {
-  execVM "Taiming\dogAway.sqf";
+  execVM "Taming\dogAway.sqf";
 };
 
 //App 3

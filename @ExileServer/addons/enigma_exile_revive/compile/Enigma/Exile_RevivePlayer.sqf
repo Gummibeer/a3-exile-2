@@ -44,7 +44,7 @@ if (!local _requestingPlayer) then {
 					if (isNil "_reviveused") then {_reviveused = 0;}; //if not found in array then they havent used a revive this life so set to 0!
 
 //							if ((_requestingPlayer getVariable["REVIVE", false])||(_reviveused > MaxRevivesAllowed)) exitWith{ //somewhere on first revive im setting variable to false... WHERE!?!?!?!?!
-							if (_reviveused == MaxRevivesAllowed) exitWith{
+							if (_reviveused >= MaxRevivesAllowed) exitWith{
   EnigmaReviveFail = [_requestingPlayer, _revivername];
 	_ownerID publicVariableClient "EnigmaReviveFail";
 

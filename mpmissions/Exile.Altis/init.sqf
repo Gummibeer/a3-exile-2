@@ -22,10 +22,10 @@ if (isServer) then {
 	[] execVM "Hunting\Config_animals.sqf";
 };
 
-// Taiming
-BURK_dogSeek = compileFinal preprocessFileLineNumbers "Taiming\JohnO_fnc_seeking.sqf";
-BURK_dogFollowPlayer = compileFinal preprocessFileLineNumbers "Taiming\JohnO_fnc_following.sqf";
-BURK_dogMoveToPos = compileFinal preprocessFileLineNumbers "Taiming\JohnO_fnc_moveToPos.sqf";
+// Taming
+BURK_dogSeek = compileFinal preprocessFileLineNumbers "Taming\JohnO_fnc_seeking.sqf";
+BURK_dogFollowPlayer = compileFinal preprocessFileLineNumbers "Taming\JohnO_fnc_following.sqf";
+BURK_dogMoveToPos = compileFinal preprocessFileLineNumbers "Taming\JohnO_fnc_moveToPos.sqf";
 
 // XM8 Apps
 [] execVM "XM8_apps\scripts\XM8_apps_init.sqf";

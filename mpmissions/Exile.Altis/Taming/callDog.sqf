@@ -31,7 +31,7 @@ if !(JohnOplayerHasDog) then
 
 		Agressive = false;
 		
-		[] execVM "Taiming\JohnO_fnc_dogFollow.sqf";
+		[] execVM "Taming\JohnO_fnc_dogFollow.sqf";
 
 		
 
