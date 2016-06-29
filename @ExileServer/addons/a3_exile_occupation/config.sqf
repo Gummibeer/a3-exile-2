@@ -40,7 +40,7 @@ SC_minDistanceToTerritory   = 250;                  // Minimum distance in metre
 SC_minDistanceToPlayer      = 250;                  // Minimum distance in metres to the nearest player
 
 
-SC_occupyRandomSpawn        = false;                // (WORK IN PROGRESS, NOT WORKING YET) true if you want random spawning AI that hunt for nearby players
+SC_occupyRandomSpawn        = true;                // (WORK IN PROGRESS, NOT WORKING YET) true if you want random spawning AI that hunt for nearby players
 SC_randomSpawnMinPlayers    = 1;                    // Minimum number of players to be online before random spawning AI can spawn
 SC_randomSpawnMaxAI         = 5;                    // Maximum amount of random AI groups allowed at any time
 SC_randomSpawnIgnoreCount	= true;					// true if you want spawn random AI groups regardless of overall AI count (they still count towards the total though)
