@@ -18,7 +18,7 @@ public class ExtractGit implements Task {
         logger.info("Start Task: ExtractGit");
 
         try {
-            branch = Launcher.getConfig("branch");
+            branch = Launcher.getConfig("gitbranch");
             logger.debug("extract archive");
             File archive = new File(branch + ".tar.gz");
             TarArchiveInputStream tarInput = new TarArchiveInputStream(new GZIPInputStream(new FileInputStream(branch + ".tar.gz")));

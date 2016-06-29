@@ -24,7 +24,7 @@ public class CopyGit implements Task {
         File[] directories = new File(source).listFiles(File::isDirectory);
         source = directories[0].getAbsolutePath();
         logger.debug("Source: " + source);
-        destination = Launcher.getConfig("folder");
+        destination = Launcher.getConfig("armafolder");
         logger.debug("Destination: " + destination);
 
         try {
@@ -54,6 +54,8 @@ public class CopyGit implements Task {
     }
 
     private static void copyFileOrFolder(File source, File dest, CopyOption options) throws IOException {
+        logger.debug("delete: " + dest.getName());
+        deleteFileOrFolder(dest);
         logger.debug("copy: " + source.getName());
         if (source.isDirectory()) {
             copyFolder(source, dest, options);
@@ -71,10 +73,11 @@ public class CopyGit implements Task {
         if (contents != null) {
             for (File f : contents) {
                 File newFile = new File(dest.getAbsolutePath() + File.separator + f.getName());
-                if (f.isDirectory())
+                if (f.isDirectory()) {
                     copyFolder(f, newFile, options);
-                else
+                } else {
                     copyFile(f, newFile, options);
+                }
             }
         }
     }
@@ -87,6 +90,17 @@ public class CopyGit implements Task {
         File parent = file.getParentFile();
         if (parent != null && !parent.exists()) {
             parent.mkdirs();
+        }
+    }
+
+    private static void deleteFileOrFolder(File f) throws IOException, NullPointerException {
+        if (f.isDirectory()) {
+            for (File c : f.listFiles()) {
+                deleteFileOrFolder(c);
+            }
+        }
+        if (!f.delete()) {
+            throw new FileNotFoundException("Failed to delete file: " + f);
         }
     }
 }

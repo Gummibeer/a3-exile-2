@@ -22,7 +22,7 @@ public class DownloadGit implements Task {
         logger.info("Start Task: DownloadGit");
 
         try {
-            branch = Launcher.getConfig("branch");
+            branch = Launcher.getConfig("gitbranch");
             String uri = "https://gitlab.com/api/v3/projects/1319634/repository/archive?sha=" + branch + "&private_token=" + token;
             logger.debug("download archive");
             URL url = new URL(uri);
