@@ -5,7 +5,7 @@ class CfgVemfReloadedOverrides
 	debugMode = 1; // Overrides CfgVemfReloaded >> debugMode
 	maxGlobalMissions = 5; // Overrides CfgVemfReloaded >> maxGlobalMissions
 	minServerFPS = 5; // Overrides CfgVemfReloaded >> minServerFPS
-	missionList[] = {"DynamicLocationInvasion","BaseAttack"}; // Each entry should represent an .sqf file in the missions folder
+	missionList[] = {"DynamicLocationInvasion","BaseAttack", "PlayerAttack"}; // Each entry should represent an .sqf file in the missions folder
 
 	class DynamicLocationInvasion
 	{

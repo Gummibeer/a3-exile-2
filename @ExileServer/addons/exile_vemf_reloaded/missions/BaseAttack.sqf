@@ -56,12 +56,12 @@ if (VEMFrAttackCount <= ([[_missionName],["maxAttacks"]] call VEMFr_fnc_getSetti
                {
                   _unitCount = 0;
                   {
-                     if (count (units _x) isEqualTo (_aiSetup select 1)) then
+                     if (count (units _x) isEqualTo (_units)) then
                      {
                         _unitCount = _unitCount + (count(units _x));
                      };
                   } forEach _paraGroups;
-                  if (_unitCount isEqualTo ((_aiSetup select 0) * (_aiSetup select 1))) then
+                  if (_unitCount isEqualTo ((_groups) * (_units))) then
                   {
                      _wayPoints = [];
                      _units = [];
