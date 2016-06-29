@@ -78,7 +78,7 @@ SC_suitablePlayers = [];
         };
     };
     // Don't spawn additional AI if there are already AI in range
-    _aiNear = count(_pos nearEntities ["O_recon_F", 150]);
+    _aiNear = count(position _player nearEntities ["O_recon_F", 150]);
     if(_aiNear > 0) exitwith
     {
         _okToSpawn = false;
@@ -153,11 +153,11 @@ SC_suitablePlayers = [];
                     _tag = createVehicle ["Sign_Arrow_Blue_F", position _unit, [], 0, "CAN_COLLIDE"];
                     _tag attachTo [_unit,[0,0,0.6],"Head"];
                 };
-            }foreach units _group;
+            } foreach units _group;
 
-            [ _group,_pos,_difficulty,"COMBAT" ] call DMS_fnc_SetGroupBehavior;
+            [ _group,_spawnPosition,_difficulty,"COMBAT" ] call DMS_fnc_SetGroupBehavior;
 
-            _buildings = _pos nearObjects ["house", _groupRadius];
+            _buildings = _spawnPosition nearObjects ["house", _groupRadius];
             {
                 _buildingPositions = [_x, 10] call BIS_fnc_buildingPositions;
                 if(count _buildingPositions > 0) then
@@ -182,15 +182,15 @@ SC_suitablePlayers = [];
                     _wp setWaypointCombatMode "RED";
                     _wp setWaypointCompletionRadius 1;
                     _wp waypointAttachObject _y;
-                    _wp setwaypointHousePosition _i;
-                    _wp setWaypointType "SAD";
+                    _wp setWaypointHousePosition _i;
+                    if(count _buildings > 0 ) then {
+                        _wp setWaypointType "CYCLE";
+                    } else {
+                        _wp setWaypointType "SAD";
+                    };
 
                 };
             } foreach _buildings;
-            if(count _buildings > 0 ) then
-            {
-                _wp setWaypointType "CYCLE";
-            };
         };
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -199,7 +199,7 @@ SC_suitablePlayers = [];
 
         if(SC_mapMarkers) then
         {
-            _marker = createMarker [format ["%1", _foundBuilding],_pos];
+            _marker = createMarker [format ["%1", _foundBuilding],_spawnPosition];
             _marker setMarkerShape "Icon";
             _marker setMarkerSize [3,3];
             _marker setMarkerType "mil_dot";

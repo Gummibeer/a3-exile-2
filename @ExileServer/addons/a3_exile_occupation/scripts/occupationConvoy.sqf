@@ -69,6 +69,7 @@ if(_convoysToSpawn >= 1) then
         {
             _side = "security";
         };
+        _vehicleClass = "Exile_Car_Hunter";
         if(_side == "security") then
         {
             _vehicleClass = SC_ConvoyVehicleClassesSecurity call BIS_fnc_selectRandom;
@@ -95,7 +96,7 @@ if(_convoysToSpawn >= 1) then
                 _group addVehicle _vehicle;
 
                 _vehicle setVariable["vehPos",_spawnLocation,true];
-                _vehicle setVariable["vehClass",_VehicleClassToUse,true];
+                _vehicle setVariable["vehClass",_vehicleClass,true];
                 _vehicle setVariable ["SC_vehicleSpawnLocation", _spawnLocation,true];
                 _vehicle setFuel 1;
                 _vehicle engineOn true;
@@ -184,17 +185,18 @@ if(_convoysToSpawn >= 1) then
                 } forEach units _group;
 
                 _waypoint = _group addWaypoint [[14601,16799,0], 0];
-                _waypoint = setWaypointType "MOVE";
-                _waypoint = setWaypointSpeed "LIMITED";
-                _waypoint = setWaypointBehaviour "AWARE";
-                _waypoint = setWaypointCombatMode "RED";
-                _waypoint = setWaypointFormation "COLUMN";
+                _waypoint setWaypointType "MOVE";
+                _waypoint setWaypointSpeed "LIMITED";
+                _waypoint setWaypointBehaviour "AWARE";
+                _waypoint setWaypointCombatMode "RED";
+                _waypoint setWaypointFormation "COLUMN";
                 sleep 0.2;
 
                 clearMagazineCargoGlobal _vehicle;
                 clearWeaponCargoGlobal _vehicle;
                 clearItemCargoGlobal _vehicle;
 
+                _convoyType = "food";
                 if(_side == "security") then
                 {
                     _convoyType = ["food", "material", "firstaid", "tools", "clothes"] call BIS_fnc_selectRandom;

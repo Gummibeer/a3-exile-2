@@ -6,8 +6,6 @@ private _pos 		= [_middle,_middle,0];
 private _maxDist 	= _middle - 100;
 private _minDist    = 0;
 
-if()
-
 if (worldName == 'Esseker') then 
 { 
 	_pos = [6502,6217,0];

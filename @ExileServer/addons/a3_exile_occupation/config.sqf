@@ -19,7 +19,7 @@ SC_extendedLogging          = false;                // set to true for additiona
 SC_processReporter          = false;                 // log the a list of active server processes every 60 seconds (useful for debugging server problems)
 SC_infiSTAR_log			    = false;		            // true Use infiSTAR logging, false logs to server rpt
 SC_maxAIcount 			    = 500;					// the maximum amount of AI, if the AI count is above this then additional AI won't spawn
-SC_mapMarkers			    = true;			    // Place map markers at the occupied areas (occupyPlaces and occupyMilitary only) true/false
+SC_mapMarkers			    = false;			    // Place map markers at the occupied areas (occupyPlaces and occupyMilitary only) true/false
 SC_minFPS 				    = 5;					// any lower than minFPS on the server and additional AI won't spawn
 SC_scaleAI 				    = 50; 					// any more than _scaleAI players on the server and _maxAIcount is reduced for each extra player
 
