@@ -2,9 +2,9 @@ private _position       = [0,0,0];
 private _nearestRoad    = [0,0,0];
 
 private _middle     = worldSize/2;
-private _pos 		= [_middle,_middle,0];
+private _pos 		= _this select 0;
 private _maxDist 	= _middle - 100;
-private _minDist    = 0;
+private _minDist    = 15;
 
 if (worldName == 'Esseker') then 
 { 
@@ -17,7 +17,7 @@ _validspot	= false;
 while{!_validspot} do 
 {
 	sleep 0.2;
-    _tempPosition = [_pos,15,_maxDist,15,0,20,0] call BIS_fnc_findSafePos;
+    _tempPosition = [_pos,_minDist,_maxDist,15,0,20,0] call BIS_fnc_findSafePos;
     _position = [_tempPosition select 0, _tempPosition select 1, 0];
     _validspot = true;
 

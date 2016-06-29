@@ -78,10 +78,17 @@ if(_convoysToSpawn >= 1) then
         };
         _vehiclesToSpawn = 1 max (random SC_maxVehiclesPerConvoy);
         _vehiclesSpawned = 0;
+        _convoyPosition = [ true, false ] call SC_fnc_findsafePos;
+        _convoyType = "food";
+        if(_side == "security") then {
+            _convoyType = ["food", "material", "firstaid", "tools", "clothes"] call BIS_fnc_selectRandom;
+        } else {
+            _convoyType = ["weapon", "ammunition", "attachments", "medical", "explosives", "uniforms"] call BIS_fnc_selectRandom;
+        };
         for "_k" from 1 to _vehiclesToSpawn do
         {
             private["_group"];
-            _spawnLocation = [] call SC_fnc_findConvoyPos;
+            _spawnLocation = [_convoyPosition] call SC_fnc_findConvoyPos;
             diag_log format["[OCCUPATION:Convoy] found position %1",_spawnLocation];
             _group = createGroup SC_BanditSide;
             _group setVariable ["DMS_AllowFreezing",false,true];
@@ -171,7 +178,7 @@ if(_convoysToSpawn >= 1) then
                 enableSentences false;
                 enableRadio false;
 
-                _logDetail = format['[OCCUPATION:Convoy] %3 vehicle %1 spawned @ %2',_vehicleClass,_spawnLocation,_side];
+                _logDetail = format['[OCCUPATION:Convoy] %3 %4 vehicle %1 spawned @ %2',_vehicleClass,_spawnLocation,_side,_convoyType];
                 [_logDetail] call SC_fnc_log;
                 sleep 2;
 
@@ -195,16 +202,6 @@ if(_convoysToSpawn >= 1) then
                 clearMagazineCargoGlobal _vehicle;
                 clearWeaponCargoGlobal _vehicle;
                 clearItemCargoGlobal _vehicle;
-
-                _convoyType = "food";
-                if(_side == "security") then
-                {
-                    _convoyType = ["food", "material", "firstaid", "tools", "clothes"] call BIS_fnc_selectRandom;
-                }
-                else
-                {
-                    _convoyType = ["weapon", "ammunition", "attachments", "medical", "explosives", "uniforms"] call BIS_fnc_selectRandom;
-                };
 
                 switch (_convoyType) do
                 {
@@ -248,57 +245,57 @@ if(_convoysToSpawn >= 1) then
                     };
                     case "tools":
                     {
-                        __vehicle addItemCargoGlobal ["Exile_Item_Matches", (random 5)];
-                        __vehicle addItemCargoGlobal ["Exile_Item_CookingPot", (random 5)];
-                        __vehicle addItemCargoGlobal ["Exile_Melee_Axe", (random 5)];
-                        __vehicle addItemCargoGlobal ["Exile_Item_CanOpener", (random 5)];
-                        __vehicle addItemCargoGlobal ["Exile_Item_Handsaw", (random 5)];
-                        __vehicle addItemCargoGlobal ["Exile_Item_Pliers", (random 5)];
-                        __vehicle addItemCargoGlobal ["Exile_Item_Grinder", (random 5)];
-                        __vehicle addItemCargoGlobal ["Exile_Item_Foolbox", (random 5)];
-                        __vehicle addItemCargoGlobal ["Exile_Item_CordlessScrewdriver", (random 5)];
-                        __vehicle addItemCargoGlobal ["Exile_Item_FireExtinguisher", (random 5)];
-                        __vehicle addItemCargoGlobal ["Exile_Item_Hammer", (random 5)];
-                        __vehicle addItemCargoGlobal ["Exile_Item_OilCanister", (random 5)];
-                        __vehicle addItemCargoGlobal ["Exile_Item_Screwdriver", (random 5)];
-                        __vehicle addItemCargoGlobal ["Exile_Item_Shovel", (random 5)];
-                        __vehicle addItemCargoGlobal ["Exile_Item_Wrench", (random 5)];
-                        __vehicle addItemCargoGlobal ["Exile_Item_SleepingMat", (random 5)];
-                        __vehicle addItemCargoGlobal ["Exile_Item_ZipTie", (random 5)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_Matches", (random 5)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_CookingPot", (random 5)];
+                        _vehicle addItemCargoGlobal ["Exile_Melee_Axe", (random 5)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_CanOpener", (random 5)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_Handsaw", (random 5)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_Pliers", (random 5)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_Grinder", (random 5)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_Foolbox", (random 5)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_CordlessScrewdriver", (random 5)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_FireExtinguisher", (random 5)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_Hammer", (random 5)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_OilCanister", (random 5)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_Screwdriver", (random 5)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_Shovel", (random 5)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_Wrench", (random 5)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_SleepingMat", (random 5)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_ZipTie", (random 5)];
                     };
                     case "firstaid":
                     {
-                        __vehicle addItemCargoGlobal ["Exile_Item_Bandage", (random 50)];
-                        __vehicle addItemCargoGlobal ["Exile_Item_Heatpack", (random 50)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_Bandage", (random 50)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_Heatpack", (random 50)];
                         _vehicle addItemCargoGlobal ["Exile_Item_PlasticBottleFreshWater", (random 5)];
                         _vehicle addItemCargoGlobal ["Exile_Item_EMRE", (random 5)];
                     };
                     case "clothes":
                     {
-                        __vehicle addItemCargoGlobal ["U_C_Journalist", (random 20)];
-                        __vehicle addItemCargoGlobal ["U_C_Poloshirt_blue", (random 20)];
-                        __vehicle addItemCargoGlobal ["U_C_Poloshirt_burgundy", (random 20)];
-                        __vehicle addItemCargoGlobal ["U_C_Poloshirt_salmon", (random 20)];
-                        __vehicle addItemCargoGlobal ["U_C_Poloshirt_stripped", (random 20)];
-                        __vehicle addItemCargoGlobal ["U_C_Poloshirt_tricolour", (random 20)];
-                        __vehicle addItemCargoGlobal ["U_C_Poor_1", (random 20)];
-                        __vehicle addItemCargoGlobal ["U_C_Poor_2", (random 20)];
-                        __vehicle addItemCargoGlobal ["U_C_Poor_shorts_1", (random 20)];
-                        __vehicle addItemCargoGlobal ["U_C_Scientist", (random 20)];
-                        __vehicle addItemCargoGlobal ["U_OrestesBody", (random 20)];
-                        __vehicle addItemCargoGlobal ["U_Rangemaster", (random 20)];
-                        __vehicle addItemCargoGlobal ["U_NikosAgedBody", (random 20)];
-                        __vehicle addItemCargoGlobal ["U_NikosBody", (random 20)];
-                        __vehicle addItemCargoGlobal ["U_Competitor", (random 20)];
+                        _vehicle addItemCargoGlobal ["U_C_Journalist", (random 20)];
+                        _vehicle addItemCargoGlobal ["U_C_Poloshirt_blue", (random 20)];
+                        _vehicle addItemCargoGlobal ["U_C_Poloshirt_burgundy", (random 20)];
+                        _vehicle addItemCargoGlobal ["U_C_Poloshirt_salmon", (random 20)];
+                        _vehicle addItemCargoGlobal ["U_C_Poloshirt_stripped", (random 20)];
+                        _vehicle addItemCargoGlobal ["U_C_Poloshirt_tricolour", (random 20)];
+                        _vehicle addItemCargoGlobal ["U_C_Poor_1", (random 20)];
+                        _vehicle addItemCargoGlobal ["U_C_Poor_2", (random 20)];
+                        _vehicle addItemCargoGlobal ["U_C_Poor_shorts_1", (random 20)];
+                        _vehicle addItemCargoGlobal ["U_C_Scientist", (random 20)];
+                        _vehicle addItemCargoGlobal ["U_OrestesBody", (random 20)];
+                        _vehicle addItemCargoGlobal ["U_Rangemaster", (random 20)];
+                        _vehicle addItemCargoGlobal ["U_NikosAgedBody", (random 20)];
+                        _vehicle addItemCargoGlobal ["U_NikosBody", (random 20)];
+                        _vehicle addItemCargoGlobal ["U_Competitor", (random 20)];
                     };
                     // military
                     case "medical":
                     {
-                        __vehicle addItemCargoGlobal ["Exile_Item_Bandage", (random 25)];
-                        __vehicle addItemCargoGlobal ["Exile_Item_Heatpack", (random 25)];
-                        __vehicle addItemCargoGlobal ["Exile_Item_InstaDoc", (random 25)];
-                        __vehicle addItemCargoGlobal ["Exile_Item_Vishpirin", (random 25)];
-                        __vehicle addItemCargoGlobal ["Exile_Item_Defibrillator", (random 2)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_Bandage", (random 25)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_Heatpack", (random 25)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_InstaDoc", (random 25)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_Vishpirin", (random 25)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_Defibrillator", (random 2)];
                     };
                     case "weapon":
                     {
@@ -369,25 +366,25 @@ if(_convoysToSpawn >= 1) then
                     };
                     case "uniforms":
                     {
-                        __vehicle addItemCargoGlobal ["U_B_CombatUniform_mcam", (random 20)];
-                        __vehicle addItemCargoGlobal ["U_B_CombatUniform_mcam_tshirt", (random 20)];
-                        __vehicle addItemCargoGlobal ["U_B_CombatUniform_mcam_vest", (random 20)];
-                        __vehicle addItemCargoGlobal ["U_B_CombatUniform_mcam_worn", (random 20)];
-                        __vehicle addItemCargoGlobal ["U_B_CTRG_1", (random 20)];
-                        __vehicle addItemCargoGlobal ["U_B_CTRG_2", (random 20)];
-                        __vehicle addItemCargoGlobal ["U_B_CTRG_3", (random 20)];
-                        __vehicle addItemCargoGlobal ["U_I_CombatUniform", (random 20)];
-                        __vehicle addItemCargoGlobal ["U_I_CombatUniform_shortsleeve", (random 20)];
-                        __vehicle addItemCargoGlobal ["U_I_CombatUniform_tshirt", (random 20)];
-                        __vehicle addItemCargoGlobal ["U_I_OfficerUniform", (random 20)];
-                        __vehicle addItemCargoGlobal ["U_O_CombatUniform_ocamo", (random 20)];
-                        __vehicle addItemCargoGlobal ["U_O_CombatUniform_oucamo", (random 20)];
-                        __vehicle addItemCargoGlobal ["U_O_OfficerUniform_ocamo", (random 20)];
-                        __vehicle addItemCargoGlobal ["U_B_SpecopsUniform_sgg", (random 20)];
-                        __vehicle addItemCargoGlobal ["U_O_SpecopsUniform_blk", (random 20)];
-                        __vehicle addItemCargoGlobal ["U_O_SpecopsUniform_ocamo", (random 20)];
-                        __vehicle addItemCargoGlobal ["U_I_G_Story_Protagonist_F", (random 20)];
-                        __vehicle addItemCargoGlobal ["Exile_Uniform_Woodland", (random 20)];
+                        _vehicle addItemCargoGlobal ["U_B_CombatUniform_mcam", (random 20)];
+                        _vehicle addItemCargoGlobal ["U_B_CombatUniform_mcam_tshirt", (random 20)];
+                        _vehicle addItemCargoGlobal ["U_B_CombatUniform_mcam_vest", (random 20)];
+                        _vehicle addItemCargoGlobal ["U_B_CombatUniform_mcam_worn", (random 20)];
+                        _vehicle addItemCargoGlobal ["U_B_CTRG_1", (random 20)];
+                        _vehicle addItemCargoGlobal ["U_B_CTRG_2", (random 20)];
+                        _vehicle addItemCargoGlobal ["U_B_CTRG_3", (random 20)];
+                        _vehicle addItemCargoGlobal ["U_I_CombatUniform", (random 20)];
+                        _vehicle addItemCargoGlobal ["U_I_CombatUniform_shortsleeve", (random 20)];
+                        _vehicle addItemCargoGlobal ["U_I_CombatUniform_tshirt", (random 20)];
+                        _vehicle addItemCargoGlobal ["U_I_OfficerUniform", (random 20)];
+                        _vehicle addItemCargoGlobal ["U_O_CombatUniform_ocamo", (random 20)];
+                        _vehicle addItemCargoGlobal ["U_O_CombatUniform_oucamo", (random 20)];
+                        _vehicle addItemCargoGlobal ["U_O_OfficerUniform_ocamo", (random 20)];
+                        _vehicle addItemCargoGlobal ["U_B_SpecopsUniform_sgg", (random 20)];
+                        _vehicle addItemCargoGlobal ["U_O_SpecopsUniform_blk", (random 20)];
+                        _vehicle addItemCargoGlobal ["U_O_SpecopsUniform_ocamo", (random 20)];
+                        _vehicle addItemCargoGlobal ["U_I_G_Story_Protagonist_F", (random 20)];
+                        _vehicle addItemCargoGlobal ["Exile_Uniform_Woodland", (random 20)];
                     };
                     case "explosives":
                     {
