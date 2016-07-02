@@ -1896,7 +1896,7 @@ class CfgSettings
 		* Vehicle ammount per grid
 		* kinda self explanitory
 		*/
-		vehiclesGridAmount = 2;
+		vehiclesGridAmount = 1;
 
 		/**
 		* Creates global markers for vehicle spawn tweeking,
