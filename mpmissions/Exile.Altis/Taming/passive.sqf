@@ -4,4 +4,4 @@ _caller removeAction _action;
 Agressive = false;
 
 titleText ["Your dog is passive and will only follow you","PLAIN DOWN"];
-agressiveAction = player addAction ["Dog: Aggressive","Taiming\agressive.sqf","",0,false];
+agressiveAction = player addAction ["Dog: Aggressive","Taming\agressive.sqf","",0,false];

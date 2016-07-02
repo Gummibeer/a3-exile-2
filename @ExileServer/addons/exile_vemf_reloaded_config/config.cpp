@@ -3,9 +3,9 @@
 class CfgVemfReloadedOverrides
 {
 	debugMode = 1; // Overrides CfgVemfReloaded >> debugMode
-	maxGlobalMissions = 5; // Overrides CfgVemfReloaded >> maxGlobalMissions
+	maxGlobalMissions = 10; // Overrides CfgVemfReloaded >> maxGlobalMissions
 	minServerFPS = 5; // Overrides CfgVemfReloaded >> minServerFPS
-	missionList[] = {"DynamicLocationInvasion","BaseAttack"}; // Each entry should represent an .sqf file in the missions folder
+	missionList[] = {"DynamicLocationInvasion","BaseAttack","PlayerAttack"}; // Each entry should represent an .sqf file in the missions folder
 
 	class DynamicLocationInvasion
 	{
@@ -23,6 +23,7 @@ class CfgVemfReloadedOverrides
 			"Exile_Chopper_Taru_Transport_Black"
 		}}; // Enable/disable heli patrol at mission location and set the types of heli(s)
 		heliLocked = 0; // Enable/disable heli lock to prevent/allow players from flying it
+		maxInvasions = 5; // Max amount of active uncompleted invasions allowed at the same time
 	}
 
 	class aiCleanUp
@@ -60,17 +61,19 @@ class CfgVemfReloadedOverrides
 	};
 
 	class BaseAttack // WORK IN PROGRESS!!
-    	{ // BaseAttack (mission) settings
-    		aiLaunchers = 0; // Allow/disallow AI to have rocket launchers
-    		aiMode = 1; // 0 = "military" | 1 = Police | 2 = S.W.A.T.
-    		aiSetup[] = {2,6}; // format: {amountOfGroups,unitsInEachGroup};
-    		hasLauncherChance = 0; // In percentage. How big the chance that each AI gets a launcher
-    		maxAttacks = 5; // Maximum amount of active attacks at the same time | can not be turned off
-    		/*
-    			NOTES:
-    			1) every territory flag can only be attacked once every restart
-    			2) only players within a certain range of the attacked territory can see the mission announcement
-    			3) as a "punishment" for killing AI, players do NOT get any respect increase/decrease for killing AI
-    		*/
-    	};
+	{ // BaseAttack (mission) settings
+		aiLaunchers = 0; // Allow/disallow AI to have rocket launchers
+		aiMode = 1; // 0 = "military" | 1 = Police | 2 = S.W.A.T.
+		aiSetup[] = {2,6}; // format: {amountOfGroups,unitsInEachGroup};
+		hasLauncherChance = 0; // In percentage. How big the chance that each AI gets a launcher
+		maxAttacks = 5; // Maximum amount of active attacks at the same time | can not be turned off
+		/*
+			NOTES:
+			1) every territory flag can only be attacked once every restart
+			2) only players within a certain range of the attacked territory can see the mission announcement
+			3) as a "punishment" for killing AI, players do NOT get any respect increase/decrease for killing AI
+		*/
+	};
+
+	class PlayerAttack : BaseAttack {} // just copy the settings for the PlayerAttack mission
 };

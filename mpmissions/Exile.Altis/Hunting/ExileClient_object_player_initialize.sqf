@@ -22,8 +22,8 @@ player setVariable ["ExileXM8IsOnline", (profileNamespace getVariable ["ExileEna
 
 //Hunting
 player addAction ["Gut animal", "Hunting\JohnO_fnc_consumeAnimal.sqf",true,0,false,true,"","Local player && vehicle player == player && cursorObject isKindOf 'Animal' && !alive cursorObject && (_target distance cursorObject) < 2"];
-//Taiming
-player addAction ["Tame dog", "Taiming\tameDog.sqf",true,0,false,true,"","Local player && vehicle player == player && cursorObject isKindOf 'Animal' && alive cursorObject && (_target distance cursorObject) < 4"];
+//Taming
+player addAction ["Tame dog", "Taming\tameDog.sqf",true,0,false,true,"","Local player && vehicle player == player && cursorObject isKindOf 'Animal' && alive cursorObject && (_target distance cursorObject) < 4"];
 
 enableSentences false;
 enableRadio false;

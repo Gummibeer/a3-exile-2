@@ -4,7 +4,7 @@ private["_wp","_wp2","_wp3"];
 _logDetail = format ["[OCCUPATION Military]:: Starting Monitor"];
 [_logDetail] call SC_fnc_log;
 
-_maxDistance 	    = 500;			            // Max radius to scan
+_maxDistance 	    = 2000;			            // Max radius to scan
 _maxAIcount 		= SC_maxAIcount;
 _minFPS 			= SC_minFPS;
 _useLaunchers 		= DMS_ai_use_launchers;
@@ -62,21 +62,9 @@ _areaToScan = [ false, false ] call SC_fnc_findsafePos;
         };
 		
 		while{_okToSpawn} do
-		{			
-			// Percentage chance to spawn (roll 70 or more to spawn AI)
-			_spawnChance = round (random 100);
-			if(_spawnChance < 70) exitWith 
-            { 
-                _okToSpawn = false; 
-                if(SC_extendedLogging) then 
-                { 
-                    _logDetail = format ["[OCCUPATION Military]:: Rolled %1 so not spawning AI this time",_spawnChance];
-                    [_logDetail] call SC_fnc_log;
-                };
-            };
-				
+		{
 			// Don't spawn if too near a player base
-			_nearBase = (nearestObjects [_pos,["Exile_Construction_Flag_Static"],500]) select 0;
+			_nearBase = (nearestObjects [_pos,["Exile_Construction_Flag_Static"],150]) select 0;
 			if (!isNil "_nearBase") exitwith 
             { 
                 _okToSpawn = false; 
@@ -87,21 +75,8 @@ _areaToScan = [ false, false ] call SC_fnc_findsafePos;
                 };
             };
 			
-			// Don't spawn AI near traders and spawn zones
-			_nearestMarker = [allMapMarkers, _pos] call BIS_fnc_nearestPosition; // Nearest Marker to the Location		
-			_posNearestMarker = getMarkerPos _nearestMarker;
-			if(_pos distance _posNearestMarker < 500) exitwith 
-            { 
-                _okToSpawn = false; 
-                if(SC_extendedLogging) then 
-                { 
-                    _logDetail = format ["[OCCUPATION Military]:: %1 is too close to a %2",_pos,_nearestMarker];
-                    [_logDetail] call SC_fnc_log;
-                }; 
-            };
-			
 			// Don't spawn additional AI if there are already AI in range
-			_aiNear = count(_pos nearEntities ["O_recon_F", 500]);
+			_aiNear = count(_pos nearEntities ["O_recon_F", 150]);
 			if(_aiNear > 0) exitwith 
             { 
                 _okToSpawn = false; 
@@ -113,7 +88,7 @@ _areaToScan = [ false, false ] call SC_fnc_findsafePos;
             };
 
 			// Don't spawn additional AI if there are players in range
-			if([_pos, 250] call ExileClient_util_world_isAlivePlayerInRange) exitwith 
+			if([_pos, 150] call ExileClient_util_world_isAlivePlayerInRange) exitwith
             { 
                 _okToSpawn = false; 
                 if(SC_extendedLogging) then 
@@ -128,7 +103,7 @@ _areaToScan = [ false, false ] call SC_fnc_findsafePos;
 				//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				// Get AI to patrol the area
 				//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				_aiCount = 2 + (round (random 1)); 
+				_aiCount = 4 + (round (random 4));
 				_groupRadius = 100;
 				_difficulty = "random";
 				_side = SC_BanditSide;
@@ -217,7 +192,7 @@ _areaToScan = [ false, false ] call SC_fnc_findsafePos;
 					if(count _buildings > 0 ) then
 					{
 						_wp setWaypointType "CYCLE";
-					};			
+					};
 				};				
 				
 				//////////////////////////////////////////////////////////////////////////////////////////////////////////////////

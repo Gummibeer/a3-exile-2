@@ -35,7 +35,8 @@ if (SC_fastNights) then
 if(SC_occupyRandomSpawn) then
 {
 	uiSleep 15; // delay the start
-    call compile preprocessFileLineNumbers "\x\addons\a3_exile_occupation\scripts\occupationRandomSpawn.sqf";
+    fnc_occupationRandom = compile preprocessFileLineNumbers "\x\addons\a3_exile_occupation\scripts\occupationRandomSpawn.sqf";
+    [SC_refreshTime, fnc_occupationRandom, [], true] call ExileServer_system_thread_addTask;
 };
 
 
@@ -62,6 +63,13 @@ if(SC_occupyVehicle) then
 	uiSleep 15; // delay the start
 	fnc_occupationVehicle = compile preprocessFileLineNumbers "\x\addons\a3_exile_occupation\scripts\occupationVehicle.sqf";
 	[SC_refreshTime, fnc_occupationVehicle, [], true] call ExileServer_system_thread_addTask;
+};
+
+if(SC_occupyConvoy) then
+{
+	uiSleep 15; // delay the start
+	fnc_occupationConvoy = compile preprocessFileLineNumbers "\x\addons\a3_exile_occupation\scripts\occupationConvoy.sqf";
+	[SC_refreshTime, fnc_occupationConvoy, [], true] call ExileServer_system_thread_addTask;
 };
 
 if(SC_occupyStatic) then

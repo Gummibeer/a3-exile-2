@@ -19,7 +19,7 @@ SC_extendedLogging          = false;                // set to true for additiona
 SC_processReporter          = false;                 // log the a list of active server processes every 60 seconds (useful for debugging server problems)
 SC_infiSTAR_log			    = false;		            // true Use infiSTAR logging, false logs to server rpt
 SC_maxAIcount 			    = 500;					// the maximum amount of AI, if the AI count is above this then additional AI won't spawn
-SC_mapMarkers			    = true;			    // Place map markers at the occupied areas (occupyPlaces and occupyMilitary only) true/false
+SC_mapMarkers			    = false;			    // Place map markers at the occupied areas (occupyPlaces and occupyMilitary only) true/false
 SC_minFPS 				    = 5;					// any lower than minFPS on the server and additional AI won't spawn
 SC_scaleAI 				    = 50; 					// any more than _scaleAI players on the server and _maxAIcount is reduced for each extra player
 
@@ -40,17 +40,19 @@ SC_minDistanceToTerritory   = 250;                  // Minimum distance in metre
 SC_minDistanceToPlayer      = 250;                  // Minimum distance in metres to the nearest player
 
 
-SC_occupyRandomSpawn        = false;                // (WORK IN PROGRESS, NOT WORKING YET) true if you want random spawning AI that hunt for nearby players
+SC_occupyRandomSpawn        = true;                // (WORK IN PROGRESS, NOT WORKING YET) true if you want random spawning AI that hunt for nearby players
 SC_randomSpawnMinPlayers    = 1;                    // Minimum number of players to be online before random spawning AI can spawn
 SC_randomSpawnMaxAI         = 5;                    // Maximum amount of random AI groups allowed at any time
-SC_randomSpawnIgnoreCount	= true;					// true if you want spawn random AI groups regardless of overall AI count (they still count towards the total though)
+SC_randomSpawnIgnoreCount	= false;					// true if you want spawn random AI groups regardless of overall AI count (they still count towards the total though)
 
 SC_occupyPlaces 			= false;				// true if you want villages,towns,cities patrolled by bandits
 
-SC_occupyVehicle			= true;					// true if you want to have roaming AI vehicles
+SC_occupyVehicle			= false;					// true if you want to have roaming AI vehicles
 SC_occupyVehicleIgnoreCount	= true;					// true if you want spawn vehicles regardless of overall AI count
 SC_occupyVehiclesLocked		= false;				// true if AI vehicles to stay locked until all the linked AI are dead
 SC_occupyVehicleRange       = 5000;                 // The range from the center where vehicles should get spawned
+
+SC_occupyConvoy             = true;                 // true if you want to spawn convoys that drive to the airfield
 
 SC_occupyTraders            = false;                // (WORK IN PROGRESS, NOT WORKING YET) true if you want to create trader camps at positions specified in SC_occupyTraderDetails
 SC_occupyTraderDetails      = [
@@ -90,7 +92,54 @@ SC_BanditPistol             = ["hgun_ACPC2_F","hgun_P07_F","hgun_Pistol_heavy_01
 SC_BanditPistolAttachments  = [];
 SC_BanditAssignedItems      = ["ItemMap","ItemCompass","ItemRadio","ItemWatch"]; // all these items will be added
 SC_BanditLauncher           = [];
-SC_BanditBackpack           = ["B_HuntingBackpack","B_Kitbag_cbr","B_Kitbag_mcamo","B_Kitbag_sgg","B_OutdoorPack_blk","B_OutdoorPack_blu","B_OutdoorPack_tan","B_TacticalPack_blk","B_TacticalPack_mcamo","B_TacticalPack_ocamo","B_TacticalPack_oli","B_TacticalPack_rgr"];  
+SC_BanditBackpack           = ["B_HuntingBackpack","B_Kitbag_cbr","B_Kitbag_mcamo","B_Kitbag_sgg","B_OutdoorPack_blk","B_OutdoorPack_blu","B_OutdoorPack_tan","B_TacticalPack_blk","B_TacticalPack_mcamo","B_TacticalPack_ocamo","B_TacticalPack_oli","B_TacticalPack_rgr"];
+
+// Possible equipment for security AI to spawn with
+// spawning security without vests or backpacks will result in them having no ammunition
+SC_SecurityUniforms           = ["Exile_Uniform_ExileCustoms"];
+SC_SecurityVests              = ["V_PlateCarrier2_blk"];
+SC_SecurityHeadgear           = ["H_HelmetB_light_black"];
+SC_SecurityWeapon             = ["arifle_Katiba_F","arifle_Katiba_C_F","arifle_Katiba_GL_F","arifle_Mk20_F","arifle_Mk20_plain_F","arifle_Mk20C_F","arifle_Mk20C_plain_F","arifle_Mk20_GL_F","arifle_Mk20_GL_plain_F","arifle_MXC_F","arifle_MX_F","arifle_MX_SW_F","arifle_MXC_Black_F","arifle_MX_Black_F","arifle_TRG21_F","arifle_TRG20_F","arifle_TRG21_GL_F","hgun_PDW2000_F","SMG_01_F","SMG_02_F"];
+SC_SecurityWeaponAttachments  = [];
+SC_SecurityMagazines          = ["Exile_Item_InstaDoc","Exile_Item_Vishpirin","Exile_Item_Bandage","Exile_Item_DuctTape","Exile_Item_PlasticBottleFreshWater","Exile_Item_Energydrink","Exile_Item_EMRE","Exile_Item_Cheathas","Exile_Item_Noodles","Exile_Item_BBQSandwich","Exile_Item_Catfood"];
+SC_SecurityPistol             = ["hgun_ACPC2_F","hgun_P07_F","hgun_Pistol_heavy_01_F","hgun_Pistol_heavy_02_F","hgun_Rook40_F"];
+SC_SecurityPistolAttachments  = [];
+SC_SecurityAssignedItems      = ["ItemMap","ItemCompass","ItemRadio","ItemWatch"]; // all these items will be added
+SC_SecurityLauncher           = [];
+SC_SecurityBackpack           = ["B_HuntingBackpack","B_Kitbag_cbr","B_Kitbag_mcamo","B_Kitbag_sgg","B_OutdoorPack_blk","B_OutdoorPack_blu","B_OutdoorPack_tan","B_TacticalPack_blk","B_TacticalPack_mcamo","B_TacticalPack_ocamo","B_TacticalPack_oli","B_TacticalPack_rgr"];
+
+// Possible equipment for military AI to spawn with
+// spawning military without vests or backpacks will result in them having no ammunition
+SC_MilitaryUniforms           = [
+                                    "BWA3_Uniform_idz_Fleck","BWA3_Uniform2_idz_Fleck","BWA3_Uniform3_idz_Fleck","BWA3_Uniform_Ghillie_idz_Fleck","BWA3_Uniform_Fleck","BWA3_Uniform2_Fleck","BWA3_Uniform_Ghillie_Fleck","BWA3_Uniform_Crew_Fleck",
+                                    "BWA3_Uniform_idz_Tropen","BWA3_Uniform2_idz_Tropen","BWA3_Uniform3_idz_Tropen","BWA3_Uniform_Ghillie_idz_Tropen","BWA3_Uniform_Tropen","BWA3_Uniform2_Tropen","BWA3_Uniform_Ghillie_Tropen","BWA3_Uniform_Crew_Tropen",
+                                    "BWA3_Uniform_Helipilot"
+                                ];
+SC_MilitaryVests              = [
+                                    "BWA3_Vest_Fleck","BWA3_Vest_Rifleman1_Fleck","BWA3_Vest_Autorifleman_Fleck","BWA3_Vest_Grenadier_Fleck","BWA3_Vest_Medic_Fleck","BWA3_Vest_Marksman_Fleck","BWA3_Vest_Leader_Fleck",
+                                    "BWA3_Vest_Tropen","BWA3_Vest_Rifleman1_Tropen","BWA3_Vest_Autorifleman_Tropen","BWA3_Vest_Grenadier_Tropen","BWA3_Vest_Medic_Tropen","BWA3_Vest_Marksman_Tropen","BWA3_Vest_Leader_Tropen"
+                                ];
+SC_MilitaryHeadgear           = [
+                                    "BWA3_OpsCore_Fleck","BWA3_OpsCore_Fleck_Patch","BWA3_OpsCore_Fleck_Camera","BWA3_CrewmanKSK_Fleck","BWA3_CrewmanKSK_Fleck_Headset","BWA3_MICH_Fleck","BWA3_M92_Fleck","BWA3_Booniehat_Fleck",
+                                    "BWA3_OpsCore_Tropen","BWA3_OpsCore_Tropen_Patch","BWA3_OpsCore_Tropen_Camera","BWA3_CrewmanKSK_Tropen","BWA3_CrewmanKSK_Tropen_Headset","BWA3_MICH_Tropen","BWA3_M92_Tropen","BWA3_Booniehat_Tropen",
+                                    "BWA3_OpsCore_Schwarz","BWA3_OpsCore_Schwarz_Camera","BWA3_CrewmanKSK_Schwarz","BWA3_CrewmanKSK_Schwarz_Headset","BWA3_Knighthelm",
+                                    "BWA3_Beret_PzGren","BWA3_Beret_Pz","BWA3_Beret_PzAufkl","BWA3_Beret_Jaeger","BWA3_Beret_Falli","BWA3_Beret_HFlieger","BWA3_Beret_Wach_Gruen","BWA3_Beret_Wach_Blau"
+                                ];
+SC_MilitaryWeapon             = [
+                                    "BWA3_G36","BWA3_G36K","BWA3_G36_AG","BWA3_G36K_AG","BWA3_G36_LMG","BWA3_G28_Standard","BWA3_G28_Assault","BWA3_G27","BWA3_G27_Tan","BWA3_G27_AG","BWA3_G27_Tan_AG","BWA3_MG4","BWA3_MG5","BWA3_MG5_Tan","BWA3_G82"
+                                ];
+SC_MilitaryWeaponAttachments  = [
+                                    "BWA3_optic_RSAS","BWA3_optic_Aimpoint","BWA3_optic_EOTech","BWA3_optic_EOTech_tan","BWA3_optic_EOTech_Mag_Off","BWA3_optic_EOTech_Mag_On","BWA3_optic_EOTech_tan_Mag_Off","BWA3_optic_EOTech_tan_Mag_On","BWA3_optic_NSV80","BWA3_optic_ZO4x30","BWA3_optic_ZO4x30_NSV","BWA3_optic_ZO4x30_IRV","BWA3_optic_Shortdot","BWA3_optic_20x50","BWA3_optic_20x50_NSV","BWA3_optic_24x72","BWA3_optic_24x72_NSV"
+                                ];
+SC_MilitaryMagazines          = [];
+SC_MilitaryPistol             = ["BWA3_P8","BWA3_MP7"];
+SC_MilitaryPistolAttachments  = [];
+SC_MilitaryAssignedItems      = ["ItemMap","ItemCompass","ItemRadio","ItemWatch"]; // all these items will be added
+SC_MilitaryLauncher           = [];
+SC_MilitaryBackpack           = [
+                                    "BWA3_AssaultPack_Fleck","BWA3_Kitbag_Fleck","BWA3_Kitbag_Fleck_Medic","BWA3_TacticalPack_Fleck","BWA3_TacticalPack_Fleck_Medic","BWA3_FieldPack_Fleck","BWA3_Carryall_Fleck","BWA3_PatrolPack_Fleck",
+                                    "BWA3_AssaultPack_Tropen","BWA3_Kitbag_Tropen","BWA3_Kitbag_Tropen_Medic","BWA3_TacticalPack_Tropen","BWA3_TacticalPack_Tropen_Medic","BWA3_FieldPack_Tropen","BWA3_Carryall_Tropen","BWA3_PatrolPack_Tropen"
+                                ];
 
 SC_occupyStatic	 		    = false;		    	// true if you want to add AI in specific locations
 SC_staticBandits            = [                     //[[pos],ai count,radius,search buildings]	
@@ -98,7 +147,7 @@ SC_staticBandits            = [                     //[[pos],ai count,radius,sea
                               ];     
 SC_staticSurvivors          = [	                    //[[pos],ai count,radius,search buildings]
                                 //[[3770,8791,0],8,250,true]	
-                              ];      
+                              ];
 
 SC_occupySky				= false;					// true if you want to have roaming AI helis
 SC_occupySea				= false;		        // true if you want to have roaming AI boats
@@ -212,6 +261,18 @@ SC_VehicleClassToUseRare	=   [
                                     ["Exile_Car_Zamak",2],
                                     ["Exile_Car_Offroad_Armed_Guerilla01",2],
                                     ["Exile_Car_Tempest",2]
+                                ];
+
+SC_maxNumberofConvoys           = 3;
+SC_maxVehiclesPerConvoy         = 4;
+SC_ConvoyVehicleClassesMilitary   = [
+                                    "blx_ridgback_HMG_D",
+                                    "blx_ridgback_HMG_W"
+                                ];
+SC_ConvoyVehicleClassesSecurity = [
+                                    "shounka_a3_brinks_grise",
+                                    "shounka_a3_brinks_noir",
+                                    "shounka_a3_brinks_rouge"
                                 ];
 
 // Settings for roaming airborne AI (non armed helis will just fly around)
@@ -332,6 +393,7 @@ SC_SurvivorSide         	= CIVILIAN;
 SC_BanditSide           	= EAST;
 SC_liveVehicles 			= 0;
 SC_liveVehiclesArray    	= [];
+SC_liveConvoys              = 0;
 SC_liveHelis	 			= 0;
 SC_liveHelisArray       	= [];
 SC_liveBoats	 			= 0;
@@ -341,6 +403,7 @@ SC_transportArray       	= [];
 
 publicVariable "SC_liveVehicles";
 publicVariable "SC_liveVehiclesArray";
+publicVariable "SC_liveConvoys";
 publicVariable "SC_liveHelis";
 publicVariable "SC_liveHelisArray";
 publicVariable "SC_liveBoats";

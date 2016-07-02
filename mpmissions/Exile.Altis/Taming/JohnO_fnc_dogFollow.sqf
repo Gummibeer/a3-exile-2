@@ -38,9 +38,9 @@ dogseek = player addAction
 	}
 ];
 
-dogMove = player addAction ["Dog: Move to","Taiming\moveTo.sqf","",0,false];
+dogMove = player addAction ["Dog: Move to","Taming\moveTo.sqf","",0,false];
 
-Dogpassive = player addAction ["Dog: Aggressive","Taiming\agressive.sqf","",0,false];
+Dogpassive = player addAction ["Dog: Aggressive","Taming\agressive.sqf","",0,false];
 
 Dogstay = player addAction ["Dog: Stay", {BURK_dog playMove "Dog_Stop";}];
 

@@ -18,6 +18,7 @@ if (VEMFrAttackCount <= ([[_missionName],["maxAttacks"]] call VEMFr_fnc_getSetti
       if (_aiSetup select 0 > 0 AND _aiSetup select 1 > 0) then
       {
          _attackedFlags = uiNamespace getVariable ["VEMFrAttackedFlags",[]];
+         _flagsUnderAttack = uiNamespace getVariable ["VEMFrFlagsUnderAttack",[]];
          _flags = [];
          _occupiedFlags = [];
          {
@@ -25,23 +26,28 @@ if (VEMFrAttackCount <= ([[_missionName],["maxAttacks"]] call VEMFr_fnc_getSetti
             {
                _flagsObjs = nearestObjects [position _x, ["Exile_Construction_Flag_Static"], 150];
                {
-                  _occupiedFlags pushBack _x;
-                  if not(_x in _attackedFlags) then
-                  {
-                     _flags pushBack _x;
+                  if not(_x in _flagsUnderAttack) then {
+                     _flagLevel = _x getVariable ["ExileTerritoryLevel",1];
+                     if(_flagLevel > 2) then {
+                        _occupiedFlags pushBack _x;
+                     };
+                     if not(_x in _attackedFlags) then {
+                        _flags pushBack _x;
+                     };
                   };
                } forEach _flagsObjs;
             };
          } forEach allPlayers;
-         if (count _flags > 0) then
-         {
+         _flagToAttack = nil;
+         if (count _flags > 0) then {
             _flagToAttack = selectRandom _flags;
-            _attackedFlags pushBack _flagToAttack;
          } else {
             _flagToAttack = selectRandom _occupiedFlags;
          };
          if not isNil "_flagToAttack" then
          {
+            _attackedFlags pushBack _flagToAttack;
+            _flagsUnderAttack pushBack _flagToAttack;
             _flagPos = position _flagToAttack;
             _nearestPlayer = selectRandom (nearestObjects [_flagPos, ["Exile_Unit_Player"], 150]);
             if not isNil "_nearestPlayer" then
@@ -56,12 +62,12 @@ if (VEMFrAttackCount <= ([[_missionName],["maxAttacks"]] call VEMFr_fnc_getSetti
                {
                   _unitCount = 0;
                   {
-                     if (count (units _x) isEqualTo (_aiSetup select 1)) then
+                     if (count (units _x) isEqualTo (_units)) then
                      {
                         _unitCount = _unitCount + (count(units _x));
                      };
                   } forEach _paraGroups;
-                  if (_unitCount isEqualTo ((_aiSetup select 0) * (_aiSetup select 1))) then
+                  if (_unitCount isEqualTo ((_groups) * (_units))) then
                   {
                      _wayPoints = [];
                      _units = [];
@@ -82,7 +88,7 @@ if (VEMFrAttackCount <= ([[_missionName],["maxAttacks"]] call VEMFr_fnc_getSetti
                      } forEach _paraGroups;
                      _players = nearestObjects [_flagPos, ["Exile_Unit_Player"], 275];
                      [-1, "NEW BASE ATTACK", format["A para team is on the way to %1 @ %2's location!", _flagName, name _nearestPlayer], _players] ExecVM "exile_vemf_reloaded\sqf\notificationToClient.sqf";
-                     [-1, "BaseAttack", format["A para team is on the way to %1 @ %2's location!", _flagName, name _nearestPlayer]] ExecVM "exile_vemf_reloaded\sqf\log.sqf";
+                     ["BaseAttack", 1, format["A para team is on the way to %1 @ %2's location!", _flagName, name _nearestPlayer]] ExecVM "exile_vemf_reloaded\sqf\log.sqf";
 
                      while {true} do
                      {
@@ -104,6 +110,18 @@ if (VEMFrAttackCount <= ([[_missionName],["maxAttacks"]] call VEMFr_fnc_getSetti
                      };
                      _players = nearestObjects [_flagPos, ["Exile_Unit_Player"], 275];
                      [-1, "DEFEATED", format["Base attack on %1 has been defeated!", _flagname], _players] ExecVM "exile_vemf_reloaded\sqf\notificationToClient.sqf";
+                     [_flagToAttack] spawn {
+                        _flagToAttack = _this select 0;
+                        _attackedFlags = uiNamespace getVariable ["VEMFrAttackedFlags",[]];
+                        _attackCount = ({_x == _flagToAttack} count _attackedFlags) max 1;
+                        _nextAttackDelay = 300 * _attackCount;
+                        uiSleep _nextAttackDelay;
+                        _flagsUnderAttack = uiNamespace getVariable ["VEMFrFlagsUnderAttack",[]];
+                        _index = _flagsUnderAttack find _flagToAttack;
+                        if (_index > -1) then {
+                           _flagsUnderAttack deleteAt _index;
+                        };
+                     };
                      breakOut "outer";
                   } else
                   {

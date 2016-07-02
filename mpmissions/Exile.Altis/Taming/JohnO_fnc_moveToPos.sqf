@@ -15,7 +15,7 @@ _intersectingObjectArray = lineIntersectsSurfaces [AGLToASL positionCameraToWorl
 
 uiSleep 5; // Give the script 3 seconds to exit the current loop
 
-dogMove = player addAction ["Dog: Move to","Taiming\moveTo.sqf","",0,false];
+dogMove = player addAction ["Dog: Move to","Taming\moveTo.sqf","",0,false];
 
 BURK_dog_movingToPos = true;
 

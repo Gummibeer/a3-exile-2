@@ -53,6 +53,56 @@ switch (_side) do
                 _magazines pushBack [_newMagazine,_quantity];    
             };             
         };   
+    }; 
+    case "security":
+    {
+        if(count SC_SecurityUniforms == 0) then { _uniform = ""; } else { _uniform  = SC_SecurityUniforms call BIS_fnc_selectRandom; }; 
+        if(count SC_SecurityVests == 0) then { _vest = ""; } else { _vest  = SC_SecurityVests call BIS_fnc_selectRandom; }; 
+        if(count SC_SecurityHeadgear == 0) then { _headgear = ""; } else { _headgear  = SC_SecurityHeadgear call BIS_fnc_selectRandom; }; 
+        if(count SC_SecurityWeapon == 0) then { _weapon = ""; } else { _weapon  = SC_SecurityWeapon call BIS_fnc_selectRandom; }; 
+        if(count SC_SecurityWeaponAttachments == 0) then { _weaponAttachments = [""]; } else { _weaponAttachments  = [SC_SecurityWeaponAttachments call BIS_fnc_selectRandom]; };         
+        if(count SC_SecurityPistol == 0) then { _pistol = ""; } else { _pistol  = SC_SecurityPistol call BIS_fnc_selectRandom; }; 
+        if(count SC_SecurityPistolAttachments == 0) then { _pistolAttachments = [""]; } else { _pistolAttachments  = [SC_SecurityPistolAttachments call BIS_fnc_selectRandom]; };    
+        if(count SC_SecurityLauncher == 0) then { _launcher = ""; } else { _launcher  = SC_SecurityLauncher call BIS_fnc_selectRandom; }; 
+        if(count SC_SecurityBackpack == 0) then { _backpack = ""; } else { _backpack  = SC_SecurityBackpack call BIS_fnc_selectRandom; };  
+        _assignedItems = SC_SecurityAssignedItems;
+       
+        _magazines = [];
+        if(count SC_SecurityMagazines > 0) then
+        {
+            _amountOfMagazines  = 1 + round random (2);
+            for "_i" from 1 to _amountOfMagazines do
+            {
+                _newMagazine    = SC_SecurityMagazines call BIS_fnc_selectRandom;
+                _quantity       = 1 + round random (2);
+                _magazines pushBack [_newMagazine,_quantity];    
+            };             
+        };   
+    };  
+    case "military":
+    {
+        if(count SC_MilitaryUniforms == 0) then { _uniform = ""; } else { _uniform  = SC_MilitaryUniforms call BIS_fnc_selectRandom; }; 
+        if(count SC_MilitaryVests == 0) then { _vest = ""; } else { _vest  = SC_MilitaryVests call BIS_fnc_selectRandom; }; 
+        if(count SC_MilitaryHeadgear == 0) then { _headgear = ""; } else { _headgear  = SC_MilitaryHeadgear call BIS_fnc_selectRandom; }; 
+        if(count SC_MilitaryWeapon == 0) then { _weapon = ""; } else { _weapon  = SC_MilitaryWeapon call BIS_fnc_selectRandom; }; 
+        if(count SC_MilitaryWeaponAttachments == 0) then { _weaponAttachments = [""]; } else { _weaponAttachments  = [SC_MilitaryWeaponAttachments call BIS_fnc_selectRandom]; };         
+        if(count SC_MilitaryPistol == 0) then { _pistol = ""; } else { _pistol  = SC_MilitaryPistol call BIS_fnc_selectRandom; }; 
+        if(count SC_MilitaryPistolAttachments == 0) then { _pistolAttachments = [""]; } else { _pistolAttachments  = [SC_MilitaryPistolAttachments call BIS_fnc_selectRandom]; };    
+        if(count SC_MilitaryLauncher == 0) then { _launcher = ""; } else { _launcher  = SC_MilitaryLauncher call BIS_fnc_selectRandom; }; 
+        if(count SC_MilitaryBackpack == 0) then { _backpack = ""; } else { _backpack  = SC_MilitaryBackpack call BIS_fnc_selectRandom; };  
+        _assignedItems = SC_MilitaryAssignedItems;
+       
+        _magazines = [];
+        if(count SC_MilitaryMagazines > 0) then
+        {
+            _amountOfMagazines  = 1 + round random (2);
+            for "_i" from 1 to _amountOfMagazines do
+            {
+                _newMagazine    = SC_MilitaryMagazines call BIS_fnc_selectRandom;
+                _quantity       = 1 + round random (2);
+                _magazines pushBack [_newMagazine,_quantity];    
+            };             
+        };   
     };    
 };
 

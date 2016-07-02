@@ -6,8 +6,12 @@ _vehicle removeAllEventHandlers  "getout";
 
 if(_vehicle isKindOf "LandVehicle") then
 {
-    SC_liveVehicles = SC_liveVehicles - 1;
-    SC_liveVehiclesArray = SC_liveVehiclesArray - [_vehicle];    
+    if(_vehicle getVariable ["SC_vehicleIsInConvoy",0] == 1) then {
+        SC_liveConvoys = SC_liveConvoys - 1;
+    } else {
+        SC_liveVehicles = SC_liveVehicles - 1;
+        SC_liveVehiclesArray = SC_liveVehiclesArray - [_vehicle];
+    };
 };
 
 if(_vehicle isKindOf "Air") then

@@ -1,0 +1,5 @@
+*
+!launcher.jar
+!.gitignore
+!config.ini
+!logs/
