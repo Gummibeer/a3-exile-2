@@ -2030,6 +2030,15 @@ class CfgExileArsenal
 	// Zamak
 	///////////////////////////////////////////////////////////////////////////////
 	class Exile_Car_Zamak 								{ quality = 1; price = 43000; };
+
+	///////////////////////////////////////////////////////////////////////////////
+	// Custom
+	///////////////////////////////////////////////////////////////////////////////
+	class blx_ridgback_HMG_D 							{ quality = 1; price = 100000; sellPrice = 10000; };
+	class blx_ridgback_HMG_W 							{ quality = 1; price = 100000; sellPrice = 10000; };
+	class shounka_a3_brinks_grise 						{ quality = 1; price = 50000; sellPrice = 5000; };
+	class shounka_a3_brinks_noir 						{ quality = 1; price = 50000; sellPrice = 5000; };
+	class shounka_a3_brinks_rouge 						{ quality = 1; price = 50000; sellPrice = 5000; };
 };
 class CfgExileCustomCode 
 {

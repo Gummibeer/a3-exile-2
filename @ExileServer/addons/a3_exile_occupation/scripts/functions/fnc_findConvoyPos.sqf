@@ -1,9 +1,8 @@
 private _position       = [0,0,0];
 private _nearestRoad    = [0,0,0];
 
-private _middle     = worldSize/2;
 private _pos 		= _this select 0;
-private _maxDist 	= _middle - 100;
+private _maxDist    = 150;
 private _minDist    = 15;
 
 if (worldName == 'Esseker') then 

@@ -43,11 +43,11 @@ SC_minDistanceToPlayer      = 250;                  // Minimum distance in metre
 SC_occupyRandomSpawn        = true;                // (WORK IN PROGRESS, NOT WORKING YET) true if you want random spawning AI that hunt for nearby players
 SC_randomSpawnMinPlayers    = 1;                    // Minimum number of players to be online before random spawning AI can spawn
 SC_randomSpawnMaxAI         = 5;                    // Maximum amount of random AI groups allowed at any time
-SC_randomSpawnIgnoreCount	= true;					// true if you want spawn random AI groups regardless of overall AI count (they still count towards the total though)
+SC_randomSpawnIgnoreCount	= false;					// true if you want spawn random AI groups regardless of overall AI count (they still count towards the total though)
 
 SC_occupyPlaces 			= false;				// true if you want villages,towns,cities patrolled by bandits
 
-SC_occupyVehicle			= true;					// true if you want to have roaming AI vehicles
+SC_occupyVehicle			= false;					// true if you want to have roaming AI vehicles
 SC_occupyVehicleIgnoreCount	= true;					// true if you want spawn vehicles regardless of overall AI count
 SC_occupyVehiclesLocked		= false;				// true if AI vehicles to stay locked until all the linked AI are dead
 SC_occupyVehicleRange       = 5000;                 // The range from the center where vehicles should get spawned
@@ -96,10 +96,10 @@ SC_BanditBackpack           = ["B_HuntingBackpack","B_Kitbag_cbr","B_Kitbag_mcam
 
 // Possible equipment for security AI to spawn with
 // spawning security without vests or backpacks will result in them having no ammunition
-SC_SecurityUniforms           = ["U_IG_Guerilla1_1","U_IG_Guerilla2_1","U_IG_Guerilla2_2","U_IG_Guerilla2_3","U_IG_Guerilla3_1","U_BG_Guerilla2_1","U_IG_Guerilla3_2","U_BG_Guerrilla_6_1","U_BG_Guerilla1_1","U_BG_Guerilla2_2","U_BG_Guerilla2_3","U_BG_Guerilla3_1"];
-SC_SecurityVests              = ["V_BandollierB_blk","V_BandollierB_cbr","V_BandollierB_khk","V_BandollierB_oli"];
-SC_SecurityHeadgear           = ["H_Shemag_khk","H_Shemag_olive","H_Shemag_olive_hs","H_Shemag_tan","H_ShemagOpen_khk","H_ShemagOpen_tan"];
-SC_SecurityWeapon             = ["LMG_Zafir_F","arifle_Katiba_C_F","arifle_Katiba_F","arifle_Katiba_GL_F","arifle_MXC_Black_F","arifle_MXC_F","arifle_TRG20_F","arifle_TRG21_F","arifle_TRG21_GL_F"];
+SC_SecurityUniforms           = ["Exile_Uniform_ExileCustoms"];
+SC_SecurityVests              = ["V_PlateCarrier2_blk"];
+SC_SecurityHeadgear           = ["H_HelmetB_light_black"];
+SC_SecurityWeapon             = ["arifle_Katiba_F","arifle_Katiba_C_F","arifle_Katiba_GL_F","arifle_Mk20_F","arifle_Mk20_plain_F","arifle_Mk20C_F","arifle_Mk20C_plain_F","arifle_Mk20_GL_F","arifle_Mk20_GL_plain_F","arifle_MXC_F","arifle_MX_F","arifle_MX_SW_F","arifle_MXC_Black_F","arifle_MX_Black_F","arifle_TRG21_F","arifle_TRG20_F","arifle_TRG21_GL_F","hgun_PDW2000_F","SMG_01_F","SMG_02_F"];
 SC_SecurityWeaponAttachments  = [];
 SC_SecurityMagazines          = ["Exile_Item_InstaDoc","Exile_Item_Vishpirin","Exile_Item_Bandage","Exile_Item_DuctTape","Exile_Item_PlasticBottleFreshWater","Exile_Item_Energydrink","Exile_Item_EMRE","Exile_Item_Cheathas","Exile_Item_Noodles","Exile_Item_BBQSandwich","Exile_Item_Catfood"];
 SC_SecurityPistol             = ["hgun_ACPC2_F","hgun_P07_F","hgun_Pistol_heavy_01_F","hgun_Pistol_heavy_02_F","hgun_Rook40_F"];
@@ -266,13 +266,13 @@ SC_VehicleClassToUseRare	=   [
 SC_maxNumberofConvoys           = 3;
 SC_maxVehiclesPerConvoy         = 4;
 SC_ConvoyVehicleClassesMilitary   = [
-                                    "Exile_Car_Hunter",
-                                    "Exile_Car_Ifrit",
-                                    "Exile_Car_Offroad_Armed_Guerilla01"
+                                    "blx_ridgback_HMG_D",
+                                    "blx_ridgback_HMG_W"
                                 ];
 SC_ConvoyVehicleClassesSecurity = [
-                                    "Exile_Car_Van_Box_Guerilla01",
-                                    "Exile_Car_Offroad_Guerilla01"
+                                    "shounka_a3_brinks_grise",
+                                    "shounka_a3_brinks_noir",
+                                    "shounka_a3_brinks_rouge"
                                 ];
 
 // Settings for roaming airborne AI (non armed helis will just fly around)

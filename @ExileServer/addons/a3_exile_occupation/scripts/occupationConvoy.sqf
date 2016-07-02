@@ -5,10 +5,12 @@ _logDetail = format['[OCCUPATION:Convoy] Started'];
 
 // set the default side for bandit AI
 _side               = "military";
+_destination        = [ true, false ] call SC_fnc_findsafePos;
 
 // more than _scaleAI players on the server and the max AI count drops per additional player
 _currentPlayerCount = count playableUnits;
 _maxAIcount 		= SC_maxAIcount;
+_minVehiclesToSpawn = 1;
 
 if(_currentPlayerCount > SC_scaleAI) then 
 {
@@ -28,7 +30,7 @@ if((_aiActive > _maxAIcount) && !SC_occupyVehicleIgnoreCount) exitWith
     [_logDetail] call SC_fnc_log; 
 };
 
-if(SC_liveConvoys >= SC_maxNumberofConvoys) exitWith
+if(SC_liveConvoys >= (SC_maxNumberofConvoys * SC_maxVehiclesPerConvoy)) exitWith
 {
     if(SC_extendedLogging) then 
     { 
@@ -37,12 +39,12 @@ if(SC_liveConvoys >= SC_maxNumberofConvoys) exitWith
     };   
 };
 
-_convoysToSpawn = (SC_maxNumberofConvoys - SC_liveConvoys);
+_convoysToSpawn = ceil (((SC_maxNumberofConvoys * SC_maxVehiclesPerConvoy) - SC_liveConvoys) / SC_maxVehiclesPerConvoy);
 
 if(SC_extendedLogging) then 
 { 
 	if(_convoysToSpawn > 0) then
-	{ 
+	{
 		_logDetail = format['[OCCUPATION:Convoy] Started %2 currently active (max %3) spawning %1 extra convoy(s) @ %4',_convoysToSpawn,SC_liveConvoys,SC_maxNumberofConvoys,time];
 		[_logDetail] call SC_fnc_log;
 	}
@@ -53,10 +55,6 @@ if(SC_extendedLogging) then
 	};
 	
 };
-
-_middle = worldSize/2;
-_spawnCenter = [_middle,_middle,0];
-_maxDistance = _middle;
 
 if(_convoysToSpawn >= 1) then
 {
@@ -75,8 +73,9 @@ if(_convoysToSpawn >= 1) then
             _vehicleClass = SC_ConvoyVehicleClassesSecurity call BIS_fnc_selectRandom;
         } else {
             _vehicleClass = SC_ConvoyVehicleClassesMilitary call BIS_fnc_selectRandom;
+            _minVehiclesToSpawn = 2;
         };
-        _vehiclesToSpawn = 1 max (random SC_maxVehiclesPerConvoy);
+        _vehiclesToSpawn = _minVehiclesToSpawn max (random SC_maxVehiclesPerConvoy);
         _vehiclesSpawned = 0;
         _convoyPosition = [ true, false ] call SC_fnc_findsafePos;
         _convoyType = "food";
@@ -85,6 +84,7 @@ if(_convoysToSpawn >= 1) then
         } else {
             _convoyType = ["weapon", "ammunition", "attachments", "medical", "explosives", "uniforms"] call BIS_fnc_selectRandom;
         };
+        _difficulty = ["hardcore","difficult"] call BIS_fnc_selectRandom;
         for "_k" from 1 to _vehiclesToSpawn do
         {
             private["_group"];
@@ -105,6 +105,7 @@ if(_convoysToSpawn >= 1) then
                 _vehicle setVariable["vehPos",_spawnLocation,true];
                 _vehicle setVariable["vehClass",_vehicleClass,true];
                 _vehicle setVariable ["SC_vehicleSpawnLocation", _spawnLocation,true];
+                _vehicle setVariable ["SC_vehicleIsInConvoy", 1,true];
                 _vehicle setFuel 1;
                 _vehicle engineOn true;
                 _vehicle lock 0;
@@ -127,7 +128,7 @@ if(_convoysToSpawn >= 1) then
                     if(_vehicleRole == "Driver") then
                     {
                         _loadOut = [_side] call SC_fnc_selectGear;
-                        _unit = [_group,_spawnLocation,"custom","random",_side,"Vehicle",_loadOut] call DMS_fnc_SpawnAISoldier;
+                        _unit = [_group,_spawnLocation,"custom",_difficulty,_side,"Vehicle",_loadOut] call DMS_fnc_SpawnAISoldier;
                         _unit disableAI "FSM";
                         _unit disableAI "MOVE";
                         [_side,_unit] call SC_fnc_addMarker;
@@ -191,12 +192,10 @@ if(_convoysToSpawn >= 1) then
                     if(!isNil "_unitName") then { _unit setName _unitName; };
                 } forEach units _group;
 
-                _waypoint = _group addWaypoint [[14601,16799,0], 0];
-                _waypoint setWaypointType "MOVE";
-                _waypoint setWaypointSpeed "LIMITED";
-                _waypoint setWaypointBehaviour "AWARE";
-                _waypoint setWaypointCombatMode "RED";
-                _waypoint setWaypointFormation "COLUMN";
+
+                [_group, _spawnLocation, 5000] call bis_fnc_taskPatrol;
+                _group setBehaviour "SAFE";
+                _group setCombatMode "RED";
                 sleep 0.2;
 
                 clearMagazineCargoGlobal _vehicle;
@@ -295,7 +294,7 @@ if(_convoysToSpawn >= 1) then
                         _vehicle addItemCargoGlobal ["Exile_Item_Heatpack", (random 25)];
                         _vehicle addItemCargoGlobal ["Exile_Item_InstaDoc", (random 25)];
                         _vehicle addItemCargoGlobal ["Exile_Item_Vishpirin", (random 25)];
-                        _vehicle addItemCargoGlobal ["Exile_Item_Defibrillator", (random 2)];
+                        _vehicle addItemCargoGlobal ["Exile_Item_Defibrillator", (random 1)];
                     };
                     case "weapon":
                     {
@@ -418,7 +417,7 @@ if(_convoysToSpawn >= 1) then
             };
         };
         if(_vehiclesSpawned > 0) then {
-            SC_liveConvoys = SC_liveConvoys + 1;
+            SC_liveConvoys = SC_liveConvoys + _vehiclesSpawned;
         };
 	};
 };
