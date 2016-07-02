@@ -11,6 +11,7 @@ if isNil "VEMFrHasStarted" then
 		["Launcher", 2, format["/// STARTING VEMFr v%1 \\\", getText (configFile >> "CfgPatches" >> "exile_vemf_reloaded" >> "version")]] ExecVM "exile_vemf_reloaded\sqf\log.sqf";
 		uiNamespace setVariable ["VEMFrUsedLocs", []];
 		uiNamespace setVariable ["VEMFrAttackedFlags", []];
+		uiNamespace setVariable ["VEMFrFlagsUnderAttack", []];
 		uiNamespace setVariable ["VEMFrAttackedPlayers", []];
 		uiNamespace setVariable ["VEMFrHcLoad", []];
 

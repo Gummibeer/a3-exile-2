@@ -21,8 +21,8 @@ if (VEMFrAttackCount <= ([[_missionName],["maxAttacks"]] call VEMFr_fnc_getSetti
          _players = [];
          {
             if (
-                (alive _player) AND
-                (isPlayer _player) AND
+                (alive _x) AND
+                (isPlayer _x) AND
                 (speed _x < 25) AND
                 (vehicle _x isEqualTo _x) AND
                 !(_x in _attackedPlayers)
@@ -31,6 +31,7 @@ if (VEMFrAttackCount <= ([[_missionName],["maxAttacks"]] call VEMFr_fnc_getSetti
                 _players pushBack _x;
             };
          } forEach allPlayers;
+         _playerToAttack = nil;
          if (count _players > 0) then
          {
             _playerToAttack = selectRandom _players;
@@ -83,7 +84,7 @@ if (VEMFrAttackCount <= ([[_missionName],["maxAttacks"]] call VEMFr_fnc_getSetti
                  } forEach _paraGroups;
                  _players = nearestObjects [_playerPos, ["Exile_Unit_Player"], 275];
                  [-1, "NEW PLAYER ATTACK", format["A para team is on the way to %1's location!", _playerName], _players] ExecVM "exile_vemf_reloaded\sqf\notificationToClient.sqf";
-                 [-1, "PlayerAttack", format["A para team is on the way to %1's location!", _flagName]] ExecVM "exile_vemf_reloaded\sqf\log.sqf";
+                 ["PlayerAttack", 1, format["A para team is on the way to %1's location!", _playerName]] ExecVM "exile_vemf_reloaded\sqf\log.sqf";
 
                  while {true} do
                  {
