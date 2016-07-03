@@ -1386,7 +1386,7 @@ class CfgCraftingRecipes
 
 class CfgExileArsenal
 {
-	#include "CfgNetworkMessages.hpp"
+	#include "CfgExileArsenal.hpp"
 
 	class Exile_Uniform_BambiOverall				{ quality = 1; price = 1; sellPrice = 1; };
 
