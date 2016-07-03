@@ -2249,28 +2249,28 @@ class CfgExileArsenal
 	///////////////////////////////////////////////////////////////////////////////
 	// Hummingbird
 	///////////////////////////////////////////////////////////////////////////////
-	class Exile_Chopper_Hummingbird_Green			{ quality = 3; price = 230000; };
+	class Exile_Chopper_Hummingbird_Green			{ quality = 3; price = 100000; };
 
 	///////////////////////////////////////////////////////////////////////////////
 	// Hummingbird (Civillian)
 	///////////////////////////////////////////////////////////////////////////////
-	class Exile_Chopper_Hummingbird_Civillian_Blue				{ quality = 1; price = 170000; };
-	class Exile_Chopper_Hummingbird_Civillian_Red				{ quality = 1; price = 170000; };
-	class Exile_Chopper_Hummingbird_Civillian_ION				{ quality = 1; price = 170000; };
-	class Exile_Chopper_Hummingbird_Civillian_BlueLine			{ quality = 1; price = 170000; };
-	class Exile_Chopper_Hummingbird_Civillian_Digital			{ quality = 1; price = 170000; };
-	class Exile_Chopper_Hummingbird_Civillian_Elliptical		{ quality = 1; price = 170000; };
-	class Exile_Chopper_Hummingbird_Civillian_Furious			{ quality = 1; price = 170000; };
-	class Exile_Chopper_Hummingbird_Civillian_GrayWatcher		{ quality = 1; price = 170000; };
-	class Exile_Chopper_Hummingbird_Civillian_Jeans				{ quality = 1; price = 170000; };
-	class Exile_Chopper_Hummingbird_Civillian_Light				{ quality = 1; price = 170000; };
-	class Exile_Chopper_Hummingbird_Civillian_Shadow			{ quality = 1; price = 170000; };
-	class Exile_Chopper_Hummingbird_Civillian_Sheriff			{ quality = 1; price = 170000; };
-	class Exile_Chopper_Hummingbird_Civillian_Speedy			{ quality = 1; price = 170000; };
-	class Exile_Chopper_Hummingbird_Civillian_Sunset			{ quality = 1; price = 170000; };
-	class Exile_Chopper_Hummingbird_Civillian_Vrana				{ quality = 1; price = 170000; };
-	class Exile_Chopper_Hummingbird_Civillian_Wasp				{ quality = 1; price = 170000; };
-	class Exile_Chopper_Hummingbird_Civillian_Wave				{ quality = 1; price = 170000; };
+	class Exile_Chopper_Hummingbird_Civillian_Blue				{ quality = 1; price = 50000; };
+	class Exile_Chopper_Hummingbird_Civillian_Red				{ quality = 1; price = 50000; };
+	class Exile_Chopper_Hummingbird_Civillian_ION				{ quality = 1; price = 50000; };
+	class Exile_Chopper_Hummingbird_Civillian_BlueLine			{ quality = 1; price = 50000; };
+	class Exile_Chopper_Hummingbird_Civillian_Digital			{ quality = 1; price = 50000; };
+	class Exile_Chopper_Hummingbird_Civillian_Elliptical		{ quality = 1; price = 50000; };
+	class Exile_Chopper_Hummingbird_Civillian_Furious			{ quality = 1; price = 50000; };
+	class Exile_Chopper_Hummingbird_Civillian_GrayWatcher		{ quality = 1; price = 50000; };
+	class Exile_Chopper_Hummingbird_Civillian_Jeans				{ quality = 1; price = 50000; };
+	class Exile_Chopper_Hummingbird_Civillian_Light				{ quality = 1; price = 50000; };
+	class Exile_Chopper_Hummingbird_Civillian_Shadow			{ quality = 1; price = 50000; };
+	class Exile_Chopper_Hummingbird_Civillian_Sheriff			{ quality = 1; price = 50000; };
+	class Exile_Chopper_Hummingbird_Civillian_Speedy			{ quality = 1; price = 50000; };
+	class Exile_Chopper_Hummingbird_Civillian_Sunset			{ quality = 1; price = 50000; };
+	class Exile_Chopper_Hummingbird_Civillian_Vrana				{ quality = 1; price = 50000; };
+	class Exile_Chopper_Hummingbird_Civillian_Wasp				{ quality = 1; price = 50000; };
+	class Exile_Chopper_Hummingbird_Civillian_Wave				{ quality = 1; price = 50000; };
 
 	///////////////////////////////////////////////////////////////////////////////
 	// Huron
