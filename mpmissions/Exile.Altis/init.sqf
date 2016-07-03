@@ -15,21 +15,5 @@ if (hasInterface) then {
 	[] execVM "VEMFr_client\sqf\initClient.sqf";
 };
 
-// Hunting
-/*
-JohnO_fnc_spawnAnimals = compileFinal preprocessFileLineNumbers "Hunting\JohnO_fnc_spawnAnimals.sqf";
-JohnO_fnc_isSick = compileFinal preprocessFileLineNumbers "Hunting\JohnO_fnc_isSick.sqf";
-if (isServer) then {
-	[] execVM "Hunting\Config_animals.sqf";
-};
-*/
-
-// Taming
-/*
-BURK_dogSeek = compileFinal preprocessFileLineNumbers "Taming\JohnO_fnc_seeking.sqf";
-BURK_dogFollowPlayer = compileFinal preprocessFileLineNumbers "Taming\JohnO_fnc_following.sqf";
-BURK_dogMoveToPos = compileFinal preprocessFileLineNumbers "Taming\JohnO_fnc_moveToPos.sqf";
-*/
-
 // XM8 Apps
 [] execVM "XM8_apps\scripts\XM8_apps_init.sqf";
