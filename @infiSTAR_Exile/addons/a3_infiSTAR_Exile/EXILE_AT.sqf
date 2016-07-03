@@ -9,7 +9,7 @@
 	Arma AntiHack & AdminTools - infiSTAR.de
 */
 comment 'Antihack & AdminTools - Christian Lorenzen - www.infiSTAR.de';
-VERSION_DATE_IS = '26-Jun-2016 22-41-07#701';
+VERSION_DATE_IS = '03-Jul-2016 17-18-09#701';
 infiSTAR_customFunctions = [];
 _configClasses = "true" configClasses (configfile >> "CfgCustomFunctions");
 {
@@ -86,8 +86,7 @@ infiSTAR_MAIN_CODE = "
 
 FN_SHOW_LOGID = 554466;
 FN_SHOWN_LOGIDS = [];
-FN_SHOW_LOG =
-{
+FN_SHOW_LOG = {
 	disableSerialization;
 	_del = {FN_SHOWN_LOGIDS = FN_SHOWN_LOGIDS - [_this];ctrlDelete _this;};
 	{
@@ -100,11 +99,9 @@ FN_SHOW_LOG =
 			if(ctrlFade _x > 0.9)then{_x call _del;};
 		};
 	} forEach FN_SHOWN_LOGIDS;
-
 	_ctrl = [findDisplay 46,'RSCText',FN_SHOW_LOGID] call fnc_createctrl;
 	FN_SHOW_LOGID = FN_SHOW_LOGID + 1;
 	FN_SHOWN_LOGIDS pushBackUnique _ctrl;
-	
 	{
 		_x ctrlSetPosition [
 			0,
@@ -114,11 +111,11 @@ FN_SHOW_LOG =
 		];
 		_x ctrlCommit 0;
 	} forEach FN_SHOWN_LOGIDS;
-
 	_ctrl ctrlSetText format['<infiSTAR.de> %1',_this];
 	_ctrl ctrlSetFade 1;
 	_ctrl ctrlCommit 5;
 };
+FN_SHOW_LOG = {['SuccessTitleAndText', ['infiSTAR.de', _this]] call ExileClient_gui_toaster_addTemplateToast;};
 
 
 	fnc_get_selected_object = {
@@ -406,6 +403,7 @@ FN_SHOW_LOG =
 		ctrlSetFocus ((findDisplay MAIN_DISPLAY_ID) displayCtrl LEFT_CTRL_ID);
 		ctrlSetFocus ((findDisplay MAIN_DISPLAY_ID) displayCtrl RIGHT_CTRL_ID);
 	};
+	MAP_OBJECT_SELECTED = objNull;
 	fnc_MouseButtonDown = {
 		if(_this select 1 isEqualTo 0)then
 		{
@@ -429,6 +427,42 @@ FN_SHOW_LOG =
 				ALT_IS_PRESSED = false;
 				format['Teleport to %1(GPS: %2)',_pos,mapGridPosition _pos] call fnc_adminLog;
 				{player reveal _x;} foreach (_pos nearObjects 50);
+			};
+			MAP_OBJECT_SELECTED = _pos nearestObject 'AllVehicles';
+		};
+	};
+	fnc_MouseButtonUp = {
+		if(_this select 1 isEqualTo 0)then
+		{
+			_pos = ((_this select 0) posScreenToWorld [_this select 2, _this select 3]);
+			if(!isNull MAP_OBJECT_SELECTED)then
+			{
+				_obj = MAP_OBJECT_SELECTED;
+				if(isPlayer _obj)then
+				{
+					{
+						if(!isNull _x)then
+						{
+							if(getPlayerUID _x != '')then
+							{
+								_name = if(alive _x)then{name _x}else{_x getVariable['ExileName',name _x]};
+								[1,netId _x,_pos] call fnc_AdminReq;
+							};
+						};
+					} forEach (crew _obj);
+				}
+				else
+				{
+					if(local _obj)then
+					{
+						_obj setPosATL _pos;
+					}
+					else
+					{
+						[20,netId _obj,_pos] call fnc_AdminReq;
+					};
+				};
+				MAP_OBJECT_SELECTED = objNull;
 			};
 		};
 	};
@@ -1442,12 +1476,7 @@ FN_SHOW_LOG =
 		'Request Steam Name','Revive','Heal','Restore','Flip Vehicle',
 		'Move In My Vehicle','Move In Target Vehicle','Remove Unconscious',
 		'UnFreeze','UnRestrain',
-	"; if(_AdvBanking_Server)then{ infiSTAR_MAIN_CODE = infiSTAR_MAIN_CODE + "
-		'Change Money on Player','Change Money on Bank',
-	"; }else{ infiSTAR_MAIN_CODE = infiSTAR_MAIN_CODE + "
-		'Change Money',
-	"; }; infiSTAR_MAIN_CODE = infiSTAR_MAIN_CODE + "
-		'Change Respect'
+		'Change Money','Change Respect'
 	];
 	infiSTAR_OnTargetEVIL =
 	[
@@ -1538,9 +1567,6 @@ FN_SHOW_LOG =
 		{
 			_onTarget = [];
 			{if(_x call ADMINLEVELACCESS)then{_onTarget pushBack _x;};} forEach infiSTAR_OnTargetNICE;
-			"; if(_AdvBanking_Server)then{ infiSTAR_MAIN_CODE = infiSTAR_MAIN_CODE + "
-			{if('Change Money' call ADMINLEVELACCESS)then{_onTarget pushBack _x;};} forEach ['Change Money on Player','Change Money on Bank'];
-			"; }; infiSTAR_MAIN_CODE = infiSTAR_MAIN_CODE + "
 			
 			if!(_onTarget isEqualTo [])then{_onTarget pushBack '---';};
 			{if(_x call ADMINLEVELACCESS)then{_onTarget pushBack _x;};} forEach infiSTAR_OnTargetEVIL;
@@ -1911,12 +1937,7 @@ FN_SHOW_LOG =
 			if(_click == 'Explode')exitWith{[_unit] call fnc_Explode_selected;};
 			if(_click == 'Delete Vehicle')exitWith{[_unit] call fnc_deleteVeh_selected;};
 			
-			"; if(_AdvBanking_Server)then{ infiSTAR_MAIN_CODE = infiSTAR_MAIN_CODE + "
-			if(_click == 'Change Money on Player')exitWith{if(!isNil'moneythread')then{terminate moneythread;moneythread=nil;};moneythread = [_unit,2] spawn fnc_ExileMoneyChange;};
-			if(_click == 'Change Money on Bank')exitWith{[_unit,1] spawn fnc_ExileMoneyChange;};
-			"; }else{ infiSTAR_MAIN_CODE = infiSTAR_MAIN_CODE + "
 			if(_click == 'Change Money')exitWith{if(!isNil'moneythread')then{terminate moneythread;moneythread=nil;};moneythread = [_unit,0] spawn fnc_ExileMoneyChange;};
-			"; }; infiSTAR_MAIN_CODE = infiSTAR_MAIN_CODE + "
 			if(_click == 'Change Respect')exitWith{if(!isNil'moneythread')then{terminate moneythread;moneythread=nil;};moneythread = [_unit] spawn fnc_ExileRespectChange;};
 			
 			_log = format['%1 - %2(%3)',_click,name _unit,getPlayerUID _unit];_log call fnc_adminLog;
@@ -2150,19 +2171,10 @@ FN_SHOW_LOG =
 				_log = format['%1 (%2) @%3',name _unit,getPlayerUID _unit,mapGridPosition _veh];
 				_ctrlText = '<t align=''left'' size=''1.1'' color=''#238701''>'+_log+'</t>';
 				
-				
-				_PLAYER_STATS_VAR = _unit getVariable['PLAYER_STATS_VAR',[0,0,0]];
-				_money = _PLAYER_STATS_VAR select 0;
+				_money = _unit getVariable ['ExileMoney', 0];
 				_money = if(_money > 1000)then{format['%1K',_money / 1000]}else{_money};
-				_respect = _PLAYER_STATS_VAR select 1;
-				
-				"; if(_AdvBanking_Server)then{ infiSTAR_MAIN_CODE = infiSTAR_MAIN_CODE + "
-				_bank = _PLAYER_STATS_VAR select 2;
-				_bank = if(_bank > 1000)then{format['%1K',_bank / 1000]}else{_bank};
-				_log2 = format['Health: %1  Purse: %2  Bank: %3 Respect: %4',(1-(damage _unit))*100,_money,_bank,_respect];
-				"; }else{ infiSTAR_MAIN_CODE = infiSTAR_MAIN_CODE + "
+				_respect = _unit getVariable ['ExileScore', 0];
 				_log2 = format['Health: %1  Money: %2  Respect: %3',(1-(damage _unit))*100,_money,_respect];
-				"; }; infiSTAR_MAIN_CODE = infiSTAR_MAIN_CODE + "
 				_ctrlText = _ctrlText + '<br/><t align=''left'' size=''1.1'' color=''#238701''>'+_log2+'</t>';
 				
 				_cwep = '';
@@ -2470,13 +2482,10 @@ FN_SHOW_LOG =
 			0.033 * safezoneH
 		];
 		waitUntil {
-			_PLAYER_STATS_VAR = SELECTED_TARGET_PLAYER getVariable['PLAYER_STATS_VAR',[0,0,0]];
 			_curval = 0;
 			_what = call {
-				if(_this isEqualTo 0)exitWith{_curval = _PLAYER_STATS_VAR select 0;'Money'};
-				if(_this isEqualTo 1)exitWith{_curval = _PLAYER_STATS_VAR select 1;'Respect'};
-				if(_this isEqualTo 2)exitWith{_curval = _PLAYER_STATS_VAR select 0;'Purse'};
-				if(_this isEqualTo 3)exitWith{_curval = _PLAYER_STATS_VAR select 2;'Bank'};
+				if(_this isEqualTo 0)exitWith{_curval = SELECTED_TARGET_PLAYER getVariable ['ExileMoney', 0];'Money'};
+				if(_this isEqualTo 1)exitWith{_curval = SELECTED_TARGET_PLAYER getVariable ['ExileScore', 0];'Respect'};
 			};
 			(findDisplay MAIN_DISPLAY_ID displayCtrl 77766) ctrlSetText format['+/- %1',_what];
 			_addval = parseNumber(ctrlText 77769);
@@ -2512,29 +2521,9 @@ FN_SHOW_LOG =
 			_log = 'Target is not a Player!';
 			_log call FN_SHOW_LOG;
 		};
-		_option = _this select 1;
-		_log = '';
-		_value = 0;
-		
-		"; if(!_AdvBanking_Server)then{ infiSTAR_MAIN_CODE = infiSTAR_MAIN_CODE + "
-		_option = 0;
-		"; }; infiSTAR_MAIN_CODE = infiSTAR_MAIN_CODE + "
-		if(_option isEqualTo 0)then
-		{
-			_value = 0 call fnc_get_addvalue;
-			_log = format['%1 %2 Money on Player %3',if(_value < 0)then{'Removed'}else{'Added'},_value,name _target];
-		};
-		if(_option isEqualTo 1)then
-		{
-			_value = 3 call fnc_get_addvalue;
-			_log = format['%1 %2 Money on Bank of %3',if(_value < 0)then{'Removed'}else{'Added'},_value,name _target];
-		};
-		if(_option isEqualTo 2)then
-		{
-			_value = 2 call fnc_get_addvalue;
-			_log = format['%1 %2 Pop Tabs to Purse of %3',if(_value < 0)then{'Removed'}else{'Added'},_value,name _target];
-		};
-		[12,netId _target,_value,_option] call fnc_AdminReq;
+		_value = 0 call fnc_get_addvalue;
+		_log = format['%1 %2 Money on Player %3',if(_value < 0)then{'Removed'}else{'Added'},_value,name _target];
+		[12,netId _target,_value] call fnc_AdminReq;
 		_log call FN_SHOW_LOG;
 		(_log+'('+getPlayerUID _target+')') call fnc_adminLog;
 	};
@@ -3002,12 +2991,6 @@ FN_SHOW_LOG =
 			
 			_log = format['Flipping %1 @%2..',typeOf _target,mapGridPosition _target];
 			_log call FN_SHOW_LOG;
-		}
-		else
-		{
-			_log = 'invalid target';
-			if((!alive _target) && {_target isKindOf 'Landvehicle' || _target isKindOf 'Air' || _target isKindOf 'Ship'})then{_txt = 'vehicle destroyed..';};
-			_log call FN_SHOW_LOG;
 		};
 	};
 	fnc_Light_selected = {
@@ -3215,7 +3198,12 @@ FN_SHOW_LOG =
 		_target = _this select 0;
 		if(!isNull _target)then
 		{
-			if(!alive _target && getPlayerUID _target != '')then
+			if(alive _target)exitWith
+			{
+				_log = 'target already alive..!';
+				_log call FN_SHOW_LOG;
+			};
+			if(getPlayerUID _target != '')then
 			{
 				moveOut _target;
 				unassignVehicle _target;
@@ -4858,7 +4846,6 @@ infiSTAR_MAIN_CODE = infiSTAR_MAIN_CODE + "
 		_counter = 0;
 		while {true} do
 		{
-			if!(channelEnabled 0 isEqualTo [true,true])then{0 enableChannel [true,true];};
 			if(!isNil 'infiAdminKeyDown')then{(findDisplay 46) displayRemoveEventHandler ['KeyDown',infiAdminKeyDown];infiAdminKeyDown = nil;};
 			infiAdminKeyDown = (findDisplay 46) displayAddEventHandler ['KeyDown',
 			{
@@ -4870,6 +4857,8 @@ infiSTAR_MAIN_CODE = infiSTAR_MAIN_CODE + "
 			{
 				(uiNamespace getVariable 'A3MAPICONS_mainMap') ctrlRemoveAllEventHandlers 'MouseButtonDown';
 				(uiNamespace getVariable 'A3MAPICONS_mainMap') ctrlAddEventHandler['MouseButtonDown','call fnc_MouseButtonDown'];
+				(uiNamespace getVariable 'A3MAPICONS_mainMap') ctrlRemoveAllEventHandlers 'MouseButtonUp';
+				(uiNamespace getVariable 'A3MAPICONS_mainMap') ctrlAddEventHandler['MouseButtonUp','call fnc_MouseButtonUp'];
 			};
 			uiSleep 0.5;
 			if(!isNull findDisplay 46)then{_counter = _counter + 1;};

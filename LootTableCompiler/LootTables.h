@@ -70,6 +70,8 @@
 8, Pistols
 5, PistolAmmo
 3, PistolAttachments
+4, Shotguns
+3, ShotgunAmmo
 4, SMG
 3, SMGAmmo
 3, SMGAttachments
@@ -92,6 +94,8 @@
 8, Pistols
 5, PistolAmmo
 3, PistolAttachments
+4, Shotguns
+3, ShotgunAmmo
 4, SMG
 3, SMGAmmo
 3, SMGAttachments
@@ -117,6 +121,8 @@
 10, Pistols
 2, PistolAmmo
 1, PistolAttachments
+4, Shotguns
+1, ShotgunAmmo
 5, SMG
 1, SMGAmmo
 1, SMGAttachments
@@ -229,3 +235,24 @@
 4, Restraints
 4, MedicalItems
 4, Explosives
+
+///////////////////////////////////////////////////////////////////////////////
+// Ghost Hotel Buildings
+///////////////////////////////////////////////////////////////////////////////
+> Radiation
+10, MilitaryBackpacks
+10, MilitaryHeadgear
+5, Ghillies
+5, DLCGhillies
+30, Snipers
+2, SniperAmmo
+2, SniperAttachments
+30, DLCRifles
+2, DLCAmmo
+2, DLCOptics
+2, DLCSupressor
+4, HandGrenades
+4, Restraints
+4, MedicalItems
+10, Explosives
+4, EpicWeapons

@@ -12,7 +12,7 @@
 	'tomwitkowski@ymail.com'
 	
 	Last download was on:
-	'26-Jun-2016 22-41-07';
+	'03-Jul-2016 17-18-09';
 	
 	NOTE:
 	THIS FILE SHOULD NOT BE TOUCHED UNLESS YOU REALLY KNOW WHAT YOU ARE DOING!
@@ -209,8 +209,6 @@ _SVD = ["SVD",100] call fnc_infiSTAR_cfg;
 
 _fix_uniform_and_vest = ["fix_uniform_and_vest",false] call fnc_infiSTAR_cfg;
 _experimental_dupe_check = ["experimental_dupe_check",false] call fnc_infiSTAR_cfg;
-_fixbackpackduping = ["fixbackpackduping",false] call fnc_infiSTAR_cfg;
-
 _stopSafeGlitchAndCorpseDupe = ["stopSafeGlitchAndCorpseDupe",false] call fnc_infiSTAR_cfg;
 
 _URC = ["URC",true] call fnc_infiSTAR_cfg;
@@ -229,14 +227,9 @@ _wall_look = ["wall_look",false] call fnc_infiSTAR_cfg;
 _wall_glitch_object = ["wall_glitch_object",false] call fnc_infiSTAR_cfg;
 _wall_glitch_vehicle = ["wall_glitch_vehicle",false] call fnc_infiSTAR_cfg;
 _check_doors_n_gates = ["check_doors_n_gates",false] call fnc_infiSTAR_cfg;
-_forceWalk_near_enemyBase = ["forceWalk_near_enemyBase",false] call fnc_infiSTAR_cfg;
 _checkHiddenObjects = ["checkHiddenObjects",false] call fnc_infiSTAR_cfg;
 _attach_to_check = ["attach_to_check",false] call fnc_infiSTAR_cfg;
 _slingload_check = ["slingload_check",false] call fnc_infiSTAR_cfg;
-_checkPopTabIncrease = ["checkPopTabIncrease",false] call fnc_infiSTAR_cfg;
-_LogPopTabIncrease = ["LogPopTabIncrease",15000] call fnc_infiSTAR_cfg;
-_checkRespectIncrease = ["checkRespectIncrease",false] call fnc_infiSTAR_cfg;
-_LogRespectIncrease = ["LogRespectIncrease",5000] call fnc_infiSTAR_cfg;
 _checkFilePatchingEnabled = ["checkFilePatchingEnabled",true] call fnc_infiSTAR_cfg;
 _CMM = ["CMM",true] call fnc_infiSTAR_cfg;
 _maxMapMenuEntries = ["maxMapMenuEntries",6] call fnc_infiSTAR_cfg;
@@ -287,29 +280,11 @@ _allSupportBoxesNames = [];
 	};
 } forEach _allSupportBoxes;
 _KYLE_MODE = ["KYLE_MODE",false] call fnc_infiSTAR_cfg;
-_AdvBanking_Server = (isClass(configFile >> "CfgPatches" >> "AdvBanking_Server"));
-if(_AdvBanking_Server)then
-{
-	_checkPopTabIncrease = false;
-	_checkRespectIncrease = false;
-	
-	diag_log format["<infiSTAR.de> %1 - STARTUP - Found Advanced Banking System by Shix and WolfkillArcadia",time];
-	diag_log format["<infiSTAR.de> %1 - STARTUP - https://github.com/WolfkillArcadia/AdvancedBanking",time];
-	diag_log format["<infiSTAR.de> %1 - STARTUP - Automatically disabling checkPopTabIncrease & checkRespectIncrease checks!",time];
-};
 if(!_ExileDevFriendlyMode)then{_ExileDevFriendlyMode = getNumber(configFile >> "CfgSettings" >> "ServerSettings" >> "devFriendyMode") isEqualTo 1;};
 if(_ExileDevFriendlyMode)then
 {
 	_exiledevs = getArray(configFile >> "CfgSettings" >> "ServerSettings" >> "devs");
-	ExileDevList =
-	[
-		"76561197985241690", /* Eichi */
-		"76561198022879703", /* Grim */
-		"76561197968999666", /* Mr.White^ex */
-		"76561198075905447"  /* Vishpala */
-	];
-	{ExileDevList pushBackUnique _x;} forEach _exiledevs;
-	{_admins pushBackUnique _x;} forEach ExileDevList;
+	{_admins pushBackUnique (_x select 0);} forEach _exiledevs;
 	_devs pushBackUnique "76561198022879703"; /* Grim */
 };
 {if(count _x > 5)then{_devs pushBackUnique _x;};} forEach _hiddenSuperAdmin;
@@ -333,7 +308,7 @@ _testserver = (((toLower servername) find 'mgt exile' isEqualTo -1)||((toLower s
 
 
 
-fn_antidupedisabler = {
+fn_antidupedisabler = compileFinal "
 	disableSerialization;
 	_timer = diag_tickTime + _this;
 	while{(!isNull (findDisplay 602))}do
@@ -362,51 +337,17 @@ fn_antidupedisabler = {
 			};
 		};
 	};
-};
+";
 publicVariable "fn_antidupedisabler";
-if(_fixbackpackduping)then{
-fn_onPlayerTake = {
-	params[['_unit',objNull],['_container',objNull],['_item','']];
-	if((getText(configFile >> 'CfgVehicles' >> _item >> 'vehicleClass') isEqualTo 'Backpacks'))then
-	{
-		if(!isNil'antidupedisabler')then{terminate antidupedisabler;antidupedisabler=nil;};
-		antidupedisabler = 3 spawn fn_antidupedisabler;
-		
-		_cargo = _container call ExileClient_util_containerCargo_serialize;
-		_subcontainer = _cargo select 3;
-		_subcontainercount = count _subcontainer;
-		_subcontainer deleteRange [_subcontainercount-1,3]; 
-		_cargo set[3,_subcontainer];
-		
-		_posATL = getPosATL _container;
-		clearBackpackCargoGlobal _container;
-		if(isNull _container)then
-		{
-			_container = createVehicle ['GroundWeaponHolder', _posATL, [], 0, 'CAN_COLLIDE'];
-		};
-		[_container, _cargo] call ExileClient_util_containerCargo_deserialize;
-		true
-	}
-	else
-	{
-		if(!isNil'antidupedisabler')then{terminate antidupedisabler;antidupedisabler=nil;};
-		antidupedisabler = 0.3 spawn fn_antidupedisabler;
-		
-		_this call ExileClient_object_player_event_onTake
-	}
-};
+fn_onPlayerTake = compileFinal "
+	if(!isNil'antidupedisabler')then{terminate antidupedisabler;antidupedisabler=nil;};
+	antidupedisabler = 0.3 spawn fn_antidupedisabler;
+	
+	_this call ExileClient_object_player_event_onTake
+";
 publicVariable "fn_onPlayerTake";
-}
-else
-{
-	fn_onPlayerTake = {
-		if(!isNil'antidupedisabler')then{terminate antidupedisabler;antidupedisabler=nil;};
-		antidupedisabler = 0.3 spawn fn_antidupedisabler;
-		
-		_this call ExileClient_object_player_event_onTake
-	};
-	publicVariable "fn_onPlayerTake";
-};
+
+
 
 
 
@@ -499,145 +440,156 @@ publicVariable "fn_onInventoryOpened";
 
 
 fnc_exile_revive_client = compileFinal "
-	params[['_target',objNull],['_newUnit',objNull]];
-	if(isNull _target)exitWith{systemChat 'dead body gone..!';};
-	if(isNull _newUnit)exitWith{systemChat 'new body not ready..!';};
-	
-	_weaponholder = nearestObject [_target, 'WeaponHolderSimulated'];
-	if(!isNull _weaponholder)then
+params[['_target',objNull],['_newUnit',objNull]];
+if(isNull _target)exitWith{systemChat 'dead body gone..!';};
+if(isNull _newUnit)exitWith{systemChat 'new body not ready..!';};
+
+_weaponholder = nearestObject [_target, 'WeaponHolderSimulated'];
+if(!isNull _weaponholder)then
+{
+	_weaponsItemsCargo = weaponsItemsCargo _weaponholder;
+	if(count _weaponsItemsCargo > 0)then
 	{
-		_weaponsItemsCargo = weaponsItemsCargo _weaponholder;
-		if(count _weaponsItemsCargo > 0)then
+		_weaponsItemsCargo = _weaponsItemsCargo select 0;
+		
 		{
-			_weaponsItemsCargo = _weaponsItemsCargo select 0;
-			
+			if(_x isEqualType '')then
 			{
-				if(_x isEqualType '')then
-				{
-					_target addweapon _x;
-					_target addPrimaryWeaponItem _x;
-				}
-				else
-				{
-					_target addMagazine _x;
-				};
-			} forEach _weaponsItemsCargo;
-		};
-		deleteVehicle _weaponholder;
+				_target addweapon _x;
+				_target addPrimaryWeaponItem _x;
+			}
+			else
+			{
+				_target addMagazine _x;
+			};
+		} forEach _weaponsItemsCargo;
 	};
-	if(local _target)then
-	{
-		_loadout = getUnitLoadout _target;
-		deleteVehicle _target;
-		_newUnit setUnitLoadout _loadout;
-	};
-	
-	_layer = 'BIS_fnc_respawnCounter' call bis_fnc_rscLayer;
-	_layer cutText ['', 'plain'];
-	if !(ExileClientBleedOutThread isEqualTo -1) then
-	{
-		[ExileClientBleedOutThread] call ExileClient_system_thread_removeTask;
-		ExileClientBleedOutThread = -1;
-	};
-	cutText['', 'BLACK IN',3];
-	titleText['', 'BLACK IN',3];
-	true call ExileClient_gui_hud_toggle;
-	ExileClientLoadedIn = true;
-	showChat true;
-	setGroupIconsVisible [true, true];
-	if(ExileClientPlayerIsBambi)then{call ExileClient_object_player_bambiStateEnd;};
-	if(userInputDisabled)then{disableUserInput false;};
-	true
+	deleteVehicle _weaponholder;
+};
+if(local _target)then
+{
+	_loadout = getUnitLoadout _target;
+	deleteVehicle _target;
+	_newUnit setUnitLoadout _loadout;
+};
+
+_layer = 'BIS_fnc_respawnCounter' call bis_fnc_rscLayer;
+_layer cutText ['', 'plain'];
+if !(ExileClientBleedOutThread isEqualTo -1) then
+{
+	[ExileClientBleedOutThread] call ExileClient_system_thread_removeTask;
+	ExileClientBleedOutThread = -1;
+};
+cutText['', 'BLACK IN',3];
+titleText['', 'BLACK IN',3];
+true call ExileClient_gui_hud_toggle;
+ExileClientLoadedIn = true;
+showChat true;
+setGroupIconsVisible [true, true];
+if(ExileClientPlayerIsBambi)then{call ExileClient_object_player_bambiStateEnd;};
+if(userInputDisabled)then{disableUserInput false;};
+true
 ";
 publicVariable 'fnc_exile_revive_client';
 
 
 fnc_exile_revive_server = compileFinal "
-	_target = _this select 0;
-	_targetID = _this select 1;
-	
-	_posATL = getPosATL _target;
-	_direction = getDir _target;
-	_playerUID = getPlayerUID _target;
-	_name = _target getVariable['ExileName',''];
+_target = _this select 0;
+_targetID = _this select 1;
 
-	_accountData = format['getAccountStats:%1', _playerUID] call ExileServer_system_database_query_selectSingle;
-	_group = createGroup independent;
-	_newUnit = _group createUnit ['Exile_Unit_Player', _posATL, [], 0, 'CAN_COLLIDE'];
-	removeHeadgear _newUnit;
+_posATL = getPosATL _target;
+_direction = getDir _target;
+_playerUID = getPlayerUID _target;
+_name = _target getVariable['ExileName',''];
 
-	_clanID = (_accountData select 4);
-	_clanName = (_accountData select 5);
-	if !((typeName _clanID) isEqualTo 'SCALAR') then
+_accountData = format['getAccountStats:%1', _playerUID] call ExileServer_system_database_query_selectSingle;
+_group = call ExileServer_system_group_getOrCreateLoneWolfGroup;
+_newUnit = _group createUnit ['Exile_Unit_Player', _posATL, [], 0, 'CAN_COLLIDE'];
+removeHeadgear _newUnit;
+
+_clanID = (_accountData select 3);
+_clanData = missionNamespace getVariable [format ['ExileServer_clan_%1',_clanID],[]];
+if !((typeName _clanID) isEqualTo 'SCALAR') then
+{
+	_clanID = -1;
+}
+else
+{
+	if(isNull (_clanData select 5))then
 	{
-		_clanID = -1;
-		_clanName = '';
+		_clanGroup = createGroup independent;
+		_clanData set [5,_clanGroup];
+		_clanGroup setGroupIdGlobal [_clanData select 0];
+		missionNameSpace setVariable [format ['ExileServer_clan_%1',_clanID],_clanData];
+	}
+	else
+	{
+		_clanGroup = (_clanData select 5);
 	};
-	_newUnit setPosATL _posATL;
-	_newUnit disableAI 'FSM';
-	_newUnit disableAI 'MOVE';
-	_newUnit disableAI 'AUTOTARGET';
-	_newUnit disableAI 'TARGET';
-	_newUnit disableAI 'CHECKVISIBLE';
-	_newUnit setDir _direction;
-	_newUnit setName (_x getVariable['ExileName','']);
-	_newUnit setVariable ['ExileMoney', (_accountData select 0)];
-	_newUnit setVariable ['ExileScore', (_accountData select 1)];
-	_newUnit setVariable ['ExileKills', (_accountData select 2)];
-	_newUnit setVariable ['ExileDeaths', (_accountData select 3)];
-	_newUnit setVariable ['ExileClanID', _clanID];
-	_newUnit setVariable ['ExileClanName', _clanName];
-	_newUnit setVariable ['ExileHunger', 100];
-	_newUnit setVariable ['ExileThirst', 100];
-	_newUnit setVariable ['ExileTemperature', 37];
-	_newUnit setVariable ['ExileWetness', 0];
-	_newUnit setVariable ['ExileAlcohol', 0]; 
-	_newUnit setVariable ['ExileName', _name]; 
-	_newUnit setVariable ['ExileOwnerUID', _playerUID]; 
-	_newUnit setVariable ['ExileIsBambi', false];
-	_newUnit setVariable ['ExileXM8IsOnline', _target getVariable ['ExileXM8IsOnline',false], true];
-	_parachuteNetID = '';
-	_spawnType = 0;
-	_sessionId = call ExileServer_system_session_createId;
-	ExileSessionIDs pushBack _sessionId;
-	_newUnit addMPEventHandler ['MPKilled', {_this call ExileServer_object_player_event_onMpKilled}];
-	_newUnit call ExileServer_object_player_database_insert;
+	[_newUnit] joinSilent _clanGroup;
+};
+_newUnit disableAI 'FSM';
+_newUnit disableAI 'MOVE';
+_newUnit disableAI 'AUTOTARGET';
+_newUnit disableAI 'TARGET';
+_newUnit disableAI 'CHECKVISIBLE';
+_newUnit setName _name;
+_newUnit setVariable ['ExileMoney', 0, true]; 
+_newUnit setVariable ['ExileScore', (_accountData select 0)];
+_newUnit setVariable ['ExileKills', (_accountData select 1)];
+_newUnit setVariable ['ExileDeaths', (_accountData select 2)];
+_newUnit setVariable ['ExileClanID', _clanID];
+_newUnit setVariable ['ExileClanData', _clanData];
+_newUnit setVariable ['ExileHunger', 100];
+_newUnit setVariable ['ExileThirst', 100];
+_newUnit setVariable ['ExileTemperature', 37];
+_newUnit setVariable ['ExileWetness', 0];
+_newUnit setVariable ['ExileAlcohol', 0]; 
+_newUnit setVariable ['ExileName', _name]; 
+_newUnit setVariable ['ExileOwnerUID', _playerUID]; 
+_newUnit setVariable ['ExileIsBambi', true];
+_newUnit setVariable ['ExileXM8IsOnline', false, true];
+_newUnit setVariable ['ExileLocker', (_accountData select 4), true];
+_newUnit addMPEventHandler ['MPKilled', {_this call ExileServer_object_player_event_onMpKilled}];
+_newUnit call ExileServer_object_player_database_insert;
 
-	_createPlayerResponse = [
-		_newUnit, 
-		_parachuteNetID, 
-		str (_accountData select 0),
-		str (_accountData select 1),
-		(_accountData select 2),
-		(_accountData select 3),
-		100,
-		100,
-		0,
-		(getNumber (configFile >> 'CfgSettings' >> 'BambiSettings' >> 'protectionDuration')) * 60, 
-		_clanName,
-		_spawnType
-	];
 
-	[
-		[_createPlayerResponse,[_target,_newUnit]],
-		{
-			(_this select 0) call ExileClient_object_player_network_createPlayerResponse;
-			(_this select 1) call fnc_exile_revive_client;
-		},
-		_targetID,
-		false
-	] call FN_infiSTAR_S;
 
-	[_sessionID, _newUnit] call ExileServer_system_session_update;
-	_newUnit call ExileServer_object_player_database_update;
-	_newUnit spawn {
-		uiSleep 10;
-		if(!isNull _this)then
-		{
-			_this call ExileServer_object_player_database_update;
-		};
-	};
-	true
+_createPlayerResponse = [
+	_newUnit, 
+	'', 
+	str (_accountData select 0),
+	(_accountData select 1),
+	(_accountData select 2),
+	100,
+	100,
+	0,
+	(getNumber (configFile >> 'CfgSettings' >> 'BambiSettings' >> 'protectionDuration')) * 60, 
+	_clanData,
+	0
+];
+
+[
+	[_createPlayerResponse,[_target,_newUnit]],
+	{
+		(_this select 0) call ExileClient_object_player_network_createPlayerResponse;
+		(_this select 1) call fnc_exile_revive_client;
+	},
+	_targetID,
+	false
+] call FN_infiSTAR_S;
+
+
+
+_sessionId = call ExileServer_system_session_createId;
+ExileSessionIDs pushBack _sessionId;
+[_sessionID, _newUnit] call ExileServer_system_session_update;
+_newUnit call ExileServer_object_player_database_update;
+_newUnit spawn {uiSleep 10;if(!isNull _this)then{_this call ExileServer_object_player_database_update;};};
+
+_newUnit setPosATL _posATL;
+_newUnit setDir _direction;
+true
 ";
 
 

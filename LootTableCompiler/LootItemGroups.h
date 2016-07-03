@@ -58,6 +58,7 @@
 7, Exile_Item_Surstromming				// 55% Hunger
 7, Exile_Item_SausageGravy				// 50% Hunger
 7, Exile_Item_ChristmasTinner			// 40% Hunger
+7, Exile_Item_MacasCheese				// 40% Hunger
 7, Exile_Item_BBQSandwich				// 40% Hunger
 7, Exile_Item_CatFood					// 40% Hunger
 7, Exile_Item_Dogfood					// 30% Hunger
@@ -77,6 +78,7 @@
 14, Exile_Item_Beer							// +75% Thirst
 17, Exile_Item_EnergyDrink					// +75% Thirst
 20, Exile_Item_MountainDupe					// +50% Thirst, spawns always twice!	
+25, Exile_Item_ChocolateMilk				// +35% Thirst
 30, Exile_Item_PlasticBottleDirtyWater		// +10% Thirst
 
 
@@ -91,21 +93,34 @@
 13, hgun_Pistol_heavy_01_F	// 4-five .45
 13, hgun_Pistol_heavy_02_F	// Zubr .45
 13, hgun_Pistol_Signal_F	// Starter Pistol
+13, Exile_Weapon_Colt1911   // Colt 1911
+13, Exile_Weapon_Makarov	// Makarov
+13, Exile_Weapon_Taurus		// Taurus
+13, Exile_Weapon_TaurusGold	// Taurus (Gold)
 
 > PistolAmmo
-20, 11Rnd_45ACP_Mag			// 4-five
-10, 16Rnd_9x21_Mag			// PDW2000, P07, ROOK-40
-20, 30Rnd_9x21_Mag			// Sting, PDW2000, P07, ROOK-40
-16, 6Rnd_45ACP_Cylinder		// Zubr
-7, 6Rnd_GreenSignal_F		// Starter Pistol
-7, 6Rnd_RedSignal_F			// Starter Pistol
-20, 9Rnd_45ACP_Mag			// ACP-C2
+20, 11Rnd_45ACP_Mag				// 4-five
+10, 16Rnd_9x21_Mag				// PDW2000, P07, ROOK-40
+20, 30Rnd_9x21_Mag				// Sting, PDW2000, P07, ROOK-40
+16, 6Rnd_45ACP_Cylinder			// Zubr
+7, 6Rnd_GreenSignal_F			// Starter Pistol
+7, 6Rnd_RedSignal_F				// Starter Pistol 
+20, 9Rnd_45ACP_Mag				// ACP-C2
+20, Exile_Magazine_7Rnd_45ACP	// Colt 1911
+20, Exile_Magazine_8Rnd_9x18	// Makarov
+20, Exile_Magazine_6Rnd_45ACP	// Taurus
 
 > PistolAttachments
 36, muzzle_snds_L
 36, muzzle_snds_acp
 14, optic_Yorris		// No one needs this crap
 14, optic_MRD
+
+> Shotguns
+1, Exile_Weapon_M1014	//M1014
+
+> ShotgunAmmo
+1, Exile_Magazine_8Rnd_74Slug		//M1014
 
 > SMG
 34, SMG_01_F		// Vermin SMG .45 ACP
@@ -141,6 +156,20 @@
 3, arifle_MXC_Black_F		// MXC 6.5 mm (Black)
 3, arifle_MX_Black_F		// MX 6.5 mm (Black)
 3, arifle_MX_GL_Black_F		// MX 3GL 6.5 mm (Black)
+10, Exile_Weapon_AK107	
+10, Exile_Weapon_AK107_GL	
+10, Exile_Weapon_AK74_GL
+10, Exile_Weapon_AK74
+10, Exile_Weapon_AK47		
+10, Exile_Weapon_AKM		
+10, Exile_Weapon_AKS		
+10, Exile_Weapon_AKS_Gold	
+10, Exile_Weapon_DMR		
+10, Exile_Weapon_LeeEnfield
+10, Exile_Weapon_CZ550
+10, Exile_Weapon_SVD
+10, Exile_Weapon_SVDCamo
+10, Exile_Weapon_VSSVintorez
 
 > RifleAmmo
 11, 20Rnd_556x45_UW_mag						// SDAR
@@ -152,6 +181,22 @@
 9, 30Rnd_65x39_caseless_green_mag_Tracer	// Katiba
 9, 30Rnd_65x39_caseless_mag					// MX/C/M/SW/3GL
 9, 30Rnd_65x39_caseless_mag_Tracer			// MX/C/M/SW/3GL
+8, Exile_Magazine_10Rnd_303					// Lee-Enfield
+9, Exile_Magazine_30Rnd_762x39_AK			// AK
+9, Exile_Magazine_30Rnd_545x39_AK			// AK
+9, Exile_Magazine_30Rnd_545x39_AK_Green		// AK
+9, Exile_Magazine_30Rnd_545x39_AK_Red		// AK
+9, Exile_Magazine_30Rnd_545x39_AK_White		// AK
+9, Exile_Magazine_30Rnd_545x39_AK_Yellow	// AK
+9, Exile_Magazine_20Rnd_762x51_DMR			// DMR
+9, Exile_Magazine_20Rnd_762x51_DMR_Yellow	// DMR
+9, Exile_Magazine_20Rnd_762x51_DMR_Red		// DMR
+9, Exile_Magazine_20Rnd_762x51_DMR_Green	// DMR
+9, Exile_Magazine_20Rnd_762x51_DMR_White	// DMR
+9, Exile_Magazine_5Rnd_22LR					// CZ550
+9, Exile_Magazine_10Rnd_762x54				// SVD
+9, Exile_Magazine_10Rnd_9x39				// VSS
+9, Exile_Magazine_20Rnd_9x39				// VSS
 
 > RifleAttachments
 10, muzzle_snds_M
@@ -171,6 +216,9 @@
 25, arifle_MX_SW_F			// MX SW 6.5 mm
 25, LMG_Mk200_F				// Mk200 6.5 mm
 25, LMG_Zafir_F				// Zafir 7.62 mm
+25, Exile_Weapon_RPK
+25, Exile_Weapon_PK
+25, Exile_Weapon_PKP
 
 > LMGAmmo
 12, 100Rnd_65x39_caseless_mag			// MX SW
@@ -179,6 +227,9 @@
 10, 150Rnd_762x54_Box_Tracer			// Zafir
 5, 130Rnd_338_Mag
 51, 150Rnd_93x64_Mag
+10, Exile_Magazine_45Rnd_545x39_RPK_Green
+10, Exile_Magazine_75Rnd_545x39_RPK_Green
+10, Exile_Magazine_100Rnd_762x54_PK_Green
 //10, 200Rnd_65x39_Belt					// Mk200
 //10, 200Rnd_65x39_Belt_Tracer_Green	// Mk200
 //10, 200Rnd_65x39_Belt_Tracer_Red		// Mk200
@@ -195,7 +246,7 @@
 //17, 7Rnd_408_Mag			// M320 LRR
 28, 10Rnd_762x51_Mag		// Rahim
 28, 20Rnd_762x51_Mag		// Mk18 ABR
-//10, 5Rnd_127x108_APDS_Mag	// GM6 Lynx 
+//10, 5Rnd_127x108_APDS_Mag	// GM6 Lynx
 
 > SniperAttachments
 19, muzzle_snds_B
@@ -251,6 +302,13 @@
 //40, muzzle_snds_93mmg
 //40, muzzle_snds_93mmg_tan
 //40, muzzle_snds_B
+
+> EpicWeapons
+//4, MMG_01_hex_F				//Navid
+//4, MMG_01_tan_F				//Navid
+//6, MMG_02_black_F			//SPMG
+//6, MMG_02_camo_F			//SPMG
+//6, MMG_02_sand_F			//SPMG
 
 > Bipods
 17, bipod_03_F_oli
@@ -320,7 +378,8 @@
 20, ItemGPS
 20, Binocular
 40, Exile_Item_Heatpack
-40, ItemMap
+35, ItemMap
+5, Exile_Item_MobilePhone
 
 > CivilianClothing
 9, U_C_Poor_1
@@ -600,39 +659,6 @@
 1, V_RebreatherIR
 1, V_RebreatherIA
 
-> BWItems
-1, BWA3_DM51A1
-1, BWA3_DM25
-1, BWA3_DM32_Orange
-1, BWA3_DM32_Yellow
-1, BWA3_G_Combat_Orange
-1, BWA3_G_Combat_Black
-1, BWA3_G_Combat_Clear
-1, BWA3_Item_Vector
-1, BWA3_Item_ItemNavipad
-1, BWA3_muzzle_snds_G28
-1, BWA3_muzzle_snds_G36
-1, BWA3_muzzle_snds_MG4
-1, BWA3_muzzle_snds_MG5
-1, BWA3_muzzle_snds_MP7
-1, BWA3_optic_RSAS
-1, BWA3_optic_Aimpoint
-1, BWA3_optic_EOTech
-1, BWA3_optic_EOTech_tan
-1, BWA3_optic_EOTech_Mag_Off
-1, BWA3_optic_EOTech_Mag_On
-1, BWA3_optic_EOTech_tan_Mag_Off
-1, BWA3_optic_EOTech_tan_Mag_On
-1, BWA3_optic_NSV80
-1, BWA3_optic_ZO4x30
-1, BWA3_optic_ZO4x30_NSV
-1, BWA3_optic_ZO4x30_IRV
-1, BWA3_optic_Shortdot
-1, BWA3_optic_20x50
-1, BWA3_optic_20x50_NSV
-1, BWA3_optic_24x72
-1, BWA3_optic_24x72_NSV
-
 ///////////////////////////////////////////////////////////////////////////////
 // Other Items
 ///////////////////////////////////////////////////////////////////////////////
@@ -645,26 +671,30 @@
 1, Exile_Item_Defibrillator
 
 > IndustrialItems
-2, Exile_Item_Knife
 1, Exile_Item_ThermalScannerPro
+2, Exile_Item_Knife
+3, Exile_Item_Cement
 3, Exile_Item_FloodLightKit
 3, Exile_Item_PortableGeneratorKit
-4, Exile_Item_MetalBoard
-11, Exile_Item_JunkMetal
-8, Exile_Item_ExtensionCord
-4, Exile_Item_Rope
-9, Exile_Item_LightBulb
-13, Exile_Item_Handsaw
-13, Exile_Item_Pliers
-22, Exile_Melee_Axe
 4, Exile_Item_CamoTentKit
+4, Exile_Item_MetalBoard
+4, Exile_Item_Rope
+4, Exile_Item_Sand
 5, Exile_Item_Grinder
 5, Exile_Item_MetalScrews
-5, Exile_Item_MetalWire
-5, Exile_Item_WoodSticks
+5, Exile_Melee_SledgeHammer
+8, Exile_Item_ExtensionCord
+9, Exile_Item_LightBulb
+10, Exile_Item_WaterCanisterEmpty
+10, Exile_Melee_Shovel
+11, Exile_Item_JunkMetal
+13, Exile_Item_Handsaw
+13, Exile_Item_Pliers
+13, Exile_Item_ScrewDriver
+22, Exile_Melee_Axe
 
 > Vehicle
-30, Exile_Item_FuelCanisterFull
+40, Exile_Item_FuelCanisterFull
 50, Exile_Item_FuelCanisterEmpty
 10, Exile_Item_DuctTape
 10, Exile_Item_MetalScrews
@@ -718,6 +748,39 @@
 1, Exile_Item_Laptop
 1, Exile_Item_BaseCameraKit
 
+> BWItems
+1, BWA3_DM51A1
+1, BWA3_DM25
+1, BWA3_DM32_Orange
+1, BWA3_DM32_Yellow
+1, BWA3_G_Combat_Orange
+1, BWA3_G_Combat_Black
+1, BWA3_G_Combat_Clear
+1, BWA3_Item_Vector
+1, BWA3_Item_ItemNavipad
+1, BWA3_muzzle_snds_G28
+1, BWA3_muzzle_snds_G36
+1, BWA3_muzzle_snds_MG4
+1, BWA3_muzzle_snds_MG5
+1, BWA3_muzzle_snds_MP7
+1, BWA3_optic_RSAS
+1, BWA3_optic_Aimpoint
+1, BWA3_optic_EOTech
+1, BWA3_optic_EOTech_tan
+1, BWA3_optic_EOTech_Mag_Off
+1, BWA3_optic_EOTech_Mag_On
+1, BWA3_optic_EOTech_tan_Mag_Off
+1, BWA3_optic_EOTech_tan_Mag_On
+1, BWA3_optic_NSV80
+1, BWA3_optic_ZO4x30
+1, BWA3_optic_ZO4x30_NSV
+1, BWA3_optic_ZO4x30_IRV
+1, BWA3_optic_Shortdot
+1, BWA3_optic_20x50
+1, BWA3_optic_20x50_NSV
+1, BWA3_optic_24x72
+1, BWA3_optic_24x72_NSV
+
  // Trash or items not currently being used
 
 > Trash
@@ -727,6 +790,7 @@
 1, Exile_Item_Magazine01
 1, Exile_Item_Magazine02
 1, Exile_Item_Magazine03
+1, Exile_Item_Magazine04
 
 > Unused
 3, Exile_Item_CordlessScrewdriver
@@ -734,12 +798,7 @@
 7, Exile_Item_Foolbox
 10, Exile_Item_OilCanister
 14, Exile_Item_Hammer
-14, Exile_Item_Shovel
-17, Exile_Item_Screws
-3, Exile_Item_Cement
-5, Exile_Item_Sand
 5, Exile_Item_Carwheel
 5, Exile_Item_SleepingMat
 5, Exile_Item_Defibrillator
 5, Exile_Item_Wrench
-2, Exile_Item_Screwdriver

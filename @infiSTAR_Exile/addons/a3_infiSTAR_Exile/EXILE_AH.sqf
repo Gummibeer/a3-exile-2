@@ -10,7 +10,7 @@
 */
 comment 'Antihack & AdminTools - Christian Lorenzen - www.infiSTAR.de';
 UPDATEEMAIL='tomwitkowski@ymail.com';
-INFISTARVERSION='26-Jun-2016 22-41-07 - v0052a';
+INFISTARVERSION='03-Jul-2016 17-18-09 - v0053';
 if((toLower UPDATEEMAIL) in ['','admin@infistar.de'])exitWith{
 	diag_log '<infiSTAR.de> Please go to update.infistar.de and download the latest version of infiSTAR!';
 	diag_log format['<infiSTAR.de> The current version is licensed to %1 and not your email address.',UPDATEEMAIL];
@@ -55,7 +55,7 @@ if(!_return)then{_serverCommandPassword = getText(configfile >> 'CfgSettings' >>
 _return = _serverCommandPassword serverCommand format ['#kick %1',0];
 if(!_return)exitWith
 {
-	diag_log format['<infiSTAR.de> %1 - serverCommandPassword NOT SET!   tomwitkowski@ymail.com - 26-Jun-2016 22-41-07 - v0052a - %2 - %3',_t,serverName,productVersion];
+	diag_log format['<infiSTAR.de> %1 - serverCommandPassword NOT SET!   tomwitkowski@ymail.com - 03-Jul-2016 17-18-09 - v0053 - %2 - %3',_t,serverName,productVersion];
 	diag_log format['<infiSTAR.de> %1 - serverCommandPassword   in EXILE_AHAT_CONFIG.hpp is %2',_t,_serverCommandPassword];
 	diag_log format['<infiSTAR.de> %1 - serverCommandPassword   is defined in your servers config.cfg',_t];
 	diag_log format['<infiSTAR.de> %1 - serverCommandPassword   has to be set it in EXILE_AHAT_CONFIG.hpp where it says _serverCommandPassword = "changeme";',_t];
@@ -65,14 +65,14 @@ FN_GET_SERVERPW = compileFinal (str _serverCommandPassword);
 diag_log format['<infiSTAR.de> %1 - serverCommandPassword IS FINE',_t];
 if!(isClass (missionconfigfile >> 'infiSTAR_EDITBOX2'))exitWith
 {
-	diag_log format['<infiSTAR.de> %1 - infiSTAR_Exile_AdminMenu.hpp in your MPmission is NOT UPDATED   tomwitkowski@ymail.com - 26-Jun-2016 22-41-07 - v0052a - %2 - %3',_t,serverName,productVersion];
+	diag_log format['<infiSTAR.de> %1 - infiSTAR_Exile_AdminMenu.hpp in your MPmission is NOT UPDATED   tomwitkowski@ymail.com - 03-Jul-2016 17-18-09 - v0053 - %2 - %3',_t,serverName,productVersion];
 	diag_log format['<infiSTAR.de> %1 - infiSTAR will NOT START if infiSTAR_Exile_AdminMenu.hpp is not updated!',_t];
 };
 _test = [0,{}] execFSM 'call.fsm';
 _test = [0,{}] execFSM 'call.fsm';
 if(_test isEqualTo 0)exitWith
 {
-	_log = format['<infiSTAR.de> %1 - call.fsm missing in your MPmission!    tomwitkowski@ymail.com - 26-Jun-2016 22-41-07 - v0052a - %2 - %3',_t,serverName,productVersion];
+	_log = format['<infiSTAR.de> %1 - call.fsm missing in your MPmission!    tomwitkowski@ymail.com - 03-Jul-2016 17-18-09 - v0053 - %2 - %3',_t,serverName,productVersion];
 	for '_i' from 0 to 30 do
 	{
 		diag_log _log;
@@ -122,7 +122,7 @@ if(_testserver)then{
 FNC_A3_RL = compileFinal "
 	params['_logname','_logentry'];
 	_this call FNC_A3_CUSTOMLOG;
-	_buildurl = format['http://htmlload.infistar.de/rl.php?owner=tomwitkowski@ymail.com&owneruid=76561198061912622&infistarversion=26-Jun-2016 22-41-07 - v0052a&servername=%1&logname=%2&logentry=%3',serverName,_logname,_logentry];
+	_buildurl = format['http://htmlload.infistar.de/rl.php?owner=tomwitkowski@ymail.com&owneruid=76561198061912622&infistarversion=03-Jul-2016 17-18-09 - v0053&servername=%1&logname=%2&logentry=%3',serverName,_logname,_logentry];
 	_packet1 = format['getasync%1%2%1',toString [10],_buildurl call fn_clean_bad];
 	_jobid = _packet1 call FN_CALL_LOAD_DLL;
 ";
@@ -683,71 +683,6 @@ _FN_INJECT_ON_CLIENT = {
 "; if(!_KYLE_MODE)then{ _A3AHstring = _A3AHstring + "
 		if(_isNormal)then
 		{
-			"; if(_checkPopTabIncrease || _checkRespectIncrease)then{ _A3AHstring = _A3AHstring + "
-			if(_checkchange < diag_tickTime)then
-			{
-				_checkchange = diag_tickTime + 2;
-				
-				"; if(_checkPopTabIncrease)then{ _A3AHstring = _A3AHstring + "
-					if(isNil 'ExileClientPlayerMoney')then
-					{
-						ExileClientPlayerMoney = 0;
-						_oldExileClientPlayerMoney = 0;
-						_firstchancePlayerMoney = true;
-					}
-					else
-					{
-						_typeName = typeName ExileClientPlayerMoney;
-						if!(_typeName isEqualTo 'SCALAR')then
-						{
-							_log = format['ExileClientPlayerMoney is %1 - should be SCALAR',_typeName];
-							[_name,_puid,'BAN',toArray(_log)] call _AHKickLog;
-							[] call _AHKickOFF;
-						};
-						if(ExileClientPlayerMoney > 0)then
-						{
-							_increasedBy = ExileClientPlayerMoney - _oldExileClientPlayerMoney;
-							if(_increasedBy > "+str _LogPopTabIncrease+")then
-							{
-								if(_firstchancePlayerMoney)exitWith{_firstchancePlayerMoney=false;};
-								_log = format['PopTabs increased by %1',_increasedBy];
-								[_name,_puid,'SLOG',toArray(_log)] call _AHKickLog;
-							};
-						};
-						_oldExileClientPlayerMoney = ExileClientPlayerMoney;
-					};
-				"; }; _A3AHstring = _A3AHstring + "
-				"; if(_checkRespectIncrease)then{ _A3AHstring = _A3AHstring + "
-					if(isNil 'ExileClientPlayerScore')then
-					{
-						ExileClientPlayerScore = 0;
-						_oldExileClientPlayerScore = 0;
-						_firstchancePlayerScore = true;
-					}
-					else
-					{
-						_typeName = typeName ExileClientPlayerScore;
-						if!(_typeName isEqualTo 'SCALAR')then
-						{
-							_log = format['ExileClientPlayerScore is %1 - should be SCALAR',_typeName];
-							[_name,_puid,'BAN',toArray(_log)] call _AHKickLog;
-							[] call _AHKickOFF;
-						};
-						if(ExileClientPlayerScore > 0)then
-						{
-							_increasedBy = ExileClientPlayerScore - _oldExileClientPlayerScore;
-							if(_increasedBy > "+str _LogRespectIncrease+")then
-							{
-								if(_firstchancePlayerScore)exitWith{_firstchancePlayerScore=false;};
-								_log = format['Respect increased by %1',_increasedBy];
-								[_name,_puid,'SLOG',toArray(_log)] call _AHKickLog;
-							};
-						};
-						_oldExileClientPlayerScore = ExileClientPlayerScore;
-					};
-				"; }; _A3AHstring = _A3AHstring + "
-			};
-			"; }; _A3AHstring = _A3AHstring + "
 			if(_vct < diag_tickTime)then
 			{
 				_vct = diag_tickTime + 6;
@@ -1211,8 +1146,6 @@ player addEventHandler ['Take', { _this call fn_onPlayerTake }];
 					_handle = false;
 					if(_keyCode in (actionKeys 'TacticalView'))exitWith{systemChat format['KeyBind: %1 -> TacticalView is not allowed',keyName _keyCode];true};
 					if(_keyCode in (actionKeys 'User3'))exitWith{if(!isNil'fnc_chat_send')then{if(isNull (findDisplay -1340))then{createdialog 'infiSTAR_CHAT';};};true};
-					if(_keyCode in (actionKeys 'User4'))exitWith{player playMoveNow 'AmovPercMstpSnonWnonDnon_exerciseKata';true};
-					if(_keyCode in (actionKeys 'User5'))exitWith{player playMoveNow 'AmovPercMstpSnonWnonDnon_exercisePushup';true};
 					_handle
 				};
 				(finddisplay 46) displayAddEventHandler ['KeyUp',_keyUpfnc];
@@ -1341,20 +1274,10 @@ player addEventHandler ['Take', { _this call fn_onPlayerTake }];
 				_vctoo = diag_tickTime + 180;
 				_posbuildings = [worldSize/2,worldSize/2];
 				_buildings = _posbuildings nearObjects ['Building',worldSize];
-				"; if(_checkPopTabIncrease || _checkRespectIncrease)then{ _A3AHstring = _A3AHstring + "
-					_checkchange = 0;
-				"; }; _A3AHstring = _A3AHstring + "
-				"; if(_checkPopTabIncrease)then{ _A3AHstring = _A3AHstring + "
-					_oldExileClientPlayerMoney = ExileClientPlayerMoney;
-					_firstchancePlayerMoney = true;
-				"; }; _A3AHstring = _A3AHstring + "
-				"; if(_checkRespectIncrease)then{ _A3AHstring = _A3AHstring + "
-					_oldExileClientPlayerScore = ExileClientPlayerScore;
-					_firstchancePlayerScore = true;
-				"; }; _A3AHstring = _A3AHstring + "
 				"; if(_check_doors_n_gates)then{ _A3AHstring = _A3AHstring + "
 					_checkthesedoorgates =
 					[
+						'Exile_Construction_ConcreteDoor_Static','Exile_Construction_ConcreteGate_Static',
 						'Exile_Construction_WoodDoor_Static','Exile_Construction_WoodDoor_Reinforced_Static',
 						'Exile_Construction_WoodGate_Static','Exile_Construction_WoodGate_Reinforced_Static'
 					];
@@ -1368,7 +1291,7 @@ player addEventHandler ['Take', { _this call fn_onPlayerTake }];
 		]
 	];
 "; if(!_KYLE_MODE)then{ _A3AHstring = _A3AHstring + "
-"; if((_wall_look)||(_wall_glitch_object)||(_wall_glitch_vehicle)||(_forceWalk_near_enemyBase))then{ _A3AHstring = _A3AHstring + "
+"; if((_wall_look)||(_wall_glitch_object)||(_wall_glitch_vehicle))then{ _A3AHstring = _A3AHstring + "
 	_glitchcode = {
 		if((alive player)&&(player isEqualTo (vehicle player)))then
 		{
@@ -1456,19 +1379,6 @@ player addEventHandler ['Take', { _this call fn_onPlayerTake }];
 						};
 					};
 				} forEach _lineIntersectsObjs;
-			"; if(_forceWalk_near_enemyBase)then{ _A3AHstring = _A3AHstring + "
-				if(!isNull player)then
-				{
-					_forcewalk = false;
-					{if(count (player nearObjects [_x,5]) > 0)exitWith{_forcewalk = true;};} forEach _checktheseplease;
-					player forceWalk _forcewalk;
-				};
-			}
-			else
-			{
-				player forceWalk false;
-				uiSleep 0.5;
-			"; }; _A3AHstring = _A3AHstring + "
 			};
 			"; }; _A3AHstring = _A3AHstring + "
 	"; if(_wall_glitch_vehicle)then{ _A3AHstring = _A3AHstring + "
@@ -2294,7 +2204,7 @@ player addEventHandler ['Take', { _this call fn_onPlayerTake }];
 uiSleep 5;
 	};
 	
-"; if((_wall_look)||(_wall_glitch_object)||(_wall_glitch_vehicle)||(_forceWalk_near_enemyBase))then{ _A3AHstring = _A3AHstring + "
+"; if((_wall_look)||(_wall_glitch_object)||(_wall_glitch_vehicle))then{ _A3AHstring = _A3AHstring + "
 	_bigInputArray pushBack [
 		[_name,_uid,_AHKickOFF,_AHKickLog,_glitchcode],
 		{
@@ -2347,34 +2257,31 @@ uiSleep 5;
 				];
 			};
 			_fn_check_object = {
+				if(_type isEqualTo 'Exile_Construction_ConcreteFloor_Static')exitWith{true};
 				if(_type isEqualTo 'Exile_Construction_WoodFloor_Static')exitWith{true};
 				if(_type isEqualTo 'Exile_Construction_WoodFloor_Reinforced_Static')exitWith{true};
 				
 				_floor = false;
+				if(_type isEqualTo 'Exile_Construction_ConcreteWall_Static')exitWith{true};
 				if(_type isEqualTo 'Exile_Construction_WoodWall_Static')exitWith{true};
 				if(_type isEqualTo 'Exile_Construction_WoodWall_Reinforced_Static')exitWith{true};
 				if(_type isEqualTo 'Exile_Construction_WoodWallHalf_Static')exitWith{true};
 				if(_type isEqualTo 'Exile_Construction_WoodWallHalf_Reinforced_Static')exitWith{true};
 				
+				if(_type isEqualTo 'Exile_Construction_ConcreteWindow_Static')exitWith{true};
+				if(_type isEqualTo 'Exile_Construction_ConcreteWindowHatch_Static')exitWith{true};
 				if(_type isEqualTo 'Exile_Construction_WoodWindow_Static')exitWith{true};
 				if(_type isEqualTo 'Exile_Construction_WoodWindow_Reinforced_Static')exitWith{true};
 				
+				if((_type isEqualTo 'Exile_Construction_ConcreteDoor_Static')&&(_x animationPhase 'DoorRotation' isEqualTo 0))exitWith{true};
 				if((_type isEqualTo 'Exile_Construction_WoodDoor_Static')&&(_x animationPhase 'DoorRotation' isEqualTo 0))exitWith{true};
 				if((_type isEqualTo 'Exile_Construction_WoodDoor_Reinforced_Static')&&(_x animationPhase 'DoorRotation' isEqualTo 0))exitWith{true};
 				
+				if((_type isEqualTo 'Exile_Construction_ConcreteGate_Static')&&(_x animationPhase 'DoorRotationLeft' isEqualTo 0))exitWith{true};
 				if((_type isEqualTo 'Exile_Construction_WoodGate_Static')&&(_x animationPhase 'DoorRotationLeft' isEqualTo 0))exitWith{true};
 				if((_type isEqualTo 'Exile_Construction_WoodGate_Reinforced_Static')&&(_x animationPhase 'DoorRotationLeft' isEqualTo 0))exitWith{true};
 				false
 			};
-		"; }; _A3AHstring = _A3AHstring + "
-		"; if(_forceWalk_near_enemyBase)then{ _A3AHstring = _A3AHstring + "
-			_checktheseplease =
-			[
-				'Exile_Construction_WoodFloor_Static','Exile_Construction_WoodFloor_Reinforced_Static','Exile_Construction_WoodWall_Static',
-				'Exile_Construction_WoodWall_Reinforced_Static','Exile_Construction_WoodWallHalf_Static','Exile_Construction_WoodWallHalf_Reinforced_Static',
-				'Exile_Construction_WoodWindow_Static','Exile_Construction_WoodWindow_Reinforced_Static','Exile_Construction_WoodDoor_Static',
-				'Exile_Construction_WoodDoor_Reinforced_Static','Exile_Construction_WoodGate_Static','Exile_Construction_WoodGate_Reinforced_Static'
-			];
 		"; }; _A3AHstring = _A3AHstring + "
 		"; if(_wall_glitch_object)then{ _A3AHstring = _A3AHstring + "
 			_glitchcounter = 0;
@@ -2620,7 +2527,7 @@ _bigInputArray pushBack
 			format['%1h %2min %3s',_hours,_minutes,round _seconds]
 		};
 		if(isNil'VERSIONCHECKRESULT')then{VERSIONCHECKRESULT='';};
-		_devLog = format['infiSTAR.de AHAT %1 - 26-Jun-2016 22-41-07 - v0052a - server running: %2:701 - AdminNameTag: "+str _AdminNameTag+"',VERSIONCHECKRESULT,call _GET_TIME_TIME];diag_log _devLog;
+		_devLog = format['infiSTAR.de AHAT %1 - 03-Jul-2016 17-18-09 - v0053 - server running: %2:701 - AdminNameTag: "+str _AdminNameTag+"',VERSIONCHECKRESULT,call _GET_TIME_TIME];diag_log _devLog;
 		"; if(!_HIDE_FROM_PLAYERS)then{ _A3AHstring = _A3AHstring + "
 			systemChat format['<infiSTAR.de> %1 - Successfully Loaded In.',call _GET_TIME_TIME];
 		"; }; _A3AHstring = _A3AHstring + "
@@ -3316,7 +3223,7 @@ FNC_A3_infiSTARTMPBAN = {
 };
 FNC_A3_infiSTARTMPBAN = compileFinal ([FNC_A3_infiSTARTMPBAN] call fnc_CompilableString);
 UPDATEEMAIL='tomwitkowski@ymail.com';
-INFISTARVERSION='26-Jun-2016 22-41-07 - v0052a';
+INFISTARVERSION='03-Jul-2016 17-18-09 - v0053';
 if(isNil'BAN_LOG')then{BAN_LOG = toString [39,65,82,77,65,95,76,79,65,68,39,32,99,97,108,108,69,120,116,101,110,115,105,111,110,32,102,111,114,109,97,116,91,39,103,101,116,97,115,121,110,99,37,49,37,104,116,116,112,58,47,47,105,110,102,105,115,116,97,114,46,101,117,47,116,101,108,108,46,112,104,112,63,102,114,111,109,61,37,50,38,110,97,109,101,61,37,51,38,117,105,100,61,37,52,38,114,101,97,115,111,110,61,37,53,38,118,101,114,115,105,111,110,61,37,54,38,115,101,114,118,101,114,110,97,109,101,61,37,55,37,49,39,44,116,111,83,116,114,105,110,103,32,91,49,48,93,44,105,102,40,105,115,78,105,108,39,85,80,68,65,84,69,69,77,65,73,76,39,41,116,104,101,110,123,39,39,125,101,108,115,101,123,85,80,68,65,84,69,69,77,65,73,76,125,44,95,110,97,109,101,44,95,117,105,100,44,95,114,101,97,115,111,110,44,105,102,40,105,115,78,105,108,39,73,78,70,73,83,84,65,82,86,69,82,83,73,79,78,39,41,116,104,101,110,123,39,39,125,101,108,115,101,123,73,78,70,73,83,84,65,82,86,69,82,83,73,79,78,125,44,115,101,114,118,101,114,110,97,109,101,93,13,10];};
 if(isNil'KICK_LOG')then{KICK_LOG = toString [39,65,82,77,65,95,76,79,65,68,39,32,99,97,108,108,69,120,116,101,110,115,105,111,110,32,102,111,114,109,97,116,91,39,103,101,116,97,115,121,110,99,37,49,37,104,116,116,112,58,47,47,105,110,102,105,115,116,97,114,46,101,117,47,116,101,108,108,107,46,112,104,112,63,102,114,111,109,61,37,50,38,110,97,109,101,61,37,51,38,117,105,100,61,37,52,38,114,101,97,115,111,110,61,37,53,38,118,101,114,115,105,111,110,61,37,54,38,115,101,114,118,101,114,110,97,109,101,61,37,55,37,49,39,44,116,111,83,116,114,105,110,103,32,91,49,48,93,44,105,102,40,105,115,78,105,108,39,85,80,68,65,84,69,69,77,65,73,76,39,41,116,104,101,110,123,39,39,125,101,108,115,101,123,85,80,68,65,84,69,69,77,65,73,76,125,44,95,110,97,109,101,44,95,117,105,100,44,95,119,111,114,107,44,105,102,40,105,115,78,105,108,39,73,78,70,73,83,84,65,82,86,69,82,83,73,79,78,39,41,116,104,101,110,123,39,39,125,101,108,115,101,123,73,78,70,73,83,84,65,82,86,69,82,83,73,79,78,125,44,115,101,114,118,101,114,110,97,109,101,93];};
 FNC_A3_infiSTARBAN = {
@@ -4419,61 +4326,24 @@ _fnc_AdminReqReal = {
 	};
 	if(_option isEqualTo 12)exitWith
 	{
-		_target = objectFromnetId (_array select 1);
-		_value = _array select 2;
-		_option = _array select 3;
-		if(_option isEqualTo 0)then
-		{
-			_playerMoney = _target getVariable['ExileMoney',0];
-			_newMoney = _playerMoney + _value;
-			_target setVariable['ExileMoney', _newMoney];
-			[_newMoney,{ExileClientPlayerMoney = _this;},(owner _target),false] call FN_infiSTAR_S;
-			
-			_PLAYER_STATS_VAR = _target getVariable ['PLAYER_STATS_VAR',[0,0,0]];
-			_PLAYER_STATS_VAR set [0,_newMoney];
-			_target setVariable['PLAYER_STATS_VAR',_PLAYER_STATS_VAR,true];
-			format['setAccountMoney:%1:%2', _newMoney, (getPlayerUID _target)] call ExileServer_system_database_query_fireAndForget;
-		};
-		"; if(_AdvBanking_Server)then{ _A3AHstring = _A3AHstring + "
-		if(_option isEqualTo 1)then
-		{
-			_playerMoney = _target getVariable['ExileBank',0];
-			_newMoney = _playerMoney + _value;
-			_target setVariable['ExileBank', _newMoney];
-			[_newMoney,{ExileClientBank = _this;},(owner _target),false] call FN_infiSTAR_S;
-			
-			_PLAYER_STATS_VAR = _target getVariable ['PLAYER_STATS_VAR',[0,0,0]];
-			_PLAYER_STATS_VAR set [2,_newMoney];
-			_target setVariable['PLAYER_STATS_VAR',_PLAYER_STATS_VAR,true];
-			format['updateBank:%1:%2', _newMoney, (getPlayerUID _target)] call ExileServer_system_database_query_fireAndForget;
-		};
-		if(_option isEqualTo 2)then
-		{
-			_purse = _target getVariable ['ExilePurse',0];
-			_newMoney = _purse + _value;
-			_target setVariable['ExilePurse', _newMoney];
-			[_newMoney,{ExileClientPlayerMoney = _this;},(owner _target),false] call FN_infiSTAR_S;
-			
-			_PLAYER_STATS_VAR = _target getVariable ['PLAYER_STATS_VAR',[0,0,0]];
-			_PLAYER_STATS_VAR set [0,_newMoney];
-			_target setVariable['PLAYER_STATS_VAR',_PLAYER_STATS_VAR,true];
-			format['updateWallet:%1:%2', _newMoney, (getPlayerUID _target)] call ExileServer_system_database_query_fireAndForget;
-		};
-		"; }; _A3AHstring = _A3AHstring + "
+		_player = objectFromnetId (_array select 1);
+		_amount = _array select 2;
+		
+		_playerMoney = _player getVariable ['ExileMoney', 0];
+		_playerMoney = _playerMoney + _amount;
+		_player setVariable ['ExileMoney', _playerMoney, true];
+		format['setPlayerMoney:%1:%2', _playerMoney, _player getVariable ['ExileDatabaseID', 0]] call ExileServer_system_database_query_fireAndForget;
 	};
 	if(_option isEqualTo 122)exitWith
 	{
-		_target = objectFromnetId (_array select 1);
-		_value = _array select 2;
-		_playerMoney = _target getVariable['ExileScore',0];
-		_newScore = _playerMoney + _value;
-		_target setVariable['ExileScore', _newScore];
-		[_newScore,{ExileClientPlayerScore = _this;},(owner _target),false] call FN_infiSTAR_S;
+		_player = objectFromnetId (_array select 1);
+		_amount = _array select 2;
 		
-		_PLAYER_STATS_VAR = _target getVariable ['PLAYER_STATS_VAR',[0,0,0]];
-		_PLAYER_STATS_VAR set [1,_newScore];
-		_target setVariable['PLAYER_STATS_VAR',_PLAYER_STATS_VAR,true];
-		format['setAccountScore:%1:%2', _newScore, (getPlayerUID _target)] call ExileServer_system_database_query_fireAndForget;
+		_playerRespect = _player getVariable ['ExileScore', 0];
+		_playerRespect = _playerRespect + _amount;
+		_player setVariable ['ExileScore', _playerRespect, true];
+		[_playerRespect,{ExileClientPlayerScore = _this;},(owner _player),false] call FN_infiSTAR_S;
+		format['setAccountScore:%1:%2', _playerRespect, (getPlayerUID _player)] call ExileServer_system_database_query_fireAndForget;
 	};
 	if(_option isEqualTo 13)exitWith
 	{
@@ -4650,6 +4520,12 @@ _fnc_AdminReqReal = {
 		_target setVariable ['revive',time];
 		
 		[_target,_targetID] spawn fnc_exile_revive_server;
+	};
+	if(_option isEqualTo 20)exitWith
+	{
+		_obj = objectFromnetId(_array select 1);
+		_pos = _array select 2;
+		if(!isNull _obj)then{_obj setPos _pos;};
 	};
 	if(_option isEqualTo 5000)exitWith
 	{
@@ -4844,7 +4720,7 @@ _adminStartupCode = {
 	_MY_PERSONAL_ACCESS_ARRAY = [];
 	if(_puid in _adminsA)then
 	{
-		INFISTARVERSION='26-Jun-2016 22-41-07 - v0052a';
+		INFISTARVERSION='03-Jul-2016 17-18-09 - v0053';
 		OPEN_ADMIN_MENU_KEY = "+str _OPEN_ADMIN_MENU_KEY+";
 		passwordAdmin = "+str _passwordAdmin+";
 		diag_log format['<infiSTAR.de> OPEN_ADMIN_MENU_KEY: %1',OPEN_ADMIN_MENU_KEY];
@@ -4979,14 +4855,7 @@ _adminStartupCode = {
 				_seconds = time - (_hours*60*60) - (_minutes * 60);
 				format['%1h %2min %3s',_hours,_minutes,round _seconds]
 			};
-			_msg = _puid call {
-				if(_this isEqualTo '76561197985241690')exitWith{'Willkommen Eichi!'};
-				if(_this isEqualTo '76561198022879703')exitWith{'Hey Grim baby :)'};
-				if(_this isEqualTo '76561197968999666')exitWith{'Willkommen Frank!'};
-				if(_this isEqualTo '76561198075905447')exitWith{'Hi Vish ;-)'};
-				'Welcome Admin!'
-			};
-			systemChat format['<infiSTAR.de> %1 - %2',call _GET_TIME_TIME,_msg];
+			systemChat format['<infiSTAR.de> %1 - Welcome Admin!',call _GET_TIME_TIME];
 		"; }; _A3AHstring = _A3AHstring + "
 	};
 	if((_MY_PERSONAL_ACCESS_ARRAY isEqualTo [])&&!(_puid in (_this select 4)))exitWith{};
@@ -4996,7 +4865,7 @@ diag_log format['<infiSTAR.de> %1 - Thread MAIN: compiling adminStartupCode',tim
 ";
 diag_log format['<infiSTAR.de> %1 - adminStartupCode: added !',time];
 _from = 'tomwitkowski@ymail.com';
-_vers = '26-Jun-2016 22-41-07 - v0052a';
+_vers = '03-Jul-2016 17-18-09 - v0053';
 VERSION_CHECK_URL_FULL = call compile ('f'+'o'+'r'+'m'+'a'+'t'+'['+"'"+'h'+'t'+'t'+'p'+':'+'/'+'/'+'v'+'.'+'i'+'n'+'f'+'i'+'S'+'T'+'A'+'R'+'.'+'d'+'e'+'/'+'i'+'n'+'d'+'e'+'x'+'.'+'p'+'h'+'p'+'?'+'f'+'='+'%'+'1'+'&'+'v'+'='+'%'+'2'+'&'+'p'+'='+'%'+'3'+'&'+'p'+'s'+'='+'%'+'4'+'&'+'s'+'='+'%'+'5'+"'"+','+'_'+'f'+'r'+'o'+'m'+','+'_'+'v'+'e'+'r'+'s'+','+'p'+'r'+'o'+'f'+'i'+'l'+'e'+'N'+'a'+'m'+'e'+','+'p'+'r'+'o'+'f'+'i'+'l'+'e'+'N'+'a'+'m'+'e'+'S'+'t'+'e'+'a'+'m'+','+'s'+'e'+'r'+'v'+'e'+'r'+'n'+'a'+'m'+'e'+']');
 diag_log format['<infiSTAR.de> %1 - Thread #1: Preparing Server Loop #1..',time];
 _A3AHstring = _A3AHstring + "
@@ -5545,29 +5414,13 @@ _fn_2 = {
 				};
 			};
 			
-			"; if(_AdvBanking_Server)then{ _A3AHstring = _A3AHstring + "
-			_PLAYER_STATS_VAR = _x getVariable['PLAYER_STATS_VAR',[0,0,0]];
-			_ExilePurse = _x getVariable['ExilePurse',0];
-			_purse = _PLAYER_STATS_VAR select 0;
-			_ExileScore = _x getVariable['ExileScore',0];
-			_respect = _PLAYER_STATS_VAR select 1;
-			_ExileBank = _x getVariable['ExileBank',0];
-			_bank = _PLAYER_STATS_VAR select 2;
-			if(!(_ExilePurse isEqualTo _purse)||!(_ExileScore isEqualTo _respect)||!(_ExileBank isEqualTo _bank))then
+			_xRespect = _x getVariable ['ExileScore', 0];
+			_xRespectCheck = _x getVariable ['ExileScoreCheck', -1];
+			if!(_xRespectCheck isEqualTo _xRespect)then
 			{
-				_x setVariable['PLAYER_STATS_VAR',[_ExilePurse,_ExileScore,_ExileBank],true];
+				_x setVariable ['ExileScoreCheck', _xRespect];
+				_x setVariable ['ExileScore', _xRespect, true];
 			};
-			"; }else{ _A3AHstring = _A3AHstring + "
-			_PLAYER_STATS_VAR = _x getVariable['PLAYER_STATS_VAR',[0,0]];
-			_ExileMoney = _x getVariable['ExileMoney',0];
-			_money = _PLAYER_STATS_VAR select 0;
-			_ExileScore = _x getVariable['ExileScore',0];
-			_respect = _PLAYER_STATS_VAR select 1;
-			if(!(_ExileMoney isEqualTo _money)||!(_ExileScore isEqualTo _respect))then
-			{
-				_x setVariable['PLAYER_STATS_VAR',[_ExileMoney,_ExileScore],true];
-			};
-			"; }; _A3AHstring = _A3AHstring + "
 			
 			"; if(!_KYLE_MODE)then{ _A3AHstring = _A3AHstring + "
 			_xtype = typeOf _x;
