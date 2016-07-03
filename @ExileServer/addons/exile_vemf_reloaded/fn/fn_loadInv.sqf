@@ -161,12 +161,11 @@ if (_this isEqualType []) then
 									_unit addWeapon _rifle;
 									_unit selectWeapon _rifle;
 									_unit addWeapon _pistol;
-									if not(_missionName isEqualTo "BaseAttack") then
+									if (_missionName isEqualTo "DynamicLocationInvasion") then
 										{
 											_backpack = selectRandom _backpacks;
 											_unit addBackPack _backpack;
-										} else
-										{
+										} else {
 											_unit addBackpack "B_Parachute";
 										};
 									// Give this guy some weaponItems
