@@ -9,7 +9,7 @@
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
  
-private["_sessionID","_player","_price","_playerMoney"];
+private["_sessionID","_player","_price","_playerMoney","_logging","_territoryLog"];
 _sessionID = _this select 0;
 try
 {
@@ -29,9 +29,15 @@ try
 		throw 3;
 	};
 	_playerMoney = _playerMoney - _price;
-	format["setAccountMoney:%1:%2", _playerMoney, (getPlayerUID _player)] call ExileServer_system_database_query_fireAndForget;
-	_player setVariable ["ExileMoney",_playerMoney];
+	_player setVariable ["ExileMoney", _playerMoney, true];
+	format["setPlayerMoney:%1:%2", _playerMoney, _player getVariable ["ExileDatabaseID", 0]] call ExileServer_system_database_query_fireAndForget;
 	[_sessionID, "purchaseTerritoryResponse" , [0]] call ExileServer_system_network_send_to;
+	_logging = getNumber(configFile >> "CfgSettings" >> "Logging" >> "territoryLogging");
+	if (_logging isEqualTo 1) then
+	{
+		_territoryLog = format ["PLAYER ( %1 ) %2 PAID %3 POP TABS TO PURCHASE A TERRITORY FLAG | PLAYER TOTAL POP TABS: %4",getPlayerUID _player,_player,_price,_playerMoney];
+		"extDB2" callExtension format["1:TERRITORY:%1",_territoryLog];
+	};
 }
 catch 
 {

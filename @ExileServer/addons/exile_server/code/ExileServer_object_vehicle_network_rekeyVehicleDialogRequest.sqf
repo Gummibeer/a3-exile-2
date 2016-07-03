@@ -9,7 +9,7 @@
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
  
-private["_sessionID","_parameters","_vehicle","_rekeyCost","_player","_vehiclePinCode","_playerMoney","_responseCode","_playerObject"];
+private["_sessionID","_parameters","_vehicle","_rekeyCost","_player","_vehiclePinCode","_playerMoney","_responseCode"];
 _sessionID = _this select 0;
 _parameters = _this select 1;
 _vehicle = objectFromNetId (_parameters select 0);
@@ -37,10 +37,9 @@ try
 	};
 	_responseCode = "Rekey successful";
 	_playerMoney = _playerMoney - _rekeyCost;
-	_playerObject setVariable ["ExileMoney", _playerMoney];
-	format["setAccountMoney:%1:%2", _playerMoney, (getPlayerUID _playerObject)] call ExileServer_system_database_query_fireAndForget;
-	_player setVariable ["ExileMoney",_playerMoney];
-	[_sessionID,"rekeyVehicleDialogResponse",[_responseCode, netId _vehicle,_playerMoney]] call ExileServer_system_network_send_to;
+	_player setVariable ["ExileMoney", _playerMoney, true];
+	format["setPlayerMoney:%1:%2", _playerMoney, _player getVariable ["ExileDatabaseID", 0]] call ExileServer_system_database_query_fireAndForget;
+	[_sessionID,"rekeyVehicleDialogResponse",[_responseCode, netId _vehicle,_rekeyCost]] call ExileServer_system_network_send_to;
 }
 catch 
 {

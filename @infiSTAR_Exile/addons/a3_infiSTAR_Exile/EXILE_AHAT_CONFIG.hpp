@@ -12,7 +12,7 @@
 	'tomwitkowski@ymail.com'
 	
 	Last download was on:
-	'26-Jun-2016 22-41-07';
+	'03-Jul-2016 17-18-09';
 */
 class Cfg_infiSTAR_settings {
 /*
@@ -140,45 +140,30 @@ hiddenSuperAdmin[] =
 adminUIDandAccess[] =
 {
 	{
+		{"76561198061912622","UID2","UID3","..."},	/* Admins with UIDs in this Array have their Access defined in the array below. */
 		{
-			"76561198061912622" /* Pandabeard | Tom */
-		},	/* Admins with UIDs in this Array have their Access defined in the array below. */
-		{
-			"Teleport On Map Click","Teleport - Target To Me","Teleport - Me To Target",
-			"Delete Vehicle",
-			"FlyUp",
-			"ShowGear","Remove Gear",
-			"Show Server Information",
-			"HealSelf","HealRepairNear","Heal","Restore",
-			"AdminLog",
-			"Freeze Target","UnFreeze Target",
-			"Restrain","UnRestrain",
-			"==== Loadouts ====",
-			"==== Base Deleter ====",
-			"==== WeatherLord ====",
-			"Items spawn menu",
-			"Flip Vehicle",
-			"Move In My Vehicle",
-			"Move In Target Vehicle",
-			"Eject","Eject Crew",
-			"Force Disconnect","Kick (Announce)","Ban (Announce)",
+			"Teleport On Map Click","Teleport - Target To Me","Teleport - Me To Target","Teleport In Facing Direction (10m steps)",
+			"spectating","AdminConsole","Delete Vehicle","FlyUp","ShowGear","Show Server Information",
+			"HealSelf","HealRepairNear","AdminLog","Freeze","UnFreeze","Restrain","UnRestrain",
+			"==== Loadouts ====","==== Base Deleter ====","==== WeatherLord ====","Items spawn menu",
+			"Remove Gear","Revive","Heal","Restore","Flip Vehicle","Move In My Vehicle","Move In Target Vehicle","Eject","Eject Crew",
+			"Kill","Explode","Force Disconnect","Kick (Silent)","Kick (Announce)","Ban (Silent)","Ban (Announce)",
 			"Player ESP","Player ESP (safezone style)","AI ESP","Dead ESP","Loot ESP",
 			"Vehicle Marker","Flag Marker (with radius)","DeadPlayer Marker",
-			"God Mode","God Mode (no stats change)","Vehicle God Mode",
-			"UnlimAmmo",
-			"Stealth / Invisible",
-			"Disable Announces",
-			"Mass Message",
-			"Change Time",
-			"Spawn Ammo",
-			"Login as Arma Admin",
-			"Request Steam Name",
-			"showinfo",
-			"Change Money","Change Respect",
-			"UnlockLockVehicle",
-			"Copy Worldspace(coords) to RPT & Chat",
-			"Spawn Vehicles",
-			"MapIcons","MapIcons: Buildings","MapIcons: Flags","MapIcons: Player","MapIcons: DeadPlayer","MapIcons: Vehicles","MapIcons: Vehicle Types","MapIcons: Vehicle lockstate","MapIcons: DeadVehicles","MapIcons: AI"
+			"God Mode","God Mode (no stats change)","Vehicle God Mode","Lower Terrain","Vehboost","UnlimAmmo","noRecoil","FastFire","Stealth / Invisible",
+			"Disable Announces","Mass Message","Change Time","Spawn Support-Boxes","Create Billboard","Change ViewDistance",
+			"Spawn Ammo","Login as Arma Admin","BIS FreeRoam Cam (works with ESP)","FreeRoam Cam (does not work with ESP)",
+			"Request Steam Name","showinfo","Change Money","Change Respect",
+			"UnlockLockVehicle","Copy Worldspace(coords) to RPT & Chat",
+			"Spawn Vehicles","Spawn Persistent Vehicles",
+			"MapIcons",
+			"MapIcons: Buildings","MapIcons: Flags",
+			"MapIcons: Player","MapIcons: DeadPlayer","MapIcons: Vehicles",
+			"MapIcons: Vehicle Types","MapIcons: Vehicle lockstate","MapIcons: DeadVehicles",
+			"MapIcons: AI",
+			"Arsenal",	// Adds Arsenal to the mousewheel actions if you press "," on the Numpad!
+			"Unconscious","Remove Unconscious",
+			"Light"	// Zeus like Lighting from the Air strikes down at selected player / target / location - use ctrl+1 or the menu to use it!
 		}
 	},
 	{
@@ -306,12 +291,6 @@ fix_uniform_and_vest = true;
 	So far only checking for duped backpacks and not taking any actions besides logging. Need to test more before It will start to remove duped items.
 */
 experimental_dupe_check = true;
-
-/*
-	Players are forced to put their old backpack on the ground before looting another one.
-	If they don't do it, they will be able to loot the new one but the dropped one and all others on the weaponholder will be deleted (to fix backpack duping glitches)
-*/
-fixbackpackduping = true;
 /****************************************************************************************************/
 /***************************FIXES DUE TO ARMA BEING BROKEN - ABOVE***********************************/
 /****************************************************************************************************/
@@ -341,16 +320,9 @@ wall_look = false;					/* checks if a players tries to look through a wall (if p
 wall_glitch_object = true;			/* checks if a players tries to glitch through a wall (if player is allowed to build in that territory, it will not be logged.) */
 wall_glitch_vehicle = true;			/* stops players from glitching into bases using "eject" or "getout" of a vehicle.. */
 check_doors_n_gates = false;		/* check if a door is locked but still being opened */
-forceWalk_near_enemyBase = false;	/* forcing players to walk when near an enemy base (only runs when wall_glitch_object = true) */
 checkHiddenObjects = true;			/* checks if there is hidden objects close to the player (hidden objects could be walked through..) */
 attach_to_check = false;			/* logs and detaches attached vehicles that are close.. basically completely disallow attaching of vehicles! */
 slingload_check = true;				/* forbid sling loading / rope attaching a vehicle with a crew */
-
-checkPopTabIncrease = true;
-LogPopTabIncrease = 15000;			/* Only if checkPopTabIncrease = true; logs if poptabs increased by x within ~10 seconds */
-
-checkRespectIncrease = true;
-LogRespectIncrease = 5000;			/* Only if checkRespectIncrease = true; logs if respect increased by x within ~10 seconds */
 
 checkFilePatchingEnabled = true;	/* checks if filepatching is enabled on the client (if it is, the client could inject any script based hack easily) */
 
@@ -383,39 +355,7 @@ ban_for_steam_ban = false;	/* if "check_steam_ban = true;" then steambanned play
 */
 UAT = true;	
 class allowTP {
-	at_option = 0;
-	custom[] = {
-		{{0,0,0},1},
-		{{1,1,1},1},
-		{{2,2,2},1}
-	};
-	Altis[] = {
-		{{14599.966,16797.193,0},325},
-		{{23334.605,24188.938,0},325},
-		{{2998.0603,18175.479,0},325}
-	};
-	Namalsk[] = {
-		{{4992.78,8005.07,0},225},
-		{{9120.65,10076.6,0},100},
-		{{4357.36,4724.03,0},100}
-	};
-	Esseker[] = {
-		{{3943,9284,0},325},
-		{{10810,4765,0},325},
-		{{4739,4671,0},325}
-	};
-	Bornholm[] = {
-		{{3092.2,5468.97,0},325},
-		{{12737.6,8757.8,0},325},
-		{{6420.46,17217.2,0},325}
-	};
-	pja310[] = {
-		{{1599.4,8260.6,0},325},
-		{{6609.4,17282.3,0},325},
-		{{19628.4,19227.7,0},325},
-		{{13965.6,12502,0},325},
-		{{17800.5,2185.05,0},325}
-	};
+	custom[] = {};
 };
 
 
@@ -474,11 +414,14 @@ badIDDsToClose[] =
 allowedIDDs[] =
 {
 	/* default idds */
-	0,4,5,6,8,12,18,24,49,54,55,70,160,174,177,999,131,
+	0,4,5,6,8,12,18,24,49,54,55,70,160,174,177,999,131,63,602,301,
 
 	/* exile idds */
-	63,301,602,20016,20017,20018,20019,20020,20021,20023,20024,24000,24001,24002,24004,
-	24005,24006,24007,24008,24010,24011,24012,24014,24015,24025,24026,24027,
+	24001,24002,20023,24005,24004,24010,24025,20021,20017,24012,24027,
+	20019,20016,24007,20024,20018,24008,24011,24015,24000,24006,24014,
+	20020,24026,
+
+	24033,24030,24029,24028,24031,24034,
 
 	4004,21000,	// Bounty system and MarXet
 	8457,	// http://www.exilemod.com/topic/9040-xm8-apps/
