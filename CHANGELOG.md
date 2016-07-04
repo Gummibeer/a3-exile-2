@@ -1,5 +1,19 @@
 # Changelog
 
+## v1.2.1
+
+* fix bugs after exile update
+* remove advanced banking
+* remove bikes
+* fix player attacks
+* make civ hummingbirds cheaper
+
+## v1.2.0
+
+* update to exile v0.9.8
+* update infistar
+* update bwmod
+
 ## v1.1.5
 
 * reduce random vehicles
