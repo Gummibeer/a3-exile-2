@@ -44,7 +44,7 @@ if !(_OK) exitWith
 
 
 //create possible difficulty add more of one difficulty to weight it towards that
-_PossibleDifficulty		= 	[	
+_PossibleDifficulty		= 	[
 								"easy",
 								"moderate",
 								"moderate",
@@ -55,44 +55,47 @@ _PossibleDifficulty		= 	[
 								"hardcore"
 							];
 //choose difficulty and set value
-_difficulty = _PossibleDifficulty call BIS_fnc_selectRandom;
+_difficulty = selectRandom _PossibleDifficulty;
 
-//easy
-if (_difficulty isEqualTo "easy") then {
-_msgStart = ['#FFFF00',"A DIY storage is under attack! Go kill the easy attackers"];
-_AICount = (4 + (round (random 4)));
-_crate_weapons 		= (1 + (round (random 1)));
-_crate_items 		= (3 + (round (random 3)));
+switch (_difficulty) do
+{
+	case:
+	{
+		_AICount = (4 + (round (random 4)));
+		_crate_weapons 		= (1 + (round (random 1)));
+		_crate_items 		= (3 + (round (random 3)));
+		_crate_backpacks 	= 1;
+	};
+
+	case "moderate":
+	{
+		_AICount = (6 + (round (random 4)));
+		_crate_weapons 		= (2 + (round (random 1)));
+		_crate_items 		= (6 + (round (random 3)));
+		_crate_backpacks 	= 2;
+	};
+
+	case "difficult":
+	{
+		_AICount = (8 + (round (random 4)));
+		_crate_weapons 		= (3 + (round (random 1)));
+		_crate_items 		= (9 + (round (random 3)));
+		_crate_backpacks 	= 3;
+	};
+
+	//case "hardcore":
+	default
+	{
+		_AICount = (10 + (round (random 4)));
+		_crate_weapons 		= (4 + (round (random 1)));
+		_crate_items 		= (12 + (round (random 6)));
+		_crate_backpacks 	= 4;
+	};
+};
+
+//_msgStart = ['#FFFF00',format["A DIY storage is under attack! Go kill the %1 attackers",_difficulty]];
+_msgStart = ['#FFFF00',"A DIY storage is under attack! Go kill the attackers"];
 _crate_item_list	= ["Exile_Item_WoodDoorKit","Exile_Item_WoodDoorwayKit","Exile_Item_WoodFloorKit","Exile_Item_WoodFloorPortKit","Exile_Item_WoodGateKit","Exile_Item_WoodStairsKit","Exile_Item_WoodSupportKit","Exile_Item_WoodWallHalfKit","Exile_Item_WoodWallKit","Exile_Item_WoodWindowKit","Exile_Item_WoodStairsKit","Exile_Item_WoodDoorwayKit","Exile_Item_WoodFloorKit","Exile_Item_WoodFloorKit","Exile_Item_WoodFloorPortKit","Exile_Item_WoodGateKit","Exile_Item_WoodStairsKit","Exile_Item_WoodSupportKit","Exile_Item_WoodWallHalfKit","Exile_Item_WoodWallKit","Exile_Item_WoodWindowKit"];
-_crate_backpacks 	= 1;
-								};
-//moderate
-if (_difficulty isEqualTo "moderate") then {
-_msgStart = ['#FFFF00',"A DIY storage is under attack! Go kill the moderate attackers"];	
-_AICount = (6 + (round (random 4)));
-_crate_weapons 		= (2 + (round (random 1)));
-_crate_items 		= (6 + (round (random 3)));
-_crate_item_list	= ["Exile_Item_WoodDoorKit","Exile_Item_WoodDoorwayKit","Exile_Item_WoodFloorKit","Exile_Item_WoodFloorPortKit","Exile_Item_WoodGateKit","Exile_Item_WoodStairsKit","Exile_Item_WoodSupportKit","Exile_Item_WoodWallHalfKit","Exile_Item_WoodWallKit","Exile_Item_WoodWindowKit","Exile_Item_WoodStairsKit","Exile_Item_WoodDoorwayKit","Exile_Item_WoodFloorKit","Exile_Item_WoodFloorKit","Exile_Item_WoodFloorPortKit","Exile_Item_WoodGateKit","Exile_Item_WoodStairsKit","Exile_Item_WoodSupportKit","Exile_Item_WoodWallHalfKit","Exile_Item_WoodWallKit","Exile_Item_WoodWindowKit"];
-_crate_backpacks 	= 2;						
-								};
-//difficult
-if (_difficulty isEqualTo "difficult") then {
-_msgStart = ['#FFFF00',"A DIY storage is under attack! Go kill the difficult attackers"];
-_AICount = (8 + (round (random 4)));
-_crate_weapons 		= (3 + (round (random 1)));
-_crate_items 		= (9 + (round (random 3)));
-_crate_item_list	= ["Exile_Item_WoodDoorKit","Exile_Item_WoodDoorwayKit","Exile_Item_WoodFloorKit","Exile_Item_WoodFloorPortKit","Exile_Item_WoodGateKit","Exile_Item_WoodStairsKit","Exile_Item_WoodSupportKit","Exile_Item_WoodWallHalfKit","Exile_Item_WoodWallKit","Exile_Item_WoodWindowKit","Exile_Item_WoodStairsKit","Exile_Item_WoodDoorwayKit","Exile_Item_WoodFloorKit","Exile_Item_WoodFloorKit","Exile_Item_WoodFloorPortKit","Exile_Item_WoodGateKit","Exile_Item_WoodStairsKit","Exile_Item_WoodSupportKit","Exile_Item_WoodWallHalfKit","Exile_Item_WoodWallKit","Exile_Item_WoodWindowKit"];
-_crate_backpacks 	= 3;
-								};
-//hardcore								
-if (_difficulty isEqualTo "hardcore") then {
-_msgStart = ['#FFFF00',"A DIY storage is under attack! Go kill the hardcore attackers"];
-_AICount = (10 + (round (random 4)));
-_crate_weapons 		= (4 + (round (random 1)));
-_crate_items 		= (12 + (round (random 6)));
-_crate_item_list	= ["Exile_Item_WoodDoorKit","Exile_Item_WoodDoorwayKit","Exile_Item_WoodFloorKit","Exile_Item_WoodFloorPortKit","Exile_Item_WoodGateKit","Exile_Item_WoodStairsKit","Exile_Item_WoodSupportKit","Exile_Item_WoodWallHalfKit","Exile_Item_WoodWallKit","Exile_Item_WoodWindowKit","Exile_Item_WoodStairsKit","Exile_Item_WoodDoorwayKit","Exile_Item_WoodFloorKit","Exile_Item_WoodFloorKit","Exile_Item_WoodFloorPortKit","Exile_Item_WoodGateKit","Exile_Item_WoodStairsKit","Exile_Item_WoodSupportKit","Exile_Item_WoodWallHalfKit","Exile_Item_WoodWallKit","Exile_Item_WoodWindowKit"];
-_crate_backpacks 	= 4;
-								};
 
 _group =
 [
@@ -107,7 +110,7 @@ _group =
 _veh =
 [
 	[
-[(_pos select 0) -50,(_pos select 1)+50,0]
+		[(_pos select 0) -50,(_pos select 1)+50,0]
 	],
 	_group,
 	"assault",
@@ -141,7 +144,7 @@ _baseObjs =
 ] call DMS_fnc_ImportFromM3E;
 
 
-// If hardcore give pincoded vehicle, if not give non persistent	
+// If hardcore give pincoded vehicle, if not give non persistent
 if (_difficulty isEqualTo "hardcore") then {
 												_pinCode = (1000 +(round (random 8999)));
 												_vehicle = ["Exile_Car_Ural_Covered_Worker",[(_pos select 0) -30, (_pos select 1) -30],_pinCode] call DMS_fnc_SpawnPersistentVehicle;

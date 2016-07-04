@@ -5,7 +5,7 @@
 	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
 */
 
-private ["_num", "_side", "_pos", "_OK", "_difficulty", "_extraParams", "_AICount", "_group", "_type", "_launcher", "_staticGuns", "_wreck", "_crate", "_crate1", "_vehicle", "_pinCode", "_class", "_veh", "_crate_loot_values", "_crate_loot_values1", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_baseObjs", "_crate_weapons", "_crate_weapon_list", "_crate_items", "_crate_item_list", "_crate_backpacks", "_PossibleDifficulty", "_CoinTossP", "_CoinToss"];
+private ["_num", "_side", "_pos", "_OK", "_difficulty", "_extraParams", "_AICount", "_group", "_type", "_launcher", "_staticGuns", "_wreck", "_crate", "_crate1", "_vehicle", "_pinCode", "_class", "_veh", "_crate_loot_values", "_crate_loot_values1", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_baseObjs", "_crate_weapons", "_crate_weapon_list", "_crate_items", "_crate_item_list", "_crate_backpacks", "_PossibleDifficulty"];
 
 // For logging purposes
 _num = DMS_MissionCount;
@@ -41,7 +41,7 @@ if !(_OK) exitWith
 };
 
 //create possible difficulty add more of one difficulty to weight it towards that
-_PossibleDifficulty		= 	[	
+_PossibleDifficulty		= 	[
 								"easy",
 								"moderate",
 								"moderate",
@@ -55,62 +55,69 @@ _PossibleDifficulty		= 	[
 								"hardcore"
 							];
 //choose difficulty and set value
-_difficulty = _PossibleDifficulty call BIS_fnc_selectRandom;
+_difficulty = selectRandom _PossibleDifficulty;
 
-// If difficulty is moderate then 50/50 chance to spawn persistent vehicle, no chance on easy, 100% on difficult and hardcore
-_CoinTossP = ["Heads", "Tails"];
-_CoinToss = _CoinTossP call BIS_fnc_selectRandom;
 
 //vehicle pin code choice - doing early as its used in win message and vehicle spawn
 _pinCode = (1000 +(round (random 8999)));
 
-//easy
-if (_difficulty isEqualTo "easy") then {
-_msgStart = ['#FFFF00',"An Ifrit is parked at a small easy base! Go kill them and steal it"];
-_msgWIN = ['#0080ff',"Convicts killed everyone and made off with the Ifrit"];
-_AICount = (4 + (round (random 4)));
-_crate_weapons 		= (2 + (round (random 2)));
-_crate_items 		= (4 + (round (random 4)));
-_crate_backpacks 	= (1 + (round (random 2)));
-_vehicle = ["Exile_Car_Ifrit",[(_pos select 0) -30, (_pos select 1) -30]] call DMS_fnc_SpawnNonPersistentVehicle;
-								};
-//moderate
-if (_difficulty isEqualTo "moderate") then {
-_msgStart = ['#FFFF00',"An Ifrit is parked at a small moderate base! Go kill them and steal it"];
-_AICount = (6 + (round (random 4)));
-_crate_weapons 		= (3 + (round (random 3)));
-_crate_items 		= (6 + (round (random 4)));
-_crate_backpacks 	= (2 + (round (random 2)));	
-// Do coin toss calculation for vehicle and message
-	if (_CoinToss isEqualTo "Heads") then {
-											_vehicle = ["Exile_Car_Ifrit",[(_pos select 0) -30, (_pos select 1) -30]] call DMS_fnc_SpawnNonPersistentVehicle;
-											_msgWIN = ['#0080ff',"Convicts killed everyone and made off with the Ifrit"];
-											} else
-											{
-											_vehicle = ["Exile_Car_Ifrit",[(_pos select 0) -30, (_pos select 1) -30],_pinCode] call DMS_fnc_SpawnPersistentVehicle;
-											_msgWIN = ['#0080ff',format ["Convicts killed everyone and made off with the Ifrit, entry code %1...",_pinCode]];
-											};					
-								};
-//difficult
-if (_difficulty isEqualTo "difficult") then {
-_msgStart = ['#FFFF00',"An Ifrit is parked at a small difficult base! Go kill them and steal it"];
-_msgWIN = ['#0080ff',format ["Convicts killed everyone and made off with the Ifrit, entry code %1...",_pinCode]];
-_AICount = (8 + (round (random 4)));
-_crate_weapons 		= (4 + (round (random 4)));
-_crate_items 		= (6 + (round (random 6)));
-_crate_backpacks 	= (3 + (round (random 2)));
-_vehicle = ["Exile_Car_Ifrit",[(_pos select 0) -30, (_pos select 1) -30],_pinCode] call DMS_fnc_SpawnPersistentVehicle;						
-								};
-//hardcore
-if (_difficulty isEqualTo "hardcore") then {
-_msgStart = ['#FFFF00',"An Ifrit is parked at a small hardcore base! Go kill them and steal it"];
-_msgWIN = ['#0080ff',format ["Convicts killed everyone and made off with the Ifrit, entry code %1...",_pinCode]];
-_AICount = (10 + (round (random 4)));
-_crate_weapons 		= (5 + (round (random 5)));
-_crate_items 		= (8 + (round (random 8)));
-_crate_backpacks 	= (4 + (round (random 2)));
-_vehicle = ["Exile_Car_Ifrit",[(_pos select 0) -30, (_pos select 1) -30],_pinCode] call DMS_fnc_SpawnPersistentVehicle;
-								};
+
+switch (_difficulty) do
+{
+	case "easy":
+	{
+		_msgWIN = ['#0080ff',"Convicts killed everyone and made off with the Ifrit"];
+		_AICount = (4 + (round (random 4)));
+		_crate_weapons 		= (2 + (round (random 2)));
+		_crate_items 		= (4 + (round (random 4)));
+		_crate_backpacks 	= (1 + (round (random 2)));
+		_vehicle = ["Exile_Car_Ifrit",[(_pos select 0) -30, (_pos select 1) -30]] call DMS_fnc_SpawnNonPersistentVehicle;
+	};
+
+	case "moderate":
+	{
+		_AICount = (6 + (round (random 4)));
+		_crate_weapons 		= (3 + (round (random 3)));
+		_crate_items 		= (6 + (round (random 4)));
+		_crate_backpacks 	= (2 + (round (random 2)));
+		// Do coin toss calculation for vehicle and message
+		if ((round (random 1)) isEqualTo 0) then
+		{
+			_vehicle = ["Exile_Car_Ifrit",[(_pos select 0) -30, (_pos select 1) -30]] call DMS_fnc_SpawnNonPersistentVehicle;
+			_msgWIN = ['#0080ff',"Convicts killed everyone and made off with the Ifrit"];
+		}
+		else
+		{
+			_vehicle = ["Exile_Car_Ifrit",[(_pos select 0) -30, (_pos select 1) -30],_pinCode] call DMS_fnc_SpawnPersistentVehicle;
+			_msgWIN = ['#0080ff',format ["Convicts killed everyone and made off with the Ifrit, entry code %1...",_pinCode]];
+		};
+	};
+
+	case "difficult":
+	{
+		_msgWIN = ['#0080ff',format ["Convicts killed everyone and made off with the Ifrit, entry code %1...",_pinCode]];
+		_AICount = (8 + (round (random 4)));
+		_crate_weapons 		= (4 + (round (random 4)));
+		_crate_items 		= (6 + (round (random 6)));
+		_crate_backpacks 	= (3 + (round (random 2)));
+		_vehicle = ["Exile_Car_Ifrit",[(_pos select 0) -30, (_pos select 1) -30],_pinCode] call DMS_fnc_SpawnPersistentVehicle;
+	};
+
+	//case "hardcore":
+	default
+	{
+		_msgWIN = ['#0080ff',format ["Convicts killed everyone and made off with the Ifrit, entry code %1...",_pinCode]];
+		_AICount = (10 + (round (random 4)));
+		_crate_weapons 		= (5 + (round (random 5)));
+		_crate_items 		= (8 + (round (random 8)));
+		_crate_backpacks 	= (4 + (round (random 2)));
+		_vehicle = ["Exile_Car_Ifrit",[(_pos select 0) -30, (_pos select 1) -30],_pinCode] call DMS_fnc_SpawnPersistentVehicle;
+	};
+};
+
+//_msgStart = ['#FFFF00',format["An Ifrit is parked at a small %1 base! Go kill them and steal it",_difficulty]];
+_msgStart = ['#FFFF00',"An Ifrit is parked at a small base! Go kill them and steal it"];
+
 
 _group =
 [
@@ -125,7 +132,7 @@ _group =
 _veh =
 [
 	[
-[(_pos select 0) -75,(_pos select 1)+75,0]
+		[(_pos select 0) -75,(_pos select 1)+75,0]
 	],
 	_group,
 	"assault",

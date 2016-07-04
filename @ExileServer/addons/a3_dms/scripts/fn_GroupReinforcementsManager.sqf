@@ -24,7 +24,8 @@
 		_difficulty,					// STRING: The difficulty of the AI to be spawned. Supported values: "random","static","hardcore","difficult","moderate", or "easy"
 		_side,							// STRING: The "side" that the AI are on. Currently only "bandit" is supported.
 		_monitorType,					// STRING: How the AI group should be managed. Supported types: "playernear", "maintain", "reinforce", "increasing_resistance", "armed_vehicle"
-		_monitorParams					// ARRAY: Parameters specific to the _monitorType. See below.
+		_monitorParams,					// ARRAY: Parameters specific to the _monitorType. See below.
+		_customGearSet					// (OPTIONAL) ARRAY: The custom gear set of the AI. Refer to documentation of fn_SpawnAISoldier.sqf for more info: https://github.com/Defent/DMS_Exile/blob/master/%40ExileServer/addons/a3_dms/scripts/fn_SpawnAISoldier.sqf
 	] call DMS_fnc_GroupReinforcementsManager;
 
 	About "_monitorType" types:
@@ -108,21 +109,18 @@
 	Returns whether or not reinforcement waves or units given exceeds/matches maximum wave or unit reinforcements. If true, then no more reinforcements will be spawned (so the passed info should be deleted from the available reinforcements list).
 */
 
-private ["_AIGroup", "_reinforcementInfo", "_updateInfo", "_spawnLocations", "_class", "_difficulty", "_side", "_monitorType", "_monitorParams", "_wavesInfo", "_unitsInfo", "_maxReinforcementWaves", "_reinforcementWavesGiven", "_maxReinforcementUnits", "_reinforcementUnitsGiven", "_updateDelay", "_lastUpdated", "_fnc_isDepleted", "_reinforcementsDepleted"];
-
 // Check ALL the variables
-
 if !(params
 [
-	["_AIGroup",			grpNull,	[grpNull]			],
-	["_reinforcementInfo",	[],			[[]],		[2]		],
-	["_updateInfo",			[],			[[]],		[2]		],
-	["_spawnLocations",		[],			[[]]				],
-	["_class",				"",			[""]				],
-	["_difficulty",			"",			[""]				],
-	["_side",				"",			[""]				],
-	["_monitorType",		"",			[""]				],
-	["_monitorParams",		[],			[[]]				]
+	"_AIGroup",
+	"_reinforcementInfo",
+	"_updateInfo",
+	"_spawnLocations",
+	"_class",
+	"_difficulty",
+	"_side",
+	"_monitorType",
+	"_monitorParams"
 ])
 exitWith
 {
@@ -133,8 +131,8 @@ exitWith
 
 if !(_reinforcementInfo params
 [
-	["_wavesInfo", [], [[]]],
-	["_unitsInfo", [], [[]]]
+	"_wavesInfo",
+	"_unitsInfo"
 ])
 exitWith
 {
@@ -145,8 +143,8 @@ exitWith
 
 if !(_wavesInfo params
 [
-	["_maxReinforcementWaves", -1, [0]],
-	["_reinforcementWavesGiven", 0, [0]]
+	"_maxReinforcementWaves",
+	"_reinforcementWavesGiven"
 ])
 exitWith
 {
@@ -157,8 +155,8 @@ exitWith
 
 if !(_unitsInfo params
 [
-	["_maxReinforcementUnits", -1, [0]],
-	["_reinforcementUnitsGiven", 0, [0]]
+	"_maxReinforcementUnits",
+	"_reinforcementUnitsGiven"
 ])
 exitWith
 {
@@ -169,14 +167,24 @@ exitWith
 
 if !(_updateInfo params
 [
-	["_updateDelay", 300, [0]],
-	["_lastUpdated", 0, [0]]
+	"_updateDelay",
+	"_lastUpdated"
 ])
 exitWith
 {
 	diag_log format ["DMS ERROR :: Calling DMS_fnc_GroupReinforcementsManager with invalid _updateInfo: %1",_updateInfo];
 	true
 };
+
+private _customGearSet =
+	if ((count _this) > 9) then
+	{
+		_this select 9
+	}
+	else
+	{
+		[]
+	};
 
 
 
@@ -198,30 +206,32 @@ _fnc_isDepleted =
 	};
 };
 
-_reinforcementsDepleted = call _fnc_isDepleted;
+private _reinforcementsDepleted = call _fnc_isDepleted;
 
 if (!_reinforcementsDepleted && {(diag_tickTime-_lastUpdated)>_updateDelay}) then
 {
-	private ["_remainingUnits", "_unitsToSpawn"];
+	private "_unitsToSpawn";
 
-	if (isNull _AIGroup) then
-	{
-		// The group (presumably) lost all units and got deleted, so we create a new group using the given side and continue with that.
-		_remainingUnits = 0;
-		_AIGroup = createGroup (missionNamespace getVariable [format ["DMS_%1Side",_side],EAST]);
-
-		_this set [0, _AIGroup];
-
-
-		if (DMS_DEBUG) then
+	private _remainingUnits =
+		if (isNull _AIGroup) then
 		{
-			(format ["GroupReinforcementsManager :: Group provided was null! Created new group for ""%1"" side: %2",_side, _AIGroup]) call DMS_fnc_DebugLog;
+			// The group (presumably) lost all units and got deleted, so we create a new group using the given side and continue with that.
+			_AIGroup = createGroup (missionNamespace getVariable [format ["DMS_%1Side",_side],EAST]);
+
+			_this set [0, _AIGroup];
+
+
+			if (DMS_DEBUG) then
+			{
+				(format ["GroupReinforcementsManager :: Group provided was null! Created new group for ""%1"" side: %2",_side, _AIGroup]) call DMS_fnc_DebugLog;
+			};
+
+			0
+		}
+		else
+		{
+			{alive _x} count (units _AIGroup);
 		};
-	}
-	else
-	{
-		_remainingUnits = {alive _x} count (units _AIGroup);
-	};
 
 
 	if (DMS_DEBUG) then
@@ -233,13 +243,11 @@ if (!_reinforcementsDepleted && {(diag_tickTime-_lastUpdated)>_updateDelay}) the
 	{
 		case "playernear":
 		{
-			private ["_posOrObj", "_radius", "_reinforcementCount", "_maxAICount"];
-
 			if !(_monitorParams params
 			[
-				["_posOrObj", [], [objNull,[]], [2,3]],
-				["_radius", 0, [0]],
-				["_reinforcementCount", 0, [0]]
+				"_posOrObj",
+				"_radius",
+				"_reinforcementCount"
 			])
 			exitWith
 			{
@@ -250,7 +258,7 @@ if (!_reinforcementsDepleted && {(diag_tickTime-_lastUpdated)>_updateDelay}) the
 
 			if ([_posOrObj,_radius] call DMS_fnc_IsPlayerNearby) then
 			{
-				_maxAICount = if ((count _monitorParams)>3) then {_monitorParams param [3, 0, [0]]} else {0};
+				private _maxAICount = if ((count _monitorParams)>3) then {_monitorParams param [3, 0, [0]]} else {0};
 
 				_unitsToSpawn = _reinforcementCount min ((_maxAICount-_remainingUnits) max 0);
 			};
@@ -258,11 +266,9 @@ if (!_reinforcementsDepleted && {(diag_tickTime-_lastUpdated)>_updateDelay}) the
 
 		case "maintain":
 		{
-			private "_AICount";
-
 			if !(_monitorParams params
 			[
-				["_AICount", 0, [0]]
+				"_AICount"
 			])
 			exitWith
 			{
@@ -279,12 +285,10 @@ if (!_reinforcementsDepleted && {(diag_tickTime-_lastUpdated)>_updateDelay}) the
 
 		case "reinforce":
 		{
-			private ["_AICount", "_reinforcementCount", "_maxAICount"];
-
 			if !(_monitorParams params
 			[
-				["_AICount", 0, [0]],
-				["_reinforcementCount", 0, [0]]
+				"_AICount",
+				"_reinforcementCount"
 			])
 			exitWith
 			{
@@ -295,7 +299,7 @@ if (!_reinforcementsDepleted && {(diag_tickTime-_lastUpdated)>_updateDelay}) the
 
 			if (_remainingUnits<_AICount) then
 			{
-				_maxAICount = if ((count _monitorParams)>2) then {_monitorParams param [2, 0, [0]]} else {_AICount};
+				private _maxAICount = if ((count _monitorParams)>2) then {_monitorParams param [2, 0, [0]]} else {_AICount};
 
 				_unitsToSpawn = _reinforcementCount min ((_maxAICount-_remainingUnits) max 0);
 			};
@@ -303,13 +307,11 @@ if (!_reinforcementsDepleted && {(diag_tickTime-_lastUpdated)>_updateDelay}) the
 
 		case "increasing_resistance":
 		{
-			private ["_AICount", "_reinforcementCount", "_increment_AICount", "_maxAICount"];
-
 			if !(_monitorParams params
 			[
-				["_AICount", 0, [0]],
-				["_reinforcementCount", 0, [0]],
-				["_increment_AICount", 0, [0]]
+				"_AICount",
+				"_reinforcementCount",
+				"_increment_AICount"
 			])
 			exitWith
 			{
@@ -320,7 +322,7 @@ if (!_reinforcementsDepleted && {(diag_tickTime-_lastUpdated)>_updateDelay}) the
 
 			if (_remainingUnits<_AICount) then
 			{
-				_maxAICount = if ((count _monitorParams)>3) then {_monitorParams param [3, 0, [0]]} else {_AICount};
+				private _maxAICount = if ((count _monitorParams)>3) then {_monitorParams param [3, 0, [0]]} else {_AICount};
 
 				_unitsToSpawn = _reinforcementCount min ((_maxAICount-_remainingUnits) max 0);
 
@@ -330,12 +332,10 @@ if (!_reinforcementsDepleted && {(diag_tickTime-_lastUpdated)>_updateDelay}) the
 
 		case "increasing_difficulty":
 		{
-			private ["_AICount", "_reinforcementCount", "_maxAICount"];
-
 			if !(_monitorParams params
 			[
-				["_AICount", 0, [0]],
-				["_reinforcementCount", 0, [0]]
+				"_AICount",
+				"_reinforcementCount"
 			])
 			exitWith
 			{
@@ -355,7 +355,7 @@ if (!_reinforcementsDepleted && {(diag_tickTime-_lastUpdated)>_updateDelay}) the
 						case "hardcore": {"hardcore"};
 					};
 
-				_maxAICount = if ((count _monitorParams)>3) then {_monitorParams param [3, 0, [0]]} else {_AICount};
+				private _maxAICount = if ((count _monitorParams)>3) then {_monitorParams param [3, 0, [0]]} else {_AICount};
 
 				_unitsToSpawn = _reinforcementCount min ((_maxAICount-_remainingUnits) max 0);
 			};
@@ -363,11 +363,9 @@ if (!_reinforcementsDepleted && {(diag_tickTime-_lastUpdated)>_updateDelay}) the
 
 		case "armed_vehicle":
 		{
-			private ["_AICount", "_vehClass", "_leaderPos", "_veh"];
-
 			if !(_monitorParams params
 			[
-				["_AICount", 0, [0]]
+				"_AICount"
 			])
 			exitWith
 			{
@@ -377,11 +375,11 @@ if (!_reinforcementsDepleted && {(diag_tickTime-_lastUpdated)>_updateDelay}) the
 
 			if (_remainingUnits<_AICount) then
 			{
-				_vehClass = if ((count _monitorParams)>1) then {_monitorParams param [1, "", [""]]} else {"random"};
+				private _vehClass = if ((count _monitorParams)>1) then {_monitorParams param [1, "", [""]]} else {"random"};
 
-				_leaderPos = getPosATL (leader _AIGroup);
+				private _leaderPos = getPosATL (leader _AIGroup);
 
-				_veh =
+				private _veh =
 				[
 					[
 						if (_spawnLocations isEqualTo []) then {_leaderPos getPos [100+(random 200),random 360]} else {selectRandom _spawnLocations},
@@ -407,11 +405,9 @@ if (!_reinforcementsDepleted && {(diag_tickTime-_lastUpdated)>_updateDelay}) the
 
 		case "armed_vehicle_replace":
 		{
-			private ["_vehicle", "_vehClass", "_leaderPos"];
-
 			if !(_monitorParams params
 			[
-				["_vehicle", objNull, [objNull]]
+				"_vehicle"
 			])
 			exitWith
 			{
@@ -423,9 +419,9 @@ if (!_reinforcementsDepleted && {(diag_tickTime-_lastUpdated)>_updateDelay}) the
 			{
 				deleteVehicle _vehicle;
 
-				_vehClass = if ((count _monitorParams)>1) then {_monitorParams param [1, "", [""]]} else {"random"};
+				private _vehClass = if ((count _monitorParams)>1) then {_monitorParams param [1, "", [""]]} else {"random"};
 
-				_leaderPos = getPosATL (leader _AIGroup);
+				private _leaderPos = getPosATL (leader _AIGroup);
 
 				_vehicle =
 				[
@@ -455,12 +451,10 @@ if (!_reinforcementsDepleted && {(diag_tickTime-_lastUpdated)>_updateDelay}) the
 
 		case "static_gunner":
 		{
-			private ["_staticGun", "_gunPos", "_staticGunClass"];
-
 			if !(_monitorParams params
 			[
-				["_staticGun", objNull, [objNull]],
-				["_gunPos",	[],	[[]], [2,3]]
+				"_staticGun",
+				"_gunPos"
 			])
 			exitWith
 			{
@@ -472,9 +466,9 @@ if (!_reinforcementsDepleted && {(diag_tickTime-_lastUpdated)>_updateDelay}) the
 			{
 				deleteVehicle _staticGun;
 
-				_staticGunClass = if ((count _monitorParams)>1) then {_monitorParams param [1, "", [""]]} else {"random"};
+				private _staticGunClass = if ((count _monitorParams)>1) then {_monitorParams param [1, "", [""]]} else {"random"};
 
-				_leaderPos = getPosATL (leader _AIGroup);
+				private _leaderPos = getPosATL (leader _AIGroup);
 
 				_staticGun =
 				[
@@ -505,10 +499,10 @@ if (!_reinforcementsDepleted && {(diag_tickTime-_lastUpdated)>_updateDelay}) the
 		{
 			if !(_monitorParams params
 			[
-				["_AICount",0,[0]],
-				["_ejectFFVGunners",false,[false]],
-			    ["_maxJumpers",0,[0]],
-			    ["_remainAsGunship", 0, [false]]
+				"_AICount",
+				"_ejectFFVGunners",
+			    "_maxJumpers",
+			    "_remainAsGunship"
 			])
 			exitWith
 			{
@@ -562,7 +556,7 @@ if (!_reinforcementsDepleted && {(diag_tickTime-_lastUpdated)>_updateDelay}) the
 
 	if ((!isNil "_unitsToSpawn") && {_unitsToSpawn>0}) then
 	{
-		private ["_spawnPos", "_units", "_spawningLocations"];
+		private _spawnPos = [];
 
 		if (_maxReinforcementUnits>0) then
 		{
@@ -578,7 +572,7 @@ if (!_reinforcementsDepleted && {(diag_tickTime-_lastUpdated)>_updateDelay}) the
 			};
 		};
 
-		_units = [];
+		private _units = [];
 
 		if (_spawnLocations isEqualTo []) then
 		{
@@ -587,26 +581,26 @@ if (!_reinforcementsDepleted && {(diag_tickTime-_lastUpdated)>_updateDelay}) the
 
 			for "_i" from 0 to (_unitsToSpawn-1) do
 			{
-				_units pushBack ([_AIGroup,_spawnPos,_class,_difficulty,_side,"Soldier"] call DMS_fnc_SpawnAISoldier);
+				_units pushBack ([_AIGroup,_spawnPos,_class,_difficulty,_side,"Soldier",_customGearSet] call DMS_fnc_SpawnAISoldier);
 			};
 		}
 		else
 		{
-			// Shuffle the original list and make a copy.
-			_spawningLocations = (_spawnLocations call ExileClient_util_array_shuffle) + [];
+			// Shuffle the list.
+			private _spawningLocations = _spawnLocations call ExileClient_util_array_shuffle;
 			_spawnPos = _spawningLocations select 0;				// Define it for spawning flares
 			_spawningLocations_count = count _spawningLocations;
 
 			// Add extra spawning locations if there are not enough.
 			for "_i" from 0 to (_unitsToSpawn-_spawningLocations_count-1) do
 			{
-				_spawningLocations pushBack (_spawningLocations select floor(random(_spawningLocations_count+_i)));
+				_spawningLocations pushBack (selectRandom _spawningLocations);
 			};
 
 			// Now to spawn the AI...
 			for "_i" from 0 to (_unitsToSpawn-1) do
 			{
-				_units pushBack ([_AIGroup,_spawningLocations select _i,_class,_difficulty,_side,"Soldier"] call DMS_fnc_SpawnAISoldier);
+				_units pushBack ([_AIGroup,_spawningLocations select _i,_class,_difficulty,_side,"Soldier",_customGearSet] call DMS_fnc_SpawnAISoldier);
 			};
 		};
 

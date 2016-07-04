@@ -1,11 +1,11 @@
 /*
-	Car Dealer Mission with new difficulty selection system
-	Random SUV chosen for prizes, coin toss for 1 or 2 vehicles on missionConfigFile
+	Sample mission
 	Created by Defent and eraser1
-	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
+
+	Called from DMS_selectMission
 */
 
-private ["_num", "_side", "_pos", "_OK", "_difficulty", "_extraParams", "_AICount", "_group", "_type", "_launcher", "_staticGuns", "_wreck", "_crate", "_crate1", "_vehicle", "_PossibleVehicleClass", "_pinCode", "_class", "_veh", "_crate_loot_values", "_crate_loot_values1", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_baseObjs", "_crate_weapons", "_crate_weapon_list", "_crate_items", "_crate_item_list", "_crate_backpacks", "_PossibleDifficulty", "_CoinTossP", "_CoinToss"];
+private ["_num", "_group", "_pos", "_side", "_extraParams", "_OK", "_difficulty", "_AICount", "_type", "_launcher", "_crate1", "_rndDir", "_wreck", "_vehClass1", "_vehicle1", "_vehClass2", "_vehicle2", "_crate_loot_values1", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup"];
 
 // For logging purposes
 _num = DMS_MissionCount;
@@ -43,60 +43,18 @@ if !(_OK) exitWith
 };
 
 
-//create possible difficulty add more of one difficulty to weight it towards that
-_PossibleDifficulty		= 	[	
-								"easy",
-								"easy",
-								"moderate",
-								"moderate",
-								"moderate",
-								"difficult",
-								"difficult",
-								"difficult",
-								"hardcore"
-							];
-//choose difficulty and set value
-_difficulty = _PossibleDifficulty call BIS_fnc_selectRandom;
+// Set general mission difficulty
+_difficulty = "easy";
 
-//easy
-if (_difficulty isEqualTo "easy") then {
-_msgStart = ['#FFFF00',"A local car dealership is being robbed by easy bandits. Stop them!"];
-_AICount = (3 + (round (random 2)));	
-_crate_weapons 		= (2 + (round (random 3)));
-_crate_items 		= (2 + (round (random 4)));
-_crate_backpacks 	= (1 + (round (random 1)));
-								};
-//moderate
-if (_difficulty isEqualTo "moderate") then {
-_msgStart = ['#FFFF00',"A local car dealership is being robbed by moderate bandits. Stop them!"];
-_AICount = (4 + (round (random 2)));	
-_crate_weapons 		= (3 + (round (random 5)));
-_crate_items 		= (3 + (round (random 6)));
-_crate_backpacks 	= (2 + (round (random 1)));
-								};
-//difficult
-if (_difficulty isEqualTo "difficult") then {
-_msgStart = ['#FFFF00',"A local car dealership is being robbed by difficult bandits. Stop them!"];
-_AICount = (4 + (round (random 3)));	
-_crate_weapons 		= (4 + (round (random 7)));
-_crate_items 		= (4 + (round (random 8)));
-_crate_backpacks 	= (3 + (round (random 1)));
-								};
-//hardcore								
-if (_difficulty isEqualTo "hardcore") then {
-_msgStart = ['#FFFF00',"A local car dealership is being robbed by hardcore bandits. Stop them!"];
-_AICount = (4 + (round (random 4)));	
-_crate_weapons 		= (5 + (round (random 9)));
-_crate_items 		= (5 + (round (random 10)));
-_crate_backpacks 	= (4 + (round (random 1)));
-								};
-								
+
+// Create AI
+_AICount = 3 + (round (random 2));
 
 _group =
 [
 	_pos,					// Position of AI
 	_AICount,				// Number of AI
-	_difficulty,			// "random","hardcore","difficult","moderate", or "easy"
+	"random",				// "random","hardcore","difficult","moderate", or "easy"
 	"random", 				// "random","assault","MG","sniper" or "unarmed" OR [_type,_launcher]
 	_side 					// "bandit","hero", etc.
 ] call DMS_fnc_SpawnAIGroup;
@@ -107,37 +65,44 @@ _crate1 = ["Box_NATO_Wps_F",_pos] call DMS_fnc_SpawnCrate;
 
 _rndDir = random 180;
 
-_wreck = createVehicle ["Land_FuelStation_Build_F",[_pos,10+(random 5),_rndDir+90] call DMS_fnc_SelectOffsetPos,[], 0, "CAN_COLLIDE"];
+_wreck = createVehicle ["Land_FuelStation_Build_F",_pos getPos [10+(random 5),_rndDir+90],[], 0, "CAN_COLLIDE"];
 
 
-_PossibleVehicleClass 		= [	
-								"Exile_Car_SUV_Red",
-								"Exile_Car_SUV_Black",
-								"Exile_Car_SUV_Grey",
-								"Exile_Car_SUV_Orange",
-								"Exile_Car_SUV_Red",
-								"Exile_Car_SUV_Black",
-								"Exile_Car_SUV_Grey",
-								"Exile_Car_SUV_Orange",
-								"Exile_Car_SUV_Red",
-								"Exile_Car_SUV_Black",
-								"Exile_Car_SUV_Grey",
-								"Exile_Car_SUV_Orange",
-								"Exile_Car_SUVXL_Black"
-							];
-//choose the vehicle
-_vehClass1 = _PossibleVehicleClass call BIS_fnc_selectRandom;
-_vehClass2 = _PossibleVehicleClass call BIS_fnc_selectRandom;
+_vehClass1 = "Exile_Car_SUV_Red";
+_vehClass2 = "Exile_Car_SUV_Grey";
 
-_vehicle1 = [_vehClass1, [_pos,5+(random 3),_rndDir] call DMS_fnc_SelectOffsetPos] call DMS_fnc_SpawnNonPersistentVehicle;
+if !(_extraParams isEqualTo []) then
+{
+	if ((typeName _extraParams)=="STRING") then
+	{
+		_vehClass1 = _extraParams;
+	}
+	else
+	{
+		if (((typeName _extraParams)=="ARRAY") && {(typeName (_extraParams select 0))=="STRING"}) then
+		{
+			_vehClass1 = _extraParams select 0;
+
+			if (((count _extraParams)>1) && {(typeName (_extraParams select 1))=="STRING"}) then
+			{
+				_vehClass2 = _extraParams select 1;
+			};
+		};
+	};
+};
+_vehicle1 = [_vehClass1, _pos getPos [5+(random 3),_rndDir]] call DMS_fnc_SpawnNonPersistentVehicle;
+
+
+_vehicle2 = [_vehClass2, _pos getPos [5+(random 3),_rndDir+180]] call DMS_fnc_SpawnNonPersistentVehicle;
+
 
 
 // Set crate loot values
 _crate_loot_values1 =
 [
-	_crate_weapons,			// Weapons
-	_crate_items,			// Items
-	_crate_backpacks 		// Backpacks
+	5,		// Weapons
+	5,		// Items
+	2 		// Backpacks
 ];
 
 
@@ -147,31 +112,16 @@ _missionAIUnits =
 	_group 		// We only spawned the single group for this mission
 ];
 
-
-// Randomise giving 1 or 2 vehicles
-_CoinTossP = ["Heads", "Tails"];
-_CoinToss = _CoinTossP call BIS_fnc_selectRandom;
-
-if (_CoinToss isEqualTo "Heads") then {
-_vehicle2 = [_vehClass2, [_pos,5+(random 3),_rndDir+180] call DMS_fnc_SelectOffsetPos] call DMS_fnc_SpawnNonPersistentVehicle;
+// Define mission-spawned objects and loot values
 _missionObjs =
 [
 	[_wreck],
 	[_vehicle1,_vehicle2],
 	[[_crate1,_crate_loot_values1]]
 ];
-									} else
-									{
-_missionObjs =
-[
-	[_wreck],
-	[_vehicle1],
-	[[_crate1,_crate_loot_values1]]
-];			
-									};
-																		
-									
-// define start messages in difficulty choice
+
+// Define Mission Start message
+_msgStart = ['#FFFF00',"A local car dealership is being robbed by bandits. Stop them!"];
 
 // Define Mission Win message
 _msgWIN = ['#0080ff',"Convicts have secured the local dealership and eliminated the bandits!"];

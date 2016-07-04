@@ -43,7 +43,7 @@ if !(_OK) exitWith
 };
 
 //create possible difficulty add more of one difficulty to weight it towards that
-_PossibleDifficulty		= 	[	
+_PossibleDifficulty		= 	[
 								"easy",
 								"easy",
 								"moderate",
@@ -54,82 +54,94 @@ _PossibleDifficulty		= 	[
 								"hardcore"
 							];
 //choose difficulty and set value
-_difficulty = _PossibleDifficulty call BIS_fnc_selectRandom;
+_difficulty = selectRandom _PossibleDifficulty;
 
-//easy
-if (_difficulty isEqualTo "easy") then {
-_AICount = (4 + (round (random 4)));
-_msgStart = ['#FFFF00',"Snipers have set up a begginers training camp, go steal their rifles"];
-_crate_weapons 		= (4 + (round (random 2)));
-_crate_weapon_list	= ["arifle_MXM_Black_F","srifle_DMR_01_F","srifle_EBR_F","srifle_GM6_camo_F","srifle_LRR_camo_F"];
-_crate_items 		= (8 + (round (random 3)));
-_crate_item_list	= ["10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","100Rnd_65x39_caseless_mag","10Rnd_127x54_Mag","16Rnd_9x21_Mag","30Rnd_65x39_caseless_mag","30Rnd_556x45_Stanag"];
-_crate_backpacks 	= (1 + (round (random 1)));
-								};
-//moderate
-if (_difficulty isEqualTo "moderate") then {
-_AICount = (6 + (round (random 4)));
-_msgStart = ['#FFFF00',"Snipers have set up a moderate training camp, go steal their rifles"];	
-_crate_weapons 		= (6 + (round (random 2)));
-_crate_weapon_list	= ["arifle_MXM_Black_F","srifle_DMR_01_F","srifle_EBR_F","srifle_GM6_camo_F","srifle_LRR_camo_F"];
-_crate_items 		= (10 + (round (random 3)));
-_crate_item_list	= ["10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","100Rnd_65x39_caseless_mag","10Rnd_127x54_Mag","16Rnd_9x21_Mag","30Rnd_65x39_caseless_mag","30Rnd_556x45_Stanag"];
-_crate_backpacks 	= (2 + (round (random 1)));
-								};
-//difficult							
-if (_difficulty isEqualTo "difficult") then {
-_AICount = (8 + (round (random 4)));
-_msgStart = ['#FFFF00',"Snipers have set up a difficult training camp, go steal their rifles"];	
-_crate_weapons 		= (9 + (round (random 2)));
-_crate_weapon_list	= ["srifle_DMR_03_khaki_F","srifle_DMR_03_tan_F","srifle_DMR_03_woodland_F","srifle_DMR_05_blk_F","srifle_DMR_05_hex_F","srifle_DMR_06_camo_F","srifle_DMR_06_olive_F","srifle_EBR_F","srifle_GM6_camo_F","srifle_LRR_camo_F"];
-_crate_items 		= (14 + (round (random 3)));
-_crate_item_list	= ["10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","100Rnd_65x39_caseless_mag","10Rnd_127x54_Mag","16Rnd_9x21_Mag","100Rnd_65x39_caseless_mag","10Rnd_127x54_Mag","16Rnd_9x21_Mag","30Rnd_65x39_caseless_mag","30Rnd_556x45_Stanag"];
-_crate_backpacks 	= (3 + (round (random 1)));
-								};
-//hardcore								
-if (_difficulty isEqualTo "hardcore") then {
-_AICount = (8 + (round (random 8)));
-_msgStart = ['#FFFF00',"Snipers have set up an advanced training camp, go steal their rifles"];
-_crate_weapons 		= (14 + (round (random 2)));
-_crate_weapon_list	= ["srifle_DMR_02_camo_F","srifle_DMR_02_sniper_F","srifle_DMR_03_khaki_F","srifle_DMR_03_multicam_F","srifle_DMR_03_woodland_F","srifle_DMR_04_F","srifle_DMR_04_Tan_F","srifle_DMR_05_blk_F","srifle_DMR_05_hex_F","srifle_DMR_05_tan_f","srifle_DMR_06_camo_F","srifle_DMR_06_olive_F","srifle_EBR_F","srifle_GM6_camo_F","srifle_LRR_camo_F"];
-_crate_items 		= (17 + (round (random 3)));
-_crate_item_list	= ["10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","100Rnd_65x39_caseless_mag","10Rnd_127x54_Mag","16Rnd_9x21_Mag","100Rnd_65x39_caseless_mag","10Rnd_127x54_Mag","16Rnd_9x21_Mag","30Rnd_65x39_caseless_mag","16Rnd_9x21_Mag","100Rnd_65x39_caseless_mag","10Rnd_127x54_Mag","16Rnd_9x21_Mag","30Rnd_65x39_caseless_mag","30Rnd_556x45_Stanag"];
-_crate_backpacks 	= (4 + (round (random 1)));							
-								};
+switch (_difficulty) do
+{
+	case "easy":
+	{
+		_AICount = (4 + (round (random 4)));
+		_crate_weapons 		= (4 + (round (random 2)));
+		_crate_weapon_list	= ["arifle_MXM_Black_F","srifle_DMR_01_F","srifle_EBR_F","srifle_GM6_camo_F","srifle_LRR_camo_F"];
+		_crate_items 		= (8 + (round (random 3)));
+		_crate_item_list	= ["10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","100Rnd_65x39_caseless_mag","10Rnd_127x54_Mag","16Rnd_9x21_Mag","30Rnd_65x39_caseless_mag","30Rnd_556x45_Stanag"];
+		_crate_backpacks 	= (1 + (round (random 1)));
+	};
+
+	case "moderate":
+	{
+		_AICount = (6 + (round (random 4)));
+		_msgStart = ['#FFFF00',"Snipers have set up a moderate training camp, go steal their rifles"];
+		_crate_weapons 		= (6 + (round (random 2)));
+		_crate_weapon_list	= ["arifle_MXM_Black_F","srifle_DMR_01_F","srifle_EBR_F","srifle_GM6_camo_F","srifle_LRR_camo_F"];
+		_crate_items 		= (10 + (round (random 3)));
+		_crate_item_list	= ["10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","100Rnd_65x39_caseless_mag","10Rnd_127x54_Mag","16Rnd_9x21_Mag","30Rnd_65x39_caseless_mag","30Rnd_556x45_Stanag"];
+		_crate_backpacks 	= (2 + (round (random 1)));
+	};
+
+	case "difficult":
+	{
+	_AICount = (8 + (round (random 4)));
+	_msgStart = ['#FFFF00',"Snipers have set up a difficult training camp, go steal their rifles"];
+	_crate_weapons 		= (9 + (round (random 2)));
+	_crate_weapon_list	= ["srifle_DMR_03_khaki_F","srifle_DMR_03_tan_F","srifle_DMR_03_woodland_F","srifle_DMR_05_blk_F","srifle_DMR_05_hex_F","srifle_DMR_06_camo_F","srifle_DMR_06_olive_F","srifle_EBR_F","srifle_GM6_camo_F","srifle_LRR_camo_F"];
+	_crate_items 		= (14 + (round (random 3)));
+	_crate_item_list	= ["10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","100Rnd_65x39_caseless_mag","10Rnd_127x54_Mag","16Rnd_9x21_Mag","100Rnd_65x39_caseless_mag","10Rnd_127x54_Mag","16Rnd_9x21_Mag","30Rnd_65x39_caseless_mag","30Rnd_556x45_Stanag"];
+	_crate_backpacks 	= (3 + (round (random 1)));
+	};
+
+	//case "hardcore":
+	default
+	{
+		_AICount = (8 + (round (random 8)));
+		_msgStart = ['#FFFF00',"Snipers have set up an advanced training camp, go steal their rifles"];
+		_crate_weapons 		= (14 + (round (random 2)));
+		_crate_weapon_list	= ["srifle_DMR_02_camo_F","srifle_DMR_02_sniper_F","srifle_DMR_03_khaki_F","srifle_DMR_03_multicam_F","srifle_DMR_03_woodland_F","srifle_DMR_04_F","srifle_DMR_04_Tan_F","srifle_DMR_05_blk_F","srifle_DMR_05_hex_F","srifle_DMR_05_tan_f","srifle_DMR_06_camo_F","srifle_DMR_06_olive_F","srifle_EBR_F","srifle_GM6_camo_F","srifle_LRR_camo_F"];
+		_crate_items 		= (17 + (round (random 3)));
+		_crate_item_list	= ["10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","10Rnd_93x64_DMR_05_Mag","100Rnd_65x39_caseless_mag","10Rnd_127x54_Mag","16Rnd_9x21_Mag","100Rnd_65x39_caseless_mag","10Rnd_127x54_Mag","16Rnd_9x21_Mag","30Rnd_65x39_caseless_mag","16Rnd_9x21_Mag","100Rnd_65x39_caseless_mag","10Rnd_127x54_Mag","16Rnd_9x21_Mag","30Rnd_65x39_caseless_mag","30Rnd_556x45_Stanag"];
+		_crate_backpacks 	= (4 + (round (random 1)));
+	};
+};
+
+//_msgStart = ['#FFFF00',format["Snipers have set up a %1 training camp, go steal their rifles",_difficulty]];
+_msgStart = ['#FFFF00',"Snipers have set up a training camp, go steal their rifles"];
+
 
 
 // Hardcore needs different settings for AI and message and vehicle spawning
-if (_difficulty isEqualTo "hardcore") then {
-											_pinCode = (1000 +(round (random 8999)));
-											_vehicle = ["Exile_Car_Ural_Covered_Military",[(_pos select 0) +17.2, (_pos select 1) -0],_pinCode] call DMS_fnc_SpawnPersistentVehicle;
-											_msgWIN = ['#0080ff',format ["Convicts have killed the snipers and stolen their rifles,the truck code is %1...",_pinCode]];	
-_group =
-[
-	[[(_pos select 0)+3,(_pos select 1)-3,0],[(_pos select 0)+(10+(random 20)),(_pos select 1)+(10+(random 20)),0]],					// Position AI in tent + 2nd squad
-	_AICount,					// Number of AI
-	_difficulty,				// "random","hardcore","difficult","moderate", or "easy"
-	"sniper", 					// "random","assault","MG","sniper" or "unarmed" OR [_type,_launcher]
-	_side 						// "bandit","hero", etc.
-] call DMS_fnc_SpawnAIGroup_MultiPos;
-											} else
-											{
-												_vehicle = ["Exile_Car_Ural_Covered_Military",[(_pos select 0) +17.2, (_pos select 1) -0,0],[], 0, "CAN_COLLIDE"] call DMS_fnc_SpawnNonPersistentVehicle;
-												_msgWIN = ['#0080ff',"Convicts have killed the snipers and stolen their rifles"];
-_group =
-[
-	[(_pos select 0)+3,(_pos select 1)-3,0],					// Position AI in tent
-	_AICount,				// Number of AI
-	_difficulty,			// "random","hardcore","difficult","moderate", or "easy"
-	"sniper", 				// "random","assault","MG","sniper" or "unarmed" OR [_type,_launcher]
-	_side 					// "bandit","hero", etc.
-] call DMS_fnc_SpawnAIGroup;
-											};
+if (_difficulty isEqualTo "hardcore") then
+{
+	_pinCode = (1000 +(round (random 8999)));
+	_vehicle = ["Exile_Car_Ural_Covered_Military",[(_pos select 0) +17.2, (_pos select 1) -0],_pinCode] call DMS_fnc_SpawnPersistentVehicle;
+	_msgWIN = ['#0080ff',format ["Convicts have killed the snipers and stolen their rifles,the truck code is %1...",_pinCode]];
+	_group =
+	[
+		[[(_pos select 0)+3,(_pos select 1)-3,0],[(_pos select 0)+(10+(random 20)),(_pos select 1)+(10+(random 20)),0]],					// Position AI in tent + 2nd squad
+		_AICount,					// Number of AI
+		_difficulty,				// "random","hardcore","difficult","moderate", or "easy"
+		"sniper", 					// "random","assault","MG","sniper" or "unarmed" OR [_type,_launcher]
+		_side 						// "bandit","hero", etc.
+	] call DMS_fnc_SpawnAIGroup_MultiPos;
+}
+else
+{
+	_vehicle = ["Exile_Car_Ural_Covered_Military",[(_pos select 0) +17.2, (_pos select 1) -0,0],[], 0, "CAN_COLLIDE"] call DMS_fnc_SpawnNonPersistentVehicle;
+	_msgWIN = ['#0080ff',"Convicts have killed the snipers and stolen their rifles"];
+	_group =
+	[
+		[(_pos select 0)+3,(_pos select 1)-3,0],					// Position AI in tent
+		_AICount,				// Number of AI
+		_difficulty,			// "random","hardcore","difficult","moderate", or "easy"
+		"sniper", 				// "random","assault","MG","sniper" or "unarmed" OR [_type,_launcher]
+		_side 					// "bandit","hero", etc.
+	] call DMS_fnc_SpawnAIGroup;
+};
 
 // add vehicle patrol and randomise a little - same for all levels (as it uses variable)
 _veh =
 [
 	[
-[(_pos select 0) -(75-(random 25)),(_pos select 1) +(75+(random 25)),0]
+		[(_pos select 0) -(75-(random 25)),(_pos select 1) +(75+(random 25)),0]
 	],
 	_group,
 	"assault",
@@ -157,7 +169,7 @@ _baseObjs =
 	"nedsnipercamp_objects",
 	_pos
 ] call DMS_fnc_ImportFromM3E;
-		
+
 // Create Crate type - same for all levels
 _crate1 = ["Box_NATO_Wps_F",_pos] call DMS_fnc_SpawnCrate;
 
@@ -243,7 +255,7 @@ if !(_added) exitWith
 	} forEach _missionAIUnits;
 
 	_cleanup pushBack ((_missionObjs select 0)+(_missionObjs select 1));
-	
+
 	{
 		_cleanup pushBack (_x select 0);
 	} foreach (_missionObjs select 2);

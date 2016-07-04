@@ -1,10 +1,8 @@
 /*
-	Mercbase Mission with new difficulty selection system
-	Created by Defent and eraser1
-	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
+	Sample mission (duplicate for testing purposes)
 */
 
-private ["_num", "_side", "_OK", "_group", "_pos", "_difficulty", "_AICount", "_veh", "_staticGuns", "_baseObjs", "_crate", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_PossibleDifficulty"];
+private ["_num", "_side", "_OK", "_group", "_pos", "_difficulty", "_AICount", "_veh", "_staticGuns", "_baseObjs", "_crate", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup"];
 
 // For logging purposes
 _num = DMS_MissionCount;
@@ -42,50 +40,18 @@ if !(_OK) exitWith
 };
 
 
-//create possible difficulty add more of one difficulty to weight it towards that
-_PossibleDifficulty		= 	[	
-								"easy",
-								"moderate",
-								"difficult",
-								"difficult",
-								"difficult",
-								"difficult",
-								"difficult",
-								"difficult",
-								"hardcore",
-								"hardcore",
-								"hardcore",
-								"hardcore",
-								"hardcore",
-								"hardcore"
-							];
-//choose difficulty and set value
-_difficulty = _PossibleDifficulty call BIS_fnc_selectRandom;
-
-//easy
-if (_difficulty isEqualTo "easy") then {
-_AICount = (4 + (round (random 3)));
-								};
-//moderate
-if (_difficulty isEqualTo "moderate") then {
-_AICount = (5 + (round (random 4)));
-								};
-//difficult
-if (_difficulty isEqualTo "difficult") then {
-_AICount = (6 + (round (random 5)));
-								};
-//hardcore								
-if (_difficulty isEqualTo "hardcore") then {
+// Set general mission difficulty
 _difficulty = "hardcore";
-_AICount = (7 + (round (random 6)));
-								};
 
+
+// Create AI
+_AICount = 6 + (round (random 2));
 
 _group =
 [
 	[_pos,[-9.48486,-12.4834,0]] call DMS_fnc_CalcPos,
 	_AICount,
-	_difficulty,
+	"hardcore",
 	"random",
 	_side
 ] call DMS_fnc_SpawnAIGroup;
@@ -117,7 +83,7 @@ _staticGuns =
 	],
 	_group,
 	"assault",
-	_difficulty,
+	"hardcore",
 	"bandit",
 	"O_HMG_01_high_F"
 ] call DMS_fnc_SpawnAIStaticMG;
@@ -164,7 +130,7 @@ _msgWIN = ['#0080ff',"Convicts have successfully assaulted the Mercenary Base an
 _msgLOSE = ['#FF0000',"Seems like the Mercenaries packed up and drove away..."];
 
 // Define mission name (for map marker and logging)
-_missionName = "Mercenary Base";
+_missionName = "Mercenary Outpost";
 
 // Create Markers
 _markers =
