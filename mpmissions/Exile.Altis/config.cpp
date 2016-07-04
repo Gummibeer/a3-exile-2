@@ -4741,8 +4741,6 @@ class CfgTraderCategories
 		icon = "a3\ui_f\data\gui\Rsc\RscDisplayArsenal\itemacc_ca.paa";
 		items[] = 
 		{
-			"Exile_Bike_OldBike",
-			"Exile_Bike_MountainBike"
 		};
 	};
 
