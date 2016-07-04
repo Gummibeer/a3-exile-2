@@ -1,7 +1,3 @@
-//Advance Banking by Shix and WolfkillArcadia
-#include "AdvancedBanking\Dialog\AdvBanking_Client_Defines.hpp"
-#include "AdvancedBanking\Dialog\AdvBanking_Client_ATMDialog.hpp"
-
 // https://community.bistudio.com/wiki/Description.ext#forceRotorLibSimulation
 forceRotorLibSimulation = 2;
 
@@ -107,9 +103,6 @@ class CfgRemoteExec
 
 class RscTitles
 {
-    //Advance Banking
-    #include "AdvancedBanking\Dialog\AdvBanking_Client_CreditCard.hpp"
-
     //VEMF
 	#include "VEMFr_client\gui\RscDisplayVEMFrClient.hpp"
 };
