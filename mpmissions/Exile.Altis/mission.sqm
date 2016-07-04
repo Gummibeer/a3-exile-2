@@ -5,6 +5,7 @@ class Mission
 	{
 		"exile_client",
 		"a3_map_altis",
+
 		"bwa3_backpacks",
 		"bwa3_battlerifles",
 		"bwa3_common",
@@ -15,7 +16,11 @@ class Mission
 		"bwa3_optics",
 		"bwa3_sniperrifles",
 		"bwa3_vests",
-		"bwa3_weapons"
+		"bwa3_weapons",
+
+		"blx_ridgback",
+		"shounka_a3_base",
+		"shounka_a3_brinks_banque"
 	};
 	addOnsAuto[]=
 	{

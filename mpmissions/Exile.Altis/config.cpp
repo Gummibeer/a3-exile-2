@@ -2186,15 +2186,15 @@ class CfgExileArsenal
 	///////////////////////////////////////////////////////////////////////////////
 	// QUAD BIKES
 	///////////////////////////////////////////////////////////////////////////////
-	class Exile_Bike_QuadBike_Black					{ quality = 1; price = 2500; };
-	class Exile_Bike_QuadBike_Blue					{ quality = 1; price = 2500; };
-	class Exile_Bike_QuadBike_Red					{ quality = 1; price = 2500; };
-	class Exile_Bike_QuadBike_White					{ quality = 1; price = 2500; };
-	class Exile_Bike_QuadBike_Nato					{ quality = 1; price = 2500; };
-	class Exile_Bike_QuadBike_Csat					{ quality = 1; price = 2500; };
-	class Exile_Bike_QuadBike_Fia					{ quality = 1; price = 2500; };
-	class Exile_Bike_QuadBike_Guerilla01			{ quality = 1; price = 2500; };
-	class Exile_Bike_QuadBike_Guerilla02			{ quality = 1; price = 2500; };
+	class Exile_Bike_QuadBike_Black					{ quality = 1; price = 1000; };
+	class Exile_Bike_QuadBike_Blue					{ quality = 1; price = 1000; };
+	class Exile_Bike_QuadBike_Red					{ quality = 1; price = 1000; };
+	class Exile_Bike_QuadBike_White					{ quality = 1; price = 1000; };
+	class Exile_Bike_QuadBike_Nato					{ quality = 1; price = 1500; };
+	class Exile_Bike_QuadBike_Csat					{ quality = 1; price = 1500; };
+	class Exile_Bike_QuadBike_Fia					{ quality = 1; price = 1500; };
+	class Exile_Bike_QuadBike_Guerilla01			{ quality = 1; price = 2000; };
+	class Exile_Bike_QuadBike_Guerilla02			{ quality = 1; price = 2000; };
 
 	///////////////////////////////////////////////////////////////////////////////
 	// KARTS
@@ -2249,28 +2249,28 @@ class CfgExileArsenal
 	///////////////////////////////////////////////////////////////////////////////
 	// Hummingbird
 	///////////////////////////////////////////////////////////////////////////////
-	class Exile_Chopper_Hummingbird_Green			{ quality = 3; price = 230000; };
+	class Exile_Chopper_Hummingbird_Green			{ quality = 3; price = 100000; };
 
 	///////////////////////////////////////////////////////////////////////////////
 	// Hummingbird (Civillian)
 	///////////////////////////////////////////////////////////////////////////////
-	class Exile_Chopper_Hummingbird_Civillian_Blue				{ quality = 1; price = 170000; };
-	class Exile_Chopper_Hummingbird_Civillian_Red				{ quality = 1; price = 170000; };
-	class Exile_Chopper_Hummingbird_Civillian_ION				{ quality = 1; price = 170000; };
-	class Exile_Chopper_Hummingbird_Civillian_BlueLine			{ quality = 1; price = 170000; };
-	class Exile_Chopper_Hummingbird_Civillian_Digital			{ quality = 1; price = 170000; };
-	class Exile_Chopper_Hummingbird_Civillian_Elliptical		{ quality = 1; price = 170000; };
-	class Exile_Chopper_Hummingbird_Civillian_Furious			{ quality = 1; price = 170000; };
-	class Exile_Chopper_Hummingbird_Civillian_GrayWatcher		{ quality = 1; price = 170000; };
-	class Exile_Chopper_Hummingbird_Civillian_Jeans				{ quality = 1; price = 170000; };
-	class Exile_Chopper_Hummingbird_Civillian_Light				{ quality = 1; price = 170000; };
-	class Exile_Chopper_Hummingbird_Civillian_Shadow			{ quality = 1; price = 170000; };
-	class Exile_Chopper_Hummingbird_Civillian_Sheriff			{ quality = 1; price = 170000; };
-	class Exile_Chopper_Hummingbird_Civillian_Speedy			{ quality = 1; price = 170000; };
-	class Exile_Chopper_Hummingbird_Civillian_Sunset			{ quality = 1; price = 170000; };
-	class Exile_Chopper_Hummingbird_Civillian_Vrana				{ quality = 1; price = 170000; };
-	class Exile_Chopper_Hummingbird_Civillian_Wasp				{ quality = 1; price = 170000; };
-	class Exile_Chopper_Hummingbird_Civillian_Wave				{ quality = 1; price = 170000; };
+	class Exile_Chopper_Hummingbird_Civillian_Blue				{ quality = 1; price = 50000; };
+	class Exile_Chopper_Hummingbird_Civillian_Red				{ quality = 1; price = 50000; };
+	class Exile_Chopper_Hummingbird_Civillian_ION				{ quality = 1; price = 50000; };
+	class Exile_Chopper_Hummingbird_Civillian_BlueLine			{ quality = 1; price = 50000; };
+	class Exile_Chopper_Hummingbird_Civillian_Digital			{ quality = 1; price = 50000; };
+	class Exile_Chopper_Hummingbird_Civillian_Elliptical		{ quality = 1; price = 50000; };
+	class Exile_Chopper_Hummingbird_Civillian_Furious			{ quality = 1; price = 50000; };
+	class Exile_Chopper_Hummingbird_Civillian_GrayWatcher		{ quality = 1; price = 50000; };
+	class Exile_Chopper_Hummingbird_Civillian_Jeans				{ quality = 1; price = 50000; };
+	class Exile_Chopper_Hummingbird_Civillian_Light				{ quality = 1; price = 50000; };
+	class Exile_Chopper_Hummingbird_Civillian_Shadow			{ quality = 1; price = 50000; };
+	class Exile_Chopper_Hummingbird_Civillian_Sheriff			{ quality = 1; price = 50000; };
+	class Exile_Chopper_Hummingbird_Civillian_Speedy			{ quality = 1; price = 50000; };
+	class Exile_Chopper_Hummingbird_Civillian_Sunset			{ quality = 1; price = 50000; };
+	class Exile_Chopper_Hummingbird_Civillian_Vrana				{ quality = 1; price = 50000; };
+	class Exile_Chopper_Hummingbird_Civillian_Wasp				{ quality = 1; price = 50000; };
+	class Exile_Chopper_Hummingbird_Civillian_Wave				{ quality = 1; price = 50000; };
 
 	///////////////////////////////////////////////////////////////////////////////
 	// Huron
@@ -2651,7 +2651,6 @@ class CfgExileCustomCode
 	ExileClient_gui_xm8_slide_apps_onOpen = "XM8_apps\scripts\ExileClient_gui_xm8_slide_apps_onOpen.sqf";
 	ExileClient_gui_xm8_slide = "XM8_apps\scripts\ExileClient_gui_xm8_slide.sqf";
 
-    ExileClient_gui_xm8_slide_players_onOpen = "ClientOverrides\ExileClient_gui_xm8_slide_players_onOpen.sqf";
     ExileClient_object_player_death_startBleedingOut = "EnigmaRevive\ExileClient_object_player_death_startBleedingOut.sqf"; //Happys Revive
     ExileClient_object_player_event_onInventoryOpened = "EnigmaRevive\ExileClient_object_player_event_onInventoryOpened.sqf"; //Happys Revive AntiDupe ---NEW with v0.65
 };
@@ -2988,8 +2987,6 @@ class ExileAbstractAction
  */
 class CfgInteractionMenus
 {
-    #include "CfgInteractionMenus.hpp"
-
 	class Car
 	{
 		targetType = 2;
@@ -3676,7 +3673,7 @@ class CfgLocker
 {
 	numbersOnly = "0123456789";
 	
-	maxDeposit = 10000;
+	maxDeposit = 500000;
 };
 
 class CfgPlayer 
@@ -4741,8 +4738,6 @@ class CfgTraderCategories
 		icon = "a3\ui_f\data\gui\Rsc\RscDisplayArsenal\itemacc_ca.paa";
 		items[] = 
 		{
-			"Exile_Bike_OldBike",
-			"Exile_Bike_MountainBike"
 		};
 	};
 

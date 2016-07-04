@@ -25,6 +25,7 @@ if (VEMFrAttackCount <= ([[_missionName],["maxAttacks"]] call VEMFr_fnc_getSetti
                 (isPlayer _x) AND
                 (speed _x < 25) AND
                 (vehicle _x isEqualTo _x) AND
+                !(position _x call ExileClient_util_world_isInTraderZone) AND
                 !(_x in _attackedPlayers)
             ) then
             {
