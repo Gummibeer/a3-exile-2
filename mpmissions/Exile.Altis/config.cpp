@@ -2186,15 +2186,15 @@ class CfgExileArsenal
 	///////////////////////////////////////////////////////////////////////////////
 	// QUAD BIKES
 	///////////////////////////////////////////////////////////////////////////////
-	class Exile_Bike_QuadBike_Black					{ quality = 1; price = 2500; };
-	class Exile_Bike_QuadBike_Blue					{ quality = 1; price = 2500; };
-	class Exile_Bike_QuadBike_Red					{ quality = 1; price = 2500; };
-	class Exile_Bike_QuadBike_White					{ quality = 1; price = 2500; };
-	class Exile_Bike_QuadBike_Nato					{ quality = 1; price = 2500; };
-	class Exile_Bike_QuadBike_Csat					{ quality = 1; price = 2500; };
-	class Exile_Bike_QuadBike_Fia					{ quality = 1; price = 2500; };
-	class Exile_Bike_QuadBike_Guerilla01			{ quality = 1; price = 2500; };
-	class Exile_Bike_QuadBike_Guerilla02			{ quality = 1; price = 2500; };
+	class Exile_Bike_QuadBike_Black					{ quality = 1; price = 1000; };
+	class Exile_Bike_QuadBike_Blue					{ quality = 1; price = 1000; };
+	class Exile_Bike_QuadBike_Red					{ quality = 1; price = 1000; };
+	class Exile_Bike_QuadBike_White					{ quality = 1; price = 1000; };
+	class Exile_Bike_QuadBike_Nato					{ quality = 1; price = 1500; };
+	class Exile_Bike_QuadBike_Csat					{ quality = 1; price = 1500; };
+	class Exile_Bike_QuadBike_Fia					{ quality = 1; price = 1500; };
+	class Exile_Bike_QuadBike_Guerilla01			{ quality = 1; price = 2000; };
+	class Exile_Bike_QuadBike_Guerilla02			{ quality = 1; price = 2000; };
 
 	///////////////////////////////////////////////////////////////////////////////
 	// KARTS
