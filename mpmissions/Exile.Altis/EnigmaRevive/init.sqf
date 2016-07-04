@@ -19,9 +19,6 @@ DamageWhenRevived = 0.95; //Set to a percentage. 0.95 = 95% damage.... or 5% hea
 
 FatiguewhenRevived = 1; //Set to a percentage. 1 = 100% fatigued and can only walk.
 
-RespectForRevive = 5;
-
-
 //NOTE: this has been designed to only allow 1 revive. I havent put in any checks to prevent players using this to gain respect by killing each other and reviving again!!! 
 //You have been warned!
 
