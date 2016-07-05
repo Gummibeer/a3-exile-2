@@ -44,7 +44,7 @@ if !(_OK) exitWith
 
 
 //create possible difficulty add more of one difficulty to weight it towards that - removed "hardcore" from this mission
-_PossibleDifficulty		= 	[	
+_PossibleDifficulty		= 	[
 								"easy",
 								"easy",
 								"easy",
@@ -56,36 +56,43 @@ _PossibleDifficulty		= 	[
 								"difficult"
 							];
 //choose difficulty and set value
-_difficulty = _PossibleDifficulty call BIS_fnc_selectRandom;
+_difficulty = selectRandom _PossibleDifficulty;
 
-//easy
-if (_difficulty isEqualTo "easy") then {
-_AICount = (3 + (round (random 2)));
-_crate_weapons 		= (2 + (round (random 3)));
-_crate_items 		= (2 + (round (random 4)));
-_crate_backpacks 	= 1;
-								};
-//moderate
-if (_difficulty isEqualTo "moderate") then {
-_AICount = (4 + (round (random 2)));
-_crate_weapons 		= (4 + (round (random 5)));
-_crate_items 		= (4 + (round (random 6)));
-_crate_backpacks 	= 2;			
-								};
-//difficult
-if (_difficulty isEqualTo "difficult") then {
-_AICount = (5 + (round (random 3)));
-_crate_weapons 		= (6 + (round (random 7)));
-_crate_items 		= (6 + (round (random 8)));
-_crate_backpacks 	= 3;
-								};
-//hardcore								
-if (_difficulty isEqualTo "hardcore") then {
-_AICount = (6 + (round (random 4)));
-_crate_weapons 		= (8 + (round (random 9)));
-_crate_items 		= (8 + (round (random 10)));
-_crate_backpacks 	= 4;
-								};
+switch (_difficulty) do
+{
+	case "easy":
+	{
+		_AICount = (3 + (round (random 2)));
+		_crate_weapons 		= (2 + (round (random 3)));
+		_crate_items 		= (2 + (round (random 4)));
+		_crate_backpacks 	= 1;
+	};
+
+	case "moderate":
+	{
+		_AICount = (4 + (round (random 2)));
+		_crate_weapons 		= (4 + (round (random 5)));
+		_crate_items 		= (4 + (round (random 6)));
+		_crate_backpacks 	= 2;
+	};
+
+	case "difficult":
+	{
+		_AICount = (5 + (round (random 3)));
+		_crate_weapons 		= (6 + (round (random 7)));
+		_crate_items 		= (6 + (round (random 8)));
+		_crate_backpacks 	= 3;
+	};
+
+	//case "hardcore":
+	default
+	{
+		_AICount = (6 + (round (random 4)));
+		_crate_weapons 		= (8 + (round (random 9)));
+		_crate_items 		= (8 + (round (random 10)));
+		_crate_backpacks 	= 4;
+	};
+};
 
 
 _group =
@@ -127,45 +134,48 @@ _staticGuns =
 
 //create possible vehicle list
 
-// If hardcore give possibility of better car	
-if (_difficulty isEqualTo "hardcore") then {
-_PossibleVehicleClass 		= [	
-								"Exile_Car_SUVXL_Black",
-								"Exile_Car_Hatchback_Sport_Red",
-								"Exile_Car_Hatchback_Sport_Blue",
-								"Exile_Car_Hatchback_Sport_Orange",
-								"Exile_Car_Hatchback_Sport_White",
-								"Exile_Car_Hatchback_Sport_Beige",
-								"Exile_Car_Hatchback_Sport_Green",
-								"Exile_Car_Lada_Green",
-								"Exile_Car_Lada_Red",
-								"Exile_Car_Lada_White",
-								"Exile_Car_Lada_Hipster",
-								"Exile_Car_Volha_Blue",
-								"Exile_Car_Volha_White",
-								"Exile_Car_Volha_Black"
-							];
-											} else
-											{
-_PossibleVehicleClass 		= [	
-								"Exile_Car_Lada_Green",
-								"Exile_Car_Lada_Taxi",
-								"Exile_Car_Lada_Red",
-								"Exile_Car_Lada_White",
-								"Exile_Car_Lada_Hipster",
-								"Exile_Car_Volha_Blue",
-								"Exile_Car_Volha_White",
-								"Exile_Car_Volha_Black"
-							];
-											};
+// If hardcore give possibility of better car
+_PossibleVehicleClass =
+	if (_difficulty isEqualTo "hardcore") then
+	{
+		[
+			"Exile_Car_SUVXL_Black",
+			"Exile_Car_Hatchback_Sport_Red",
+			"Exile_Car_Hatchback_Sport_Blue",
+			"Exile_Car_Hatchback_Sport_Orange",
+			"Exile_Car_Hatchback_Sport_White",
+			"Exile_Car_Hatchback_Sport_Beige",
+			"Exile_Car_Hatchback_Sport_Green",
+			"Exile_Car_Lada_Green",
+			"Exile_Car_Lada_Red",
+			"Exile_Car_Lada_White",
+			"Exile_Car_Lada_Hipster",
+			"Exile_Car_Volha_Blue",
+			"Exile_Car_Volha_White",
+			"Exile_Car_Volha_Black"
+		];
+	}
+	else
+	{
+		[
+			"Exile_Car_Lada_Green",
+			"Exile_Car_Lada_Taxi",
+			"Exile_Car_Lada_Red",
+			"Exile_Car_Lada_White",
+			"Exile_Car_Lada_Hipster",
+			"Exile_Car_Volha_Blue",
+			"Exile_Car_Volha_White",
+			"Exile_Car_Volha_Black"
+		];
+	};
 
 //choose the vehicle
-_VehicleClass = _PossibleVehicleClass call BIS_fnc_selectRandom;
+_VehicleClass = selectRandom _PossibleVehicleClass;
 
-		
+
 //DMS_fnc_SpawnPersistentVehicle will automatically turn the pincode into a string and format it.
-_pinCode = (1000 +(round (random 8999)));
-_vehicle = [_VehicleClass,[(_pos select 0) -30, (_pos select 1) -30],_pinCode] call DMS_fnc_SpawnPersistentVehicle;
+_pinCode = round (random 9999);
+_vehicle = [_VehicleClass, _pos getPos [30, random 360], _pinCode] call DMS_fnc_SpawnPersistentVehicle;
 
 
 // Create Crate type

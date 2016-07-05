@@ -1,10 +1,11 @@
 /*
-	Walmart Mission with new difficulty selection system
+	Sample mission
 	Created by Defent and eraser1
-	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
+
+	Called from DMS_fnc_SelectMission
 */
 
-private ["_num", "_side", "_OK", "_group", "_pos", "_difficulty", "_AICount", "_type", "_launcher", "_crate", "_wreck1", "_wreck2", "_wreck3", "_wreck4", "_wreck5", "_crate_loot_values", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_crate_weapons", "_crate_weapon_list", "_crate_items", "_crate_item_list", "_crate_backpacks", "_PossibleDifficulty"];
+private ["_num", "_side", "_OK", "_group", "_pos", "_difficulty", "_AICount", "_type", "_launcher", "_crate", "_wreck1", "_wreck2", "_wreck3", "_wreck4", "_wreck5", "_crate_loot_values", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup"];
 
 // For logging purposes
 _num = DMS_MissionCount;
@@ -38,65 +39,22 @@ _OK = (_this call DMS_fnc_MissionParams) params
 
 if !(_OK) exitWith
 {
-	diag_log format ["DMS ERROR :: Called MISSION walmart.sqf with invalid parameters: %1",_this];
+	diag_log format ["DMS ERROR :: Called MISSION guntransport.sqf with invalid parameters: %1",_this];
 };
 
 
-//create possible difficulty add more of one difficulty to weight it towards that
-_PossibleDifficulty		= 	[	
-								"easy",
-								"easy",
-								"easy",
-								"easy",
-								"moderate",
-								"moderate",
-								"moderate",
-								"difficult",
-								"difficult",
-								"hardcore"
-							];
-//choose difficulty and set value
-_difficulty = _PossibleDifficulty call BIS_fnc_selectRandom;
+// Set general mission difficulty
+_difficulty = "moderate";
 
-//easy
-if (_difficulty isEqualTo "easy") then {
-_msgStart = ['#FFFF00',"A local Walmart shop is being raided. Stop the noob raiders and take the loot!"];
-_AICount = (4 + (round (random 2)));
-_crate_weapons 		= (1 + (round (random 1)));
-_crate_items 		= (2 + (round (random 4)));
-_crate_backpacks 	= (1 + (round (random 1)));
-								};
-//moderate
-if (_difficulty isEqualTo "moderate") then {
-_msgStart = ['#FFFF00',"A local Walmart shop is being raided. Stop the raiders and take the loot!"];
-_AICount = (6 + (round (random 2)));
-_crate_weapons 		= (2 + (round (random 1)));
-_crate_items 		= (5 + (round (random 5)));
-_crate_backpacks 	= (2 + (round (random 1)));	
-								};
-//difficult
-if (_difficulty isEqualTo "difficult") then {
-_msgStart = ['#FFFF00',"A local Walmart shop is being raided. Stop the skilled raiders and take the loot!"];
-_AICount = (6 + (round (random 4)));
-_crate_weapons 		= (3 + (round (random 1)));
-_crate_items 		= (8 + (round (random 5)));
-_crate_backpacks 	= (3 + (round (random 1)));	
-								};
-//hardcore								
-if (_difficulty isEqualTo "hardcore") then {
-_msgStart = ['#FFFF00',"A local Walmart shop is being raided. Stop the hardcore raiders and take the loot!"];
-_AICount = (6 + (round (random 4)));
-_crate_weapons 		= (4 + (round (random 1)));
-_crate_items 		= (12 + (round (random 5)));
-_crate_backpacks 	= (4 + (round (random 1)));	
-								};
 
+// Create AI
+_AICount = 6 + (round (random 2));
 
 _group =
 [
 	_pos,					// Position of AI
 	_AICount,				// Number of AI
-	_difficulty,			// "random","hardcore","difficult","moderate", or "easy"
+	"random",				// "random","hardcore","difficult","moderate", or "easy"
 	"random", 				// "random","assault","MG","sniper" or "unarmed" OR [_type,_launcher]
 	_side 					// "bandit","hero", etc.
 ] call DMS_fnc_SpawnAIGroup;
@@ -113,9 +71,9 @@ _wreck5 = createVehicle ["Land_CratesWooden_F",[(_pos select 0) - 16, (_pos sele
 // Set crate loot values
 _crate_loot_values =
 [
-	_crate_weapons,			// Weapons
-	_crate_items,			// Items
-	_crate_backpacks 		// Backpacks
+	2,		// Weapons
+	15,		// Items
+	2 		// Backpacks
 ];
 
 
@@ -133,7 +91,8 @@ _missionObjs =
 	[[_crate,_crate_loot_values]]
 ];
 
-// define start messages in difficulty choice
+// Define Mission Start message
+_msgStart = ['#FFFF00',"A local Walmart shop is being raided. Stop the raiders and take the loot!"];
 
 // Define Mission Win message
 _msgWIN = ['#0080ff',"Convicts have done a good deed and stopped the raiders!"];

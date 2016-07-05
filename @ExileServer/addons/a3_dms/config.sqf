@@ -1,17 +1,18 @@
 /*
-	A lot of these configs are influenced by WAI :P
-	https://github.com/nerdalertdk/WICKED-AI
+	Main DMS Config File
 
 	Created by eraser1
+	Several revisions and additions have been made by community members.
+
+
+	A lot of these configs are influenced by WAI :P
+	https://github.com/nerdalertdk/WICKED-AI
 */
+// If you don't want the AI to have marksman DLC weapons, then simply remove the line below, or comment it by putting // at the beginning of the line
+#define GIVE_AI_MARKSMAN_DLC_WEAPONS 1
 
-
-// Enables debug logging in DMS functions.
-// Logs will be written in the RPT, and if you have infiSTAR's "ARMA_LOG" DLL loaded, it will also produce logs in the server directory.
-// If you have mARMA by maca134, DMS will also utilize mARMA logs.
-// This will produce A LOT of logs, so make sure you leave it to false unless you know what you're doing.
-DMS_DEBUG = false;
-
+// If you don't want crates to spawn with marksman DLC weapons, simply remove the line below or comment it out.
+#define USE_MARKSMAN_DLC_WEAPONS_IN_CRATES 1
 
 
 DMS_Use_Map_Config = true;	// Whether or not to use config overwrites specific to the map.
@@ -21,7 +22,7 @@ DMS_Use_Map_Config = true;	// Whether or not to use config overwrites specific t
 	For any questions regarding map-specific configs, please leave a reply in the DMS thread on the Exile forums.
 */
 
-DMS_Enable_RankChange = false; // Whether or not to use Rank Changes.
+DMS_Enable_RankChange = true; // Whether or not to use Rank Changes. (Required 'true' if using Occupation)
 /*
 	I am sharing this upgrade to all. If you utilize GR8 Humanity (fully compatible) or a custom version of a ranking system(simple variable changes), this will allow your players to score +/- for Bandit and Hero kills as well as a custom Survivor Faction added to DMS as well. You can still utilize the HERO / BANDIT / SURVIVOR respect and poptab settings for gameplay :) ENJOY! DONKEYPUNCH.INFO!
 */
@@ -59,7 +60,6 @@ DMS_SpawnMissions_Scheduled = false;	// Whether or not to spawn missions in a sc
 	DMS_AI_KillPercent					= 100;						// The percent amount of AI that need to be killed for "killPercent" mission requirement (NOT IMPLEMENTED)
 
 	/*Mission Marker settings*/
-	DMS_MissionMarkerCount				= 2;						// If you modify your CreateMarker and have multiple markers, you probably want to change this. *cough*Vish*cough*
 	DMS_ShowDifficultyColorLegend		= true;						// Whether or not to show a "color legend" at the bottom left of the map that shows which color corresponds to which difficulty. I know it's not very pretty, meh.
 	DMS_MarkerText_ShowMissionPrefix	= true;						// Whether or not to place a prefix before the mission marker text. Enable this if your players get confused by the marker names :P
 	DMS_MarkerText_MissionPrefix		= "Mission:";				// The text displayed before the mission name in the mission marker.
@@ -118,7 +118,7 @@ DMS_SpawnMissions_Scheduled = false;	// Whether or not to spawn missions in a sc
 	DMS_TraderZoneNearBlacklist			= 2500;						// Missions won't spawn in a position this many meters close to a trader zone
 	DMS_MissionNearBlacklist			= 2500;						// Missions won't spawn in a position this many meters close to another mission
 	DMS_WaterNearBlacklist				= 500;						// Missions won't spawn in a position this many meters close to water
-	DMS_TerritoryNearBlacklist			= 100;						// Missions won't spawn in a position this many meters close to a territory flag
+	DMS_TerritoryNearBlacklist			= 100;						// Missions won't spawn in a position this many meters close to a territory flag. This is a resource intensive check, don't set this value too high!
 	DMS_MinSurfaceNormal				= 0.9;						// Missions won't spawn in a position where its surfaceNormal is less than this amount. The lower the value, the steeper the location. Greater values means flatter locations. Values can range from 0-1, with 0 being sideways, and 1 being perfectly flat. For reference: SurfaceNormal of about 0.7 is when you are forced to walk up a surface. If you want to convert surfaceNormal to degrees, use the arc-cosine of the surfaceNormal. 0.9 is about 25 degrees. Google "(arccos 0.9) in degrees"
 	DMS_MinDistFromWestBorder			= 250;						// Missions won't spawn in a position this many meters close to the western map border.
 	DMS_MinDistFromEastBorder			= 250;						// Missions won't spawn in a position this many meters close to the easter map border.
@@ -143,26 +143,35 @@ DMS_SpawnMissions_Scheduled = false;	// Whether or not to spawn missions in a sc
 
 	/*Mine settings*/
 	DMS_SpawnMinefieldForEveryMission	= false;					// Whether or not to spawn a minefield for every dynamic mission.
-	DMS_SpawnMinesAroundMissions		= false;						// Whether or not to spawn mines around AI missions that have them.
+	DMS_SpawnMinesAroundMissions		= false;					// Whether or not to spawn mines around AI missions that have them.
 	DMS_despawnMines_onCompletion		= true;						// Despawn mines spawned around missions when the mission is completed
 	DMS_MineInfo_easy					= [5,50];					// Mine info for "easy" missions. This will spawn 5 mines within a 50m radius.
 	DMS_MineInfo_moderate				= [10,50];					// Mine info for "moderate" missions. This will spawn 10 mines within a 50m radius.
 	DMS_MineInfo_difficult				= [15,75];					// Mine info for "difficult" missions. This will spawn 15 mines within a 75m radius.
 	DMS_MineInfo_hardcore				= [25,100];					// Mine info for "hardcore" missions. This will spawn 25 mines within a 100m radius.
 	DMS_SpawnMineWarningSigns			= true;						// Whether or not to spawn mine warning signs around a minefield.
-	DMS_BulletProofMines				= false;						// Whether or not you want to make the mines bulletproof. Prevents players from being able to shoot the mines and creating explosions.
+	DMS_BulletProofMines				= false;					// Whether or not you want to make the mines bulletproof. Prevents players from being able to shoot the mines and creating explosions.
 	/*Mine settings*/
 
 	DMS_MinPlayerCount					= 0; 						// Minimum number of players until mission start
 	DMS_MinServerFPS					= 5; 						// Minimum server FPS for missions to start
 
 	/*Mission notification settings*/
-	DMS_PlayerNotificationTypes =		[							// Notification types. Supported values are: ["dynamicTextRequest", "standardHintRequest", "systemChatRequest", "textTilesRequest"]. Details below
-											"dynamicTextRequest",			// You should use either "dynamicTextRequest" or "textTilesRequest", and I think "textTilesRequest" looks better, but this is less performance-intensive.
+	DMS_PlayerNotificationTypes =		[									// Notification types. Supported values are: ["dynamicTextRequest", "standardHintRequest", "systemChatRequest", "textTilesRequest", "ExileToasts"]. Details below.
+											//"dynamicTextRequest",			// You should use either "dynamicTextRequest" or "textTilesRequest", and I think "textTilesRequest" looks better, but this is less performance-intensive.
 											//"standardHintRequest",		// Hints are a bit wonky...
 											//"textTilesRequest",			// Keep in mind you can only have 1 "text tile" message up at a time, so the message will disappear if the player gets a kill or something while the message is shown. This message type is also performance-intensive, so I advise against it.
-											"systemChatRequest"				// Always nice to show in chat so that players can scroll up to read the info if they need to.
+											//"systemChatRequest",			// Always nice to show in chat so that players can scroll up to read the info if they need to.
+											"ExileToasts"					// Default notification type since Exile 0.98, see (http://www.exilemod.com/devblog/new-ingame-notifications/)
 										];
+
+		/*Exile Toasts Notification Settings*/
+	DMS_ExileToasts_Title_Size			= 22;						// Size for Client Exile Toasts  mission titles.
+	DMS_ExileToasts_Title_Font			= "puristaMedium";			// Font for Client Exile Toasts  mission titles.
+	DMS_ExileToasts_Message_Color		= "#FFFFFF";				// Exile Toasts color for "ExileToast" client notification type.
+	DMS_ExileToasts_Message_Size		= 19;						// Exile Toasts size for "ExileToast" client notification type.
+	DMS_ExileToasts_Message_Font		= "PuristaLight";			// Exile Toasts font for "ExileToast" client notification type.
+		/*Exile Toasts Notification Settings*/
 
 		/*Dynamic Text Notification Settings*/
 	DMS_dynamicText_Duration			= 7;						// Number of seconds that the message will last on the screen.
@@ -194,114 +203,134 @@ DMS_SpawnMissions_Scheduled = false;	// Whether or not to spawn missions in a sc
 
 	/*Mission notification settings*/
 
-	DMS_BanditMissionTypes =			[							//	List of missions with spawn chances. If they add up to 100%, they represent the percentage chance each one will spawn
+	DMS_BanditMissionTypes =			[			//	List of missions with spawn chances. If they add up to 100%, they represent the percentage chance each one will spawn
 											["bandits",3],
-                                            ["bauhaus",3],
-                                            ["beertransport",3],
-                                            ["behindenemylines",3],
-                                            ["blackhawkdown",3],
-                                            ["cardealer",3],
-                                            ["construction",3],
-                                            ["donthasslethehoff",3],
-                                            ["foodtransport",3],
-                                            ["guntransport",3],
-                                            ["humanitarian",3],
-                                            ["lost_battalion",3],
-                                            ["medical",3],
-                                            ["mercbase",2],
-                                            ["mercenaries",3],
-                                            ["nedbuilding1_mission",3],
-                                            ["nedcar_mission",4],
-                                            ["nedguns1_mission",3],
-                                            ["nedhatchback_mission",3],
-                                            ["nedhunter_mission",2],
-                                            ["nedifrit_mission",2],
-                                            ["nedlittlebird_mission",2],
-                                            ["nedmedical1_mission",3],
-                                            ["nedoffroad_mission",3],
-                                            ["nedresearch_mission",3],
-                                            ["nedsnipercamp_mission",3],
-                                            ["nedstrider_mission",2],
-                                            ["nedural_mission",3],
-                                            ["roguenavyseals",3],
-                                            ["thieves",3],
-                                            ["walmart",3]
+											["bauhaus",3],
+											["beertransport",3],
+											["behindenemylines",3],
+											["blackhawkdown",3],
+											["cardealer",3],
+											["construction",3],
+											["donthasslethehoff",3],
+											["foodtransport",3],
+											["guntransport",3],
+											["humanitarian",3],
+											["lost_battalion",3],
+											["medical",3],
+											["mercbase",2],
+											["mercenaries",3],
+											["nedbuilding1_mission",3],
+											["nedcar_mission",4],
+											["nedguns1_mission",3],
+											["nedhatchback_mission",3],
+											["nedhunter_mission",2],
+											["nedifrit_mission",2],
+											["nedlittlebird_mission",2],
+											["nedmedical1_mission",3],
+											["nedoffroad_mission",3],
+											["nedresearch_mission",3],
+											["nedsnipercamp_mission",3],
+											["nedstrider_mission",2],
+											["nedural_mission",3],
+											["roguenavyseals",3],
+											["thieves",3],
+											["walmart",3]
 										];
 
 
-	DMS_StaticMissionTypes =			[							// List of STATIC missions with spawn chances.
-											//["saltflats",1],		//<--Example (already imported by default on Altis)
-											//["slums",1]			//<--Example (already imported by default on Altis)
-
+	DMS_StaticMissionTypes =			[								// List of STATIC missions with spawn chances.
+											//["saltflats",1]			//<--Example (already imported by default on Altis in map configs)
+											//["slums",1]				//<--Example (already imported by default on Altis in map configs)
+											//["occupation",1]		//<--Example
 											//["sectorB",1]			//<--Example for Taviana
 										];
 
-	DMS_BasesToImportOnServerStart = 	[							// List of static bases to import on server startup (spawned post-init). This will reduce the amount of work the server has to do when it actually spawns static missions, and players won't be surprised when a base suddenly pops up. You can also include any other M3E-exported bases to spawn here.
+	DMS_BasesToImportOnServerStart = 	[								// List of static bases to import on server startup (spawned post-init). This will reduce the amount of work the server has to do when it actually spawns static missions, and players won't be surprised when a base suddenly pops up. You can also include any other M3E-exported bases to spawn here.
 											//"saltflatsbase",		//<--Example (already imported by default on Altis)
-											//"slums_objects"		//<--Example (already imported by default on Altis)
+											//"slums_objects"			//<--Example (already imported by default on Altis)
 										];
 
 	DMS_BanditMissionsOnServerStart =	[
 											//"construction"		//<-- Example
 										];
 
-	DMS_StaticMissionsOnServerStart =	[							// List of STATIC missions with spawn chances.
-											//"saltflats",			//<--Example
-											//"slums				//<--Example
-
+	DMS_StaticMissionsOnServerStart =	[								// List of STATIC missions with spawn chances.
+											//"saltflats"				//<--Example
+											//"slums"				//<--Example
+											//"occupation"			//<--Example
 											//"sectorB"				//<--Example for Taviana
 										];
 
 
 
-	DMS_findSafePosBlacklist =			[							// For BIS_fnc_findSafePos position blacklist info refer to: http://www.exilemod.com/topic/61-dms-defents-mission-system/?page=18#comment-31190
-											// An example is given in the altis_config.sqf (it blacklists the salt flats).
-											/*
-											// Blacklists most of the Northern Taviana Volcano
-											[[11375,16170],[14302,18600]],
-											[[13300,14670],[14875,16170]]
-											*/
+	DMS_findSafePosBlacklist =			[								// This list defines areas where missions WILL NOT spawn. For position blacklist info refer to: http://www.exilemod.com/topic/61-dms-defents-mission-system/?do=findComment&comment=31190
+											// There are examples in the altis map config (it blacklists the salt flats) and in the tavi/taviana map configs.
+
+											//[[2350,4680],100]		// This random example blacklists any position within 100 meters of coordinates "[2350,4680]"
 										];
 /* Mission System Settings */
 
 
 /* AI Settings */
 	DMS_AI_Classname					= "O_recon_F";				// Since some of you wanted this...
+	DMS_AI_UseRealNames					= true;						// true if you want Arma assigned real names, false if you want random DMS assigned unit numbers
 
 	DMS_Show_Kill_Poptabs_Notification	= true;						// Whether or not to show the poptabs gained/lost message on the player's screen when killing an AI. (It will still change the player's money, it just won't show the "Money Received" notification)
 	DMS_Show_Kill_Respect_Notification	= true;						// Whether or not to show the "Frag Message" on the player's screen when killing an AI. (It will still change the player's respect, it just won't show the "AI Killed" frag message)
 	DMS_Show_Kill_Rank_Notification		= true;
 	DMS_Show_Party_Kill_Notification	= true;						// Whether or not to show in chat when a party member kills an AI.
 
+	DMS_Spawn_AI_With_Money				= true;						// Whether or not to spawn AI with money that can be looted from the body.
+	DMS_AIMoney_PopulationMultiplier	= 0;						// This determines how much EXTRA money an AI will have on his body. For example, setting this to 5 and having a server population of 30 means the AI will have an extra 150 poptabs on the body. Set to 0 to disable.
+
+	DMS_GiveMoneyToPlayer_OnAIKill		= false;					// Whether or not to give money directly to players when they kill AI (old method of giving money).
+	DMS_GiveRespectToPlayer_OnAIKill	= false;					// Whether or not to give respect to players when they kill AI.
+
 	DMS_Bandit_Soldier_MoneyGain		= 50;						// The amount of Poptabs gained for killing a bandit soldier
 	DMS_Bandit_Soldier_RepGain			= 10;						// The amount of Respect gained for killing a bandit soldier
 	DMS_Bandit_Soldier_RankGain			= 15;
+	DMS_Bandit_Soldier_SpawnMoney		= 50;						// The amount of Poptabs carried by a bandit soldier
+
 	DMS_Bandit_Static_MoneyGain			= 75;						// The amount of Poptabs gained for killing a bandit static gunner
 	DMS_Bandit_Static_RepGain			= 15;						// The amount of Respect gained for killing a bandit static gunner
 	DMS_Bandit_Static_RankGain			= 30;
+	DMS_Bandit_Static_SpawnMoney		= 75;						// The amount of Poptabs carried by a bandit static gunner
+
 	DMS_Bandit_Vehicle_MoneyGain		= 100;						// The amount of Poptabs gained for killing a bandit vehicle crew member
 	DMS_Bandit_Vehicle_RepGain			= 25;						// The amount of Respect gained for killing a bandit vehicle crew member
 	DMS_Bandit_Vehicle_RankGain			= 50;
+	DMS_Bandit_Vehicle_SpawnMoney		= 100;						// The amount of Poptabs carried by a bandit vehicle crew member
+
 /* DonkeyPunchDMS Custom Settings for Hero AI*/
 	DMS_Hero_Soldier_MoneyGain			= 100;						// The amount of Poptabs gained for killing a hero soldier
 	DMS_Hero_Soldier_RepGain			= 20;						// The amount of Respect gained for killing a hero soldier
 	DMS_Hero_Soldier_RankGain			= -30;
+	DMS_Hero_Soldier_SpawnMoney			= 100;						// The amount of Poptabs carried by a hero soldier
+
 	DMS_Hero_Static_MoneyGain			= 120;						// The amount of Poptabs gained for killing a hero static gunner
 	DMS_Hero_Static_RepGain				= 30;						// The amount of Respect gained for killing a hero static gunner
 	DMS_Hero_Static_RankGain			= -60;
+	DMS_Hero_Static_SpawnMoney			= 120;						// The amount of Poptabs carried by a hero static gunner
+
 	DMS_Hero_Vehicle_MoneyGain			= 200;						// The amount of Poptabs gained for killing a hero vehicle crew member
 	DMS_Hero_Vehicle_RepGain			= 50;						// The amount of Respect gained for killing a hero vehicle crew member
 	DMS_Hero_Vehicle_RankGain			= -100;
+	DMS_Hero_Vehicle_SpawnMoney			= 200;						// The amount of Poptabs carried by a hero vehicle crew member
 /* DonkeyPunchDMS Custom Settings for Survivor AI*/
 	DMS_Survivor_Soldier_MoneyGain		= -100;						// The amount of Poptabs gained for killing a Survivor soldier
 	DMS_Survivor_Soldier_RepGain		= -100;						// The amount of Respect gained for killing a Survivor soldier
 	DMS_Survivor_Soldier_RankGain		= -250;
+	DMS_Survivor_Soldier_SpawnMoney		= 0;						// The amount of Poptabs carried by a Survivor soldier
+
 	DMS_Survivor_Static_MoneyGain		= -100;						// The amount of Poptabs gained for killing a Survivor static gunner
 	DMS_Survivor_Static_RepGain			= -100;						// The amount of Respect gained for killing a Survivor static gunner
 	DMS_Survivor_Static_RankGain		= -400;
+	DMS_Survivor_Static_SpawnMoney		= 0;						// The amount of Poptabs carried by a Survivor static gunner
+
 	DMS_Survivor_Vehicle_MoneyGain		= -500;						// The amount of Poptabs gained for killing a Survivor vehicle crew member
 	DMS_Survivor_Vehicle_RepGain		= -100;						// The amount of Respect gained for killing a Survivor vehicle crew member
 	DMS_Survivor_Vehicle_RankGain		= -600;
+	DMS_Survivor_Vehicle_MoneyGain		= 0;						// The amount of Poptabs carried by a Survivor vehicle crew member
 
 	DMS_AIKill_DistanceBonusMinDistance	= 100;						// Minimum distance from the player to the AI to apply the distance bonus.
 	DMS_AIKill_DistanceBonusCoefficient	= 0.05;						// If the distance from the player to the killed unit is more than "DMS_AIKill_DistanceBonusMinDistance" meters then the player gets a respect bonus equivalent to the distance multiplied by this coefficient. For example, killing an AI from 400 meters will give 100 extra respect (when the coefficient is 0.25). Set to 0 to disable the bonus. This bonus will not be applied if there isn't a regular AI kill bonus.
@@ -347,7 +376,7 @@ DMS_SpawnMissions_Scheduled = false;	// Whether or not to spawn missions in a sc
 	DMS_ai_disable_ramming_damage 		= true;						// Disables damage due to ramming into AI. !!!NOTE: THIS WILL NOT BE RELIABLE WITH "DMS_ai_offload_to_client"!!!
 	DMS_remove_roadkill					= true; 					// Remove gear from AI bodies that are roadkilled
 	DMS_remove_roadkill_chance			= 50;						// Percentage chance that roadkilled AI bodies will be deleted
-	DMS_explode_onRoadkill				= false;						// Whether or not to spawn an explosion when an AI gets run over. It will likely take out the 2 front wheels. Should help mitigate the ineffective AI vs. striders issue ;)
+	DMS_explode_onRoadkill				= false;					// Whether or not to spawn an explosion when an AI gets run over. It will likely take out the 2 front wheels. Should help mitigate the ineffective AI vs. striders issue ;)
 	DMS_RemoveNVG						= false;					// Remove NVGs from AI bodies
 
 	DMS_MaxAIDistance					= 500;						// The maximum distance an AI unit can be from a mission before he is killed. Helps with AI running away and forcing the mission to keep running. Set to 0 if you don't want it.
@@ -357,10 +386,18 @@ DMS_SpawnMissions_Scheduled = false;	// Whether or not to spawn missions in a sc
 	DMS_ai_offload_Only_DMS_AI			= false;					// Do you use other mission systems on your server but still want to offload AI? You should probably enable this then, unless you have tested it for compatibility.
 	DMS_ai_offload_notifyClient			= false;					// Notify the client when AI has been offloaded to the client.
 
+	DMS_ai_allowFreezing				= true;						// Whether or not to "freeze" AI that are a certain distance away from players (and therefore inactive).
+	DMS_ai_freeze_Only_DMS_AI			= false;					// Whether or not to "freeze" AI that are not spawned by DMS.
+	DMS_ai_freezingDistance				= 2500;						// If there are no players within this distance of the leader of an AI group, then the AI group will be "frozen".
+	DMS_ai_unfreezingDistance			= 2000;						// If there are players within this distance of the leader of an AI group, then the AI group will be "un-frozen".
+	DMS_ai_offloadOnUnfreeze			= true;						// Whether or not to offload AI to clients once they have been "un-frozen". NOTE: This config will be ignored if "DMS_ai_offload_to_client" is set to false.
+	DMS_ai_freezeCheckingDelay			= 15;						// How often (in seconds) DMS will check whether to freeze/un-freeze AI.
+	DMS_ai_freezeOnSpawn				= true;						// Whether or not to freeze an AI group when initially spawned.
+
 	DMS_ai_share_info					= true;						// Share info about killer
 	DMS_ai_share_info_distance			= 300;						// The distance killer's info will be shared to other AI
 
-	DMS_ai_nighttime_accessory_chance	= 75;						// Percentage chance that AI will have a flashlight or laser pointer on their guns if spawned during nighttime
+	DMS_ai_nighttime_accessory_chance	= 50;						// Percentage chance that AI will have a flashlight or laser pointer on their guns if spawned during nighttime
 	DMS_ai_enable_water_equipment		= true;						// Enable/disable overriding default weapons of an AI if it spawns on/in water
 
 	// https://community.bistudio.com/wiki/AI_Sub-skills#general
@@ -426,14 +463,25 @@ DMS_SpawnMissions_Scheduled = false;	// Whether or not to spawn missions in a sc
 											"arifle_TRG21_F",
 											"arifle_TRG20_F",
 											"arifle_Mk20_plain_F",
-											"arifle_Mk20_F"
+											"arifle_Mk20_F",
+											"Exile_Weapon_AK107",
+											"Exile_Weapon_AK107_GL",
+											"Exile_Weapon_AK74_GL",
+											"Exile_Weapon_AK47",
+											"Exile_Weapon_AKM",
+											"Exile_Weapon_AKS",
+											"Exile_Weapon_AKS_Gold"
 										];
 	DMS_assault_pistols =				[							// Pistols for Assault Class (Set to empty array if you don't want to give them any pistols)
 											"hgun_ACPC2_F",
 											"hgun_Rook40_F",
 											"hgun_P07_F",
 											"hgun_Pistol_heavy_01_F",
-											"hgun_Pistol_heavy_02_F"
+											"hgun_Pistol_heavy_02_F",
+											"Exile_Weapon_Colt1911",
+											"Exile_Weapon_Makarov",
+											"Exile_Weapon_Taurus",
+											"Exile_Weapon_TaurusGold"
 										];
 	DMS_assault_optics =				[							// Optics for Assault Class
 											"optic_Arco",
@@ -454,6 +502,15 @@ DMS_SpawnMissions_Scheduled = false;	// Whether or not to spawn missions in a sc
 										];
 	DMS_assault_equipment =				[							// Equipment for Assault Class AI (stuff that goes in toolbelt slots)
 											"ItemGPS"
+										];
+	DMS_assault_RandItemCount =			2;							// How many random items to add to the AI's inventory.
+	DMS_assault_RandItems =				[							// The random items that will be added to the AI's inventory.
+											"Exile_Item_Catfood_Cooked",
+											"Exile_Item_Surstromming_Cooked",
+											"Exile_Item_PowerDrink",
+											"Exile_Item_EnergyDrink",
+											"Exile_Item_Vishpirin",
+											"Exile_Item_Bandage"
 										];
 	DMS_assault_helmets	=				[							// Helmets for Assault Class
 											"H_HelmetSpecB_paint1",
@@ -500,16 +557,26 @@ DMS_SpawnMissions_Scheduled = false;	// Whether or not to spawn missions in a sc
 
 	//Machine Gun Class
 	DMS_MG_weps	=						[							// Machine Guns
+											#ifdef GIVE_AI_MARKSMAN_DLC_WEAPONS
+											"MMG_01_hex_F",
+											"MMG_02_black_F",
+											#endif
 											"LMG_Zafir_F",
 											"LMG_Mk200_F",
-											"arifle_MX_SW_Black_F"
+											"arifle_MX_SW_Black_F",
+											"Exile_Weapon_RPK",
+											"Exile_Weapon_PKP"
 										];
-	DMS_MG_pistols =					[							// Pistols for MG Class (Set to empty array if you don't want to give them any pistols)
+	DMS_MG_pistols =				[							// Pistols for Assault Class (Set to empty array if you don't want to give them any pistols)
 											"hgun_ACPC2_F",
 											"hgun_Rook40_F",
 											"hgun_P07_F",
 											"hgun_Pistol_heavy_01_F",
-											"hgun_Pistol_heavy_02_F"
+											"hgun_Pistol_heavy_02_F",
+											"Exile_Weapon_Colt1911",
+											"Exile_Weapon_Makarov",
+											"Exile_Weapon_Taurus",
+											"Exile_Weapon_TaurusGold"
 										];
 	DMS_MG_optics =						[							//	Optics for MG Class
 											"optic_Hamr",
@@ -529,6 +596,15 @@ DMS_SpawnMissions_Scheduled = false;	// Whether or not to spawn missions in a sc
 										];
 	DMS_MG_equipment =					[							// Equipment for MG Class AI (stuff that goes in toolbelt slots)
 											"Binocular"
+										];
+	DMS_MG_RandItemCount =				3;							// How many random items to add to the AI's inventory.
+	DMS_MG_RandItems =					[							// The random items that will be added to the AI's inventory.
+											"Exile_Item_EMRE",
+											"Exile_Item_Surstromming_Cooked",
+											"Exile_Item_PowerDrink",
+											"Exile_Item_PlasticBottleCoffee",
+											"Exile_Item_Vishpirin",
+											"Exile_Item_Instadoc"
 										];
 	DMS_MG_helmets =					[							// Helmets for MG Class
 											"H_PilotHelmetHeli_I",
@@ -582,19 +658,31 @@ DMS_SpawnMissions_Scheduled = false;	// Whether or not to spawn missions in a sc
 	//Sniper Class
 	DMS_sniper_weps =					[							// Sniper Rifles
 											"srifle_EBR_F",
-											"srifle_DMR_01_F",
 											"srifle_GM6_F",
 											"srifle_LRR_F",
-											"arifle_MXM_F",
 											"arifle_MXM_Black_F",
-											"srifle_DMR_02_F"
+											"srifle_DMR_01_F",
+											#ifdef GIVE_AI_MARKSMAN_DLC_WEAPONS
+											"srifle_DMR_02_F",
+											"srifle_DMR_03_woodland_F",
+											//"srifle_DMR_04_F",			// Does anybody like the ASP-1? :p
+											"srifle_DMR_05_blk_F",
+											"srifle_DMR_06_olive_F",
+											#endif
+											"Exile_Weapon_DMR",
+											"Exile_Weapon_SVD",
+											"Exile_Weapon_VSSVintorez"
 										];
-	DMS_sniper_pistols =				[							// Pistols for Sniper Class (Set to empty array if you don't want to give them any pistols)
+	DMS_sniper_pistols =				[							// Pistols for Assault Class (Set to empty array if you don't want to give them any pistols)
 											"hgun_ACPC2_F",
 											"hgun_Rook40_F",
 											"hgun_P07_F",
 											"hgun_Pistol_heavy_01_F",
-											"hgun_Pistol_heavy_02_F"
+											"hgun_Pistol_heavy_02_F",
+											"Exile_Weapon_Colt1911",
+											"Exile_Weapon_Makarov",
+											"Exile_Weapon_Taurus",
+											"Exile_Weapon_TaurusGold"
 										];
 	DMS_sniper_optics =					[							// Optics for Sniper Class
 											"optic_SOS",
@@ -615,6 +703,14 @@ DMS_SpawnMissions_Scheduled = false;	// Whether or not to spawn missions in a sc
 	DMS_sniper_equipment =				[							// Equipment for Sniper Class AI (stuff that goes in toolbelt slots)
 											"Rangefinder",
 											"ItemGPS"
+										];
+	DMS_sniper_RandItemCount =			3;							// How many random items to add to the AI's inventory.
+	DMS_sniper_RandItems =				[							// The random items that will be added to the AI's inventory.
+											"Exile_Item_EMRE",
+											"Exile_Item_PlasticBottleCoffee",
+											"Exile_Item_CanOpener",
+											"Exile_Item_Instadoc",
+											"Exile_Item_DuctTape"
 										];
 	DMS_sniper_helmets =				[							// Helmets for Sniper Class
 											"H_HelmetSpecB_paint1",
@@ -764,7 +860,18 @@ DMS_SpawnMissions_Scheduled = false;	// Whether or not to spawn missions in a sc
 											]
 										];
 	DMS_BoxWeapons =					[							// List of weapons that can spawn in a crate
+											#ifdef USE_MARKSMAN_DLC_WEAPONS_IN_CRATES
+											"srifle_DMR_02_F",
+											"srifle_DMR_03_woodland_F",
+											//"srifle_DMR_04_F",			// ASP-1 Kir
+											"srifle_DMR_05_blk_F",
+											"srifle_DMR_06_olive_F",
+											"MMG_01_hex_F",
+											"MMG_02_black_F",
+											#endif
 											"Exile_Melee_Axe",
+											"Exile_Melee_SledgeHammmer",
+											"Exile_Item_Shovel",
 											"arifle_Katiba_GL_F",
 											"arifle_MX_GL_Black_F",
 											"arifle_Mk20_GL_F",
@@ -775,16 +882,29 @@ DMS_SpawnMissions_Scheduled = false;	// Whether or not to spawn missions in a sc
 											"arifle_TRG20_F",
 											"arifle_Mk20_plain_F",
 											"arifle_Mk20_F",
+											"Exile_Weapon_AK107",
+											"Exile_Weapon_AK107_GL",
+											"Exile_Weapon_AK74_GL",
+											"Exile_Weapon_AK47",
+											"Exile_Weapon_AKM",
+											"Exile_Weapon_AKS",
+											"Exile_Weapon_AKS_Gold",
 											"LMG_Zafir_F",
 											"LMG_Mk200_F",
 											"arifle_MX_SW_Black_F",
+											"Exile_Weapon_RPK",
+											"Exile_Weapon_PK",
+											"Exile_Weapon_PKP",
 											"srifle_EBR_F",
 											"srifle_DMR_01_F",
 											"srifle_GM6_F",
 											"srifle_LRR_F",
-											"arifle_MXM_F",
 											"arifle_MXM_Black_F",
-											"srifle_DMR_02_F"
+											"Exile_Weapon_DMR",
+											"Exile_Weapon_SVD",
+											"Exile_Weapon_VSSVintorez",
+											"Exile_Weapon_CZ550",
+											"Exile_Weapon_SVDCamo"
 										];
 	DMS_BoxFood =						[							// List of food that can spawn in a crate.
 											"Exile_Item_GloriousKnakworst_Cooked",
@@ -793,14 +913,22 @@ DMS_SpawnMissions_Scheduled = false;	// Whether or not to spawn missions in a sc
 											"Exile_Item_ChristmasTinner_Cooked",
 											"Exile_Item_BBQSandwich_Cooked",
 											"Exile_Item_Catfood_Cooked",
-											"Exile_Item_DogFood_Cooked"
+											"Exile_Item_DogFood_Cooked",
+											"Exile_Item_EMRE",
+											"Exile_Item_BeefParts",
+											"Exile_Item_Noodles",
+											"Exile_Item_SeedAstics",
+											"Exile_Item_Raisins",
+											"Exile_Item_Moobar",
+											"Exile_Item_InstantCoffee"
 										];
 	DMS_BoxDrinks =						[
 											"Exile_Item_PlasticBottleCoffee",
 											"Exile_Item_PowerDrink",
 											"Exile_Item_PlasticBottleFreshWater",
 											"Exile_Item_EnergyDrink",
-											"Exile_Item_MountainDupe"
+											"Exile_Item_MountainDupe",
+											"Exile_Item_ChocolateMilk"
 										];
 	DMS_BoxMeds =						[
 											"Exile_Item_InstaDoc",
@@ -813,26 +941,59 @@ DMS_SpawnMissions_Scheduled = false;	// Whether or not to spawn missions in a sc
 											"Exile_Melee_Axe",
 											"Exile_Item_CanOpener"
 										] + DMS_BoxFood + DMS_BoxDrinks + DMS_BoxMeds;
-	DMS_BoxBaseParts =					[
-											"Exile_Item_CamoTentKit",
+	DMS_Box_BaseParts_Wood =			[							// List of wooden base parts.
 											"Exile_Item_WoodWallKit",
 											"Exile_Item_WoodWallHalfKit",
-											"Exile_Item_WoodDoorwayKit",
+											"Exile_Item_WoodWindowKit",
 											"Exile_Item_WoodDoorKit",
+											"Exile_Item_WoodDoorwayKit",
+											"Exile_Item_WoodGateKit",
 											"Exile_Item_WoodFloorKit",
 											"Exile_Item_WoodFloorPortKit",
-											"Exile_Item_WoodStairsKit",
-											"Exile_Item_WoodSupportKit",
-											"Exile_Item_FortificationUpgrade"
+											"Exile_Item_WoodStairsKit"
 										];
+	DMS_Box_BaseParts_Concrete =		[							// List of concrete base parts
+											"Exile_Item_ConcreteWallKit",
+											"Exile_Item_ConcreteWindowKit",
+											"Exile_Item_ConcreteDoorKit",
+											"Exile_Item_ConcreteDoorwayKit",
+											"Exile_Item_ConcreteGateKit",
+											"Exile_Item_ConcreteFloorKit",
+											"Exile_Item_ConcreteFloorPortKit",
+											"Exile_Item_ConcreteStairsKit"
+										];
+	DMS_BoxBaseParts =					[							// List of all base parts to spawn. Weighted towards wood base parts.
+											"Exile_Item_FortificationUpgrade",
+											"Exile_Item_FortificationUpgrade",
+											"Exile_Item_SandBagsKit_Long",
+											"Exile_Item_SandBagsKit_Long",
+											"Exile_Item_SandBagsKit_Corner",
+											"Exile_Item_SandBagsKit_Corner",
+											"Exile_Item_HBarrier5Kit"
+										] + DMS_Box_BaseParts_Wood + DMS_Box_BaseParts_Wood + DMS_Box_BaseParts_Wood + DMS_Box_BaseParts_Concrete;
 	DMS_BoxCraftingMaterials =			[
-											"Exile_Item_MetalPole",
+											"Exile_Item_Cement",
+											"Exile_Item_Sand",
+											"Exile_Item_Sand",
+											"Exile_Item_WaterCanisterDirtyWater",
 											"Exile_Item_MetalBoard",
-											"Exile_Item_JunkMetal"
+											"Exile_Item_MetalPole",
+											"Exile_Item_MetalPole",
+											"Exile_Item_JunkMetal",
+											"Exile_Item_JunkMetal",
+											"Exile_Item_JunkMetal",
+											"Exile_Item_WoodPlank",
+											"Exile_Item_WoodPlank",
+											"Exile_Item_WoodPlank",
+											"Exile_Item_WoodPlank"
 										];
 	DMS_BoxTools =						[
 											"Exile_Item_Grinder",
-											"Exile_Item_Handsaw"
+											"Exile_Item_Handsaw",
+											"Exile_Item_CanOpener",
+											"Exile_Item_Pliers",
+											"Exile_Item_Screwdriver",
+											"Exile_Item_Foolbox"
 										];
 	DMS_BoxBuildingSupplies	=			[							// List of building supplies that can spawn in a crate ("DMS_BoxBaseParts", "DMS_BoxCraftingMaterials", and "DMS_BoxTools" are automatically added to this list. "DMS_BoxCraftingMaterials" is added twice for weight.)
 											"Exile_Item_DuctTape",
@@ -859,6 +1020,15 @@ DMS_SpawnMissions_Scheduled = false;	// Whether or not to spawn missions in a sc
 											"B_Bergen_blk"
 										];
 	DMS_BoxItems						= DMS_BoxSurvivalSupplies+DMS_BoxBuildingSupplies+DMS_BoxOptics;	// Random "items" can spawn optics, survival supplies, or building supplies
+
+	DMS_Box_BreachingCharges =			[							// List of breaching charges (weighted). Not used (yet).
+											"BreachingChargeBigMomma",
+											"BreachingChargeMetal",
+											"BreachingChargeMetal",
+											"BreachingChargeWood",
+											"BreachingChargeWood",
+											"BreachingChargeWood"
+										];
 
 	DMS_RareLoot						= true;						// Potential chance to spawn rare loot in any crate.
 	DMS_RareLootAmount					= 1;						// How many rare loot items to add.
@@ -917,7 +1087,7 @@ DMS_SpawnMissions_Scheduled = false;	// Whether or not to spawn missions in a sc
 										];
 
 	DMS_ReinforcementHelis =			[							// List of helis that can spawn for AI paratrooper reinforcements.
-											"Exile_Chopper_Huey_Armed_Green"
+											//"B_Heli_Transport_01_camo_F"		// Ghosthawk: You'll have to whitelist this in infistar if you want to use it.
 										] + DMS_TransportHelis;
 
 	DMS_CarThievesVehicles =			[							// List of vehicles that can spawn in the "car thieves" mission. By default, it's just "DMS_MilitaryVehicles" and "DMS_TransportTrucks".

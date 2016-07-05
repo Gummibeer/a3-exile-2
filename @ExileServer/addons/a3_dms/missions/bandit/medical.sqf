@@ -1,11 +1,8 @@
 /*
-	Medical Mission with new difficulty selection system
-	Hardcore has 50% for persistent vehicle
-	Created by Defent and eraser1
-	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
+	Sample mission
 */
 
-private ["_num", "_side", "_OK", "_group", "_pos", "_difficulty", "_AICount", "_type", "_launcher", "_crate", "_building", "_vehicle", "_pinCode", "_crate_loot_values", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_crate_weapons", "_crate_weapon_list", "_crate_items", "_crate_item_list", "_crate_backpacks", "_PossibleDifficulty", "_CoinTossP", "_CoinToss"];
+private ["_num", "_side", "_OK", "_group", "_pos", "_difficulty", "_AICount", "_type", "_launcher", "_crate", "_building", "_vehicle", "_crate_loot_values", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup"];
 
 // For logging purposes
 _num = DMS_MissionCount;
@@ -43,63 +40,18 @@ if !(_OK) exitWith
 };
 
 
-//create possible difficulty add more of one difficulty to weight it towards that
-_PossibleDifficulty		= 	[	
-								"easy",
-								"easy",
-								"easy",
-								"easy",
-								"moderate",
-								"moderate",
-								"difficult",
-								"hardcore"
-							];
-//choose difficulty and set value
-_difficulty = _PossibleDifficulty call BIS_fnc_selectRandom;
+// Set general mission difficulty
+_difficulty = "easy";
 
-//easy
-if (_difficulty isEqualTo "easy") then {
-_msgStart = ['#FFFF00',"A group of deranged noob doctors have set up a field hospital. Seize it for your own!"];
-_AICount = (4 + (round (random 2)));
-_crate_weapons 		= (1 + (round (random 1)));
-_crate_items 		= (2 + (round (random 4)));
-_crate_item_list	= ["Exile_Item_InstaDoc","Exile_Item_PlasticBottleFreshWater","Exile_Item_Bandage","Exile_Item_PlasticBottleFreshWater","Exile_Item_Vishpirin","Exile_Item_PlasticBottleFreshWater","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_InstaDoc","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_Bandage","Exile_Item_Vishpirin"];
-_crate_backpacks	= 1;
-								};
-//moderate
-if (_difficulty isEqualTo "moderate") then {
-_msgStart = ['#FFFF00',"A group of deranged doctors have set up a field hospital. Seize it for your own!"];
-_AICount = (4 + (round (random 4)));
-_crate_weapons 		= (2 + (round (random 1)));
-_crate_items 		= (4 + (round (random 6)));
-_crate_item_list	= ["Exile_Item_InstaDoc","Exile_Item_PlasticBottleFreshWater","Exile_Item_Bandage","Exile_Item_PlasticBottleFreshWater","Exile_Item_Vishpirin","Exile_Item_PlasticBottleFreshWater","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_InstaDoc","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_Bandage","Exile_Item_Vishpirin"];
-_crate_backpacks	= 2;
-								};
-//difficult
-if (_difficulty isEqualTo "difficult") then {
-_msgStart = ['#FFFF00',"A group of deranged skilled doctors have set up a field hospital. Seize it for your own!"];
-_AICount = (6 + (round (random 4)));
-_crate_weapons 		= (3 + (round (random 1)));
-_crate_items 		= (6 + (round (random 6)));
-_crate_item_list	= ["Exile_Item_InstaDoc","Exile_Item_PlasticBottleFreshWater","Exile_Item_Bandage","Exile_Item_PlasticBottleFreshWater","Exile_Item_Vishpirin","Exile_Item_PlasticBottleFreshWater","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_InstaDoc","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_Bandage","Exile_Item_Vishpirin"];
-_crate_backpacks	= 3;
-								};
-//hardcore								
-if (_difficulty isEqualTo "hardcore") then {
-_msgStart = ['#FFFF00',"A group of deranged hardcore doctors have set up a field hospital. Seize it for your own!"];
-_AICount = (6 + (round (random 4)));
-_crate_weapons 		= (4 + (round (random 2)));
-_crate_items 		= (8 + (round (random 8)));
-_crate_item_list	= ["Exile_Item_InstaDoc","Exile_Item_PlasticBottleFreshWater","Exile_Item_Bandage","Exile_Item_PlasticBottleFreshWater","Exile_Item_Vishpirin","Exile_Item_PlasticBottleFreshWater","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_InstaDoc","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_Bandage","Exile_Item_Vishpirin"];
-_crate_backpacks	= 4;
-								};
 
+// Create AI
+_AICount = 4 + (round (random 2));
 
 _group =
 [
 	_pos,					// Position of AI
 	_AICount,				// Number of AI
-	_difficulty,			// "random","hardcore","difficult","moderate", or "easy"
+	"difficult",			// "random","hardcore","difficult","moderate", or "easy"
 	"random", 				// "random","assault","MG","sniper" or "unarmed" OR [_type,_launcher]
 	_side 					// "bandit","hero", etc.
 ] call DMS_fnc_SpawnAIGroup;
@@ -108,37 +60,19 @@ _group =
 // Create Crate
 _crate = ["Box_NATO_Wps_F",_pos] call DMS_fnc_SpawnCrate;
 
-_building = createVehicle ["Land_Medevac_HQ_V1_F",[(_pos select 0) - 30, (_pos select 1),-10],[], 0, "CAN_COLLIDE"];
+_building = createVehicle ["Land_Medevac_HQ_V1_F",[(_pos select 0) - 10, (_pos select 1),-0.1],[], 0, "CAN_COLLIDE"];
 
+_vehicle = ["I_Truck_02_medical_F",_pos] call DMS_fnc_SpawnNonPersistentVehicle;
 
-
-// If difficulty is hardcore then 50/50 chance to spawn persistent vehicle
-_CoinTossP = ["Heads", "Tails"];
-_CoinToss = _CoinTossP call BIS_fnc_selectRandom;
-
-if (_difficulty isEqualTo "hardcore") then {
-									if (_CoinToss isEqualTo "Heads") then {
-																				_pinCode = (1000 +(round (random 8999)));
-																				_vehicle = ["I_Truck_02_medical_F",_pos,_pinCode] call DMS_fnc_SpawnPersistentVehicle;
-																				_msgWIN = ['#0080ff',format ["Convicts have claimed the medical supplies for their own, vehicle entry code %1...",_pinCode]];
-																			} else
-																			{
-																				_vehicle = ["I_Truck_02_medical_F",_pos] call DMS_fnc_SpawnNonPersistentVehicle;
-																				_msgWIN = ['#0080ff',"Convicts have claimed the medical supplies for their own!"];
-																			};
-										} else
-										{
-											_vehicle = ["I_Truck_02_medical_F",_pos] call DMS_fnc_SpawnNonPersistentVehicle;
-											_msgWIN = ['#0080ff',"Convicts have claimed the medical supplies for their own!"];
-										};
 
 // Set crate loot values
 _crate_loot_values =
 [
-	_crate_weapons,								// Weapons
-	[_crate_items,_crate_item_list],			// Items + selection list
-	_crate_backpacks 							// Backpacks
+	5,		// Weapons
+	[9,["Exile_Item_InstaDoc","Exile_Item_PlasticBottleFreshWater"]],		// Items
+	3 		// Backpacks
 ];
+
 
 // Define mission-spawned AI Units
 _missionAIUnits =
@@ -149,14 +83,16 @@ _missionAIUnits =
 // Define mission-spawned objects and loot values
 _missionObjs =
 [
-	[_building],			// Medevac
+	[_building],			// No spawned buildings
 	[_vehicle],
 	[[_crate,_crate_loot_values]]
 ];
 
-// define start messages in difficulty choice
+// Define Mission Start message
+_msgStart = ['#FFFF00',"A group of deranged doctors have set up a field hospital. Seize it for your own!"];
 
-// Define Mission Win message defined in persistent choice
+// Define Mission Win message
+_msgWIN = ['#0080ff',"Convicts have claimed the medical supplies for their own!"];
 
 // Define Mission Lose message
 _msgLOSE = ['#FF0000',"Hawkeye has ran off with the medical supplies! Everything is gone!"];
@@ -230,8 +166,11 @@ if !(_added) exitWith
 	DMS_MissionCount = DMS_MissionCount - 1;
 };
 
+
 // Notify players
 [_missionName,_msgStart] call DMS_fnc_BroadcastMissionStatus;
+
+
 
 if (DMS_DEBUG) then
 {

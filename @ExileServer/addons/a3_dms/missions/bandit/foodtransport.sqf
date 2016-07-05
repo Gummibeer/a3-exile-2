@@ -1,10 +1,11 @@
 /*
-	Food Transport Mission with new difficulty selection system
+	Sample mission
 	Created by Defent and eraser1
-	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
+
+	Called from DMS_selectMission
 */
 
-private ["_num", "_side", "_OK", "_pos", "_difficulty", "_AICount", "_group", "_type", "_launcher", "_crate1", "_wreck", "_crate_loot_values1", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_crate_weapons", "_crate_weapon_list", "_crate_items", "_crate_item_list", "_crate_backpacks", "_PossibleDifficulty"];
+private ["_num", "_side", "_OK", "_pos", "_difficulty", "_AICount", "_group", "_type", "_launcher", "_crate1", "_wreck", "_crate_loot_values1", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup"];
 
 // For logging purposes
 _num = DMS_MissionCount;
@@ -42,64 +43,18 @@ if !(_OK) exitWith
 };
 
 
-//create possible difficulty add more of one difficulty to weight it towards that
-_PossibleDifficulty		= 	[	
-								"easy",
-								"easy",
-								"easy",
-								"easy",
-								"moderate",
-								"moderate",
-								"moderate",
-								"difficult",
-								"hardcore"
-							];
-//choose difficulty and set value
-_difficulty = _PossibleDifficulty call BIS_fnc_selectRandom;
+// Set general mission difficulty
+_difficulty = "difficult";
 
-//easy
-if (_difficulty isEqualTo "easy") then {
-_msgStart = ['#FFFF00',"A food supply truck has been seized by noob bandits. Stop them!"];
-_AICount = (4 + (round (random 2)));
-_crate_weapons 		= (1 + (round (random 3)));
-_crate_items 		= (3 + (round (random 4)));
-_crate_item_list	= ["Exile_Item_GloriousKnakWorst_Cooked","Exile_Item_PlasticBottleFreshWater","Exile_Item_PlasticBottleFreshWater","Exile_Item_BBQSandwich_Cooked","Exile_Item_Catfood_Cooked","Exile_Item_ChristmasTinner_Cooked"];
-_crate_backpacks 	= 1;
-								};
-//moderate
-if (_difficulty isEqualTo "moderate") then {
-_msgStart = ['#FFFF00',"A food supply truck has been seized by bandits. Stop them!"];
-_AICount = (6 + (round (random 2)));
-_crate_weapons 		= (2 + (round (random 3)));
-_crate_items 		= (4 + (round (random 6)));
-_crate_item_list	= ["Exile_Item_GloriousKnakWorst_Cooked","Exile_Item_PlasticBottleFreshWater","Exile_Item_PlasticBottleFreshWater","Exile_Item_BBQSandwich_Cooked","Exile_Item_Catfood_Cooked","Exile_Item_ChristmasTinner_Cooked"];
-_crate_backpacks 	= 2;
-								};
-//difficult
-if (_difficulty isEqualTo "difficult") then {
-_msgStart = ['#FFFF00',"A food supply truck has been seized by ruthless bandits. Stop them!"];
-_AICount = (6 + (round (random 4)));
-_crate_weapons 		= (3 + (round (random 3)));
-_crate_items 		= (6 + (round (random 6)));
-_crate_item_list	= ["Exile_Item_GloriousKnakWorst_Cooked","Exile_Item_PlasticBottleFreshWater","Exile_Item_PlasticBottleFreshWater","Exile_Item_BBQSandwich_Cooked","Exile_Item_Catfood_Cooked","Exile_Item_ChristmasTinner_Cooked"];
-_crate_backpacks 	= 3;
-								};
-//hardcore								
-if (_difficulty isEqualTo "hardcore") then {
-_msgStart = ['#FFFF00',"A food supply truck has been seized by hardcore bandits. Stop them!"];
-_AICount = (6 + (round (random 4)));
-_crate_weapons 		= (4 + (round (random 3)));
-_crate_items 		= (8 + (round (random 8)));
-_crate_item_list	= ["Exile_Item_GloriousKnakWorst_Cooked","Exile_Item_PlasticBottleFreshWater","Exile_Item_PlasticBottleFreshWater","Exile_Item_BBQSandwich_Cooked","Exile_Item_Catfood_Cooked","Exile_Item_ChristmasTinner_Cooked"];
-_crate_backpacks 	= 4;
-								};
 
+// Create AI
+_AICount = 6 + (round (random 2));
 
 _group =
 [
 	_pos,					// Position of AI
 	_AICount,				// Number of AI
-	_difficulty,			// "random","hardcore","difficult","moderate", or "easy"
+	"random",				// "random","hardcore","difficult","moderate", or "easy"
 	"random", 				// "random","assault","MG","sniper" or "unarmed" OR [_type,_launcher]
 	_side 					// "bandit","hero", etc.
 ] call DMS_fnc_SpawnAIGroup;
@@ -113,9 +68,9 @@ _wreck = createVehicle ["Land_Wreck_Van_F",[(_pos select 0) - 10, (_pos select 1
 // Set crate loot values
 _crate_loot_values1 =
 [
-	_crate_weapons,							// Weapons
-	[_crate_items,_crate_item_list],		// Items
-	_crate_backpacks 						// Backpacks
+	2,		// Weapons
+	[12,["Exile_Item_GloriousKnakWorst_Cooked","Exile_Item_PlasticBottleFreshWater","Exile_Item_PlasticBottleFreshWater","Exile_Item_BBQSandwich_Cooked","Exile_Item_Catfood_Cooked","Exile_Item_ChristmasTinner_Cooked"]],		// Items
+	2 		// Backpacks
 ];
 
 
@@ -133,7 +88,8 @@ _missionObjs =
 	[[_crate1,_crate_loot_values1]]
 ];
 
-// define start messages in difficulty choice
+// Define Mission Start message
+_msgStart = ['#FFFF00',"A food supply truck has been seized by ruthless bandits. Stop them!"];
 
 // Define Mission Win message
 _msgWIN = ['#0080ff',"Convicts have successfully claimed the food supplies!"];

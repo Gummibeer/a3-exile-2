@@ -44,7 +44,7 @@ if !(_OK) exitWith
 
 
 //create possible difficulty add more of one difficulty to weight it towards that
-_PossibleDifficulty		= 	[	
+_PossibleDifficulty		= 	[
 								"easy",
 								"easy",
 								"moderate",
@@ -56,48 +56,50 @@ _PossibleDifficulty		= 	[
 								"hardcore"
 							];
 //choose difficulty and set value
-_difficulty = _PossibleDifficulty call BIS_fnc_selectRandom;
+_difficulty = selectRandom _PossibleDifficulty;
 
-//easy
-if (_difficulty isEqualTo "easy") then {
-_msgStart = ['#FFFF00',"An easy research camp has been spotted, find out what they are up to"];
-_AICount = (4 + (round (random 4)));
-_crate_weapons 		= (4 + (round (random 2)));
+switch (_difficulty) do
+{
+	case "easy":
+	{
+		_AICount = (4 + (round (random 4)));
+		_crate_weapons 		= (4 + (round (random 2)));
+		_crate_items 		= (3 + (round (random 3)));
+		_crate_backpacks 	= (1 + (round (random 1)));
+	};
+
+	case "moderate":
+	{
+		_AICount = (4 + (round (random 6)));
+		_crate_weapons 		= (6 + (round (random 3)));
+		_crate_items 		= (6 + (round (random 3)));
+		_crate_backpacks 	= (2 + (round (random 1)));
+	};
+
+	case "difficult":
+	{
+		_AICount = (6 + (round (random 6)));
+		_crate_weapons 		= (8 + (round (random 3)));
+		_crate_items 		= (8 + (round (random 4)));
+		_crate_backpacks 	= (3 + (round (random 1)));
+	};
+
+	//case "hardcore":
+	default
+	{
+		_AICount = (8 + (round (random 8)));
+		_crate_weapons 		= (10 + (round (random 6)));
+		_crate_items 		= (15 + (round (random 8)));
+		_crate_backpacks 	= (4 + (round (random 1)));
+	};
+};
+
+//_msgStart = ['#FFFF00',format["A %1 research camp has been spotted, find out what they are up to",_difficulty]];
+_msgStart = ['#FFFF00',"A research camp has been spotted, find out what they are up to"];
+
 _crate_weapon_list	= ["arifle_SDAR_F","arifle_MX_GL_Black_F","MMG_01_hex_F","MMG_01_tan_F","MMG_02_black_F","MMG_02_camo_F","MMG_02_sand_F","hgun_PDW2000_F","SMG_01_F","hgun_Pistol_heavy_01_F","hgun_Pistol_heavy_02_F"];
-_crate_items 		= (3 + (round (random 3)));
 _crate_item_list	= ["H_HelmetLeaderO_ocamo","H_HelmetLeaderO_ocamo","H_HelmetLeaderO_oucamo","H_HelmetLeaderO_oucamo","U_B_survival_uniform","U_B_Wetsuit","U_O_Wetsuit","U_I_Wetsuit","H_HelmetB_camo","H_HelmetSpecB","H_HelmetSpecO_blk","Exile_Item_EMRE","Exile_Item_InstantCoffee","Exile_Item_PowerDrink","Exile_Item_InstaDoc"];
-_crate_backpacks 	= (1 + (round (random 1)));
-								};
-//moderate
-if (_difficulty isEqualTo "moderate") then {
-_msgStart = ['#FFFF00',"A moderate research camp has been spotted, find out what they are up to"];
-_AICount = (4 + (round (random 6)));
-_crate_weapons 		= (6 + (round (random 3)));
-_crate_weapon_list	= ["arifle_SDAR_F","arifle_MX_GL_Black_F","MMG_01_hex_F","MMG_01_tan_F","MMG_02_black_F","MMG_02_camo_F","MMG_02_sand_F","hgun_PDW2000_F","SMG_01_F","hgun_Pistol_heavy_01_F","hgun_Pistol_heavy_02_F"];
-_crate_items 		= (6 + (round (random 3)));
-_crate_item_list	= ["H_HelmetLeaderO_ocamo","H_HelmetLeaderO_ocamo","H_HelmetLeaderO_oucamo","H_HelmetLeaderO_oucamo","U_B_survival_uniform","U_B_Wetsuit","U_O_Wetsuit","U_I_Wetsuit","H_HelmetB_camo","H_HelmetSpecB","H_HelmetSpecO_blk","Exile_Item_EMRE","Exile_Item_InstantCoffee","Exile_Item_PowerDrink","Exile_Item_InstaDoc"];
-_crate_backpacks 	= (2 + (round (random 1)));					
-								};
-//difficult
-if (_difficulty isEqualTo "difficult") then {
-_msgStart = ['#FFFF00',"A difficult research camp has been spotted, find out what they are up to"];
-_AICount = (6 + (round (random 6)));
-_crate_weapons 		= (8 + (round (random 3)));
-_crate_weapon_list	= ["arifle_SDAR_F","arifle_MX_GL_Black_F","MMG_01_hex_F","MMG_01_tan_F","MMG_02_black_F","MMG_02_camo_F","MMG_02_sand_F","hgun_PDW2000_F","SMG_01_F","hgun_Pistol_heavy_01_F","hgun_Pistol_heavy_02_F"];
-_crate_items 		= (8 + (round (random 4)));
-_crate_item_list	= ["H_HelmetLeaderO_ocamo","H_HelmetLeaderO_ocamo","H_HelmetLeaderO_oucamo","H_HelmetLeaderO_oucamo","U_B_survival_uniform","U_B_Wetsuit","U_O_Wetsuit","U_I_Wetsuit","H_HelmetB_camo","H_HelmetSpecB","H_HelmetSpecO_blk","Exile_Item_EMRE","Exile_Item_InstantCoffee","Exile_Item_PowerDrink","Exile_Item_InstaDoc"];
-_crate_backpacks 	= (3 + (round (random 1)));
-								};
-//hardcore								
-if (_difficulty isEqualTo "hardcore") then {
-_msgStart = ['#FFFF00',"A hardcore research camp has been spotted, find out what they are up to"];
-_AICount = (8 + (round (random 8)));
-_crate_weapons 		= (10 + (round (random 6)));
-_crate_weapon_list	= ["arifle_SDAR_F","arifle_MX_GL_Black_F","MMG_01_hex_F","MMG_01_tan_F","MMG_02_black_F","MMG_02_camo_F","MMG_02_sand_F","hgun_PDW2000_F","SMG_01_F","hgun_Pistol_heavy_01_F","hgun_Pistol_heavy_02_F"];
-_crate_items 		= (15 + (round (random 8)));
-_crate_item_list	= ["H_HelmetLeaderO_ocamo","H_HelmetLeaderO_ocamo","H_HelmetLeaderO_oucamo","H_HelmetLeaderO_oucamo","U_B_survival_uniform","U_B_Wetsuit","U_O_Wetsuit","U_I_Wetsuit","H_HelmetB_camo","H_HelmetSpecB","H_HelmetSpecO_blk","Exile_Item_EMRE","Exile_Item_InstantCoffee","Exile_Item_PowerDrink","Exile_Item_InstaDoc"];
-_crate_backpacks 	= (4 + (round (random 1)));
-								};
+
 
 
 _group =
@@ -144,16 +146,18 @@ _baseObjs =
 	_pos
 ] call DMS_fnc_ImportFromM3E;
 
-// If hardcore give pincoded vehicle, if not give non persistent	
-if (_difficulty isEqualTo "hardcore") then {
-												_pinCode = (1000 +(round (random 8999)));
-												_vehicle = ["Exile_Car_Ural_Covered_Yellow",[(_pos select 0) -30, (_pos select 1) -0],_pinCode] call DMS_fnc_SpawnPersistentVehicle;
-												_msgWIN = ['#0080ff',format ["Convicts have taken over the research camp, vehicle entry code is %1...",_pinCode]];
-											} else
-											{
-												_vehicle = ["Exile_Car_Ural_Covered_Yellow",[(_pos select 0)-30,(_pos select 1)+0,0],[], 0, "CAN_COLLIDE"] call DMS_fnc_SpawnNonPersistentVehicle;
-												_msgWIN = ['#0080ff',"Convicts have taken over the research camp"];
-											};
+// If hardcore give pincoded vehicle, if not give non persistent
+if (_difficulty isEqualTo "hardcore") then
+{
+	_pinCode = (1000 +(round (random 8999)));
+	_vehicle = ["Exile_Car_Ural_Covered_Yellow",[(_pos select 0) -30, (_pos select 1) -0],_pinCode] call DMS_fnc_SpawnPersistentVehicle;
+	_msgWIN = ['#0080ff',format ["Convicts have taken over the research camp, vehicle entry code is %1...",_pinCode]];
+}
+else
+{
+	_vehicle = ["Exile_Car_Ural_Covered_Yellow",[(_pos select 0)-30,(_pos select 1)+0,0],[], 0, "CAN_COLLIDE"] call DMS_fnc_SpawnNonPersistentVehicle;
+	_msgWIN = ['#0080ff',"Convicts have taken over the research camp"];
+};
 
 // Create Crate type
 _crate1 = ["Box_NATO_Wps_F",_pos] call DMS_fnc_SpawnCrate;

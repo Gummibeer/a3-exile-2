@@ -18,10 +18,10 @@ SC_debug 				    = false;			    // set to true to turn on debug features (not fo
 SC_extendedLogging          = false;                // set to true for additional logging
 SC_processReporter          = false;                 // log the a list of active server processes every 60 seconds (useful for debugging server problems)
 SC_infiSTAR_log			    = false;		            // true Use infiSTAR logging, false logs to server rpt
-SC_maxAIcount 			    = 500;					// the maximum amount of AI, if the AI count is above this then additional AI won't spawn
+SC_maxAIcount 			    = 300;					// the maximum amount of AI, if the AI count is above this then additional AI won't spawn
 SC_mapMarkers			    = false;			    // Place map markers at the occupied areas (occupyPlaces and occupyMilitary only) true/false
-SC_minFPS 				    = 5;					// any lower than minFPS on the server and additional AI won't spawn
-SC_scaleAI 				    = 50; 					// any more than _scaleAI players on the server and _maxAIcount is reduced for each extra player
+SC_minFPS 				    = 10;					// any lower than minFPS on the server and additional AI won't spawn
+SC_scaleAI 				    = 5; 					// any more than _scaleAI players on the server and _maxAIcount is reduced for each extra player
 
 SC_removeUserMapMarkers     = false;                 // true to delete map markers placed by players every 10 seconds
 
@@ -40,7 +40,7 @@ SC_minDistanceToTerritory   = 250;                  // Minimum distance in metre
 SC_minDistanceToPlayer      = 250;                  // Minimum distance in metres to the nearest player
 
 
-SC_occupyRandomSpawn        = true;                // (WORK IN PROGRESS, NOT WORKING YET) true if you want random spawning AI that hunt for nearby players
+SC_occupyRandomSpawn        = false;                // (WORK IN PROGRESS, NOT WORKING YET) true if you want random spawning AI that hunt for nearby players
 SC_randomSpawnMinPlayers    = 1;                    // Minimum number of players to be online before random spawning AI can spawn
 SC_randomSpawnMaxAI         = 5;                    // Maximum amount of random AI groups allowed at any time
 SC_randomSpawnIgnoreCount	= false;					// true if you want spawn random AI groups regardless of overall AI count (they still count towards the total though)

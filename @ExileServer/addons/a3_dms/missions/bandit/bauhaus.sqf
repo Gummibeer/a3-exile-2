@@ -1,11 +1,11 @@
 /*
-	Bauhaus with new version of difficulty selection
+	Sample mission
 	Created by Defent and eraser1
-	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
+
+	Called from DMS_selectMission
 */
 
-
-private ["_num", "_side", "_pos", "_OK", "_difficulty", "_AICount", "_group", "_type", "_launcher", "_staticGuns", "_vehicle", "_class", "_veh", "_crate_loot_values", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_baseObjs", "_crate_weapons1", "_crate_weapon_list1", "_crate_items1", "_crate_item_list1", "_crate_backpacks1", "_PossibleDifficulty", "_crate1", "_crate2", "_wreck", "_crate_loot_values1", "_crate_loot_values2", "_crate_weapons2", "_crate_weapon_list2", "_crate_items2", "_crate_item_list2", "_crate_backpacks2"];
+private ["_num", "_side", "_pos", "_OK", "_difficulty", "_AICount", "_group", "_type", "_launcher", "_crate1", "_crate2", "_wreck", "_crate_loot_values1", "_crate_loot_values2", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup"];
 
 // For logging purposes
 _num = DMS_MissionCount;
@@ -42,65 +42,18 @@ if !(_OK) exitWith
 };
 
 
-//create possible difficulty add more of one difficulty to weight it towards that
-_PossibleDifficulty		= 	[	
-								"easy",
-								"moderate",
-								"moderate",
-								"difficult",
-								"difficult",
-								"hardcore"
-							];
-//choose difficulty and set value
-_difficulty = _PossibleDifficulty call BIS_fnc_selectRandom;
+// Set general mission difficulty
+_difficulty = "difficult";
 
-//easy
-if (_difficulty isEqualTo "easy") then {
-_AICount = (2 + (round (random 2)));
-_crate_weapons1 	= (1 + (round (random 1)));
-_crate_items1 		= (2 + (round (random 3)));
-_crate_backpacks1 	= 1;
-_crate_weapons2 	= (1 + (round (random 1)));
-_crate_items2 		= (3 + (round (random 3)));
-_crate_backpacks2 	= 1;
-								};
-//moderate
-if (_difficulty isEqualTo "moderate") then {
-_AICount = (4 + (round (random 2)));
-_crate_weapons1 	= (1 + (round (random 2)));
-_crate_items1 		= (5 + (round (random 5)));
-_crate_backpacks1 	= 2;
-_crate_weapons2 	= (1 + (round (random 2)));
-_crate_items2 		= (5 + (round (random 5)));
-_crate_backpacks2 	= 2;	
-								};
-//difficult
-if (_difficulty isEqualTo "difficult") then {
-_AICount = (6 + (round (random 2)));
-_crate_weapons1 	= (2 + (round (random 2)));
-_crate_items1 		= (10 + (round (random 6)));
-_crate_backpacks1 	= 2;
-_crate_weapons2 	= (1 + (round (random 2)));
-_crate_items2 		= (10 + (round (random 6)));
-_crate_backpacks2 	= 4;
-								};
-//hardcore								
-if (_difficulty isEqualTo "hardcore") then {
-_AICount = (6 + (round (random 4)));
-_crate_weapons1 	= (3 + (round (random 2)));
-_crate_items1 		= (15 + (round (random 6)));
-_crate_backpacks1 	= 3;
-_crate_weapons2 	= (2 + (round (random 2)));
-_crate_items2 		= (15 + (round (random 6)));
-_crate_backpacks2 	= 5;
-								};
 
-								
+// Create AI
+_AICount = 6 + (round (random 2));
+
 _group =
 [
 	_pos,					// Position of AI
 	_AICount,				// Number of AI
-	_difficulty,			// "random","hardcore","difficult","moderate", or "easy"
+	"random",				// "random","hardcore","difficult","moderate", or "easy"
 	"random", 				// "random","assault","MG","sniper" or "unarmed" OR [_type,_launcher]
 	_side 					// "bandit","hero", etc.
 ] call DMS_fnc_SpawnAIGroup;
@@ -115,15 +68,15 @@ _wreck = createVehicle ["Land_Wreck_Ural_F",[(_pos select 0) - 10, (_pos select 
 // Set crate loot values
 _crate_loot_values1 =
 [
-	_crate_weapons1 ,								// Weapons
-	[_crate_items1,DMS_BoxBuildingSupplies],		// Items
-	_crate_backpacks1						 		// Backpacks
+	2,		// Weapons
+	[15,DMS_BoxBuildingSupplies],		// Items
+	2 		// Backpacks
 ];
 _crate_loot_values2 =
 [
-	_crate_weapons2,								// Weapons
-	_crate_items2,									// Items
-	_crate_backpacks2								// Backpacks
+	1,		// Weapons
+	20,		// Items
+	5 		// Backpacks
 ];
 
 
@@ -141,7 +94,7 @@ _missionObjs =
 	[[_crate1,_crate_loot_values1],[_crate2,_crate_loot_values2]]
 ];
 
-// Define mission start message
+
 _msgStart = ['#FFFF00',"A Bauhaus truck has crashed and lost all its building supplies! Get there quickly!"];
 
 // Define Mission Win message

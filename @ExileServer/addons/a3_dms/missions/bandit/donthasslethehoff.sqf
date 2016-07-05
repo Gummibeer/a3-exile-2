@@ -1,11 +1,11 @@
 /*
-	Dont Hassel the Hoff Mission with new difficulty selection system
-	Persistent vehicle on hardcore
+	Sample mission
 	Created by Defent and eraser1
-	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
+
+	Called from DMS_selectMission
 */
 
-private ["_num", "_side", "_pos", "_OK", "_difficulty", "_AICount", "_group", "_type", "_launcher", "_staticGuns", "_crate1", "_wreck", "_vehClass", "_vehicle", "_pinCode", "_crate_loot_values1", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_crate_weapons", "_crate_weapon_list", "_crate_items", "_crate_item_list", "_crate_backpacks", "_PossibleDifficulty"];
+private ["_num", "_side", "_pos", "_OK", "_difficulty", "_AICount", "_group", "_type", "_launcher", "_staticGuns", "_crate1", "_wreck", "_vehClass", "_vehicle", "_crate_loot_values1", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup"];
 
 // For logging purposes
 _num = DMS_MissionCount;
@@ -43,55 +43,18 @@ if !(_OK) exitWith
 };
 
 
-//create possible difficulty add more of one difficulty to weight it towards that
-_PossibleDifficulty		= 	[	
-								"easy",
-								"easy",
-								"easy",
-								"moderate",
-								"moderate",
-								"difficult",
-								"difficult",
-								"hardcore"
-							];
-//choose difficulty and set value
-_difficulty = _PossibleDifficulty call BIS_fnc_selectRandom;
+// Set general mission difficulty
+_difficulty = "difficult";
 
-//easy
-if (_difficulty isEqualTo "easy") then {
-_AICount = (4 + (round (random 2)));
-_crate_weapons 		= (1 + (round (random 1)));
-_crate_items 		= (2 + (round (random 4)));
-_crate_backpacks 	= 1;
-								};
-//moderate
-if (_difficulty isEqualTo "moderate") then {
-_AICount = (4 + (round (random 4)));
-_crate_weapons 		= (2 + (round (random 1)));
-_crate_items 		= (4 + (round (random 7)));
-_crate_backpacks 	= 2;
-								};
-//difficult
-if (_difficulty isEqualTo "difficult") then {
-_AICount = (4 + (round (random 4)));
-_crate_weapons 		= (3 + (round (random 1)));
-_crate_items 		= (8 + (round (random 8)));
-_crate_backpacks 	= 3;
-								};
-//hardcore								
-if (_difficulty isEqualTo "hardcore") then {
-_AICount = (6 + (round (random 4)));
-_crate_weapons 		= (4 + (round (random 2)));
-_crate_items 		= (10 + (round (random 9)));
-_crate_backpacks 	= 4;
-								};
 
+// Create AI
+_AICount = 6 + (round (random 2));
 
 _group =
 [
 	_pos,					// Position of AI
 	_AICount,				// Number of AI
-	_difficulty,			// "random","hardcore","difficult","moderate", or "easy"
+	"random",				// "random","hardcore","difficult","moderate", or "easy"
 	"random", 				// "random","assault","MG","sniper" or "unarmed" OR [_type,_launcher]
 	_side 					// "bandit","hero", etc.
 ] call DMS_fnc_SpawnAIGroup;
@@ -137,24 +100,14 @@ _vehClass =
 			};
 		};
 	};
-	
-// If hardcore give pincoded vehicle, if not give non persistent	
-if (_difficulty isEqualTo "hardcore") then {
-												_pinCode = (1000 +(round (random 8999)));
-												_vehicle = [_vehClass,[(_pos select 0), (_pos select 1)],_pinCode] call DMS_fnc_SpawnPersistentVehicle;
-												_msgWIN = ['#0080ff',format ["Convicts secured KITT; that will show the bandits not to Hassle the Hoff, KITTs entry code is %1...",_pinCode]];
-											} else
-											{
-												_vehicle = [_vehClass,_pos] call DMS_fnc_SpawnNonPersistentVehicle;
-												_msgWIN = ['#0080ff',"Convicts secured KITT; that will show the bandits not to Hassle the Hoff!"];
-											};
+_vehicle = [_vehClass,_pos] call DMS_fnc_SpawnNonPersistentVehicle;
 
 // Set crate loot values
 _crate_loot_values1 =
 [
-	_crate_weapons,			// Weapons
-	_crate_items,			// Items
-	_crate_backpacks 		// Backpacks
+	8,		// Weapons
+	4,		// Items
+	2 		// Backpacks
 ];
 
 
@@ -175,7 +128,8 @@ _missionObjs =
 // Define Mission Start message
 _msgStart = ['#FFFF00',"KITT has been kidnapped! Secure the position and reclaim KITT!"];
 
-// Define Mission Win message in vehicle choice
+// Define Mission Win message
+_msgWIN = ['#0080ff',"Convicts secured KITT; that will show the bandits not to Hassle the Hoff!"];
 
 // Define Mission Lose message
 _msgLOSE = ['#FF0000',"KITT was never secured and has now been dismantled by the bandits... What a grim fate."];

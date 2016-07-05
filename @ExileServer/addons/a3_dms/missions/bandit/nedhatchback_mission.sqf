@@ -44,7 +44,7 @@ if !(_OK) exitWith
 
 
 //create possible difficulty add more of one difficulty to weight it towards that
-_PossibleDifficulty		= 	[	
+_PossibleDifficulty		= 	[
 								"easy",
 								"easy",
 								"easy",
@@ -56,40 +56,46 @@ _PossibleDifficulty		= 	[
 								"hardcore"
 							];
 //choose difficulty and set value
-_difficulty = _PossibleDifficulty call BIS_fnc_selectRandom;
+_difficulty = selectRandom _PossibleDifficulty;
 
-//easy
-if (_difficulty isEqualTo "easy") then {
+switch (_difficulty) do
+{
+	case "easy":
+	{
+		_AICount = (4 + (round (random 2)));
+		_crate_weapons 		= (1 + (round (random 2)));
+		_crate_items 		= (2 + (round (random 4)));
+		_crate_backpacks 	= (1 + (round (random 1)));
+	};
+
+	case "moderate":
+	{
+		_AICount = (4 + (round (random 4)));
+		_crate_weapons 		= (2 + (round (random 2)));
+		_crate_items 		= (3 + (round (random 4)));
+		_crate_backpacks 	= (2 + (round (random 1)));
+	};
+
+	case "difficult":
+	{
+		_AICount = (5 + (round (random 4)));
+		_crate_weapons 		= (3 + (round (random 2)));
+		_crate_items 		= (4 + (round (random 4)));
+		_crate_backpacks 	= (3 + (round (random 1)));
+	};
+
+	//case "hardcore":
+	default
+	{
+		_AICount = (6 + (round (random 4)));
+		_crate_weapons 		= (4 + (round (random 2)));
+		_crate_items 		= (5 + (round (random 4)));
+		_crate_backpacks 	= (4 + (round (random 1)));
+	};
+};
+
 _msgStart = ['#FFFF00',"Terrorists with a hatchback have broken down. Go kill them and steal the car"];
-_AICount = (4 + (round (random 2)));
-_crate_weapons 		= (1 + (round (random 2)));
-_crate_items 		= (2 + (round (random 4)));
-_crate_backpacks 	= (1 + (round (random 1)));
-								};
-//moderate
-if (_difficulty isEqualTo "moderate") then {
-_msgStart = ['#FFFF00',"Terrorists with a hatchback have broken down. Go kill them and steal the car"];	
-_AICount = (4 + (round (random 4)));
-_crate_weapons 		= (2 + (round (random 2)));
-_crate_items 		= (3 + (round (random 4)));
-_crate_backpacks 	= (2 + (round (random 1)));						
-								};
-//difficult
-if (_difficulty isEqualTo "difficult") then {
-_msgStart = ['#FFFF00',"Terrorists with a hatchback have broken down. Go kill them and steal the car"];
-_AICount = (5 + (round (random 4)));
-_crate_weapons 		= (3 + (round (random 2)));
-_crate_items 		= (4 + (round (random 4)));
-_crate_backpacks 	= (3 + (round (random 1)));	
-								};
-//hardcore								
-if (_difficulty isEqualTo "hardcore") then {
-_msgStart = ['#FFFF00',"Terrorists with a hatchback have broken down. Go kill them and steal the car"];
-_AICount = (6 + (round (random 4)));
-_crate_weapons 		= (4 + (round (random 2)));
-_crate_items 		= (5 + (round (random 4)));
-_crate_backpacks 	= (4 + (round (random 1)));
-								};
+
 
 
 _group =
@@ -105,7 +111,7 @@ _group =
 _veh =
 [
 	[
-[(_pos select 0) -75,(_pos select 1)+75,0]
+		[(_pos select 0) -75,(_pos select 1)+75,0]
 	],
 	_group,
 	"assault",
@@ -128,46 +134,46 @@ _staticGuns =
 	"bandit"
 ] call DMS_fnc_SpawnAIStaticMG;
 
-// If hardcore give possibility of better car	
-if (_difficulty isEqualTo "hardcore") then {
-_PossibleVehicleClass 		= [	
-								"Exile_Car_Hatchback_Sport_Red",
-								"Exile_Car_Hatchback_Sport_Blue",
-								"Exile_Car_Hatchback_Sport_Orange",
-								"Exile_Car_Hatchback_Sport_White",
-								"Exile_Car_Hatchback_Sport_Beige",
-								"Exile_Car_Hatchback_Sport_Green",
-								"Exile_Car_Hatchback_Green",
-								"Exile_Car_Hatchback_BlueCustom",
-								"Exile_Car_Hatchback_BeigeCustom",
-								"Exile_Car_Hatchback_Yellow",
-								"Exile_Car_Hatchback_Grey",
-								"Exile_Car_Hatchback_Black",
-								"Exile_Car_Hatchback_Dark"
-							];
-											} else
-											{
-_PossibleVehicleClass 		= [	
-								"Exile_Car_Hatchback_Beige",
-								"Exile_Car_Hatchback_Green",
-								"Exile_Car_Hatchback_Blue",
-								"Exile_Car_Hatchback_BlueCustom",
-								"Exile_Car_Hatchback_BeigeCustom",
-								"Exile_Car_Hatchback_Yellow",
-								"Exile_Car_Hatchback_Grey",
-								"Exile_Car_Hatchback_Black",
-								"Exile_Car_Hatchback_Dark",
-								"Exile_Car_Hatchback_Rusty1",
-								"Exile_Car_Hatchback_Rusty2",
-								"Exile_Car_Hatchback_Rusty3"
-							];
-											};
-//choose the vehicle
-_VehicleClass = _PossibleVehicleClass call BIS_fnc_selectRandom;
+// If hardcore give possibility of better car
+_PossibleVehicleClass =
+[
+	[
+		"Exile_Car_Hatchback_Beige",
+		"Exile_Car_Hatchback_Green",
+		"Exile_Car_Hatchback_Blue",
+		"Exile_Car_Hatchback_BlueCustom",
+		"Exile_Car_Hatchback_BeigeCustom",
+		"Exile_Car_Hatchback_Yellow",
+		"Exile_Car_Hatchback_Grey",
+		"Exile_Car_Hatchback_Black",
+		"Exile_Car_Hatchback_Dark",
+		"Exile_Car_Hatchback_Rusty1",
+		"Exile_Car_Hatchback_Rusty2",
+		"Exile_Car_Hatchback_Rusty3"
+	],
+	[
+		"Exile_Car_Hatchback_Sport_Red",
+		"Exile_Car_Hatchback_Sport_Blue",
+		"Exile_Car_Hatchback_Sport_Orange",
+		"Exile_Car_Hatchback_Sport_White",
+		"Exile_Car_Hatchback_Sport_Beige",
+		"Exile_Car_Hatchback_Sport_Green",
+		"Exile_Car_Hatchback_Green",
+		"Exile_Car_Hatchback_BlueCustom",
+		"Exile_Car_Hatchback_BeigeCustom",
+		"Exile_Car_Hatchback_Yellow",
+		"Exile_Car_Hatchback_Grey",
+		"Exile_Car_Hatchback_Black",
+		"Exile_Car_Hatchback_Dark"
+	]
+] select (_difficulty isEqualTo "hardcore");
 
-		
+//choose the vehicle
+_VehicleClass = selectRandom _PossibleVehicleClass;
+
+
 //DMS_fnc_SpawnPersistentVehicle will automatically turn the pincode into a string and format it.
-_pinCode = (1000 +(round (random 8999)));
+_pinCode = round (random 9999);
 _vehicle = [_VehicleClass,[(_pos select 0) -30, (_pos select 1) -30],_pinCode] call DMS_fnc_SpawnPersistentVehicle;
 
 

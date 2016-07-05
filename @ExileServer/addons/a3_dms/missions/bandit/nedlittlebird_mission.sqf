@@ -44,7 +44,7 @@ if !(_OK) exitWith
 
 
 //create possible difficulty add more of one difficulty to weight it towards that
-_PossibleDifficulty		= 	[	
+_PossibleDifficulty		= 	[
 								"easy",
 								"moderate",
 								"difficult",
@@ -56,40 +56,45 @@ _PossibleDifficulty		= 	[
 								"hardcore"
 							];
 //choose difficulty and set value
-_difficulty = _PossibleDifficulty call BIS_fnc_selectRandom;
+_difficulty = selectRandom _PossibleDifficulty;
 
-//easy
-if (_difficulty isEqualTo "easy") then {
+switch (_difficulty) do
+{
+	case "easy":
+	{
+		_AICount = (4 + (round (random 2)));
+		_crate_weapons 		= (1 + (round (random 1)));
+		_crate_items 		= (2 + (round (random 5)));
+		_crate_backpacks 	= (2 + (round (random 1)));
+	};
+
+	case "moderate":
+	{
+		_AICount = (6 + (round (random 5)));
+		_crate_weapons 		= (2 + (round (random 1)));
+		_crate_items 		= (4 + (round (random 5)));
+		_crate_backpacks 	= (2 + (round (random 1)));
+	};
+
+	case "difficult":
+	{
+		_AICount = (8 + (round (random 4)));
+		_crate_weapons 		= (3 + (round (random 1)));
+		_crate_items 		= (6 + (round (random 6)));
+		_crate_backpacks 	= (3 + (round (random 1)));
+	};
+
+	//case "hardcore":
+	default
+	{
+		_AICount = (10 + (round (random 6)));
+		_crate_weapons 		= (4 + (round (random 1)));
+		_crate_items 		= (8 + (round (random 7)));
+		_crate_backpacks 	= (4 + (round (random 1)));
+	};
+};
+
 _msgStart = ['#FFFF00',"A heli has landed at a small base! Go kill them and steal the heli"];
-_AICount = (4 + (round (random 2)));
-_crate_weapons 		= (1 + (round (random 1)));	
-_crate_items 		= (2 + (round (random 5)));
-_crate_backpacks 	= (2 + (round (random 1)));	
-								};
-//moderate
-if (_difficulty isEqualTo "moderate") then {
-_msgStart = ['#FFFF00',"A heli has landed at a small base! Go kill them and steal the heli"];	
-_AICount = (6 + (round (random 5)));
-_crate_weapons 		= (2 + (round (random 1)));	
-_crate_items 		= (4 + (round (random 5)));
-_crate_backpacks 	= (2 + (round (random 1)));						
-								};
-//difficult
-if (_difficulty isEqualTo "difficult") then {
-_msgStart = ['#FFFF00',"A heli has landed at a small skilled base! Go kill them and steal the heli"];
-_AICount = (8 + (round (random 4)));
-_crate_weapons 		= (3 + (round (random 1)));	
-_crate_items 		= (6 + (round (random 6)));
-_crate_backpacks 	= (3 + (round (random 1)));	
-								};
-//hardcore
-if (_difficulty isEqualTo "hardcore") then {
-_msgStart = ['#FFFF00',"A heli has landed at a small hardcore base! Go kill them and steal the heli"];
-_AICount = (10 + (round (random 6)));
-_crate_weapons 		= (4 + (round (random 1)));	
-_crate_items 		= (8 + (round (random 7)));
-_crate_backpacks 	= (4 + (round (random 1)));	
-								};
 
 
 _group =
@@ -105,7 +110,7 @@ _group =
 _veh =
 [
 	[
-[(_pos select 0) -75,(_pos select 1)+75,0]
+		[(_pos select 0) -75,(_pos select 1)+75,0]
 	],
 	_group,
 	"assault",
@@ -130,7 +135,7 @@ _staticGuns =
 
 
 //create possible vehicle list
-_PossibleVehicleClass 		= [	
+_PossibleVehicleClass 		= [
 								"Exile_Chopper_Hummingbird_Civillian_Blue",
 								"Exile_Chopper_Hummingbird_Civillian_Red",
 								"Exile_Chopper_Hummingbird_Civillian_ION",
@@ -150,22 +155,23 @@ _PossibleVehicleClass 		= [
 								"Exile_Chopper_Hummingbird_Civillian_Wave"
 							];
 //choose the vehicle
-_VehicleClass = _PossibleVehicleClass call BIS_fnc_selectRandom;
+_VehicleClass = selectRandom _PossibleVehicleClass;
 
 
 // Dont give pin coded vehicles on easy
-if (_difficulty isEqualTo "easy") then {
-											_vehicle = [_VehicleClass,[(_pos select 0) -30, (_pos select 1) -30, 0]] call DMS_fnc_SpawnNonPersistentVehicle;
-											_msgWIN = ['#0080ff',"Convicts killed everyone and made off with the heli."];
-												
-										} else
-										{
-											_pinCode = (1000 +(round (random 8999)));
-											_vehicle = [_VehicleClass,[(_pos select 0) -30, (_pos select 1) -30],_pinCode] call DMS_fnc_SpawnPersistentVehicle;
-											_msgWIN = ['#0080ff',format ["Convicts killed everyone and made off with the heli, entry code %1...",_pinCode]];
-										};
+if (_difficulty isEqualTo "easy") then
+{
+	_vehicle = [_VehicleClass,[(_pos select 0) -30, (_pos select 1) -30, 0]] call DMS_fnc_SpawnNonPersistentVehicle;
+	_msgWIN = ['#0080ff',"Convicts killed everyone and made off with the heli."];
+}
+else
+{
+	_pinCode = (1000 +(round (random 8999)));
+	_vehicle = [_VehicleClass,[(_pos select 0) -30, (_pos select 1) -30, 0],_pinCode] call DMS_fnc_SpawnPersistentVehicle;
+	_msgWIN = ['#0080ff',format ["Convicts killed everyone and made off with the heli, entry code %1...",_pinCode]];
+};
 
-										
+
 // Create Crate type
 _crate1 = ["Box_NATO_Wps_F",_pos] call DMS_fnc_SpawnCrate;
 

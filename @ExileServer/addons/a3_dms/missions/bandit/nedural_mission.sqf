@@ -5,7 +5,7 @@
 	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
 */
 
-private ["_num", "_side", "_pos", "_OK", "_difficulty", "_extraParams", "_AICount", "_group", "_type", "_launcher", "_staticGuns", "_wreck", "_crate", "_crate1", "_vehicle", "_pinCode", "_class", "_veh", "_crate_loot_values", "_crate_loot_values1", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_baseObjs", "_crate_weapons", "_crate_weapon_list", "_crate_items", "_crate_item_list", "_crate_backpacks", "_PossibleDifficulty", "_PossibleVehicleClass", "_VehicleClass", "_CoinTossP", "_CoinToss"];
+private ["_num", "_side", "_pos", "_OK", "_difficulty", "_extraParams", "_AICount", "_group", "_type", "_launcher", "_staticGuns", "_wreck", "_crate", "_crate1", "_vehicle", "_pinCode", "_class", "_veh", "_crate_loot_values", "_crate_loot_values1", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_baseObjs", "_crate_weapons", "_crate_weapon_list", "_crate_items", "_crate_item_list", "_crate_backpacks", "_PossibleDifficulty", "_PossibleVehicleClass", "_VehicleClass"];
 
 // For logging purposes
 _num = DMS_MissionCount;
@@ -44,7 +44,7 @@ if !(_OK) exitWith
 
 
 //create possible difficulty add more of one difficulty to weight it towards that
-_PossibleDifficulty		= 	[	
+_PossibleDifficulty		= 	[
 								"easy",
 								"easy",
 								"moderate",
@@ -55,40 +55,48 @@ _PossibleDifficulty		= 	[
 								"hardcore"
 							];
 //choose difficulty and set value
-_difficulty = _PossibleDifficulty call BIS_fnc_selectRandom;
+_difficulty = selectRandom _PossibleDifficulty;
 
-//easy
-if (_difficulty isEqualTo "easy") then {
+
+switch (_difficulty) do
+{
+	case "easy":
+	{
+		_AICount = (4 + (round (random 2)));
+		_crate_weapons 		= (1 + (round (random 1)));
+		_crate_items 		= (2 + (round (random 4)));
+		_crate_backpacks 	= (1 + (round (random 1)));
+	};
+
+	case "moderate":
+	{
+		_AICount = (4 + (round (random 4)));
+		_crate_weapons 		= (2 + (round (random 2)));
+		_crate_items 		= (4 + (round (random 4)));
+		_crate_backpacks 	= (2 + (round (random 1)));
+	};
+
+	case "difficult":
+	{
+		_AICount = (4 + (round (random 4)));
+		_crate_weapons 		= (3 + (round (random 3)));
+		_crate_items 		= (4 + (round (random 6)));
+		_crate_backpacks 	= (3 + (round (random 1)));
+	};
+
+	//case "hardcore":
+	default
+	{
+		_AICount = (6 + (round (random 4)));
+		_crate_weapons 		= (4 + (round (random 4)));
+		_crate_items 		= (6 + (round (random 6)));
+		_crate_backpacks 	= (4 + (round (random 2)));
+	};
+};
+
+
 _msgStart = ['#FFFF00',"Terrorists with a Ural have stopped for lunch. Go kill them and steal the truck"];
-_AICount = (4 + (round (random 2)));
-_crate_weapons 		= (1 + (round (random 1)));
-_crate_items 		= (2 + (round (random 4)));
-_crate_backpacks 	= (1 + (round (random 1)));
-								};
-//moderate
-if (_difficulty isEqualTo "moderate") then {
-_msgStart = ['#FFFF00',"Terrorists with a Ural have stopped for lunch. Go kill them and steal the truck"];
-_AICount = (4 + (round (random 4)));
-_crate_weapons 		= (2 + (round (random 2)));
-_crate_items 		= (4 + (round (random 4)));
-_crate_backpacks 	= (2 + (round (random 1)));						
-								};
-//difficult
-if (_difficulty isEqualTo "difficult") then {
-_msgStart = ['#FFFF00',"Terrorists with a Ural have stopped for lunch. Go kill them and steal the truck"];
-_AICount = (4 + (round (random 4)));
-_crate_weapons 		= (3 + (round (random 3)));
-_crate_items 		= (4 + (round (random 6)));
-_crate_backpacks 	= (3 + (round (random 1)));	
-								};
-//hardcore								
-if (_difficulty isEqualTo "hardcore") then {
-_msgStart = ['#FFFF00',"Terrorists with a Ural have stopped for lunch. Go kill them and steal the truck"];
-_AICount = (6 + (round (random 4)));
-_crate_weapons 		= (4 + (round (random 4)));
-_crate_items 		= (6 + (round (random 6)));
-_crate_backpacks 	= (4 + (round (random 2)));
-								};
+
 
 
 _group =
@@ -104,7 +112,7 @@ _group =
 _veh =
 [
 	[
-[(_pos select 0) -75,(_pos select 1)+75,0]
+		[(_pos select 0) -75,(_pos select 1)+75,0]
 	],
 	_group,
 	"assault",
@@ -128,7 +136,7 @@ _staticGuns =
 ] call DMS_fnc_SpawnAIStaticMG;
 
 //create possible vehicle list
-_PossibleVehicleClass 		= [	
+_PossibleVehicleClass 		= [
 								"Exile_Car_Ural_Open_Blue",
 								"Exile_Car_Ural_Open_Yellow",
 								"Exile_Car_Ural_Open_Worker",
@@ -139,29 +147,20 @@ _PossibleVehicleClass 		= [
 								"Exile_Car_Ural_Covered_Military"
 							];
 //choose the vehicle
-_VehicleClass = _PossibleVehicleClass call BIS_fnc_selectRandom;
+_VehicleClass = selectRandom _PossibleVehicleClass;
 
 
-// If difficulty is easy then 50/50 chance to spawn persistent vehicle
-_CoinTossP = ["Heads", "Tails"];
-_CoinToss = _CoinTossP call BIS_fnc_selectRandom;
-
-if (_difficulty isEqualTo "easy") then {
-									if (_CoinToss isEqualTo "Heads") then {
-																				_vehicle = [_VehicleClass,[(_pos select 0) -30, (_pos select 1) -30]] call DMS_fnc_SpawnNonPersistentVehicle;
-																				_msgWIN = ['#0080ff',"Convicts killed everyone and made off with the Ural"];
-																			} else
-																			{
-																				_pinCode = (1000 +(round (random 8999)));
-																				_vehicle = [_VehicleClass,[(_pos select 0) -30, (_pos select 1) -30],_pinCode] call DMS_fnc_SpawnPersistentVehicle;
-																				_msgWIN = ['#0080ff',format ["Convicts killed everyone and made off with the Ural, entry code %1...",_pinCode]];
-																			};
-										} else
-										{
-											_pinCode = (1000 +(round (random 8999)));
-											_vehicle = [_VehicleClass,[(_pos select 0) -30, (_pos select 1) -30],_pinCode] call DMS_fnc_SpawnPersistentVehicle;
-											_msgWIN = ['#0080ff',format ["Convicts killed everyone and made off with the Ural, entry code %1...",_pinCode]];
-										};
+if (_difficulty isEqualTo "easy" && {(round (random 1)) isEqualTo 0}) then
+{
+	_vehicle = [_VehicleClass,[(_pos select 0) -30, (_pos select 1) -30]] call DMS_fnc_SpawnNonPersistentVehicle;
+	_msgWIN = ['#0080ff',"Convicts killed everyone and made off with the Ural"];
+}
+else
+{
+	_pinCode = (1000 +(round (random 8999)));
+	_vehicle = [_VehicleClass,[(_pos select 0) -30, (_pos select 1) -30],_pinCode] call DMS_fnc_SpawnPersistentVehicle;
+	_msgWIN = ['#0080ff',format ["Convicts killed everyone and made off with the Ural, entry code %1...",_pinCode]];
+};
 
 
 // Create Crate type

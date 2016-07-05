@@ -44,7 +44,7 @@ if !(_OK) exitWith
 
 
 //create possible difficulty add more of one difficulty to weight it towards that
-_PossibleDifficulty		= 	[	
+_PossibleDifficulty		= 	[
 								"easy",
 								"moderate",
 								"moderate",
@@ -54,45 +54,50 @@ _PossibleDifficulty		= 	[
 								"hardcore"
 							];
 //choose difficulty and set value
-_difficulty = _PossibleDifficulty call BIS_fnc_selectRandom;
+_difficulty = selectRandom _PossibleDifficulty;
 
-//easy
-if (_difficulty isEqualTo "easy") then {
-_msgStart = ['#FFFF00',"Some easy terroists are out stealing guns, get in first!"];
-_AICount = (4 + (round (random 4)));
-_crate_weapons 		= (2 + (round (random 3)));
-_crate_items 		= (2 + (round (random 4)));
-_crate_item_list	= ["100Rnd_65x39_caseless_mag","100Rnd_65x39_caseless_mag_Tracer","10Rnd_127x54_Mag","10Rnd_338_Mag","10Rnd_762x54_Mag","10Rnd_762x51_Mag","150Rnd_762x51_Box","10Rnd_93x64_DMR_05_Mag","11Rnd_45ACP_Mag","150Rnd_762x54_Box","150Rnd_762x54_Box_Tracer","150Rnd_762x51_Box_Tracer","16Rnd_9x21_Mag","30Rnd_9x21_Green_Mag","30Rnd_9x21_Yellow_Mag","30Rnd_9x21_Red_Mag","200Rnd_65x39_cased_Box","200Rnd_65x39_cased_Box_Tracer","20Rnd_556x45_UW_mag","20Rnd_762x51_Mag","30Rnd_45ACP_Mag_SMG_01"];
-_crate_backpacks 	= (1 + (round (random 1)));
-								};
-//moderate
-if (_difficulty isEqualTo "moderate") then {
-_msgStart = ['#FFFF00',"Some moderate terroists are out stealing guns, get in first!"];
-_AICount = (6 + (round (random 4)));	
-_crate_weapons 		= (4 + (round (random 4)));
-_crate_items 		= (4 + (round (random 4)));
-_crate_item_list	= ["100Rnd_65x39_caseless_mag","100Rnd_65x39_caseless_mag_Tracer","10Rnd_127x54_Mag","10Rnd_338_Mag","10Rnd_762x54_Mag","10Rnd_762x51_Mag","150Rnd_762x51_Box","10Rnd_93x64_DMR_05_Mag","11Rnd_45ACP_Mag","150Rnd_762x54_Box","150Rnd_762x54_Box_Tracer","150Rnd_762x51_Box_Tracer","16Rnd_9x21_Mag","30Rnd_9x21_Green_Mag","30Rnd_9x21_Yellow_Mag","30Rnd_9x21_Red_Mag","200Rnd_65x39_cased_Box","200Rnd_65x39_cased_Box_Tracer","20Rnd_556x45_UW_mag","20Rnd_762x51_Mag","30Rnd_45ACP_Mag_SMG_01"];
-_crate_backpacks 	= (2 + (round (random 1)));					
-								};
-//difficult
-if (_difficulty isEqualTo "difficult") then {
-_msgStart = ['#FFFF00',"Some difficult terroists are out stealing guns, get in first!"];
-_AICount = (8 + (round (random 4)));
-_crate_weapons 		= (6 + (round (random 5)));
-_crate_items 		= (6 + (round (random 5)));
-_crate_item_list	= ["100Rnd_65x39_caseless_mag","100Rnd_65x39_caseless_mag_Tracer","10Rnd_127x54_Mag","10Rnd_338_Mag","10Rnd_762x54_Mag","10Rnd_762x51_Mag","150Rnd_762x51_Box","10Rnd_93x64_DMR_05_Mag","11Rnd_45ACP_Mag","150Rnd_762x54_Box","150Rnd_762x54_Box_Tracer","150Rnd_762x51_Box_Tracer","16Rnd_9x21_Mag","30Rnd_9x21_Green_Mag","30Rnd_9x21_Yellow_Mag","30Rnd_9x21_Red_Mag","200Rnd_65x39_cased_Box","200Rnd_65x39_cased_Box_Tracer","20Rnd_556x45_UW_mag","20Rnd_762x51_Mag","30Rnd_45ACP_Mag_SMG_01"];
-_crate_backpacks 	= (3 + (round (random 1)));
-								};
-//hardcore								
-if (_difficulty isEqualTo "hardcore") then {
-_msgStart = ['#FFFF00',"Some hardcore terroists are out stealing guns, get in first!"];
-_AICount = (8 + (round (random 4)));
-_crate_weapons 		= (10 + (round (random 5)));
-_crate_items 		= (10 + (round (random 5)));
-_crate_item_list	= ["100Rnd_65x39_caseless_mag","100Rnd_65x39_caseless_mag_Tracer","10Rnd_127x54_Mag","10Rnd_338_Mag","10Rnd_762x54_Mag","10Rnd_762x51_Mag","150Rnd_762x51_Box","10Rnd_93x64_DMR_05_Mag","11Rnd_45ACP_Mag","150Rnd_762x54_Box","150Rnd_762x54_Box_Tracer","150Rnd_762x51_Box_Tracer","16Rnd_9x21_Mag","30Rnd_9x21_Green_Mag","30Rnd_9x21_Yellow_Mag","30Rnd_9x21_Red_Mag","200Rnd_65x39_cased_Box","200Rnd_65x39_cased_Box_Tracer","20Rnd_556x45_UW_mag","20Rnd_762x51_Mag","30Rnd_45ACP_Mag_SMG_01"];
-_crate_backpacks 	= (4 + (round (random 1)));
-								};
-								
+switch (_difficulty) do
+{
+
+	case "easy":
+	{
+		_AICount = (4 + (round (random 4)));
+		_crate_weapons 		= (2 + (round (random 3)));
+		_crate_items 		= (2 + (round (random 4)));
+		_crate_backpacks 	= (1 + (round (random 1)));
+	};
+
+	case "moderate":
+	{
+		_AICount = (6 + (round (random 4)));
+		_crate_weapons 		= (4 + (round (random 4)));
+		_crate_items 		= (4 + (round (random 4)));
+		_crate_backpacks 	= (2 + (round (random 1)));
+	};
+
+	case "difficult":
+	{
+		_AICount = (8 + (round (random 4)));
+		_crate_weapons 		= (6 + (round (random 5)));
+		_crate_items 		= (6 + (round (random 5)));
+		_crate_backpacks 	= (3 + (round (random 1)));
+	};
+
+	//case "hardcore":
+	default
+	{
+		_AICount = (8 + (round (random 4)));
+		_crate_weapons 		= (10 + (round (random 5)));
+		_crate_items 		= (10 + (round (random 5)));
+		_crate_backpacks 	= (4 + (round (random 1)));
+	};
+};
+
+//_msgStart = ['#FFFF00',format["Some %1 terrorists are out stealing guns, get in first!",_difficulty]];
+_msgStart = ['#FFFF00',"Some terrorists are out stealing guns, get in first!"];
+
+_crate_item_list = ["100Rnd_65x39_caseless_mag","100Rnd_65x39_caseless_mag_Tracer","10Rnd_127x54_Mag","10Rnd_338_Mag","10Rnd_762x54_Mag","10Rnd_762x51_Mag","150Rnd_762x51_Box","10Rnd_93x64_DMR_05_Mag","11Rnd_45ACP_Mag","150Rnd_762x54_Box","150Rnd_762x54_Box_Tracer","150Rnd_762x51_Box_Tracer","16Rnd_9x21_Mag","30Rnd_9x21_Green_Mag","30Rnd_9x21_Yellow_Mag","30Rnd_9x21_Red_Mag","200Rnd_65x39_cased_Box","200Rnd_65x39_cased_Box_Tracer","20Rnd_556x45_UW_mag","20Rnd_762x51_Mag","30Rnd_45ACP_Mag_SMG_01"];
+
 
 _group =
 [
@@ -107,7 +112,7 @@ _group =
 _veh =
 [
 	[
-[(_pos select 0) -50,(_pos select 1)+50,0]
+		[(_pos select 0) -50,(_pos select 1)+50,0]
 	],
 	_group,
 	"assault",
@@ -140,18 +145,19 @@ _baseObjs =
 	_pos
 ] call DMS_fnc_ImportFromM3E;
 
-// If hardcore give pincoded vehicle, if not give non persistent	
-if (_difficulty isEqualTo "hardcore") then {
-												_pinCode = (1000 +(round (random 8999)));
-												_vehicle = ["Exile_Car_Ural_Covered_Military",[(_pos select 0) -30, (_pos select 1) -30],_pinCode] call DMS_fnc_SpawnPersistentVehicle;
-												_msgWIN = ['#0080ff',format ["Convicts have got their hands on the weapons, entry code for Ural is %1...",_pinCode]];
-											} else
-											{
-												_vehicle = ["Exile_Car_Ural_Covered_Military",[(_pos select 0) -30, (_pos select 1) -30,0],[], 0, "CAN_COLLIDE"] call DMS_fnc_SpawnNonPersistentVehicle;
-												_msgWIN = ['#0080ff',"Convicts have got their hands on the weapons"];
-											};
-		
-// Select vehicle and position relative to centre trying to avoid buildings - its a none persistant vehicle so needs to be sold 
+// If hardcore give pincoded vehicle, if not give non persistent
+if (_difficulty isEqualTo "hardcore") then
+{
+	_pinCode = (1000 +(round (random 8999)));
+	_vehicle = ["Exile_Car_Ural_Covered_Military",_pos getPos [30, random 360],_pinCode] call DMS_fnc_SpawnPersistentVehicle;
+	_msgWIN = ['#0080ff',format ["Convicts have got their hands on the weapons, entry code for Ural is %1...",_pinCode]];
+} else
+{
+	_vehicle = ["Exile_Car_Ural_Covered_Military",_pos getPos [30, random 360]] call DMS_fnc_SpawnNonPersistentVehicle;
+	_msgWIN = ['#0080ff',"Convicts have got their hands on the weapons"];
+};
+
+// Select vehicle and position relative to centre trying to avoid buildings - its a none persistant vehicle so needs to be sold
 
 
 // Create Crate type
@@ -241,7 +247,7 @@ if !(_added) exitWith
 	} forEach _missionAIUnits;
 
 	_cleanup pushBack ((_missionObjs select 0)+(_missionObjs select 1));
-	
+
 	{
 		_cleanup pushBack (_x select 0);
 	} foreach (_missionObjs select 2);
