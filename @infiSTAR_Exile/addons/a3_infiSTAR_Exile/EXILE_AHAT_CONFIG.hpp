@@ -140,7 +140,11 @@ hiddenSuperAdmin[] =
 adminUIDandAccess[] =
 {
 	{
-		{"76561198061912622","UID2","UID3","..."},	/* Admins with UIDs in this Array have their Access defined in the array below. */
+		{
+			"76561198061912622", /* Pandabeard | Tom */
+			"76561198070524133", /* Risk | Fabian */
+			"76561198002823566" /* Hatler | Christian */
+		},	/* Admins with UIDs in this Array have their Access defined in the array below. */
 		{
 			"Teleport On Map Click","Teleport - Target To Me","Teleport - Me To Target","Teleport In Facing Direction (10m steps)",
 			"spectating","AdminConsole","Delete Vehicle","FlyUp","ShowGear","Show Server Information",
